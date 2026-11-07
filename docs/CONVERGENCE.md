@@ -81,3 +81,45 @@ sampling, transport stencils and splitting errors before claiming resolution-
 independent growth. A good mass balance alone cannot establish that growth rates
 are accurate. Any subsequent solver change needs its own explained review and a
 new source-matched study rather than reusing the old measurements as new results.
+
+## Linear-algebra runtime improvement
+
+The initial direct-LU attempt completed two baseline cases before its finest-grid
+cost became excessive. Those measurements are retained separately as an incomplete
+reference study. A matrix benchmark found an alternative permutation slower, while
+Jacobi-preconditioned conjugate gradients agreed with direct solutions to about
+1e-12 and reduced refined-grid solve cost substantially.
+
+The core now uses a strict residual-checked iterative SPD solve, with the original
+sparse direct solve for small systems or a failed iterative residual check. This
+changes the linear-algebra implementation, not equations, fluxes, time steps or
+physical coefficients. SciPy >=1.12 supplies the explicit rtol API. Tests compare
+iterative/direct results and exercise fallback. One far-field test now allows
+roundoff (12 decimal places) instead of requiring bitwise equality after remapping.
+No study tolerance was relaxed.
+
+All five study cases are rerun under the new solver fingerprint. The two completed
+direct baselines are used separately for solution-agreement checks, never mixed
+into the optimized study's refinement gate. Results directories keep their exact
+source/environment identities. Any performance claim applies to measured runs and
+includes setup/geometry costs separately from the matrix microbenchmark.
+
+## First measured outcome
+
+The full-duration working-tree study in `results/convergence_spd` completed all
+five cases with the stated protocol and unchanged 2% threshold. Results:
+
+| Finest adjacent comparison | Net growth change | Face advance change | Assessment |
+|---|---:|---:|---|
+| 30x24x24 to 40x32x32, dt=1 | 3.07% | 5.68% | FAIL |
+| dt=0.5 to 0.25, grid=40x32x32 | 0.20% | 0.16% | PASS |
+
+The spatial volume-trajectory change is 3.54%. All cases pass conservation,
+positivity and exact final time; the maximum relative combined-mass error is
+2.080e-12. Good mass balance therefore does not establish spatially
+converged growth. The next investigation is to isolate face-neighborhood sampling,
+cut-cell flux errors and seed resolution before changing the solver or using AI.
+These were candidate explanations at the end of the first study.
+
+Artifacts are ignored generated outputs; rerun commands above to reproduce the
+study. Its manifest contains the exact working-tree source/environment hashes.

@@ -156,6 +156,24 @@ class OpenTankTests(unittest.TestCase):
 
 
 class LiquidTransportTests(unittest.TestCase):
+    def test_iterative_transport_solve_matches_direct_and_has_safe_fallback(self):
+        from unittest.mock import patch
+        from scipy.sparse import diags
+        from scipy.sparse.linalg import spsolve
+        from simulation.physics import _solve_spd
+
+        n = 300
+        matrix = diags(
+            [-np.ones(n - 1), np.full(n, 3.0), -np.ones(n - 1)], [-1, 0, 1]
+        ).tocsr()
+        rhs = np.sin(np.arange(n) * 0.1) + 1.0
+        reference = spsolve(matrix.tocsc(), rhs)
+        np.testing.assert_allclose(
+            _solve_spd(matrix, rhs), reference, rtol=1e-12, atol=1e-12
+        )
+        with patch("scipy.sparse.linalg.cg", return_value=(np.zeros(n), 1)):
+            np.testing.assert_array_equal(_solve_spd(matrix, rhs), reference)
+
     def test_invalid_capacities_do_not_enter_the_displacement_solve(self):
         old = np.array([[[1.0, 1.0]]])
         openings = (np.zeros((0, 1, 2)), np.zeros((1, 0, 2)), np.ones((1, 1, 1)))

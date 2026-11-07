@@ -133,7 +133,9 @@ class SimulationTests(unittest.TestCase):
         )
         far = sim.tank.concentration[0, 0, 0]
         sim.step()
-        self.assertEqual(sim.tank.concentration[0, 0, 0], far)
+        # Incompressible displacement can remap the uniform far field even when
+        # diffusion/stirring are off. Preserve it to roundoff, not bitwise identity.
+        self.assertAlmostEqual(sim.tank.concentration[0, 0, 0], far, places=12)
         self.assertLess(sim.tank.concentration.min(), far)
 
     def test_final_time_is_exact_and_further_steps_do_not_grow(self):

@@ -40,7 +40,9 @@ facet are not modeled.
 Liquid diffusion uses a finite-volume graph with conductance equal to open liquid
 face area divided by Cartesian center spacing. Fully blocked faces and dry cells
 have no connection. Backward Euler solves `(diag(V) + D*dt*L) c_new = V*c_old`.
-This conserves scalar amount and handles very small partial cells without a tiny
+Residual-checked preconditioned conjugate gradients solve the SPD systems, with
+sparse direct fallback for small systems or unsuccessful residual checks. This
+conserves scalar amount and handles very small partial cells without a tiny
 explicit timestep or clipping unstable negative values. It is a low-order two-point
 flux approximation, not a corrected high-order cut-cell stencil.
 

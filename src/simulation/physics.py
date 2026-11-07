@@ -154,6 +154,45 @@ def _liquid_graph(volumes, openings, spacing):
     return active, i, j, g, laplacian, records
 
 
+def _solve_spd(system, rhs, guess=None):
+    """Solve the same symmetric positive-definite equations without dense LU fill.
+
+    Jacobi-preconditioned conjugate gradients is much cheaper on refined 3D
+    grids. Require a tight true residual and scalar-sum residual; otherwise use
+    the original sparse direct solve. Small systems use the direct path too.
+    This changes linear algebra only, not fluxes, boundary conditions or kinetics.
+    """
+    from scipy.sparse import diags
+    from scipy.sparse.linalg import cg, spsolve
+
+    matrix = system.tocsr()
+    if matrix.shape[0] < 256:
+        return spsolve(matrix.tocsc(), rhs)
+    diagonal = matrix.diagonal()
+    if np.any(diagonal <= 0.0) or not np.isfinite(diagonal).all():
+        raise ValueError("Transport system must have positive finite diagonal entries")
+    solution, status = cg(
+        matrix,
+        rhs,
+        x0=guess,
+        M=diags(1.0 / diagonal),
+        rtol=1e-13,
+        atol=0.0,
+        maxiter=3000,
+    )
+    residual = matrix @ solution - rhs
+    scale = max(float(np.linalg.norm(rhs)), 1e-30)
+    sum_scale = max(abs(float(np.sum(rhs))), scale)
+    if (
+        status != 0
+        or not np.isfinite(solution).all()
+        or np.linalg.norm(residual) > 1e-12 * scale
+        or abs(float(residual.sum())) > 1e-12 * sum_scale
+    ):
+        return spsolve(matrix.tocsc(), rhs)
+    return solution
+
+
 def diffuse_liquid(field, volumes, openings, coefficient, dt, dx, dy, dz):
     """Implicit finite-volume diffusion through liquid apertures only.
 
@@ -163,7 +202,6 @@ def diffuse_liquid(field, volumes, openings, coefficient, dt, dx, dy, dz):
     reconstruction at an oblique interface.
     """
     from scipy.sparse import diags
-    from scipy.sparse.linalg import spsolve
 
     coefficient = _finite_scalar(coefficient, "coefficient")
     dt = _finite_scalar(dt, "dt")
@@ -180,7 +218,9 @@ def diffuse_liquid(field, volumes, openings, coefficient, dt, dx, dy, dz):
             result[active] = values.ravel()[active]
         else:
             system = diags(capacity) + coefficient * dt * laplacian
-            result[active] = spsolve(system.tocsc(), capacity * values.ravel()[active])
+            result[active] = _solve_spd(
+                system, capacity * values.ravel()[active], guess=values.ravel()[active]
+            )
     return result.reshape(values.shape)
 
 
@@ -204,7 +244,6 @@ def displace_liquid(
     before its outflows. Newly opened cells receive actual donor solute and heat.
     """
     from scipy.sparse.csgraph import connected_components
-    from scipy.sparse.linalg import spsolve
 
     old, new = np.asarray(old_volumes, float), np.asarray(new_volumes, float)
     if (
@@ -249,7 +288,7 @@ def displace_liquid(
         rhs[-1] -= rhs.sum()
         if len(nodes) > 1:
             matrix = laplacian[nodes][:, nodes].tocsc()
-            potential[nodes[:-1]] = spsolve(matrix[:-1, :-1], rhs[:-1])
+            potential[nodes[:-1]] = _solve_spd(matrix[:-1, :-1], rhs[:-1])
     signed_flux = g * (potential[i] - potential[j])
     donor = np.where(signed_flux >= 0.0, i, j)
     receiver = np.where(signed_flux >= 0.0, j, i)
