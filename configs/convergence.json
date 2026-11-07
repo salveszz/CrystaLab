@@ -1,0 +1,12 @@
+{
+  "simulation_config": "default.json",
+  "duration": 120.0,
+  "grids": [[20, 16, 16], [30, 24, 24], [40, 32, 32]],
+  "timesteps": [1.0, 0.5, 0.25],
+  "boundary_layer_thickness": 0.75,
+  "relative_change_tolerance": 0.02,
+  "mass_relative_tolerance": 1e-10,
+  "carrier_relative_tolerance": 1e-10,
+  "continuity_cell_tolerance": 1e-8,
+  "negative_concentration_tolerance": 1e-12
+}
