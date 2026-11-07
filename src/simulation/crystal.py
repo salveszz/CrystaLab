@@ -360,13 +360,17 @@ class Crystal:
 
     def wetted_face_area(self, index, level):
         """Area of a crystal face below a horizontal liquid level."""
+        return _polygon_area(self.wetted_face(index, level))
+
+    def wetted_face(self, index, level):
+        """Ordered corners of the wetted portion of a facet, in its own plane."""
         points = self.vertices[self.faces[index]]
         if len(points) < 3:
-            return 0.0
+            return np.empty((0, 3))
         if points[:, 2].max() <= level:
-            return float(self.face_areas[index])
+            return points
         if points[:, 2].min() >= level:
-            return 0.0
+            return np.empty((0, 3))
         output = []
         for a, b in zip(points, np.roll(points, -1, axis=0)):
             da, db = a[2] - level, b[2] - level
@@ -374,7 +378,61 @@ class Crystal:
                 output.append(a)
             if (da < 0 < db) or (db < 0 < da):
                 output.append(a + (b - a) * da / (da - db))
-        return _polygon_area(np.asarray(output))
+        return np.asarray(output)
+
+    def sampling_prism(self, index, thickness, level):
+        """Extrude a wetted facet outward by a fixed physical sampling distance.
+
+        This convex prism defines the continuous neighborhood independently of
+        the grid. Prisms of distinct facet interiors do not overlap: each point
+        projects normally onto a unique closest point of the convex crystal.
+        Tank cells/free-surface clipping are handled by the field sampler.
+        """
+        if not np.isfinite(thickness) or thickness <= 0.0:
+            raise ValueError("Sampling thickness must be positive and finite")
+        points = self.wetted_face(index, level)
+        if len(points) < 3:
+            raise ValueError("Cannot extrude a dry or inactive crystal face")
+        normal = self.normals[index]
+        # Nearly symmetric facets can produce coincident Qhull intersections
+        # separated only by roundoff. Project onto the defining plane and merge
+        # consecutive corners at the same geometric tolerance used for the face.
+        tolerance = 1e-9 * max(1.0, float(np.ptp(points, axis=0).max()))
+        points = points - (points @ normal - self.offsets[index])[:, None] * normal
+        keep = np.linalg.norm(points - np.roll(points, 1, axis=0), axis=1) > tolerance
+        points = points[keep]
+        if len(points) < 3:
+            raise ValueError("Cannot extrude a numerically degenerate facet")
+        # A nearly coincident vertex from an adjacent face can project into this
+        # face's interior. Angular sorting alone would make a concave perimeter;
+        # recover the convex planar boundary before constructing its side planes.
+        axis = np.eye(3)[np.argmin(abs(normal))]
+        u = np.cross(normal, axis)
+        u /= np.linalg.norm(u)
+        v = np.cross(normal, u)
+        relative = points - points.mean(axis=0)
+        planar = np.column_stack((relative @ u, relative @ v))
+        points = points[ConvexHull(planar).vertices]
+        edges = np.roll(points, -1, axis=0) - points
+        # Tangential edge normals bound the facet footprint; opposite base/top
+        # planes bound the outward distance. All normals have unit length.
+        side_normals = np.cross(edges, normal)
+        side_normals /= np.linalg.norm(side_normals, axis=1)[:, None]
+        result = type(self).__new__(type(self))
+        result.normals = np.vstack((-normal, normal, side_normals))
+        result.offsets = np.r_[
+            -self.offsets[index],
+            self.offsets[index] + thickness,
+            np.sum(side_normals * points, axis=1),
+        ]
+        result.interior_point = points.mean(axis=0) + normal * thickness / 2
+        result.defects = 0
+        # Convexity, boundedness and an interior point follow from extrusion of
+        # the validated convex face, avoiding a new linear program for every face.
+        result._reconstruct(
+            1e-9 * max(1.0, thickness, float(np.ptp(points, axis=0).max()))
+        )
+        return result
 
     def cross_section(self, axis, coordinate):
         """Ordered 3D corners of a planar slice, for displaying the true boundary."""

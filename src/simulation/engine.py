@@ -2,7 +2,7 @@
 # Create a 3D face-plane seed and volumetric temperature/concentration fields.
 # Append six stationary wall planes so even sloped crystal faces stay in the tank.
 # For each stable internal step, diffuse both fields, relax temperature and mix.
-# Project nearby cell centers onto each face to sample its actual surface footprint.
+# Integrate exact cell overlaps with outward face prisms of fixed physical depth.
 # Advance face offsets using local supersaturation and individual coefficients.
 # Scale growth to the solute available in those surface neighborhoods; remove
 # exactly density * volume_gain, conserving dissolved plus crystal mass.
@@ -117,46 +117,33 @@ class Simulation:
         return self.history[-1].copy()
 
     def _face_conditions(self):
-        """Mean supersaturation per active face and union of local uptake cells."""
+        """Geometric facet-neighborhood averages and exact local source volumes."""
         k, tank, c = self.crystal, self.tank, self.config
         sigma = self.supersaturation().ravel()
-        support = np.zeros(len(tank.positions), dtype=bool)
-        capacities = tank.liquid_volumes.ravel()
+        source_volumes = np.zeros(len(tank.positions))
         values = np.zeros(len(k.normals))
-        residuals = tank.positions @ k.normals.T - k.offsets
         layer = c.boundary_layer_cells * max(tank.dx, tank.dy, tank.dz)
-        for i, (normal, face) in enumerate(zip(k.normals, k.faces)):
-            if len(face) < 3 or self.coefficients[i] == 0:
+        for i, face in enumerate(k.faces):
+            if len(face) < 3 or self.coefficients[i] == 0.0:
                 continue
             wetted_area = k.wetted_face_area(i, tank.liquid_level)
             if wetted_area <= 0.0:
                 continue
-            distance = residuals[:, i]
-            # Project points onto this plane. All other plane inequalities then
-            # test whether a projection lies within the face polygon footprint.
-            projected = residuals - distance[:, None] * (k.normals @ normal)[None, :]
-            radius = 0.5 * np.dot(abs(normal), [tank.dx, tank.dy, tank.dz])
-            cells = (
-                (capacities > 0.0)
-                & (distance >= -radius)
-                & (distance <= layer)
-                & np.all(projected <= 1e-9, axis=1)
+            prism = k.sampling_prism(i, layer, tank.liquid_level)
+            volumes = tank.sampling_volumes(prism)
+            total = float(volumes.sum())
+            if total <= 1e-14:
+                continue
+            values[i] = (
+                float(np.dot(sigma, volumes) / total) * wetted_area / k.face_areas[i]
             )
-            if not cells.any():
-                # Choose a real liquid donor; a nearest-grid lookup might land
-                # inside solid or air and silently manufacture supersaturation.
-                point = k.vertices[face].mean(axis=0) + normal * min(
-                    tank.dx, tank.dy, tank.dz
-                )
-                donors = np.flatnonzero(capacities > 0.0)
-                nearest = donors[
-                    np.argmin(np.linalg.norm(tank.positions[donors] - point, axis=1))
-                ]
-                cells[nearest] = True
-            average = float(np.average(sigma[cells], weights=capacities[cells]))
-            values[i] = average * wetted_area / k.face_areas[i]
-            support |= cells
-        return values, support
+            source_volumes += volumes
+        capacities = tank.liquid_volumes.ravel()
+        if np.any(source_volumes > capacities + 1e-9 * tank.cell_volume):
+            raise ValueError("Facet sampling prisms exceed available liquid volume")
+        # Only geometric roundoff is snapped. Sampling prisms are disjoint outside
+        # a convex solid, so a liquid subvolume must never be counted twice.
+        return values, np.minimum(source_volumes, capacities)
 
     def _grow(self, dt):
         c, k, tank = self.config, self.crystal, self.tank
@@ -167,7 +154,7 @@ class Simulation:
             # This model tracks no overflow or compression. A full tank cannot
             # accept additional displaced volume, so growth must pause at the rim.
             return
-        values, support = self._face_conditions()
+        values, source_volumes = self._face_conditions()
         agitation = c.rotation + c.circulation
         transport = (1 + 0.2 * agitation / (1 + agitation)) / (1 + c.impurity)
         distances = self.coefficients * np.maximum(values, 0.0) * transport * dt
@@ -178,12 +165,7 @@ class Simulation:
         distances = np.minimum(
             distances, 2 * math.sqrt(c.width**2 + c.depth**2 + c.height**2)
         )
-        available = float(
-            np.sum(
-                tank.concentration.ravel()[support]
-                * tank.liquid_volumes.ravel()[support]
-            )
-        )
+        available = float(np.dot(tank.concentration.ravel(), source_volumes))
         if available <= 0:
             return
 
@@ -217,7 +199,15 @@ class Simulation:
         # Withdraw deposited solute, then conservatively move the remaining
         # solution to the new liquid geometry. No state changes if remapping fails.
         concentration = tank.concentration.copy().ravel()
-        concentration[support] *= max(0.0, 1 - used / available)
+        fraction = np.divide(
+            source_volumes,
+            tank.liquid_volumes.ravel(),
+            out=np.zeros_like(source_volumes),
+            where=tank.liquid_volumes.ravel() > 0.0,
+        )
+        # Uniform fractional withdrawal inside the physical prism, not inside all
+        # neighboring voxels. Sum(C_i * V_prism_i) defines the same mass budget.
+        concentration *= 1.0 - min(1.0, used / available) * fraction
         tank.move_boundary(
             candidate, dt, concentration.reshape(tank.concentration.shape)
         )

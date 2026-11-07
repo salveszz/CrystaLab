@@ -123,3 +123,76 @@ These were candidate explanations at the end of the first study.
 
 Artifacts are ignored generated outputs; rerun commands above to reproduce the
 study. Its manifest contains the exact working-tree source/environment hashes.
+
+## Spatial sampling diagnosis and correction
+
+A constant-field geometry check isolated a grid-dependent sampling domain in the
+original center-selected face neighborhoods. For the same default seed and
+0.75-unit sampling depth, its selected liquid volumes were:
+
+| Grid | Original selected volume | Exact normal-prism volume |
+|---|---:|---:|
+| 20x16x16 | 4.564000 | 2.509447 |
+| 30x24x24 | 3.099111 | 2.509447 |
+| 40x32x32 | 1.844667 | 2.509447 |
+
+The original donor region changed by +82%, +23% and -26% relative to the
+continuous facet prisms. That is a demonstrated sampling-domain inconsistency;
+it does not prove that all coupled growth error came from sampling.
+
+The corrected implementation intersects each wetted facet's outward normal prism
+with the liquid cells, tank and free surface. It uses those fractional volumes
+for both supersaturation averaging and the solute withdrawal budget. The prism
+depth and all protocol tolerances remain unchanged. The fully submerged initial
+seed now integrates to `surface_area * depth = 2.509446968344222` on all three grids,
+within floating-point roundoff. Tests also translate and rotate the seed, check
+constant-field averages and verify deposited-mass conservation. Nearly coincident
+facet corners are projected onto their defining plane and their convex perimeter
+is recovered before extrusion, preventing invalid prism side planes.
+
+This correction still samples piecewise-constant cell fields and uses the same
+low-order transport stencil. Its coupled refinement result must be measured in
+a fresh source-matched study; the exact sampling-volume check alone is not a
+claim of converged growth. Diagnostic JSON files are in
+`results/spatial_sampling/`.
+
+## Corrected sampling outcome
+
+The fresh study in `results/convergence_prism_v2/` completed all five full-duration
+cases under the unchanged protocol. Its recorded solver and runner fingerprints
+match the current source. The finest spatial pair gives:
+
+| Metric | Original sampling | Geometric sampling | 2% gate |
+|---|---:|---:|---|
+| Net volume gain | 3.07% | 0.30% | PASS |
+| Maximum volume-trajectory difference | 3.54% | 0.61% | PASS |
+| Maximum face-advance difference | 5.68% | 3.70% | FAIL |
+
+The other spatial gate metrics pass. The finest timestep pair passes, with
+0.16% growth/trajectory change and 0.12% face-advance change. All five cases pass
+conservation, nonnegative concentration and exact final time. Maximum relative
+tracked-mass error is 3.520e-12, maximum carrier-volume error is 1.422e-15 and
+maximum continuity residual divided by cell volume is 4.733e-11.
+
+The combined numerical gate therefore still **fails**. The coarser spatial pair
+also remains outside tolerance (2.63% growth and 8.31% face advance). These results
+show improved volume agreement within this protocol, not complete spatial
+convergence or validated physical growth.
+
+The remaining finest-pair discrepancy is largest on the four lateral facets,
+about 0.01723 length units of advance at time 120. Cap advances change in the
+opposite direction, so close total volumes can hide shape differences. Per-face
+measurements are saved in `spatial_face_diagnostic.json` alongside the report.
+
+The next small investigation is a fixed-geometry, nonuniform-field check of
+liquid-cell averaging and transport near planar and oblique facets. The current
+piecewise-constant sampling and two-point cut-cell flux remain candidate error
+sources; the remaining error has not yet been isolated between them. Keep the
+same tolerances and physical coefficients when testing the next correction.
+
+For code review: `crystal.py` constructs the wetted facet prisms; `tank.py`
+integrates their cell overlaps; `engine.py` uses the weights for sampling and
+fractional mass uptake. `tests/test_face_sampling.py` adds eight independent
+geometry/conservation regressions. The complete suite has 66 passing tests.
+The default visual demo also completes at time 120 and exports finite 3D fields
+and a 61-frame single-pass GIF in `results/sampling_demo/`.

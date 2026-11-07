@@ -257,6 +257,32 @@ class Tank:
             np.sum(np.asarray(field) * self.liquid_volumes) / self.liquid_volume
         )
 
+    def sampling_volumes(self, prism):
+        """Exact liquid volume inside a facet prism in each Cartesian cell.
+
+        The prism is outside the solid by construction. Intersect its footprint
+        with each cell and the free surface instead of accepting/rejecting whole
+        liquid cells according to where their centers happen to lie.
+        """
+        c = self.config
+        spacing = np.array([self.dx, self.dy, self.dz])
+        bounds = prism.bounds
+        lower = np.maximum(0, np.floor(bounds[0] / spacing).astype(int))
+        upper = np.minimum(
+            [c.nx - 1, c.ny - 1, c.nz - 1], np.floor(bounds[1] / spacing).astype(int)
+        )
+        upper[2] = min(upper[2], int(np.floor(self.liquid_level / self.dz)))
+        volumes = np.zeros(self.shape)
+        for iz in range(lower[2], upper[2] + 1):
+            for iy in range(lower[1], upper[1] + 1):
+                for ix in range(lower[0], upper[0] + 1):
+                    if self.liquid_volumes[iz, iy, ix] <= 0.0:
+                        continue
+                    lo = np.array([ix, iy, iz]) * spacing
+                    hi = np.minimum(lo + spacing, [c.width, c.depth, self.liquid_level])
+                    volumes[iz, iy, ix] = prism.clipped_volume(lo, hi)
+        return volumes.ravel()
+
     def _geometry(self, crystal, level):
         """Intersect the solid with cells and grid faces, including partial cells."""
         c = self.config

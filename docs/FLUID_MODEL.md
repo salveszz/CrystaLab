@@ -35,6 +35,22 @@ Only wetted face area drives deposition; one averaged normal speed still advance
 an entire planar facet. Surface roughness and spatial growth variation within a
 facet are not modeled.
 
+Each wetted facet is extruded along its outward normal by the configured sampling
+depth. Exact intersections of that prism with cells, tank walls and the free
+surface define weights `W_fi`. The sampled supersaturation is
+`sum(sigma_i * W_fi) / sum(W_fi)`, scaled by the wetted fraction of the facet.
+These are piecewise-constant liquid-cell averages, not a resolved interfacial
+boundary layer. Keep the depth fixed in physical units when comparing grids.
+Normal prisms over distinct facets of a convex crystal have disjoint interiors;
+edge/corner neighborhoods outside those prisms are excluded by this convention.
+
+The same weights define the local solute budget. With `W_i = sum_f W_fi`, the
+available mass is `sum(C_i * W_i)`. Deposition removes the fraction
+`(deposited_mass / available_mass) * W_i / V_i` from each cell concentration.
+This keeps uptake conservative and nonnegative without treating every partly
+intersected cell as a full donor. Facets currently share this pooled local budget;
+there is no separate face-by-face diffusion-limited deposition solve.
+
 ## Transport and moving boundaries
 
 Liquid diffusion uses a finite-volume graph with conductance equal to open liquid
