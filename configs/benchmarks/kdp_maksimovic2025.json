@@ -1,0 +1,149 @@
+{
+  "reference_id": "maksimovic2025_kdp_supersaturation_history",
+  "data_kind": "published_aggregate_rate_tables_not_individual_trajectories",
+  "source": {
+    "title": "Study of the Effect of Supersaturation Changes on the Growth of {100} KDP Crystal Faces",
+    "authors": "Maksimovic et al.",
+    "year": 2025,
+    "doi": "10.1021/acsomega.4c09287",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11800150/",
+    "publisher_url": "https://pubs.acs.org/doi/10.1021/acsomega.4c09287",
+    "location": "Tables 1 and 2; experimental section",
+    "accessed": "2026-11-07",
+    "access_method": "Indexed primary full-text tables; direct page fetch was blocked."
+  },
+  "face_family": "{100}",
+  "conditions": {
+    "preparation": "Dissolution and refaceting before measured growth",
+    "nominal_cell_capacity_ml": 15,
+    "main_solution_saturation_temperature_C": 31.0,
+    "main_saturation_temperature_reported_plusminus_C": 0.1,
+    "growth_temperature_stability_reported_plusminus_C": 0.02,
+    "temperature_step_C": 1.0,
+    "temperature_transition_minutes": 5,
+    "stabilization_minutes_before_measurements_approx": 15,
+    "face_displacement_accuracy_reported_plusminus_um_approx": 5,
+    "supersaturation_definition": "100 * (c - c0) / c0; c is kg KDP / kg water"
+  },
+  "table_1": {
+    "rate_statistic": "Most probable growth rate from normal-distribution fits",
+    "history_d": "Decreasing supersaturation: temperature 24 to 28 C",
+    "history_i": "Increasing supersaturation: temperature 28 to 24 C",
+    "columns": [
+      "temperature_C",
+      "supersaturation_pct",
+      "N_d",
+      "mode_rate_d_nm_per_s",
+      "reported_plusminus_d_nm_per_s",
+      "N_i",
+      "mode_rate_i_nm_per_s",
+      "reported_plusminus_i_nm_per_s"
+    ],
+    "rows": [
+      [
+        24.0,
+        14.7,
+        64,
+        39.0,
+        1.0,
+        73,
+        30.0,
+        0.7
+      ],
+      [
+        25.0,
+        12.6,
+        64,
+        26.6,
+        0.8,
+        77,
+        23.1,
+        0.8
+      ],
+      [
+        26.0,
+        10.4,
+        64,
+        19.1,
+        0.7,
+        80,
+        15.5,
+        0.5
+      ],
+      [
+        27.0,
+        8.3,
+        60,
+        9.6,
+        0.5,
+        80,
+        7.8,
+        0.4
+      ],
+      [
+        28.0,
+        6.2,
+        55,
+        2.8,
+        0.3,
+        80,
+        2.2,
+        0.3
+      ]
+    ]
+  },
+  "table_2": {
+    "rate_statistic": "Mean rate in the paper's test experiments; do not pool with Table 1 modes",
+    "columns": [
+      "saturation_temperature_C",
+      "growth_temperature_C",
+      "supersaturation_pct",
+      "N",
+      "mean_rate_nm_per_s",
+      "reported_plusminus_nm_per_s"
+    ],
+    "rows": [
+      [
+        34.8,
+        28.0,
+        14.7,
+        139,
+        38.8,
+        1.3
+      ],
+      [
+        33.9,
+        28.0,
+        12.6,
+        58,
+        24.7,
+        1.2
+      ],
+      [
+        32.9,
+        28.0,
+        10.4,
+        66,
+        18.3,
+        0.9
+      ],
+      [
+        32.0,
+        28.0,
+        8.3,
+        54,
+        9.2,
+        0.9
+      ]
+    ]
+  },
+  "limits": [
+    "The reported plus/minus values are transcribed; their confidence/standard-uncertainty definition is not verified here.",
+    "N counts observed face rates, not independent experiments. Faces and temperature levels can share crystals/history.",
+    "These aggregates are not raw multiframe displacement records or a split-ready independent validation dataset.",
+    "Only the prismatic family is covered; pyramidal kinetics and agitation response remain unsupported.",
+    "Microscopic surface observations do not provide an optical-quality target in this record."
+  ],
+  "runtime_parameters_calibrated": false,
+  "quality_labels_imported": false
+}

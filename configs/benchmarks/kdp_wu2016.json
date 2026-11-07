@@ -1,0 +1,62 @@
+{
+  "reference_id": "wu2016_kdp_single_batch",
+  "data_kind": "published_regression_summary_not_raw_measurements",
+  "source": {
+    "title": "Measurement of Crystal Face Specific Growth Kinetics",
+    "authors": "Wu et al.",
+    "year": 2016,
+    "doi": "10.1021/acs.cgd.6b00189",
+    "accepted_manuscript_url": "https://eprints.whiterose.ac.uk/105693/3/20160707%20Crystal%20Face%20Specific%20Growth%20Kinetics%20FINAL%20x-x.pdf",
+    "location": "KDP case study, manuscript pages 21-22, equations 11A and 11B",
+    "accessed": "2026-11-07"
+  },
+  "units": {
+    "normal_distance": "micrometre",
+    "time": "hour",
+    "normal_growth_rate": "micrometre/hour"
+  },
+  "normal_distance_reference": "Crystal center to face, as defined by N(100) and N(101) in equations 10A/B; not a world-coordinate plane offset.",
+  "conditions": {
+    "temperature_K_approx": 290.0,
+    "temperature_strictly_controlled": false,
+    "solution_volume_ml": 120.0,
+    "concentration_body_text_g_per_ml_approx": 0.247,
+    "concentration_strictly_controlled": false,
+    "concentration_mass_basis_confirmed": false,
+    "concentration_caption_conflict": "Figure 16 says 24.7 g/ml; the KDP methods text says about 0.247 g/ml. Do not infer supersaturation from this summary.",
+    "supersaturation": null,
+    "agitation": "occasional manual stirring with a glass rod; no recorded action schedule",
+    "duration_minutes_approx": 82.0,
+    "stereo_image_pairs_used": 21
+  },
+  "face_fits": [
+    {
+      "face_family": "{100}",
+      "face_type": "prismatic",
+      "normal_distance_intercept_um": 296.71,
+      "normal_growth_rate_um_per_h": 13.56,
+      "fit_R_squared": 0.9314,
+      "rate_standard_uncertainty_um_per_h": null
+    },
+    {
+      "face_family": "{101}",
+      "face_type": "pyramidal",
+      "normal_distance_intercept_um": 418.54,
+      "normal_growth_rate_um_per_h": 118.03,
+      "fit_R_squared": 0.9968,
+      "rate_standard_uncertainty_um_per_h": null
+    }
+  ],
+  "raw_trajectory_available_in_this_record": false,
+  "quality_measurements_available": false,
+  "supported_use": [
+    "geometry and unit-conversion sanity benchmark",
+    "exploratory face-rate comparison under stated conditions"
+  ],
+  "unsupported_use": [
+    "treating samples from fitted lines as independent measured frames",
+    "inferring a general temperature or supersaturation growth law from one batch",
+    "action-conditioned controller validation",
+    "crystal optical-quality validation"
+  ]
+}
