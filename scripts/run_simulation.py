@@ -6,6 +6,8 @@
 # The slices are views of volumetric data, not separate planar simulations.
 # Export a single-pass GIF, final image, volume/mass CSV, resolved settings and
 # fields.npz containing actual 3D scalar fields, liquid volumes and motion vectors.
+# The focused-grid default resolves the crystal neighborhood with smaller cells.
+# Slice plots use actual cell edges; the archive retains volumes and centroids.
 # The optional window replays the same frames once and holds the final state.
 # Geometry, fields and mass accounting live in src/simulation; no AI is used.
 
@@ -33,7 +35,8 @@ def main():
     parser.add_argument(
         "--config",
         type=Path,
-        default=Path(__file__).resolve().parents[1] / "configs/default.json",
+        default=Path(__file__).resolve().parents[1] / "configs/focused.json",
+        help="Experiment JSON (default: configs/focused.json)",
     )
     parser.add_argument(
         "--headless", action="store_true", help="Export without opening a window"
@@ -118,6 +121,14 @@ def main():
         temperature=sim.tank.temperature,
         concentration=sim.tank.concentration,
         liquid_volumes=sim.tank.liquid_volumes,
+        liquid_centroids=sim.tank.liquid_centroids,
+        cell_volumes=sim.tank.cell_volumes,
+        x_edges=sim.tank.x_edges,
+        y_edges=sim.tank.y_edges,
+        z_edges=sim.tank.z_edges,
+        open_face_centroids_z=sim.tank.geometry.opening_centroids[0],
+        open_face_centroids_y=sim.tank.geometry.opening_centroids[1],
+        open_face_centroids_x=sim.tank.geometry.opening_centroids[2],
         liquid_fraction=sim.tank.liquid_fraction,
         solid_fraction=sim.tank.geometry.solid_fraction,
         velocity=sim.tank.displacement_velocity,
@@ -304,15 +315,19 @@ def main():
                 section(snapshots[0]["liquid_fraction"]) <= 0.0, field
             )
         )
-        image = ax.imshow(
+        vertical_edges = sim.tank.y_edges if panel == 1 else sim.tank.z_edges
+        image = ax.pcolormesh(
+            sim.tank.x_edges,
+            vertical_edges,
             displayed,
-            origin="lower",
-            extent=extent,
             cmap=cmap,
             vmin=lo,
             vmax=hi,
-            interpolation="nearest",
+            shading="flat",
         )
+        ax.set_xlim(extent[0], extent[1])
+        ax.set_ylim(extent[2], extent[3])
+        ax.set_aspect("equal", adjustable="box")
         images.append(image)
         # Gray polygons are exact solid cross-sections, rather than voxel-center
         # masks. Air and solid are not displayed as zero-concentration liquid.
@@ -339,11 +354,12 @@ def main():
             zip(images, solids, specifications)
         ):
             field = section(frame[key])
-            image.set_data(
+            displayed = (
                 field
                 if key == "liquid_fraction"
                 else np.ma.masked_where(section(frame["liquid_fraction"]) <= 0.0, field)
             )
+            image.set_array(displayed.ravel())
             solid.set_xy(frame["sections"][panel])
             if panel == 0:
                 # The last wet cell may be a thin cut cell. Clip its displayed

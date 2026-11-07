@@ -8,11 +8,14 @@
 # Compare adjacent levels and whole trajectories at common simulation times.
 # The finest case is a numerical reference, not experimental truth. A failed
 # refinement gate is a result to report, not a reason to retune its tolerance.
+# Final archives include liquid centroids to inspect reconstructed facet sampling.
+# Optional process workers run independent cases; the worker count is fingerprinted.
 
 """Measure grid/time sensitivity of the existing 3D simulator, without AI."""
 
 import argparse
 import csv
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import asdict
 import hashlib
 import importlib.metadata
@@ -117,8 +120,8 @@ def build_cases(base, protocol):
             settings[axis] / count
             for axis, count in zip(("width", "depth", "height"), grid)
         ]
-        # The engine multiplies this value by its largest spacing. Holding the
-        # cell count fixed would shrink the physical sampling layer on finer grids.
+        # The engine multiplies this value by its largest nominal mean spacing,
+        # also on focused grids. Keep the sampling depth fixed in physical units.
         settings["boundary_layer_cells"] = protocol["boundary_layer_thickness"] / max(
             spacing
         )
@@ -179,7 +182,11 @@ def run_case(case, output, signature):
         final_face_rates=sim.face_rates[:-6].tolist(),
         runtime_seconds=elapsed,
         physical_sampling_thickness=sim.config.boundary_layer_cells
-        * max(sim.tank.dx, sim.tank.dy, sim.tank.dz),
+        * max(
+            sim.config.width / sim.config.nx,
+            sim.config.depth / sim.config.ny,
+            sim.config.height / sim.config.nz,
+        ),
         max_mass_error=max_mass,
         max_carrier_error=max_carrier,
         max_continuity_error=max_continuity,
@@ -188,6 +195,8 @@ def run_case(case, output, signature):
         max_continuity_cell_error=max_continuity / sim.tank.cell_volume,
         min_concentration=minimum,
         exact_final_time=sim.time == sim.config.duration,
+        diffusion_diagnostics=dict(sim.tank.diffusion_diagnostics),
+        remap_diagnostics=dict(sim.tank.remap_diagnostics),
     )
     with (directory / "measurements.csv").open("w", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=history[0].keys())
@@ -198,6 +207,14 @@ def run_case(case, output, signature):
         concentration=sim.tank.concentration,
         temperature=sim.tank.temperature,
         liquid_volumes=sim.tank.liquid_volumes,
+        liquid_centroids=sim.tank.liquid_centroids,
+        cell_volumes=sim.tank.cell_volumes,
+        x_edges=sim.tank.x_edges,
+        y_edges=sim.tank.y_edges,
+        z_edges=sim.tank.z_edges,
+        open_face_centroids_z=sim.tank.geometry.opening_centroids[0],
+        open_face_centroids_y=sim.tank.geometry.opening_centroids[1],
+        open_face_centroids_x=sim.tank.geometry.opening_centroids[2],
         solid_fraction=sim.tank.geometry.solid_fraction,
         velocity=sim.tank.displacement_velocity,
         normals=sim.crystal.normals,
@@ -385,9 +402,11 @@ def write_report(output, results, assessment, protocol):
     (output / "report.md").write_text("\n".join(lines) + "\n")
 
 
-def run_study(base, protocol, output, resume=False):
+def run_study(base, protocol, output, resume=False, jobs=1):
     """Execute controlled cases, with resumable source/config-checked artifacts."""
     output = Path(output)
+    if isinstance(jobs, bool) or not isinstance(jobs, int) or jobs < 1:
+        raise ValueError("Study jobs must be a positive integer")
     cases, spatial, temporal = build_cases(base, protocol)
     sources = solver_fingerprint()
     runner_hash = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
@@ -408,6 +427,7 @@ def run_study(base, protocol, output, resume=False):
             sources=sources,
             runner=runner_hash,
             environment=environment,
+            workers=jobs,
         )
     )
     manifest_path = output / "study.json"
@@ -437,11 +457,12 @@ def run_study(base, protocol, output, resume=False):
         runner_sha256=runner_hash,
         git_commit=commit,
         environment=environment,
+        workers=jobs,
         initial_conditions="Same analytic profiles, zero concentration noise and zero defect event rate",
     )
     # Save the experiment design before the first simulation or result is observed.
     manifest_path.write_text(json.dumps(manifest, indent=2, allow_nan=False) + "\n")
-    results = []
+    completed, pending = {}, []
     for index, case in enumerate(cases, 1):
         signature = _digest(
             dict(config=case["config"], sources=sources, identity=identity)
@@ -455,9 +476,23 @@ def run_study(base, protocol, output, resume=False):
                     "Cached case does not match its resolved settings/source"
                 )
             print("  reusing matching completed case", flush=True)
+            completed[case["id"]] = result
         else:
-            result = run_case(case, output, signature)
-        results.append(result)
+            pending.append((case, signature))
+    if jobs == 1:
+        for case, signature in pending:
+            completed[case["id"]] = run_case(case, output, signature)
+    else:
+        # Each process owns its RNG/state and writes only its own case directory.
+        # Restore protocol order after collection; scheduling cannot change metrics.
+        with ProcessPoolExecutor(max_workers=jobs) as executor:
+            futures = {
+                executor.submit(run_case, case, output, signature): case["id"]
+                for case, signature in pending
+            }
+            for future in as_completed(futures):
+                completed[futures[future]] = future.result()
+    results = [completed[case["id"]] for case in cases]
     assessment = assess(results, spatial, temporal, protocol)
     write_report(output, results, assessment, protocol)
     print(
@@ -479,13 +514,19 @@ def main():
         help="Optional smoke-test horizon; recorded in protocol",
     )
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--jobs",
+        type=int,
+        default=1,
+        help="Independent case processes; keep the same count when resuming",
+    )
     args = parser.parse_args()
     protocol = json.loads(args.study_config.read_text())
     base_path = args.study_config.resolve().parent / protocol["simulation_config"]
     base = json.loads(base_path.read_text())
     if args.duration is not None:
         protocol["duration"] = args.duration
-    run_study(base, protocol, args.output, args.resume)
+    run_study(base, protocol, args.output, args.resume, args.jobs)
 
 
 if __name__ == "__main__":

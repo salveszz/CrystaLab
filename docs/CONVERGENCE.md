@@ -1,7 +1,7 @@
 # Coupled growth/displacement convergence study
 
-The study measures resolution sensitivity in the existing simulator. It keeps
-the growth equations, geometry handling and liquid flux discretization fixed. It does not validate
+The study measures resolution sensitivity in the existing simulator. Within each
+study it keeps growth equations, geometry handling and liquid flux discretization fixed. It does not validate
 physical KDP parameters or optical quality.
 
 ## Run and inspect
@@ -22,6 +22,11 @@ pipeline check, use `--duration 2 --output results/convergence_smoke`.
 saved before any run begins. The manifest records fully resolved simulation
 settings, solver/runner fingerprints, the starting Git commit, package versions
 and numerical thread settings.
+
+`--jobs 3` runs independent cases in separate processes. Each worker owns its
+state, RNG and case directory; saved results return to protocol order. Worker
+count is part of the study identity and must match on resume. Counts of bounded
+diffusion solves, direct fallbacks and limited remap nodes are saved in case JSON.
 
 ## Three controlled steps
 
@@ -160,7 +165,7 @@ claim of converged growth. Diagnostic JSON files are in
 
 The fresh study in `results/convergence_prism_v2/` completed all five full-duration
 cases under the unchanged protocol. Its recorded solver and runner fingerprints
-match the current source. The finest spatial pair gives:
+identify the reviewed sampling checkpoint `561c551`. The finest spatial pair gives:
 
 | Metric | Original sampling | Geometric sampling | 2% gate |
 |---|---:|---:|---|
@@ -196,3 +201,119 @@ fractional mass uptake. `tests/test_face_sampling.py` adds eight independent
 geometry/conservation regressions. The complete suite has 66 passing tests.
 The default visual demo also completes at time 120 and exports finite 3D fields
 and a 61-frame single-pass GIF in `results/sampling_demo/`.
+
+## Local field reconstruction follow-up
+
+The next sampling step adds actual liquid centroids and local least-squares
+concentration/temperature gradients. The independent affine-field sampling error
+is below 5e-16 on all six grid/pose checks. See `docs/SPATIAL_ACCURACY.md` for the
+method, its concentration slope limit and the unchanged transport patch-test defect.
+Initial temperature now stores true liquid averages of the same analytic profile.
+
+All five full-duration cases were rerun in
+`results/convergence_reconstruction_561c551/`, using a new source fingerprint and
+the original grids, timesteps, physical coefficients, 0.75 sampling depth and
+2% tolerance. Finest-pair results:
+
+| Comparison | Net growth | Volume trajectory | Face advance | Assessment |
+|---|---:|---:|---:|---|
+| Spatial, 30x24x24 to 40x32x32 | 0.87% | 0.87% | 3.79% | FAIL |
+| Temporal, dt=0.5 to 0.25 | 0.16% | 0.16% | 0.12% | PASS |
+
+All cases pass conservation, positivity and exact final time. Maximum relative
+mass error is 3.518e-12, carrier error is 3.556e-16 and continuity residual divided
+by cell volume is 6.970e-12. Exported liquid centroids lie inside their wet cell
+bounds. Final archives now contain `liquid_centroids[z,y,x,component]`.
+
+The combined gate still fails. Compared with checkpoint `561c551`, finest-pair
+growth disagreement rises from 0.30% to 0.87% and face disagreement from 3.70% to
+3.79%. This correction improves analytic sampling consistency; it does not improve
+the coupled grid-agreement metrics or establish resolution-independent growth.
+At that intermediate stage, geometry-aware transport was the next task and
+moving-boundary remapping still used its first-order donor base. Uniform cell-mean
+withdrawal remains an approximation in the current code.
+
+## Transport and moving-boundary follow-ups
+
+The subsequent diffusion correction uses estimated gradients to account for the
+actual liquid-centroid offsets. Bounded implicit corrections preserve the input
+range and paired fluxes conserve the liquid-volume-weighted scalar integral.
+The next remap correction uses geometric first moments and bounded linear
+midpoint transfers. Analytic tests now recover tangent affine diffusion and
+prescribed affine layer translation to roundoff. Method details and independent
+references are in `SPATIAL_ACCURACY.md` and `FLUID_MODEL.md`.
+
+Each change received its own complete five-case study under the original
+uniform protocol and unchanged gate:
+
+| Numerical source | Finest spatial growth | Volume trajectory | Face advance | Spatial gate |
+|---|---:|---:|---:|---|
+| Sampling reconstruction | 0.87% | 0.87% | 3.79% | FAIL |
+| Corrected diffusion | 0.66% | 0.74% | 3.69% | FAIL |
+| Corrected displacement remap | 0.70% | 0.77% | 3.74% | FAIL |
+
+The latter results are in `results/convergence_transport_561c551/` and
+`results/convergence_remap_561c551/`. Both pass temporal, conservation, positivity
+and exact-time checks. Fixing demonstrated local consistency errors did not make
+the original near-crystal resolution sufficient. These failed studies remain
+reference results and must not be relabeled as passing.
+
+## Focused-grid study
+
+`configs/convergence_focused.json` declares a separate rectilinear refinement
+study on 24, 32 and 40 cells per axis. Its central 3.6-unit band concentrates cells
+around the crystal. Actual cell volumes, aperture coordinates and center distances
+enter every transport/accounting operation; field plots use actual edges. See
+`FOCUSED_GRID.md`. Tank/seed dimensions, kinetic/transport coefficients, duration,
+sampling depth, timesteps and tolerances match the original experiment.
+
+Run it with:
+
+```bash
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/check_convergence.py \
+  --study-config configs/convergence_focused.json --jobs 5 \
+  --output results/convergence_focused
+```
+
+The first focused attempt completed its spatial cases (0.086% growth/trajectory,
+0.098% face advance) but was interrupted during code review. A concentration
+slope limiter accepted actual cell bounds without forwarding them to its extrema
+calculation. A regression reproduced negative reconstructed concentration at a
+real cell face. The forwarding fix passes that regression and the complete
+96-test suite. The incomplete attempt is retained with `interrupted.json`; its
+results are not the final-source acceptance evidence.
+
+The fresh final-source study is `results/convergence_focused_v2_561c551/`.
+Its archived `sources/` and `source_snapshot.json` preserve exact measured code
+and configuration bytes, including uncommitted changes. Numerical code and
+runner remained unchanged throughout the study; all nine archived source/config
+hashes match the final working files.
+
+All five full-duration cases **pass** the unchanged numerical gate:
+
+| Finest adjacent comparison | Net growth | Volume trajectory | Face advance | Assessment |
+|---|---:|---:|---:|---|
+| Spatial, 32x32x32 to 40x40x40 | 0.086% | 0.086% | 0.098% | PASS |
+| Temporal, dt=0.5 to 0.25 at 40x40x40 | 0.157% | 0.157% | 0.122% | PASS |
+
+Surface area, liquid-level rise and concentration comparisons also pass, with
+matching active face sets. Every case passes conservation, positivity and exact
+final time. Maximum relative tracked-mass error is 9.149e-13; carrier-volume
+error is 1.185e-15; continuity residual divided by minimum cell volume is
+1.857e-10, below its 1e-8 gate. All saved numerical fields are finite. Standard
+cases needed no bounded diffusion correction, remap limiting or direct fallback;
+separate regression tests exercise those safety paths.
+
+Saved `report.json`, `report.md` and the inspected `summary.png` retain all
+comparisons. Measured case runtimes were about 143/312/639 seconds for the three
+spatial grids and 1105/2099 seconds for the two finer timesteps, using five
+independent workers. These are environment-specific costs, not isolated solver
+benchmarks. The full noisy 40x40x40 demo also completes at time 120 with finite
+fields and 61 single-pass GIF frames in `results/focused_demo_v2_561c551/`.
+
+This establishes numerical acceptance for the declared focused benchmark. It
+does not establish convergence for arbitrary seeds, motion, concentration
+profiles or future randomized training conditions. Every materially changed
+regime needs its own numerical checks. Physical KDP kinetics, hydrodynamics and
+quality remain uncalibrated; see `REAL_DATA_VALIDATION.md` before using synthetic
+outcomes to make experimental action recommendations.

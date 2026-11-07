@@ -4,6 +4,8 @@
 # participate in its gate. Exercise export/resume with real tiny simulations;
 # altered settings must not reuse cached results. Tests do not require the
 # expensive production-resolution convergence study to pass its numerical gate.
+# Independent process workers must reproduce serial histories and face motion;
+# scheduling may change runtime, while experiment results retain protocol order.
 
 import contextlib
 from copy import deepcopy
@@ -96,6 +98,31 @@ class ConvergenceStudyTests(unittest.TestCase):
             protocol["boundary_layer_thickness"] = 0.5
             with self.assertRaisesRegex(ValueError, "resume"):
                 run_study(self.base, protocol, output, resume=True)
+
+    def test_parallel_cases_match_serial_measurements(self):
+        protocol = deepcopy(self.protocol)
+        protocol.update(
+            duration=0.25,
+            grids=[[6, 6, 6], [8, 8, 8], [10, 10, 10]],
+            timesteps=[0.25, 0.125, 0.0625],
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            with contextlib.redirect_stdout(io.StringIO()):
+                serial = run_study(self.base, protocol, Path(directory) / "serial")
+                parallel = run_study(
+                    self.base, protocol, Path(directory) / "parallel", jobs=2
+                )
+            for a, b in zip(serial["results"], parallel["results"]):
+                self.assertEqual(a["id"], b["id"])
+                np.testing.assert_allclose(
+                    a["face_offsets"], b["face_offsets"], atol=1e-12
+                )
+                for key in ("volume", "temperature", "concentration", "liquid_level"):
+                    np.testing.assert_allclose(
+                        [row[key] for row in a["history"]],
+                        [row[key] for row in b["history"]],
+                        atol=1e-12,
+                    )
 
     def _case(self, name, final_volume=2.0, middle_volume=1.5):
         # Initial solid/level offsets are large enough that normalizing by final

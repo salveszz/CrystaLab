@@ -1,0 +1,32 @@
+{
+  "simulation_config": "focused.json",
+  "duration": 120.0,
+  "grids": [
+    [
+      24,
+      24,
+      24
+    ],
+    [
+      32,
+      32,
+      32
+    ],
+    [
+      40,
+      40,
+      40
+    ]
+  ],
+  "timesteps": [
+    1.0,
+    0.5,
+    0.25
+  ],
+  "boundary_layer_thickness": 0.75,
+  "relative_change_tolerance": 0.02,
+  "mass_relative_tolerance": 1e-10,
+  "carrier_relative_tolerance": 1e-10,
+  "continuity_cell_tolerance": 1e-08,
+  "negative_concentration_tolerance": 1e-12
+}
