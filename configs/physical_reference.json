@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "unit_system": "SI",
+  "case_id": "kdp_water_30C_stationary_rest_reference",
+  "mode": "stationary_isothermal_rest",
+  "purpose": "Define inputs for a future fixed-crystal flow verification case; not a reproduction of a published tank or a calibrated growth experiment.",
+  "temperature_K": 303.15,
+  "molality_mol_per_kg_water": 2.2,
+  "fluid": {
+    "temperature_K": 303.15,
+    "molality_mol_per_kg_water": 2.2,
+    "density_kg_per_m3": 1170.0,
+    "dynamic_viscosity_Pa_s": 0.0015,
+    "solute_diffusivity_m2_per_s": 5.7e-10,
+    "source_id": "VTT-2006"
+  },
+  "property_limits": "Single binary KDP-water CFD reference point at 30 C; reported density/viscosity were calculated and diffusivity estimated. No numerical uncertainties supplied. Do not extrapolate to another temperature/composition or treat these as independently measured constants.",
+  "domain": {
+    "size_m": [0.01, 0.01, 0.01],
+    "liquid_height_m": 0.008,
+    "source_id": "DESIGN-REST-001"
+  },
+  "crystal": {
+    "shape": "box",
+    "size_m": [0.001, 0.001, 0.001],
+    "center_m": [0.005, 0.005, 0.004],
+    "source_id": "DESIGN-REST-001",
+    "purpose": "Fixed verification obstacle, not a crystallographic KDP habit. Growth and dissolution disabled."
+  },
+  "boundaries": {
+    "walls": "stationary_no_slip",
+    "crystal": "stationary_no_slip_no_solute_flux",
+    "free_surface": "flat_impermeable_zero_tangential_stress",
+    "pressure": "dynamic_pressure_zero_at_free_surface",
+    "temperature": "uniform_isothermal",
+    "solute": "closed_no_flux",
+    "inlets_outlets": "none"
+  },
+  "actuation": {
+    "rotation_rad_per_s": 0.0,
+    "circulation_m3_per_s": 0.0
+  },
+  "gravity_m_per_s2": [0.0, 0.0, -9.81],
+  "duration_s": 120.0,
+  "design_source_id": "DESIGN-REST-001",
+  "additional_data_needed": {
+    "nonisothermal_flow": ["solution heat capacity and thermal conductivity versus temperature/composition", "thermal expansion and temperature boundary histories"],
+    "solutal_buoyancy": ["density derivative with an explicit concentration basis and validity range"],
+    "growing_crystal": ["solid density and lattice metric", "facet-specific kinetics", "solution-density/partial-volume closure and interface mass balances"],
+    "actuated_experiment": ["actual tank/seed geometry", "rotation axis and speed/ramp history", "pump inlet/outlet geometry and flow rates"],
+    "quality": ["independent measured inclusion, transmission or usable-crystal target"]
+  }
+}
