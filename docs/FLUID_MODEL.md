@@ -4,6 +4,11 @@ This is an uncalibrated faceted-growth research model. All lengths, times,
 concentrations and coefficients use illustrative model units. Its displacement
 field is quasistatic, not a Navier-Stokes solution or validated KDP hydrodynamics.
 
+The next physical setup has explicit SI units, sourced fluid properties and
+boundary conditions in [PHYSICAL_MODEL.md](PHYSICAL_MODEL.md). It is a separate
+input definition; it has not relabeled this illustrative engine or added a flow
+solver. Sources and numeric provenance are maintained in [SOURCES.md](../SOURCES.md).
+
 ## Geometry and fluid accounting
 
 The crystal is a convex polyhedron represented by outward face normals and offsets.

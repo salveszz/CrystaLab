@@ -1,5 +1,9 @@
 # Fixed-geometry sampling and transport diagnostics
 
+Historical output directories mentioned below were removed during the
+2026-11-07 results cleanup. Re-run the diagnostic for raw measurements/figures.
+The coupled checkpoint's compact record is [NUMERICAL_CHECKPOINT.json](NUMERICAL_CHECKPOINT.json).
+
 The initial diagnostic step isolated spatial approximations at checkpoint
 `561c551`. That checkpoint's coupled study has a 3.70% finest-pair face-advance
 difference against its unchanged 2% working tolerance. Subsequent
@@ -17,7 +21,8 @@ exist. Use `--output results/another_name` for another experiment. The script
 records the design, Git commit, source fingerprints and numerical package
 versions in `study.json` before measuring. It saves `report.json`, `report.md`
 and `summary.png`, with per-face measurements and resolved sampling settings.
-The measured checkpoint results are in `results/spatial_accuracy_561c551/`.
+The initial checkpoint used `results/spatial_accuracy_561c551/`, a historical
+output directory removed during cleanup.
 
 ## Independent geometric reference
 

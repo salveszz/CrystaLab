@@ -1,0 +1,2027 @@
+{
+  "record_kind": "historical_numerical_summary_not_raw_trajectories",
+  "study_name": "convergence_focused_v2_561c551",
+  "cleanup_date": "2026-11-07",
+  "cleanup_reason": "User requested removal of all old generated results.",
+  "raw_artifacts_retained": false,
+  "source_snapshot": {
+    "files": {
+      "src/simulation/crystal.py": "7a58827d41d1d4c6c629294ec955f049a426c781f1c7f487dada797db387aba3",
+      "src/simulation/tank.py": "d9526d1fba764fea092d4627be60cce066664e84d533c38b94f00c5c7e160861",
+      "src/simulation/physics.py": "3435c217f703f11cd3a5e5d2313e41d351223210be457ae49736bd87dcdfcb79",
+      "src/simulation/engine.py": "ff156799209925f6aa4f9fe18efa612b06b11ee529b9f0bd67816e6e7155becd",
+      "scripts/check_convergence.py": "14efd11a44804202505fc7307dbb126f8f6a14ef4c5ae0717a778db134aa7b49",
+      "configs/convergence_focused.json": "1c20e94728f66d213ac7880235792ea14be0247db02e284582d91fc5808ff6ac",
+      "configs/focused.json": "f4578ed56d3cdf98650d0bee5198b8f2df5a9063f8f045b87bae29a74ac648f7",
+      "scripts/run_simulation.py": "7b8d8983ad04f721917066274cc0cc32e6b0212507f1fa6f1b87b52ca2ec487e",
+      "scripts/check_spatial_accuracy.py": "32a2580268e076cbe0655a9daf7dcefe79dee073f66ec490e450d4d979183e74"
+    },
+    "note": "Exact local uncommitted sources/configs used for this final study and corresponding diagnostics/demo."
+  },
+  "manifest": {
+    "identity": "e9cdc65efa767bac6a695f56f0222db3d803554b93973fc0d916961ed3f5c8d1",
+    "protocol": {
+      "simulation_config": "focused.json",
+      "duration": 120.0,
+      "grids": [
+        [
+          24,
+          24,
+          24
+        ],
+        [
+          32,
+          32,
+          32
+        ],
+        [
+          40,
+          40,
+          40
+        ]
+      ],
+      "timesteps": [
+        1.0,
+        0.5,
+        0.25
+      ],
+      "boundary_layer_thickness": 0.75,
+      "relative_change_tolerance": 0.02,
+      "mass_relative_tolerance": 1e-10,
+      "carrier_relative_tolerance": 1e-10,
+      "continuity_cell_tolerance": 1e-08,
+      "negative_concentration_tolerance": 1e-12
+    },
+    "cases": [
+      {
+        "id": "grid_24x24x24_dt_1",
+        "config": {
+          "width": 10.0,
+          "depth": 8.0,
+          "height": 8.0,
+          "nx": 24,
+          "ny": 24,
+          "nz": 24,
+          "grid_focus_width": 3.6,
+          "initial_liquid_height": 6.0,
+          "temperature": 25.0,
+          "concentration": 1.35,
+          "temperature_gradient": 2.0,
+          "concentration_noise": 0.0,
+          "solubility_reference": 1.0,
+          "solubility_slope": 0.02,
+          "reference_temperature": 25.0,
+          "seed_width": 0.6,
+          "seed_depth": 0.6,
+          "seed_height": 0.8,
+          "seed_normals": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              -1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              -1,
+              1
+            ],
+            [
+              1,
+              0,
+              -1
+            ],
+            [
+              -1,
+              0,
+              -1
+            ],
+            [
+              0,
+              1,
+              -1
+            ],
+            [
+              0,
+              -1,
+              -1
+            ]
+          ],
+          "seed_offsets": [
+            0.35,
+            0.35,
+            0.35,
+            0.35,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "seed_rotation": null,
+          "seed_center": null,
+          "crystal_density": 8.0,
+          "growth_rate": 0.025,
+          "face_growth": [
+            0.025,
+            0.025,
+            0.025,
+            0.025,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015
+          ],
+          "solute_diffusivity": 0.02,
+          "thermal_diffusivity": 0.04,
+          "mixing_diffusivity": 0.02,
+          "thermal_relaxation": 0.01,
+          "rotation": 0.5,
+          "circulation": 0.5,
+          "impurity": 0.0,
+          "defect_rate": 0.0,
+          "boundary_layer_cells": 1.7999999999999998,
+          "dt": 1.0,
+          "duration": 120.0,
+          "seed": 42
+        }
+      },
+      {
+        "id": "grid_32x32x32_dt_1",
+        "config": {
+          "width": 10.0,
+          "depth": 8.0,
+          "height": 8.0,
+          "nx": 32,
+          "ny": 32,
+          "nz": 32,
+          "grid_focus_width": 3.6,
+          "initial_liquid_height": 6.0,
+          "temperature": 25.0,
+          "concentration": 1.35,
+          "temperature_gradient": 2.0,
+          "concentration_noise": 0.0,
+          "solubility_reference": 1.0,
+          "solubility_slope": 0.02,
+          "reference_temperature": 25.0,
+          "seed_width": 0.6,
+          "seed_depth": 0.6,
+          "seed_height": 0.8,
+          "seed_normals": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              -1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              -1,
+              1
+            ],
+            [
+              1,
+              0,
+              -1
+            ],
+            [
+              -1,
+              0,
+              -1
+            ],
+            [
+              0,
+              1,
+              -1
+            ],
+            [
+              0,
+              -1,
+              -1
+            ]
+          ],
+          "seed_offsets": [
+            0.35,
+            0.35,
+            0.35,
+            0.35,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "seed_rotation": null,
+          "seed_center": null,
+          "crystal_density": 8.0,
+          "growth_rate": 0.025,
+          "face_growth": [
+            0.025,
+            0.025,
+            0.025,
+            0.025,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015
+          ],
+          "solute_diffusivity": 0.02,
+          "thermal_diffusivity": 0.04,
+          "mixing_diffusivity": 0.02,
+          "thermal_relaxation": 0.01,
+          "rotation": 0.5,
+          "circulation": 0.5,
+          "impurity": 0.0,
+          "defect_rate": 0.0,
+          "boundary_layer_cells": 2.4,
+          "dt": 1.0,
+          "duration": 120.0,
+          "seed": 42
+        }
+      },
+      {
+        "id": "grid_40x40x40_dt_1",
+        "config": {
+          "width": 10.0,
+          "depth": 8.0,
+          "height": 8.0,
+          "nx": 40,
+          "ny": 40,
+          "nz": 40,
+          "grid_focus_width": 3.6,
+          "initial_liquid_height": 6.0,
+          "temperature": 25.0,
+          "concentration": 1.35,
+          "temperature_gradient": 2.0,
+          "concentration_noise": 0.0,
+          "solubility_reference": 1.0,
+          "solubility_slope": 0.02,
+          "reference_temperature": 25.0,
+          "seed_width": 0.6,
+          "seed_depth": 0.6,
+          "seed_height": 0.8,
+          "seed_normals": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              -1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              -1,
+              1
+            ],
+            [
+              1,
+              0,
+              -1
+            ],
+            [
+              -1,
+              0,
+              -1
+            ],
+            [
+              0,
+              1,
+              -1
+            ],
+            [
+              0,
+              -1,
+              -1
+            ]
+          ],
+          "seed_offsets": [
+            0.35,
+            0.35,
+            0.35,
+            0.35,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "seed_rotation": null,
+          "seed_center": null,
+          "crystal_density": 8.0,
+          "growth_rate": 0.025,
+          "face_growth": [
+            0.025,
+            0.025,
+            0.025,
+            0.025,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015
+          ],
+          "solute_diffusivity": 0.02,
+          "thermal_diffusivity": 0.04,
+          "mixing_diffusivity": 0.02,
+          "thermal_relaxation": 0.01,
+          "rotation": 0.5,
+          "circulation": 0.5,
+          "impurity": 0.0,
+          "defect_rate": 0.0,
+          "boundary_layer_cells": 3.0,
+          "dt": 1.0,
+          "duration": 120.0,
+          "seed": 42
+        }
+      },
+      {
+        "id": "grid_40x40x40_dt_0.5",
+        "config": {
+          "width": 10.0,
+          "depth": 8.0,
+          "height": 8.0,
+          "nx": 40,
+          "ny": 40,
+          "nz": 40,
+          "grid_focus_width": 3.6,
+          "initial_liquid_height": 6.0,
+          "temperature": 25.0,
+          "concentration": 1.35,
+          "temperature_gradient": 2.0,
+          "concentration_noise": 0.0,
+          "solubility_reference": 1.0,
+          "solubility_slope": 0.02,
+          "reference_temperature": 25.0,
+          "seed_width": 0.6,
+          "seed_depth": 0.6,
+          "seed_height": 0.8,
+          "seed_normals": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              -1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              -1,
+              1
+            ],
+            [
+              1,
+              0,
+              -1
+            ],
+            [
+              -1,
+              0,
+              -1
+            ],
+            [
+              0,
+              1,
+              -1
+            ],
+            [
+              0,
+              -1,
+              -1
+            ]
+          ],
+          "seed_offsets": [
+            0.35,
+            0.35,
+            0.35,
+            0.35,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "seed_rotation": null,
+          "seed_center": null,
+          "crystal_density": 8.0,
+          "growth_rate": 0.025,
+          "face_growth": [
+            0.025,
+            0.025,
+            0.025,
+            0.025,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015
+          ],
+          "solute_diffusivity": 0.02,
+          "thermal_diffusivity": 0.04,
+          "mixing_diffusivity": 0.02,
+          "thermal_relaxation": 0.01,
+          "rotation": 0.5,
+          "circulation": 0.5,
+          "impurity": 0.0,
+          "defect_rate": 0.0,
+          "boundary_layer_cells": 3.0,
+          "dt": 0.5,
+          "duration": 120.0,
+          "seed": 42
+        }
+      },
+      {
+        "id": "grid_40x40x40_dt_0.25",
+        "config": {
+          "width": 10.0,
+          "depth": 8.0,
+          "height": 8.0,
+          "nx": 40,
+          "ny": 40,
+          "nz": 40,
+          "grid_focus_width": 3.6,
+          "initial_liquid_height": 6.0,
+          "temperature": 25.0,
+          "concentration": 1.35,
+          "temperature_gradient": 2.0,
+          "concentration_noise": 0.0,
+          "solubility_reference": 1.0,
+          "solubility_slope": 0.02,
+          "reference_temperature": 25.0,
+          "seed_width": 0.6,
+          "seed_depth": 0.6,
+          "seed_height": 0.8,
+          "seed_normals": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              -1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              -1,
+              1
+            ],
+            [
+              1,
+              0,
+              -1
+            ],
+            [
+              -1,
+              0,
+              -1
+            ],
+            [
+              0,
+              1,
+              -1
+            ],
+            [
+              0,
+              -1,
+              -1
+            ]
+          ],
+          "seed_offsets": [
+            0.35,
+            0.35,
+            0.35,
+            0.35,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "seed_rotation": null,
+          "seed_center": null,
+          "crystal_density": 8.0,
+          "growth_rate": 0.025,
+          "face_growth": [
+            0.025,
+            0.025,
+            0.025,
+            0.025,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015,
+            0.015
+          ],
+          "solute_diffusivity": 0.02,
+          "thermal_diffusivity": 0.04,
+          "mixing_diffusivity": 0.02,
+          "thermal_relaxation": 0.01,
+          "rotation": 0.5,
+          "circulation": 0.5,
+          "impurity": 0.0,
+          "defect_rate": 0.0,
+          "boundary_layer_cells": 3.0,
+          "dt": 0.25,
+          "duration": 120.0,
+          "seed": 42
+        }
+      }
+    ],
+    "spatial": [
+      "grid_24x24x24_dt_1",
+      "grid_32x32x32_dt_1",
+      "grid_40x40x40_dt_1"
+    ],
+    "temporal": [
+      "grid_40x40x40_dt_1",
+      "grid_40x40x40_dt_0.5",
+      "grid_40x40x40_dt_0.25"
+    ],
+    "solver_sources": {
+      "crystal.py": "7a58827d41d1d4c6c629294ec955f049a426c781f1c7f487dada797db387aba3",
+      "tank.py": "d9526d1fba764fea092d4627be60cce066664e84d533c38b94f00c5c7e160861",
+      "physics.py": "3435c217f703f11cd3a5e5d2313e41d351223210be457ae49736bd87dcdfcb79",
+      "engine.py": "ff156799209925f6aa4f9fe18efa612b06b11ee529b9f0bd67816e6e7155becd"
+    },
+    "runner_sha256": "14efd11a44804202505fc7307dbb126f8f6a14ef4c5ae0717a778db134aa7b49",
+    "git_commit": "561c551ded996d955d7b04280cb73cd346db8135",
+    "environment": {
+      "python": "3.14.8",
+      "packages": {
+        "numpy": "2.5.0",
+        "scipy": "1.18.0"
+      },
+      "threads": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1"
+      }
+    },
+    "workers": 5,
+    "initial_conditions": "Same analytic profiles, zero concentration noise and zero defect event rate"
+  },
+  "assessment": {
+    "comparisons": {
+      "spatial": [
+        {
+          "coarse": "grid_24x24x24_dt_1",
+          "fine": "grid_32x32x32_dt_1",
+          "volume_gain_relative_change": 0.0012013123221501435,
+          "volume_trajectory_relative_change": 0.0012013123221501435,
+          "surface_area_relative_change": 0.0006586860821342095,
+          "level_rise_relative_change": 0.0012013123221318502,
+          "liquid_level_absolute_change": 3.788116892877724e-05,
+          "concentration_relative_change": 3.865416868034296e-05,
+          "face_advance_relative_change": 0.0024101721246799056,
+          "active_faces_match": true,
+          "within_tolerance": true
+        },
+        {
+          "coarse": "grid_32x32x32_dt_1",
+          "fine": "grid_40x40x40_dt_1",
+          "volume_gain_relative_change": 0.000859849913981108,
+          "volume_trajectory_relative_change": 0.000859849913981108,
+          "surface_area_relative_change": 0.00047099026831126233,
+          "level_rise_relative_change": 0.0008598499140113458,
+          "liquid_level_absolute_change": 2.7137115371722587e-05,
+          "concentration_relative_change": 2.7691639497425907e-05,
+          "face_advance_relative_change": 0.0009791579378466283,
+          "active_faces_match": true,
+          "within_tolerance": true
+        }
+      ],
+      "temporal": [
+        {
+          "coarse": "grid_40x40x40_dt_1",
+          "fine": "grid_40x40x40_dt_0.5",
+          "volume_gain_relative_change": 0.0031396181433040755,
+          "volume_trajectory_relative_change": 0.0031396181433040755,
+          "surface_area_relative_change": 0.0017822207460529405,
+          "level_rise_relative_change": 0.0031396181432974705,
+          "liquid_level_absolute_change": 9.87771465350562e-05,
+          "concentration_relative_change": 0.0001007854181061601,
+          "face_advance_relative_change": 0.0024458317662275596,
+          "active_faces_match": true,
+          "within_tolerance": true
+        },
+        {
+          "coarse": "grid_40x40x40_dt_0.5",
+          "fine": "grid_40x40x40_dt_0.25",
+          "volume_gain_relative_change": 0.001569149171304266,
+          "volume_trajectory_relative_change": 0.001569149171304266,
+          "surface_area_relative_change": 0.0008906840364363447,
+          "level_rise_relative_change": 0.0015691491713300692,
+          "liquid_level_absolute_change": 4.929046770651979e-05,
+          "concentration_relative_change": 5.0290078939900475e-05,
+          "face_advance_relative_change": 0.0012185553849923911,
+          "active_faces_match": true,
+          "within_tolerance": true
+        }
+      ]
+    },
+    "conservation_checks": {
+      "grid_24x24x24_dt_1": {
+        "mass": true,
+        "carrier": true,
+        "continuity": true,
+        "concentration": true,
+        "final_time": true
+      },
+      "grid_32x32x32_dt_1": {
+        "mass": true,
+        "carrier": true,
+        "continuity": true,
+        "concentration": true,
+        "final_time": true
+      },
+      "grid_40x40x40_dt_1": {
+        "mass": true,
+        "carrier": true,
+        "continuity": true,
+        "concentration": true,
+        "final_time": true
+      },
+      "grid_40x40x40_dt_0.5": {
+        "mass": true,
+        "carrier": true,
+        "continuity": true,
+        "concentration": true,
+        "final_time": true
+      },
+      "grid_40x40x40_dt_0.25": {
+        "mass": true,
+        "carrier": true,
+        "continuity": true,
+        "concentration": true,
+        "final_time": true
+      }
+    },
+    "conservation_pass": true,
+    "spatial_pass": true,
+    "temporal_pass": true,
+    "overall_pass": true
+  },
+  "case_summaries": [
+    {
+      "id": "grid_24x24x24_dt_1",
+      "signature": "84c2ba61cc568cd0f1e71915632e8cff09727ffae8bb89f065862445d1e33849",
+      "config": {
+        "width": 10.0,
+        "depth": 8.0,
+        "height": 8.0,
+        "nx": 24,
+        "ny": 24,
+        "nz": 24,
+        "grid_focus_width": 3.6,
+        "initial_liquid_height": 6.0,
+        "temperature": 25.0,
+        "concentration": 1.35,
+        "temperature_gradient": 2.0,
+        "concentration_noise": 0.0,
+        "solubility_reference": 1.0,
+        "solubility_slope": 0.02,
+        "reference_temperature": 25.0,
+        "seed_width": 0.6,
+        "seed_depth": 0.6,
+        "seed_height": 0.8,
+        "seed_normals": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            -1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            -1,
+            1
+          ],
+          [
+            1,
+            0,
+            -1
+          ],
+          [
+            -1,
+            0,
+            -1
+          ],
+          [
+            0,
+            1,
+            -1
+          ],
+          [
+            0,
+            -1,
+            -1
+          ]
+        ],
+        "seed_offsets": [
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7
+        ],
+        "seed_rotation": null,
+        "seed_center": null,
+        "crystal_density": 8.0,
+        "growth_rate": 0.025,
+        "face_growth": [
+          0.025,
+          0.025,
+          0.025,
+          0.025,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015
+        ],
+        "solute_diffusivity": 0.02,
+        "thermal_diffusivity": 0.04,
+        "mixing_diffusivity": 0.02,
+        "thermal_relaxation": 0.01,
+        "rotation": 0.5,
+        "circulation": 0.5,
+        "impurity": 0.0,
+        "defect_rate": 0.0,
+        "boundary_layer_cells": 1.7999999999999998,
+        "dt": 1.0,
+        "duration": 120.0,
+        "seed": 42
+      },
+      "initial": {
+        "time": 0.0,
+        "width": 0.6999999999999993,
+        "depth": 0.6999999999999997,
+        "height": 1.4,
+        "volume": 0.4573333333333327,
+        "surface_area": 3.3459292911256293,
+        "crystal_mass": 3.6586666666666616,
+        "dissolved_mass": 647.3826000000001,
+        "liquid_level": 6.0,
+        "liquid_volume": 479.5426666666667,
+        "solid_occupied_volume": 0.45733333333333265,
+        "displacement_speed": 0.0,
+        "continuity_error": 0.0,
+        "concentration": 1.35,
+        "temperature": 24.749761578392743,
+        "supersaturation": 0.3568929217484078,
+        "defects": 0,
+        "total_mass": 651.0412666666668
+      },
+      "final": {
+        "time": 120.0,
+        "width": 1.6180866861577838,
+        "depth": 1.6180545975021472,
+        "height": 2.2157329442377502,
+        "volume": 2.9769553244986553,
+        "surface_area": 11.273655287604221,
+        "crystal_mass": 23.815642595989242,
+        "dissolved_mass": 627.225624070082,
+        "liquid_level": 6.031495274889567,
+        "liquid_volume": 479.54266666666666,
+        "solid_occupied_volume": 2.976955324498655,
+        "displacement_speed": 0.0025043097736441896,
+        "continuity_error": 2.7647155398380363e-16,
+        "concentration": 1.3079662513243493,
+        "temperature": 24.924629635825934,
+        "supersaturation": 0.30995025470195575,
+        "defects": 0,
+        "total_mass": 651.0412666660712
+      },
+      "initial_face_offsets": [
+        5.35,
+        -4.65,
+        4.35,
+        -3.65,
+        6.858935777509512,
+        -0.2121320343559643,
+        6.151828996322964,
+        0.49497474683058323,
+        1.2020815280171309,
+        -5.868986283848345,
+        0.49497474683058323,
+        -5.161879502661797
+      ],
+      "final_dimensions": [
+        1.6180866861577838,
+        1.6180545975021472,
+        2.2157329442377502
+      ],
+      "active_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_face_rates": [
+        0.0029057224387338703,
+        0.0029057224387339193,
+        0.002895226113341703,
+        0.0028952261133417495,
+        0.0013796575530829198,
+        0.0013796575530829478,
+        0.0013762438310205433,
+        0.001376243831020556,
+        0.0018250739085701865,
+        0.0018250739085701967,
+        0.001822411464017262,
+        0.0018224114640172902
+      ],
+      "runtime_seconds": 143.17231010999967,
+      "physical_sampling_thickness": 0.75,
+      "max_mass_error": 5.956053428235464e-10,
+      "max_carrier_error": 1.1368683772161603e-13,
+      "max_continuity_error": 8.581094276989554e-14,
+      "max_mass_relative_error": 9.148503686610335e-13,
+      "max_carrier_relative_error": 2.370734569081431e-16,
+      "max_continuity_cell_error": 5.0468369976121705e-12,
+      "min_concentration": 0.0,
+      "exact_final_time": true,
+      "diffusion_diagnostics": {
+        "solves": 239
+      },
+      "remap_diagnostics": {
+        "corrected_nodes": 1376484
+      }
+    },
+    {
+      "id": "grid_32x32x32_dt_1",
+      "signature": "9849d11301a179c0d8461bd437ed2baf896ebff17fe35306fdb7ef56d1eb115c",
+      "config": {
+        "width": 10.0,
+        "depth": 8.0,
+        "height": 8.0,
+        "nx": 32,
+        "ny": 32,
+        "nz": 32,
+        "grid_focus_width": 3.6,
+        "initial_liquid_height": 6.0,
+        "temperature": 25.0,
+        "concentration": 1.35,
+        "temperature_gradient": 2.0,
+        "concentration_noise": 0.0,
+        "solubility_reference": 1.0,
+        "solubility_slope": 0.02,
+        "reference_temperature": 25.0,
+        "seed_width": 0.6,
+        "seed_depth": 0.6,
+        "seed_height": 0.8,
+        "seed_normals": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            -1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            -1,
+            1
+          ],
+          [
+            1,
+            0,
+            -1
+          ],
+          [
+            -1,
+            0,
+            -1
+          ],
+          [
+            0,
+            1,
+            -1
+          ],
+          [
+            0,
+            -1,
+            -1
+          ]
+        ],
+        "seed_offsets": [
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7
+        ],
+        "seed_rotation": null,
+        "seed_center": null,
+        "crystal_density": 8.0,
+        "growth_rate": 0.025,
+        "face_growth": [
+          0.025,
+          0.025,
+          0.025,
+          0.025,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015
+        ],
+        "solute_diffusivity": 0.02,
+        "thermal_diffusivity": 0.04,
+        "mixing_diffusivity": 0.02,
+        "thermal_relaxation": 0.01,
+        "rotation": 0.5,
+        "circulation": 0.5,
+        "impurity": 0.0,
+        "defect_rate": 0.0,
+        "boundary_layer_cells": 2.4,
+        "dt": 1.0,
+        "duration": 120.0,
+        "seed": 42
+      },
+      "initial": {
+        "time": 0.0,
+        "width": 0.6999999999999993,
+        "depth": 0.6999999999999997,
+        "height": 1.4,
+        "volume": 0.4573333333333327,
+        "surface_area": 3.3459292911256293,
+        "crystal_mass": 3.6586666666666616,
+        "dissolved_mass": 647.3826000000001,
+        "liquid_level": 6.0,
+        "liquid_volume": 479.54266666666666,
+        "solid_occupied_volume": 0.457333333333333,
+        "displacement_speed": 0.0,
+        "continuity_error": 0.0,
+        "concentration": 1.3500000000000003,
+        "temperature": 24.74976157839275,
+        "supersaturation": 0.3568930932693014,
+        "defects": 0,
+        "total_mass": 651.0412666666668
+      },
+      "final": {
+        "time": 120.0,
+        "width": 1.618015742190119,
+        "depth": 1.6176968282495565,
+        "height": 2.217004552166314,
+        "volume": 2.9799858180130037,
+        "surface_area": 11.281085981931879,
+        "crystal_mass": 23.83988654410403,
+        "dissolved_mass": 627.2013801221382,
+        "liquid_level": 6.0315331560584955,
+        "liquid_volume": 479.54266666666666,
+        "solid_occupied_volume": 2.979985818013005,
+        "displacement_speed": 0.0033450637616819624,
+        "continuity_error": 3.048047383068242e-14,
+        "concentration": 1.3079156949304578,
+        "temperature": 24.92462963583329,
+        "supersaturation": 0.3098995913203238,
+        "defects": 0,
+        "total_mass": 651.0412666662422
+      },
+      "initial_face_offsets": [
+        5.35,
+        -4.65,
+        4.35,
+        -3.65,
+        6.858935777509512,
+        -0.2121320343559643,
+        6.151828996322964,
+        0.49497474683058323,
+        1.2020815280171309,
+        -5.868986283848345,
+        0.49497474683058323,
+        -5.161879502661797
+      ],
+      "final_dimensions": [
+        1.618015742190119,
+        1.6176968282495565,
+        2.217004552166314
+      ],
+      "active_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_face_rates": [
+        0.002939428887673458,
+        0.0029442458269147887,
+        0.002927552043460431,
+        0.002930819078994291,
+        0.0013772210453975896,
+        0.0013787738996401922,
+        0.0013735187796674567,
+        0.0013745581607765974,
+        0.001828593569051693,
+        0.0018299045728699204,
+        0.0018256814998414736,
+        0.0018265616009907934
+      ],
+      "runtime_seconds": 312.03978727299545,
+      "physical_sampling_thickness": 0.75,
+      "max_mass_error": 4.75210981676355e-10,
+      "max_carrier_error": 5.684341886080802e-14,
+      "max_continuity_error": 9.332693038516249e-14,
+      "max_mass_relative_error": 7.29924516320504e-13,
+      "max_carrier_relative_error": 1.1853672845407155e-16,
+      "max_continuity_cell_error": 1.3720194948384613e-11,
+      "min_concentration": 0.0,
+      "exact_final_time": true,
+      "diffusion_diagnostics": {
+        "solves": 239
+      },
+      "remap_diagnostics": {
+        "corrected_nodes": 3321187
+      }
+    },
+    {
+      "id": "grid_40x40x40_dt_1",
+      "signature": "317cf962092f1b91b88455c61267c58dca0b2ff4178e5ab90cc1607d7b947bd0",
+      "config": {
+        "width": 10.0,
+        "depth": 8.0,
+        "height": 8.0,
+        "nx": 40,
+        "ny": 40,
+        "nz": 40,
+        "grid_focus_width": 3.6,
+        "initial_liquid_height": 6.0,
+        "temperature": 25.0,
+        "concentration": 1.35,
+        "temperature_gradient": 2.0,
+        "concentration_noise": 0.0,
+        "solubility_reference": 1.0,
+        "solubility_slope": 0.02,
+        "reference_temperature": 25.0,
+        "seed_width": 0.6,
+        "seed_depth": 0.6,
+        "seed_height": 0.8,
+        "seed_normals": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            -1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            -1,
+            1
+          ],
+          [
+            1,
+            0,
+            -1
+          ],
+          [
+            -1,
+            0,
+            -1
+          ],
+          [
+            0,
+            1,
+            -1
+          ],
+          [
+            0,
+            -1,
+            -1
+          ]
+        ],
+        "seed_offsets": [
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7
+        ],
+        "seed_rotation": null,
+        "seed_center": null,
+        "crystal_density": 8.0,
+        "growth_rate": 0.025,
+        "face_growth": [
+          0.025,
+          0.025,
+          0.025,
+          0.025,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015
+        ],
+        "solute_diffusivity": 0.02,
+        "thermal_diffusivity": 0.04,
+        "mixing_diffusivity": 0.02,
+        "thermal_relaxation": 0.01,
+        "rotation": 0.5,
+        "circulation": 0.5,
+        "impurity": 0.0,
+        "defect_rate": 0.0,
+        "boundary_layer_cells": 3.0,
+        "dt": 1.0,
+        "duration": 120.0,
+        "seed": 42
+      },
+      "initial": {
+        "time": 0.0,
+        "width": 0.6999999999999993,
+        "depth": 0.6999999999999997,
+        "height": 1.4,
+        "volume": 0.4573333333333327,
+        "surface_area": 3.3459292911256293,
+        "crystal_mass": 3.6586666666666616,
+        "dissolved_mass": 647.3826,
+        "liquid_level": 6.0,
+        "liquid_volume": 479.5426666666667,
+        "solid_occupied_volume": 0.4573333333333329,
+        "displacement_speed": 0.0,
+        "continuity_error": 0.0,
+        "concentration": 1.3499999999999999,
+        "temperature": 24.749761578392746,
+        "supersaturation": 0.35689314012660356,
+        "defects": 0,
+        "total_mass": 651.0412666666667
+      },
+      "final": {
+        "time": 120.0,
+        "width": 1.6179039375218833,
+        "depth": 1.6174384342111754,
+        "height": 2.217949116634583,
+        "volume": 2.982156787242665,
+        "surface_area": 11.286401767328542,
+        "crystal_mass": 23.85725429794132,
+        "dissolved_mass": 627.1840123685693,
+        "liquid_level": 6.031560293173867,
+        "liquid_volume": 479.5426666666667,
+        "solid_occupied_volume": 2.9821567872426646,
+        "displacement_speed": 0.0029361688097079156,
+        "continuity_error": 1.6032883571118206e-14,
+        "concentration": 1.307879477603458,
+        "temperature": 24.924629635842543,
+        "supersaturation": 0.30986332710579567,
+        "defects": 0,
+        "total_mass": 651.0412666665105
+      },
+      "initial_face_offsets": [
+        5.35,
+        -4.65,
+        4.35,
+        -3.65,
+        6.858935777509512,
+        -0.2121320343559643,
+        6.151828996322964,
+        0.49497474683058323,
+        1.2020815280171309,
+        -5.868986283848345,
+        0.49497474683058323,
+        -5.161879502661797
+      ],
+      "final_dimensions": [
+        1.6179039375218833,
+        1.6174384342111754,
+        2.217949116634583
+      ],
+      "active_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_face_rates": [
+        0.0029550089093493214,
+        0.0029550089093493643,
+        0.0029409715357761154,
+        0.0029409715357762377,
+        0.0013739840464337112,
+        0.0013739840464337303,
+        0.0013697185171606685,
+        0.0013697185171607114,
+        0.001831779295591832,
+        0.0018317792955918242,
+        0.001828402763222099,
+        0.0018284027632221402
+      ],
+      "runtime_seconds": 639.3772873019989,
+      "physical_sampling_thickness": 0.75,
+      "max_mass_error": 3.992681740783155e-10,
+      "max_carrier_error": 1.1368683772161603e-13,
+      "max_continuity_error": 9.875043491258673e-14,
+      "max_mass_relative_error": 6.132762921812465e-13,
+      "max_carrier_relative_error": 2.370734569081431e-16,
+      "max_continuity_cell_error": 2.9259388122248234e-11,
+      "min_concentration": 0.0,
+      "exact_final_time": true,
+      "diffusion_diagnostics": {
+        "solves": 239
+      },
+      "remap_diagnostics": {
+        "corrected_nodes": 6488668
+      }
+    },
+    {
+      "id": "grid_40x40x40_dt_0.5",
+      "signature": "363bb955df2001e411452dd7510e538a5e20c443f4286a29a48fd2232deab650",
+      "config": {
+        "width": 10.0,
+        "depth": 8.0,
+        "height": 8.0,
+        "nx": 40,
+        "ny": 40,
+        "nz": 40,
+        "grid_focus_width": 3.6,
+        "initial_liquid_height": 6.0,
+        "temperature": 25.0,
+        "concentration": 1.35,
+        "temperature_gradient": 2.0,
+        "concentration_noise": 0.0,
+        "solubility_reference": 1.0,
+        "solubility_slope": 0.02,
+        "reference_temperature": 25.0,
+        "seed_width": 0.6,
+        "seed_depth": 0.6,
+        "seed_height": 0.8,
+        "seed_normals": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            -1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            -1,
+            1
+          ],
+          [
+            1,
+            0,
+            -1
+          ],
+          [
+            -1,
+            0,
+            -1
+          ],
+          [
+            0,
+            1,
+            -1
+          ],
+          [
+            0,
+            -1,
+            -1
+          ]
+        ],
+        "seed_offsets": [
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7
+        ],
+        "seed_rotation": null,
+        "seed_center": null,
+        "crystal_density": 8.0,
+        "growth_rate": 0.025,
+        "face_growth": [
+          0.025,
+          0.025,
+          0.025,
+          0.025,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015
+        ],
+        "solute_diffusivity": 0.02,
+        "thermal_diffusivity": 0.04,
+        "mixing_diffusivity": 0.02,
+        "thermal_relaxation": 0.01,
+        "rotation": 0.5,
+        "circulation": 0.5,
+        "impurity": 0.0,
+        "defect_rate": 0.0,
+        "boundary_layer_cells": 3.0,
+        "dt": 0.5,
+        "duration": 120.0,
+        "seed": 42
+      },
+      "initial": {
+        "time": 0.0,
+        "width": 0.6999999999999993,
+        "depth": 0.6999999999999997,
+        "height": 1.4,
+        "volume": 0.4573333333333327,
+        "surface_area": 3.3459292911256293,
+        "crystal_mass": 3.6586666666666616,
+        "dissolved_mass": 647.3826,
+        "liquid_level": 6.0,
+        "liquid_volume": 479.5426666666667,
+        "solid_occupied_volume": 0.4573333333333329,
+        "displacement_speed": 0.0,
+        "continuity_error": 0.0,
+        "concentration": 1.3499999999999999,
+        "temperature": 24.749761578392746,
+        "supersaturation": 0.35689314012660356,
+        "defects": 0,
+        "total_mass": 651.0412666666667
+      },
+      "final": {
+        "time": 120.0,
+        "width": 1.615990833540546,
+        "depth": 1.6155340779005898,
+        "height": 2.216345688795262,
+        "volume": 2.974254615519844,
+        "surface_area": 11.266322693292828,
+        "crystal_mass": 23.794036924158753,
+        "dissolved_mass": 627.2472297428748,
+        "liquid_level": 6.031461516027332,
+        "liquid_volume": 479.5426666666667,
+        "solid_occupied_volume": 2.9742546155198486,
+        "displacement_speed": 0.0029316875105293303,
+        "continuity_error": 3.351380045875374e-14,
+        "concentration": 1.3080113060698277,
+        "temperature": 24.92462963583777,
+        "supersaturation": 0.3099952545833733,
+        "defects": 0,
+        "total_mass": 651.0412666670335
+      },
+      "initial_face_offsets": [
+        5.35,
+        -4.65,
+        4.35,
+        -3.65,
+        6.858935777509512,
+        -0.2121320343559643,
+        6.151828996322964,
+        0.49497474683058323,
+        1.2020815280171309,
+        -5.868986283848345,
+        0.49497474683058323,
+        -5.161879502661797
+      ],
+      "final_dimensions": [
+        1.615990833540546,
+        1.6155340779005898,
+        2.216345688795262
+      ],
+      "active_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_face_rates": [
+        0.0029557270858271605,
+        0.002955727085827096,
+        0.0029416303034816883,
+        0.0029416303034813227,
+        0.0013730054278724246,
+        0.0013730054278723882,
+        0.0013687251910759945,
+        0.0013687251910765212,
+        0.001830985009397026,
+        0.001830985009397017,
+        0.001827600129724075,
+        0.0018276001297229936
+      ],
+      "runtime_seconds": 1104.9888653960006,
+      "physical_sampling_thickness": 0.75,
+      "max_mass_error": 3.667537384899333e-10,
+      "max_carrier_error": 1.1368683772161603e-13,
+      "max_continuity_error": 9.342635172437941e-14,
+      "max_mass_relative_error": 5.633340884330015e-13,
+      "max_carrier_relative_error": 2.370734569081431e-16,
+      "max_continuity_cell_error": 2.7681881992409008e-11,
+      "min_concentration": 0.0,
+      "exact_final_time": true,
+      "diffusion_diagnostics": {
+        "solves": 479
+      },
+      "remap_diagnostics": {
+        "corrected_nodes": 12977452
+      }
+    },
+    {
+      "id": "grid_40x40x40_dt_0.25",
+      "signature": "d6d256be4af2dffc87a0e210c0c762ee1729349810cfa54a119df2d8ff2a8db3",
+      "config": {
+        "width": 10.0,
+        "depth": 8.0,
+        "height": 8.0,
+        "nx": 40,
+        "ny": 40,
+        "nz": 40,
+        "grid_focus_width": 3.6,
+        "initial_liquid_height": 6.0,
+        "temperature": 25.0,
+        "concentration": 1.35,
+        "temperature_gradient": 2.0,
+        "concentration_noise": 0.0,
+        "solubility_reference": 1.0,
+        "solubility_slope": 0.02,
+        "reference_temperature": 25.0,
+        "seed_width": 0.6,
+        "seed_depth": 0.6,
+        "seed_height": 0.8,
+        "seed_normals": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            -1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            -1,
+            1
+          ],
+          [
+            1,
+            0,
+            -1
+          ],
+          [
+            -1,
+            0,
+            -1
+          ],
+          [
+            0,
+            1,
+            -1
+          ],
+          [
+            0,
+            -1,
+            -1
+          ]
+        ],
+        "seed_offsets": [
+          0.35,
+          0.35,
+          0.35,
+          0.35,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7,
+          0.7
+        ],
+        "seed_rotation": null,
+        "seed_center": null,
+        "crystal_density": 8.0,
+        "growth_rate": 0.025,
+        "face_growth": [
+          0.025,
+          0.025,
+          0.025,
+          0.025,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015,
+          0.015
+        ],
+        "solute_diffusivity": 0.02,
+        "thermal_diffusivity": 0.04,
+        "mixing_diffusivity": 0.02,
+        "thermal_relaxation": 0.01,
+        "rotation": 0.5,
+        "circulation": 0.5,
+        "impurity": 0.0,
+        "defect_rate": 0.0,
+        "boundary_layer_cells": 3.0,
+        "dt": 0.25,
+        "duration": 120.0,
+        "seed": 42
+      },
+      "initial": {
+        "time": 0.0,
+        "width": 0.6999999999999993,
+        "depth": 0.6999999999999997,
+        "height": 1.4,
+        "volume": 0.4573333333333327,
+        "surface_area": 3.3459292911256293,
+        "crystal_mass": 3.6586666666666616,
+        "dissolved_mass": 647.3826,
+        "liquid_level": 6.0,
+        "liquid_volume": 479.5426666666667,
+        "solid_occupied_volume": 0.4573333333333329,
+        "displacement_speed": 0.0,
+        "continuity_error": 0.0,
+        "concentration": 1.3499999999999999,
+        "temperature": 24.749761578392746,
+        "supersaturation": 0.35689314012660356,
+        "defects": 0,
+        "total_mass": 651.0412666666667
+      },
+      "final": {
+        "time": 120.0,
+        "width": 1.615033642192932,
+        "depth": 1.614581266496677,
+        "height": 2.215545685810976,
+        "volume": 2.9703113781033874,
+        "surface_area": 11.256296889344101,
+        "crystal_mass": 23.7624910248271,
+        "dissolved_mass": 627.2787756420191,
+        "liquid_level": 6.031412225559626,
+        "liquid_volume": 479.5426666666667,
+        "solid_occupied_volume": 2.9703113781033905,
+        "displacement_speed": 0.002929445688078073,
+        "continuity_error": 3.09728371422624e-14,
+        "concentration": 1.3080770893699116,
+        "temperature": 24.92462963581774,
+        "supersaturation": 0.3100610873728588,
+        "defects": 0,
+        "total_mass": 651.0412666668462
+      },
+      "initial_face_offsets": [
+        5.35,
+        -4.65,
+        4.35,
+        -3.65,
+        6.858935777509512,
+        -0.2121320343559643,
+        6.151828996322964,
+        0.49497474683058323,
+        1.2020815280171309,
+        -5.868986283848345,
+        0.49497474683058323,
+        -5.161879502661797
+      ],
+      "final_dimensions": [
+        1.615033642192932,
+        1.614581266496677,
+        2.215545685810976
+      ],
+      "active_faces": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_face_rates": [
+        0.0029560757061940146,
+        0.0029560757061940744,
+        0.0029419489830785476,
+        0.002941948983077687,
+        0.001372516882697476,
+        0.0013725168826974705,
+        0.0013682292636243091,
+        0.0013682292636250388,
+        0.0018305884353857404,
+        0.0018305884353857574,
+        0.0018271994176526085,
+        0.0018271994176519608
+      ],
+      "runtime_seconds": 2098.503758990002,
+      "physical_sampling_thickness": 0.75,
+      "max_mass_error": 3.0036062526050955e-10,
+      "max_carrier_error": 5.684341886080801e-13,
+      "max_continuity_error": 6.266201377496273e-13,
+      "max_mass_relative_error": 4.613542038561655e-13,
+      "max_carrier_relative_error": 1.1853672845407154e-15,
+      "max_continuity_cell_error": 1.8566522599989155e-10,
+      "min_concentration": 0.0,
+      "exact_final_time": true,
+      "diffusion_diagnostics": {
+        "solves": 959
+      },
+      "remap_diagnostics": {
+        "corrected_nodes": 25954832
+      }
+    }
+  ],
+  "demo_export_checks": {
+    "final_time": 120.0,
+    "grid_shape": [
+      40,
+      40,
+      40
+    ],
+    "minimum_wet_concentration": 1.01840478269802,
+    "initial_volume": 0.4573333333333327,
+    "final_volume": 2.9821402818727205,
+    "initial_level": 6.0,
+    "final_level": 6.031560086856743,
+    "maximum_absolute_mass_drift": 4.0108716348186135e-10,
+    "maximum_absolute_carrier_drift": 1.1368683772161603e-13,
+    "all_exported_fields_finite": true,
+    "cell_edges_ordered": true,
+    "gif_frames": 61,
+    "gif_single_pass": true,
+    "gif_dimensions": [
+      1260,
+      720
+    ],
+    "final_image_visually_inspected": true
+  },
+  "limits": "Historical summary; deleted raw fields, trajectories, images, GIFs and source copies cannot be resumed from this record. New studies must run afresh."
+}

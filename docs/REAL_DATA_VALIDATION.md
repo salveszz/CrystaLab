@@ -11,6 +11,10 @@ itself, and describes using limited physical experiments to calibrate simulation
 [calibration and uncertainty analysis](https://www.nist.gov/publications/calibration-and-uncertainty-analysis-predictions-computational-models).
 The steps below are our proposed validation workflow, not completed validation.
 
+[SOURCES.md](../SOURCES.md) is the central website/data register.
+[PHYSICAL_MODEL.md](PHYSICAL_MODEL.md) defines the new SI reference inputs and
+concentration conversions. That reference does not yet calibrate the growth engine.
+
 ## First published reference
 
 `configs/benchmarks/kdp_wu2016.json` records the two face-growth regression

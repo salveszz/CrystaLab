@@ -10,7 +10,8 @@
     "publisher_url": "https://pubs.acs.org/doi/10.1021/acsomega.4c09287",
     "location": "Tables 1 and 2; experimental section",
     "accessed": "2026-11-07",
-    "access_method": "Indexed primary full-text tables; direct page fetch was blocked."
+    "access_method": "Indexed primary full-text tables; direct page fetch was blocked.",
+    "source_id": "KDP-2025"
   },
   "face_family": "{100}",
   "conditions": {
@@ -145,5 +146,27 @@
     "Microscopic surface observations do not provide an optical-quality target in this record."
   ],
   "runtime_parameters_calibrated": false,
-  "quality_labels_imported": false
+  "quality_labels_imported": false,
+  "solubility_relation": {
+    "source_id": "KDP-2025",
+    "location": "Experimental section",
+    "concentration_basis": "kg KDP / kg water",
+    "temperature_argument": "degrees Celsius, not Kelvin",
+    "coefficients_ascending_powers": [
+      0.17554,
+      0.00102,
+      7.43e-05
+    ],
+    "project_evaluation_window_C": [
+      24.0,
+      34.8
+    ],
+    "window_status": "Project restriction from the paper's growth/saturation temperatures; original fit range and coefficient uncertainty not verified.",
+    "original_data_cited_by_paper": {
+      "authors": "Mullin and Amatavivadhana",
+      "year": 1967,
+      "doi": "10.1002/jctb.5010170508",
+      "independently_audited": false
+    }
+  }
 }

@@ -1,5 +1,10 @@
 # Coupled growth/displacement convergence study
 
+Historical generated `results/` artifacts were removed on 2026-11-07 at the
+user's request. The final checkpoint's compact metrics, settings and provenance
+are retained in [NUMERICAL_CHECKPOINT.json](NUMERICAL_CHECKPOINT.json). Raw fields,
+histories and figures require a fresh run; historical paths below are labels.
+
 The study measures resolution sensitivity in the existing simulator. Within each
 study it keeps growth equations, geometry handling and liquid flux discretization fixed. It does not validate
 physical KDP parameters or optical quality.
@@ -73,7 +78,7 @@ The runner saves `report.md`, `report.json` and `study.json`. The plot command r
 that report and creates `summary.png` without rerunning the solver. Each case also has
 `case.json`, `measurements.csv` and `final_fields.npz`. Reports contain complete
 histories, face offsets, final face rates, dimensions, conservation diagnostics
-and runtime. Final 3D fields remain available for later spatial analysis.
+and runtime. New runs retain final 3D fields for later spatial analysis.
 
 A run completing successfully is separate from its refinement gate passing.
 The report prints PASS/FAIL for spatial refinement, timestep refinement and

@@ -1,5 +1,9 @@
 # Focused 3D liquid grid
 
+The historical result directories cited below were cleared on 2026-11-07.
+The final benchmark summary/provenance is retained in
+[NUMERICAL_CHECKPOINT.json](NUMERICAL_CHECKPOINT.json); fresh runs regenerate raw artifacts.
+
 The crystal remains a continuous convex face-plane solid. Only the liquid mesh
 changes: smaller Cartesian boxes resolve the crystal neighborhood and larger
 boxes cover the smoother far field. This is a fixed rectilinear mesh, not dynamic
@@ -62,7 +66,7 @@ must not be relabeled as focused results.
 Tests verify ordered edges, tank/solid/liquid volumes, independent centroid
 references, affine sampling, bounded/conservative diffusion, cosine-mode
 refinement, prescribed layer translation and coupled mass conservation. The
-complete working suite has 96 tests. A regression specifically verifies that the
+focused-grid checkpoint passed 96 tests. A regression specifically verifies that the
 concentration slope limiter uses real focused-cell bounds, rather than boxes
 fabricated from indices and minimum spacing. The completed source-matched study
 in `results/convergence_focused_v2_561c551/` passes all declared gates: finest
