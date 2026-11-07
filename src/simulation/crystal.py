@@ -8,6 +8,7 @@
 # Geometry changes return a new solid so cached vertices/volume remain consistent.
 # Solid/cell intersections and shared-face sections define liquid capacities and
 # transport apertures. Wetted areas and planar sections also drive growth/display.
+# Volume first moments locate the liquid and prism averages within partial cells.
 # The engine supplies face motion and appends fixed tank planes; this file handles
 # geometry and an optional synthetic defect counter, not calibrated KDP kinetics.
 
@@ -48,6 +49,24 @@ def _polygon_area(points):
         return 0.0
     relative = points - points[0]
     return float(np.linalg.norm(np.cross(relative[:-1], relative[1:]).sum(axis=0)) / 2)
+
+
+def _hull_centroid(points, hull):
+    """Volume centroid from tetrahedra between hull triangles and an inner anchor."""
+    anchor = points[hull.vertices].mean(axis=0)
+    triangles = points[hull.simplices] - anchor
+    weights = abs(np.linalg.det(triangles))
+    # The common tetrahedral volume factor 1/6 cancels in the weighted mean.
+    return anchor + np.average(triangles.sum(axis=1) / 4, weights=weights, axis=0)
+
+
+def _polygon_centroid(points):
+    """Area centroid of an ordered convex planar polygon."""
+    cross = np.cross(points[1:-1] - points[0], points[2:] - points[0])
+    weights = np.linalg.norm(cross, axis=1)
+    return np.average(
+        (points[0] + points[1:-1] + points[2:]) / 3, weights=weights, axis=0
+    )
 
 
 class Crystal:
@@ -127,6 +146,7 @@ class Crystal:
         self.vertices = local_vertices + self.interior_point
         self.volume = float(hull.volume)
         self.surface_area = float(hull.area)
+        self.centroid = _hull_centroid(local_vertices, hull) + self.interior_point
         self.triangles = hull.simplices.copy()
 
         # Recover each kinetic face instead of treating coplanar hull triangles
@@ -172,6 +192,7 @@ class Crystal:
             self.offsets,
             self.interior_point,
             self.vertices,
+            self.centroid,
             self.triangles,
             self.face_areas,
             self.edges,
@@ -270,7 +291,11 @@ class Crystal:
         return result
 
     def clipped_volume(self, lower, upper):
-        """Actual solid volume inside one axis-aligned box, including cut cells.
+        """Actual solid volume inside one axis-aligned box, including cut cells."""
+        return self.clipped_moments(lower, upper)[0]
+
+    def clipped_moments(self, lower, upper):
+        """Return volume and integral(position dV) inside an axis-aligned box.
 
         Vertices of a convex intersection are original corners, box corners,
         solid edges crossing box planes, or box edges crossing solid planes.
@@ -279,12 +304,12 @@ class Crystal:
         """
         lower, upper = _vector3(lower, "lower"), _vector3(upper, "upper")
         if np.any(upper <= lower):
-            return 0.0
+            return 0.0, np.zeros(3)
         bounds = self.bounds
         if np.any(upper <= bounds[0]) or np.any(lower >= bounds[1]):
-            return 0.0
+            return 0.0, np.zeros(3)
         if np.all(lower <= bounds[0]) and np.all(upper >= bounds[1]):
-            return self.volume
+            return self.volume, self.volume * self.centroid
         corners = np.array(
             [
                 [x, y, z]
@@ -295,7 +320,8 @@ class Crystal:
         )
         inside = self.contains(corners, tolerance=1e-12)
         if inside.all():
-            return float(np.prod(upper - lower))
+            volume = float(np.prod(upper - lower))
+            return volume, volume * (lower + upper) / 2
         box_normals = np.vstack((np.eye(3), -np.eye(3)))
         box_offsets = np.r_[upper, -lower]
         on_solid = _edge_plane_points(
@@ -329,15 +355,23 @@ class Crystal:
             np.vstack((corners[inside], original, on_box, on_solid)), axis=0
         )
         if len(points) < 4:
-            return 0.0
+            return 0.0, np.zeros(3)
         try:
-            return float(ConvexHull(points).volume)
+            hull = ConvexHull(points)
+            # Keep the existing Qhull volume; moments add location information
+            # without redefining the liquid capacities used by transport.
+            volume = float(hull.volume)
+            return volume, volume * _hull_centroid(points, hull)
         except QhullError:
             # A box may only touch a face or edge: its solid intersection has no volume.
-            return 0.0
+            return 0.0, np.zeros(3)
 
     def section_area(self, rectangle):
         """Solid area cutting a grid-face rectangle, in true world coordinates."""
+        return self.section_moments(rectangle)[0]
+
+    def section_moments(self, rectangle):
+        """Solid section area and integral(position dA) inside a face rectangle."""
         points = np.asarray(rectangle, dtype=float)
         if points.shape != (4, 3) or not np.isfinite(points).all():
             raise ValueError("rectangle must contain four ordered finite 3D corners")
@@ -345,7 +379,7 @@ class Crystal:
         # and ordered, so it measures blocked area without staircase boundaries.
         for normal, offset in zip(self.normals, self.offsets):
             if len(points) < 3:
-                return 0.0
+                return 0.0, np.zeros(3)
             distances = points @ normal - offset
             output = []
             for a, b, da, db in zip(
@@ -356,7 +390,10 @@ class Crystal:
                 if (da < 0 < db) or (db < 0 < da):
                     output.append(a + (b - a) * da / (da - db))
             points = np.asarray(output)
-        return _polygon_area(points)
+        area = _polygon_area(points)
+        return (
+            (area, area * _polygon_centroid(points)) if area > 0 else (0.0, np.zeros(3))
+        )
 
     def wetted_face_area(self, index, level):
         """Area of a crystal face below a horizontal liquid level."""

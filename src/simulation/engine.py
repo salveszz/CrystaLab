@@ -3,6 +3,7 @@
 # Append six stationary wall planes so even sloped crystal faces stay in the tank.
 # For each stable internal step, diffuse both fields, relax temperature and mix.
 # Integrate exact cell overlaps with outward face prisms of fixed physical depth.
+# Reconstruct concentration/temperature at overlap centroids from liquid averages.
 # Advance face offsets using local supersaturation and individual coefficients.
 # Scale growth to the solute available in those surface neighborhoods; remove
 # exactly density * volume_gain, conserving dissolved plus crystal mass.
@@ -71,7 +72,7 @@ class Simulation:
             liquid_level=self.tank.liquid_level,
             liquid_volume=self.tank.liquid_volume,
             solid_occupied_volume=float(
-                self.tank.geometry.solid_fraction.sum() * self.tank.cell_volume
+                np.sum(self.tank.geometry.solid_fraction * self.tank.cell_volumes)
             ),
             displacement_speed=float(
                 np.linalg.norm(self.tank.displacement_velocity, axis=-1).max()
@@ -119,10 +120,12 @@ class Simulation:
     def _face_conditions(self):
         """Geometric facet-neighborhood averages and exact local source volumes."""
         k, tank, c = self.crystal, self.tank, self.config
-        sigma = self.supersaturation().ravel()
         source_volumes = np.zeros(len(tank.positions))
         values = np.zeros(len(k.normals))
-        layer = c.boundary_layer_cells * max(tank.dx, tank.dy, tank.dz)
+        neighborhoods = []
+        layer = c.boundary_layer_cells * max(
+            c.width / c.nx, c.depth / c.ny, c.height / c.nz
+        )
         for i, face in enumerate(k.faces):
             if len(face) < 3 or self.coefficients[i] == 0.0:
                 continue
@@ -130,16 +133,51 @@ class Simulation:
             if wetted_area <= 0.0:
                 continue
             prism = k.sampling_prism(i, layer, tank.liquid_level)
-            volumes = tank.sampling_volumes(prism)
+            volumes, moments = tank.sampling_moments(prism)
             total = float(volumes.sum())
             if total <= 1e-14:
                 continue
-            values[i] = (
-                float(np.dot(sigma, volumes) / total) * wetted_area / k.face_areas[i]
+            cells = np.flatnonzero(volumes > 0)
+            neighborhoods.append(
+                (
+                    i,
+                    cells,
+                    volumes[cells],
+                    moments[cells] / volumes[cells, None],
+                    wetted_area / k.face_areas[i],
+                )
             )
             source_volumes += volumes
+        targets = source_volumes > 0
+        concentration_gradient = tank.field_gradient(
+            tank.concentration, targets, nonnegative=True
+        ).reshape(-1, 3)
+        temperature_gradient = tank.field_gradient(tank.temperature, targets).reshape(
+            -1, 3
+        )
+        centroids = tank.liquid_centroids.reshape(-1, 3)
+        for index, cells, weights, sample_centers, wetted_fraction in neighborhoods:
+            delta = sample_centers - centroids[cells]
+            concentration = tank.concentration.ravel()[cells] + np.einsum(
+                "ij,ij->i", concentration_gradient[cells], delta
+            )
+            temperature = tank.temperature.ravel()[cells] + np.einsum(
+                "ij,ij->i", temperature_gradient[cells], delta
+            )
+            # Exact for affine concentration at uniform temperature; the nonlinear
+            # C/solubility(T) ratio uses one centroid quadrature point per overlap.
+            sigma = supersaturation(
+                concentration,
+                temperature,
+                c.solubility_reference,
+                c.solubility_slope,
+                c.reference_temperature,
+            )
+            values[index] = (
+                float(np.dot(sigma, weights) / weights.sum()) * wetted_fraction
+            )
         capacities = tank.liquid_volumes.ravel()
-        if np.any(source_volumes > capacities + 1e-9 * tank.cell_volume):
+        if np.any(source_volumes > capacities + 1e-9 * tank.cell_volumes.ravel()):
             raise ValueError("Facet sampling prisms exceed available liquid volume")
         # Only geometric roundoff is snapped. Sampling prisms are disjoint outside
         # a convex solid, so a liquid subvolume must never be counted twice.
