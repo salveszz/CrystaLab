@@ -1,0 +1,20 @@
+{
+  "width": 10.0,
+  "height": 8.0,
+  "nx": 50,
+  "ny": 40,
+  "temperature": 25.0,
+  "concentration": 1.35,
+  "temperature_gradient": 2.0,
+  "growth_left": 0.025,
+  "growth_right": 0.025,
+  "growth_bottom": 0.015,
+  "growth_top": 0.015,
+  "rotation": 0.5,
+  "circulation": 0.5,
+  "impurity": 0.0,
+  "defect_rate": 0.0,
+  "dt": 1.0,
+  "duration": 120.0,
+  "seed": 42
+}

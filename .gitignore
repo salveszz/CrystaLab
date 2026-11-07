@@ -1,0 +1,15 @@
+# Local planning document
+roadmap.md
+PROGRESS.md
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.mplconfig/
+data/*
+!data/.gitkeep
+results/*
+!results/.gitkeep
