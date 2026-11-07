@@ -13,20 +13,26 @@ from dataclasses import dataclass
 
 @dataclass
 class Crystal:
+    # The four positions locate the rectangular faces in tank coordinates.
+    # They are independent, so one side can grow faster without moving the other.
     left: float
     right: float
     bottom: float
     top: float
+    # Synthetic event counter only; it does not encode defect position or quality.
     defects: int = 0
 
     @property
     def width(self):
+        # Derive the current span from the faces instead of storing duplicate state.
         return self.right - self.left
 
     @property
     def height(self):
+        # Vertical span changes when either the bottom or top face advances.
         return self.top - self.bottom
 
     @property
     def area(self):
+        # Unit-depth crystal volume equals this 2D area in the starter model.
         return self.width * self.height

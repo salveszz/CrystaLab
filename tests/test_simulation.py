@@ -19,6 +19,7 @@ from simulation.physics import diffuse
 
 
 class SimulationTests(unittest.TestCase):
+    # Crystal mass must come from the solution, with no negative concentration.
     def test_growth_and_mass_conservation(self):
         sim = Simulation()
         initial = sim.total_mass
@@ -29,6 +30,7 @@ class SimulationTests(unittest.TestCase):
         self.assertAlmostEqual(sim.total_mass, initial, places=9)
         self.assertTrue(np.all(sim.tank.concentration >= 0))
 
+    # Compare growth-driving conditions with undersaturation and hotter solution.
     def test_temperature_and_concentration_response(self):
         areas = []
         for temperature, concentration in [(25, 1.35), (40, 1.35), (25, 0.8)]:
@@ -39,6 +41,7 @@ class SimulationTests(unittest.TestCase):
         self.assertGreater(areas[0], areas[1])
         self.assertAlmostEqual(areas[2], 0.48)
 
+    # Identical seeds must reproduce both continuous fields and random defect counts.
     def test_repeatability_with_defects(self):
         config = SimulationConfig(defect_rate=10, impurity=0.1, duration=20)
         a, b = Simulation(config), Simulation(config)
@@ -47,6 +50,7 @@ class SimulationTests(unittest.TestCase):
         self.assertEqual(a.history, b.history)
         np.testing.assert_array_equal(a.tank.concentration, b.tank.concentration)
 
+    # A large external step still needs safe internal diffusion substeps.
     def test_large_step_stability(self):
         sim = Simulation(SimulationConfig(solute_diffusivity=1, thermal_diffusivity=1,
                                            temperature_gradient=10, concentration_noise=0.5))
@@ -57,6 +61,7 @@ class SimulationTests(unittest.TestCase):
         self.assertTrue((sim.tank.concentration >= 0).all())
         self.assertAlmostEqual(sim.total_mass, mass, places=9)
 
+    # Extreme kinetic rates must not create mass, negative solute or wall crossings.
     def test_exhaustion_and_walls(self):
         sim = Simulation(SimulationConfig(growth_left=1e6, growth_right=1e6,
                                            growth_top=1e6, growth_bottom=1e6))
@@ -67,17 +72,20 @@ class SimulationTests(unittest.TestCase):
         self.assertLessEqual(sim.crystal.right, sim.config.width)
         self.assertAlmostEqual(sim.total_mass, mass, places=9)
 
+    # Sealed-wall diffusion redistributes a field without changing its total.
     def test_diffusion_conserves_field(self):
         field = np.random.default_rng(1).random((10, 10))
         result = diffuse(field, 0.1, 0.1, 1, 1)
         self.assertAlmostEqual(float(result.sum()), float(field.sum()), places=12)
 
+    # Invalid types, signs, sizes and nonfinite inputs must fail at construction.
     def test_configuration_validation(self):
         for params in ({'dt': 0}, {'nx': 2}, {'concentration': -1}, {'duration': float('nan')},
                        {'seed_width': 50}, {'nx': 4.5}, {'rotation': -1}):
             with self.subTest(params=params), self.assertRaises(ValueError):
                 SimulationConfig(**params)
 
+    # One inactive face stays fixed while its opposite face is allowed to grow.
     def test_directional_growth(self):
         sim = Simulation(SimulationConfig(growth_left=0, growth_right=0.1, duration=10))
         left = sim.crystal.left

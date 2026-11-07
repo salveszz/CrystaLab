@@ -14,12 +14,15 @@ import numpy as np
 
 def solubility(temperature, reference=1.0, slope=0.02, reference_temperature=25.0):
     """Linear solubility curve with a positive floor."""
+    # The small positive floor keeps later concentration/equilibrium division finite.
     return np.maximum(1e-9, reference + slope * (temperature - reference_temperature))
 
 
 def supersaturation(concentration, temperature, reference=1.0, slope=0.02,
                     reference_temperature=25.0):
+    # Compare each cell with its temperature-dependent equilibrium concentration.
     equilibrium = solubility(temperature, reference, slope, reference_temperature)
+    # Positive means supersaturated; the growth engine ignores negative values.
     return concentration / equilibrium - 1.0
 
 
@@ -28,7 +31,10 @@ def diffuse(field, coefficient, dt, dx, dy):
 
     The caller must respect dt * D * (1/dx**2 + 1/dy**2) <= 0.5.
     """
+    # Copy edge cells into a one-cell border to impose zero normal flux at walls.
     padded = np.pad(field, 1, mode="edge")
+    # Neighbor differences approximate the spatial second derivative in x and y.
     laplacian = ((padded[1:-1, 2:] - 2 * field + padded[1:-1, :-2]) / dx**2
                  + (padded[2:, 1:-1] - 2 * field + padded[:-2, 1:-1]) / dy**2)
+    # Explicit Euler update; stability depends on dt, diffusivity and grid spacing.
     return field + coefficient * dt * laplacian

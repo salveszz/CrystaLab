@@ -19,7 +19,9 @@ import os
 import sys
 from pathlib import Path
 
+# Allow running from a source checkout without installing the package first.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+# Keep Matplotlib cache files local to the project rather than the user profile.
 os.environ.setdefault(
     "MPLCONFIGDIR", str(Path(__file__).resolve().parents[1] / ".mplconfig")
 )
@@ -29,6 +31,7 @@ from simulation.tank import SimulationConfig
 
 
 def main():
+    # Parse experiment overrides and export/display options from the command line.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--config",
@@ -47,12 +50,15 @@ def main():
     parser.add_argument("--concentration", type=float)
     parser.add_argument("--output", type=Path, default=Path("results"))
     args = parser.parse_args()
+    # Load the base JSON; only explicitly supplied command-line values replace it.
     settings = json.loads(args.config.read_text())
     for name in ("duration", "dt", "seed", "temperature", "concentration"):
         value = getattr(args, name)
         if value is not None:
             settings[name] = value
+    # Configuration validation happens before the simulation allocates its grids.
     sim = Simulation(SimulationConfig(**settings))
+    # Use file-only rendering if requested or if no graphical display is available.
     headless = args.headless or not (
         os.environ.get("DISPLAY")
         or os.environ.get("WAYLAND_DISPLAY")
@@ -60,6 +66,7 @@ def main():
     )
     import matplotlib
 
+    # Select the noninteractive backend before importing pyplot.
     if headless:
         matplotlib.use("Agg")
     from dataclasses import asdict
@@ -74,6 +81,7 @@ def main():
     frame_interval = max(sim.config.duration / 120, sim.config.dt)
     next_frame = 0.0
 
+    # Copy mutable arrays so later simulation steps cannot overwrite earlier frames.
     def capture():
         k = sim.crystal
         snapshots.append(
@@ -88,22 +96,27 @@ def main():
 
     capture()
     next_frame += frame_interval
+    # Advance every numerical step while retaining only selected animation frames.
     while sim.time < sim.config.duration - 1e-12:
         sim.step(min(sim.config.dt, sim.config.duration - sim.time))
         if sim.time >= next_frame - 1e-12:
             capture()
             next_frame += frame_interval
+    # Include the final state even when it falls between scheduled captures.
     if snapshots[-1][0] != sim.time:
         capture()
     args.output.mkdir(parents=True, exist_ok=True)
+    # Export all scalar measurements, not only the frames selected for animation.
     with (args.output / "measurements.csv").open("w", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=sim.history[0].keys())
         writer.writeheader()
         writer.writerows(sim.history)
+    # Save resolved settings so the run can be reproduced from its outputs.
     (args.output / "config.json").write_text(
         json.dumps(asdict(sim.config), indent=2) + "\n"
     )
 
+    # Two tank panels show fields; a third panel shows crystal dimension history.
     fig, axes = plt.subplots(1, 3, figsize=(14, 4.8), layout="constrained")
     fig.suptitle(
         "CrystaLab • illustrative 2D crystallization (uncalibrated model units)"
@@ -113,6 +126,7 @@ def main():
     for index, (label, cmap) in enumerate(
         (("Temperature", "coolwarm"), ("Solute concentration", "viridis"))
     ):
+        # Fix each field color scale across the replay so colors remain comparable.
         vmin = min(float(s[index + 1].min()) for s in snapshots)
         vmax = max(float(s[index + 1].max()) for s in snapshots)
         if vmax - vmin < 1e-9:
@@ -129,6 +143,7 @@ def main():
             )
         )
         fig.colorbar(images[-1], ax=axes[index], shrink=0.8)
+        # Overlay the starter model's actual rectangular bounds on each field.
         patch = Rectangle(
             (0, 0),
             1,
@@ -150,6 +165,7 @@ def main():
     axes[2].grid(alpha=0.2)
     status = fig.text(0.5, 0.01, "", ha="center", fontsize=9)
 
+    # Reuse existing plot artists for each saved frame instead of rebuilding the figure.
     def update(index):
         time, temperature, concentration, bounds, defects = snapshots[index]
         for img, field in zip(images, (temperature, concentration)):
@@ -162,6 +178,7 @@ def main():
         )
         return images + patches + [cursor, status]
 
+    # Export the replay and a final still image, then optionally open the window.
     animation = FuncAnimation(
         fig, update, frames=len(snapshots), interval=60, repeat=True
     )
@@ -171,6 +188,7 @@ def main():
     print(
         f"Crystal: {sim.history[0]['width']:.3f} × {sim.history[0]['height']:.3f} -> {sim.crystal.width:.3f} × {sim.crystal.height:.3f}"
     )
+    # Near-zero drift checks conservation numerically; it does not validate KDP physics.
     print(f"Mass drift: {sim.total_mass - sim.history[0]['total_mass']:.3e}")
     print(
         f"Results: {args.output.resolve()} (growth.gif, final_tank.png, measurements.csv, config.json)"
