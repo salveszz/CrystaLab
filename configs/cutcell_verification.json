@@ -1,0 +1,41 @@
+{
+  "source_id": "DESIGN-CUTCELL-PRESSURE-005",
+  "length_m": 0.01,
+  "sloped_wall": {
+    "intercept_m": 0.002,
+    "slope_dz_dy": 0.5,
+    "counts": [8, 16, 24],
+    "potential_scale_m2_per_s": 0.000001,
+    "focus_width_m": 0.0036,
+    "quadrature_order": 8,
+    "finest_relative_potential_tolerance": 0.05,
+    "finest_relative_gradient_projection_tolerance": 0.05
+  },
+  "rotated_cube": {
+    "width_m": 0.003,
+    "center_m": [0.005, 0.005, 0.005],
+    "angles_rad_xyz": [0.3, 0.2, 0.1],
+    "counts": [8, 12, 16],
+    "max_axis_refinements": 48
+  },
+  "subcell_cube": {
+    "width_m": 0.0002,
+    "center_m": [0.0051, 0.0052, 0.0049],
+    "counts_xyz": [8, 8, 8]
+  },
+  "tiny_layer": {
+    "counts_xyz": [8, 8, 8],
+    "liquid_fraction_in_top_cells": 0.0000001,
+    "relative_volume_tolerance": 0.000001
+  },
+  "projection": {
+    "random_seed": 71,
+    "speed_scale_m_per_s": 0.0001,
+    "max_relative_integral_flux_residual": 0.0000000001,
+    "max_relative_norm_increase": 0.000000000001
+  },
+  "max_geometry_volume_relative_error": 0.0000000001,
+  "max_normalized_area_closure": 0.000000001,
+  "max_normalized_moment_closure": 0.000000001,
+  "limits": "Fixed convex-solid cut-cell geometry and impermeable pressure projection only. Two-point pressure values at nominal Cartesian centers; A*d projection norm is not a physical cut-cell kinetic-energy measurement. No embedded no-slip viscosity, nonlinear cut-cell momentum, moving interface, physical growth calibration or AI training-readiness claim."
+}

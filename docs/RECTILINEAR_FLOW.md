@@ -6,6 +6,10 @@ The same runtime handles uniform, smoothly stretched and focused grids. The
 solid must still align with grid faces; partial momentum cells raise an error.
 This milestone establishes unequal-cell operators before introducing oblique
 embedded boundaries or moving geometry.
+The subsequent geometry/pressure step is described in
+[CUTCELL_PRESSURE.md](CUTCELL_PRESSURE.md). It extracts the pressure solve into a
+shared operator and reruns these twenty references under the current sources.
+The 151-test record below remains the earlier rectilinear checkpoint.
 
 ## Mesh and physical measures
 

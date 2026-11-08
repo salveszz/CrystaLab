@@ -9,6 +9,7 @@
 # Solid/cell intersections and shared-face sections define liquid capacities and
 # transport apertures. Wetted areas and planar sections also drive growth/display.
 # Volume first moments locate the liquid and prism averages within partial cells.
+# Clipped facet areas/moments locate actual embedded wall patches inside cells.
 # The engine supplies face motion and appends fixed tank planes; this file handles
 # geometry and an optional synthetic defect counter, not calibrated KDP kinetics.
 
@@ -67,6 +68,24 @@ def _polygon_centroid(points):
     return np.average(
         (points[0] + points[1:-1] + points[2:]) / 3, weights=weights, axis=0
     )
+
+
+def _clip_polygon(points, normals, offsets):
+    """Clip an ordered convex planar polygon by closed three-dimensional planes."""
+    for normal, offset in zip(normals, offsets):
+        if len(points) < 3:
+            return np.empty((0, 3))
+        distances = points @ normal - offset
+        output = []
+        for a, b, da, db in zip(
+            points, np.roll(points, -1, axis=0), distances, np.roll(distances, -1)
+        ):
+            if da <= 1e-12:
+                output.append(a)
+            if (da < 0 < db) or (db < 0 < da):
+                output.append(a + (b - a) * da / (da - db))
+        points = np.asarray(output).reshape(-1, 3)
+    return points
 
 
 class Crystal:
@@ -377,23 +396,38 @@ class Crystal:
             raise ValueError("rectangle must contain four ordered finite 3D corners")
         # Clip the rectangle by each solid half-space. The result remains planar
         # and ordered, so it measures blocked area without staircase boundaries.
-        for normal, offset in zip(self.normals, self.offsets):
-            if len(points) < 3:
-                return 0.0, np.zeros(3)
-            distances = points @ normal - offset
-            output = []
-            for a, b, da, db in zip(
-                points, np.roll(points, -1, axis=0), distances, np.roll(distances, -1)
-            ):
-                if da <= 1e-12:
-                    output.append(a)
-                if (da < 0 < db) or (db < 0 < da):
-                    output.append(a + (b - a) * da / (da - db))
-            points = np.asarray(output)
+        points = _clip_polygon(points, self.normals, self.offsets)
         area = _polygon_area(points)
         return (
             (area, area * _polygon_centroid(points)) if area > 0 else (0.0, np.zeros(3))
         )
+
+    def clipped_face_moments(self, lower, upper):
+        """Original-facet areas and integral(position dA) inside a Cartesian box.
+
+        A facet coincident with a box face is included. The caller assigns it
+        to the adjacent liquid cell using the solid's outward normal. Redundant
+        and disappearing facets retain their original indices with zero area.
+        """
+        lower, upper = _vector3(lower, "lower"), _vector3(upper, "upper")
+        areas = np.zeros(len(self.normals))
+        moments = np.zeros((len(self.normals), 3))
+        if np.any(upper <= lower):
+            return areas, moments
+        normals = np.vstack((np.eye(3), -np.eye(3)))
+        offsets = np.r_[upper, -lower]
+        for index, face in enumerate(self.faces):
+            if len(face) < 3:
+                continue
+            points = self.vertices[face]
+            if np.any(points.max(axis=0) < lower) or np.any(points.min(axis=0) > upper):
+                continue
+            points = _clip_polygon(points, normals, offsets)
+            area = _polygon_area(points)
+            if area > 0:
+                areas[index] = area
+                moments[index] = area * _polygon_centroid(points)
+        return areas, moments
 
     def wetted_face_area(self, index, level):
         """Area of a crystal face below a horizontal liquid level."""

@@ -5,6 +5,10 @@ component in SI units. It advances all three velocity components and dynamic
 pressure on uniform or explicitly edged rectilinear grids, independently of the
 illustrative crystal-growth engine. Unequal-cell operators and their latest
 evidence are described in [RECTILINEAR_FLOW.md](RECTILINEAR_FLOW.md).
+Pressure assembly, gauge, gradients and projection now use the shared
+`simulation.pressure` operator. Actual sloped geometry and that operator have
+separate evidence in [CUTCELL_PRESSURE.md](CUTCELL_PRESSURE.md); the full
+momentum step still requires aligned full cells.
 
 `configs/physical_reference.json` supplies the sourced KDP-water density and
 viscosity at 30 C, the reference fixed cube and the rest-case definition.
@@ -158,7 +162,8 @@ become a calibrated CFD growth simulator.
 Conservative fixed-grid solute coupling has its own spatial/time, high-Peclet
 diffusion and coupled-invariant checks. Focused/nonuniform momentum and scalar
 operators now have a separate measured study. Next extend momentum to
-oblique cut faces, then couple interfacial
+embedded no-slip viscosity and nonlinear momentum transport on the verified
+oblique geometry/pressure foundation, then couple interfacial
 uptake/motion. Keep empirical stirring
 effects out of a resolved-flow path unless their remaining contribution is
 explicitly justified and calibrated. Validate kinetics and quality independently.

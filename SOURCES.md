@@ -28,6 +28,7 @@ corresponding JSON together when values, units or interpretations change.
 | SOLUTE-SSP-1998 | [Gottlieb and Shu, primary paper](https://www.cfm.brown.edu/people/sg/SSP1.pdf) | Two-stage SSP RK2, equation 2.4/3.2; institutional PDF inspected 2026-11-08. No physical parameters imported. |
 | SOLUTE-FCT-2015 | [Chaplin and Colella, primary preprint](https://arxiv.org/html/1506.02999) | Section 4/4.1 correction budgets, equations 43-53; full text inspected 2026-11-08. Our lower-order, stagewise scheme is distinct. |
 | FLOW-NONUNIFORM-2002 | [Ham, Lien and Strong, primary publisher record](https://doi.org/10.1006/jcph.2002.7006) | Staggered-grid nonuniform conservation background; indexed primary abstract inspected 2026-11-08, full publisher access blocked. No material constants or numerical results imported. |
+| CUTCELL-FV-2004 | [Schwartz, Barad, Colella and Ligocki, primary institutional report](https://escholarship.org/content/qt0fp606kk/qt0fp606kk.pdf) | Geometry moments, volume-integrated Poisson form and nominal-center unknowns; full primary PDF inspected 2026-11-08, printed pages 2-4. Our two-point projection does not claim its second-order boundary method. |
 | FLOW-2000 | [Natural/forced solutal convection above a growing crystal](https://www.sciencedirect.com/science/article/abs/pii/S0022024899007459) | KDP Navier-Stokes/Boussinesq background; indexed abstract inspected, full page blocked. No constants imported. |
 | FLOW-2001 | [Transient three-dimensional KDP flow study](https://www.sciencedirect.com/science/article/abs/pii/S0022024800008460) | 3D hydrodynamics background; indexed abstract only. No numerical dataset imported. |
 | FLOW-2005 | [Schlieren study of ramp rate and rotation](https://www.sciencedirect.com/science/article/abs/pii/S0022024804013612) | Candidate concentration-pattern validation; abstract inspected, observations not imported. |
@@ -427,6 +428,66 @@ inspected. Separate current-source regressions in
 passes 151 tests. This establishes the fixed rectilinear/aligned-solid numerical
 milestone; oblique momentum boundaries, growing-interface integration, physical
 calibration and AI growth-control readiness remain pending.
+
+## CUTCELL-FV-2004
+
+[Schwartz, Barad, Colella and Ligocki, A Cartesian Grid Embedded Boundary Method
+for the Heat Equation and Poisson's Equation in Three Dimensions](https://escholarship.org/content/qt0fp606kk/qt0fp606kk.pdf),
+LBNL preprint dated 2004-11-02. Full institutional PDF inspected on 2026-11-08,
+especially printed pages 2-4: geometric capacities/apertures/centroids,
+nominal-center unknowns and a volume-integrated elliptic equation.
+These motivate the representation and conditioning checks. Our exact polyhedral
+clipping, connectivity guard, bounded Cartesian bisection and compatible A/d
+pressure graph are project implementations. We do not implement the report's
+centroid-interpolated second-order flux or complete heat/moving-boundary method.
+No material constants or experimental observations are imported.
+
+## DESIGN-CUTCELL-PRESSURE-005
+
+`configs/cutcell_verification.json` declares fourteen geometry/pressure cases
+with SI lengths and mathematical reference potentials. It introduces no new
+fluid properties or calibrated growth coefficients. The manufactured potential
+is `s*cos(pi*X)*Y^2*(1-Y)^2*Z^2*(1-Z)^2*(Z-a-b*Y)^2`; all outer/oblique normal
+derivatives vanish. Analytic Laplacians are independently integrated over actual
+liquid regions by split Gaussian quadrature with an analytic x integral.
+The discrete operator is not used to generate its own validation source.
+
+The original first study aborted at a genuinely split liquid cell beside the
+same three-axis rotated cube. Its first six results, source archives and console
+trace remain in `results/cutcell_pressure_first_8011b79/`; `failure.json` explicitly
+records its reconstruction from that preserved log. Focused n=16 potential error
+was 6.4348%, above the declared 5% limit. The follow-up keeps both 5% error gates,
+increases Poisson levels to 8/16/24 and resolves the same rotated solid by bounded
+static axis refinement. Per-case failures now remain in reports with a failed gate.
+
+The tiny-layer conditioning case explicitly uses relative volume tolerance 1e-6
+at liquid fraction 1e-7; ordinary geometry keeps 1e-10. This accounts for loss of
+relative precision when subtracting nearly equal capacities. It is a numerical
+stress test, not a physical subnanometer continuum experiment.
+
+## CUTCELL-PRESSURE-NUMERICAL-20261108
+
+`results/cutcell_pressure_final_v2_8011b79/` passes all fourteen cases. Uniform and
+focused finest potential RMS errors are 0.41065% and 2.17234%; analytic-gradient
+projection residuals are 0.36367% and 1.08533%. Maximum scaled integral residual
+is 4.616e-13; all blocked-face speeds are zero and every random projection
+decreases its A*d norm. Maximum normalized area/moment closure is
+9.189e-14 / 8.782e-12. Actual refined rotated grids are 14x12x12, 20x19x20 and
+31x27x33, obtained with 14/23/43 inserted axis planes. The solid is unchanged.
+
+Minimum liquid fraction reaches 2.681e-10 in the middle rotated grid. Maximum
+absolute divergence is 6.717e-8 1/s in tiny capacities; it is retained alongside
+the small integral residual. The projection norm is not a physical cut-cell
+kinetic-energy measurement, and this does not establish cut-cell advection or
+momentum time-step stability. Embedded no-slip viscosity and nonlinear momentum
+remain to implement before full growth/runtime integration.
+
+`docs/CUTCELL_PRESSURE_CHECKPOINT.json` retains exact source/protocol/environment
+identity, metrics, failure history and regression studies. Current-source
+uniform momentum (eleven cases), scalar/high-Peclet transport (fifteen cases)
+and rectilinear flow/solute (twenty cases) pass separately; the full suite passes
+165 tests. Raw arrays and archived hashes are checked and figures inspected.
+This is local numerical evidence, not calibrated KDP growth/quality data.
 
 ## Updating this register
 

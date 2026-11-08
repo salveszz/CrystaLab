@@ -7,6 +7,7 @@
 # Declare all criteria before measuring; archive exact sources, mesh coordinates,
 # reference/final fields, metrics and figures in a fresh results folder.
 # This is numerical verification, not oblique cut-cell or physical growth validation.
+# Archive the canonical pressure and linear operators shared with cut-cell tests.
 
 """Verify rectilinear and focused-grid flow/solute with independent references."""
 
@@ -216,6 +217,8 @@ def run_study(protocol, reference, output):
         for name in (
             "src/simulation/flow.py",
             "src/simulation/mesh.py",
+            "src/simulation/pressure.py",
+            "src/simulation/linear.py",
             "src/simulation/solute.py",
             "src/simulation/units.py",
             "src/simulation/crystal.py",

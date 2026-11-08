@@ -8,6 +8,7 @@
 # Archive sources, protocol, reference and environment; reject changed sources.
 # Raw SI fields and readable reports/figures go to a fresh ignored results folder.
 # Use the flow mesh's actual centers and archive its edges/volumes for replay.
+# Pressure and linear-solver dependencies are part of the archived source identity.
 
 """Verify conservative fixed-grid solute transport and its momentum coupling."""
 
@@ -287,6 +288,8 @@ def run_study(protocol, reference, output):
         for name in (
             "src/simulation/flow.py",
             "src/simulation/mesh.py",
+            "src/simulation/pressure.py",
+            "src/simulation/linear.py",
             "src/simulation/solute.py",
             "src/simulation/units.py",
             "src/simulation/crystal.py",

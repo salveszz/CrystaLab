@@ -12,6 +12,9 @@ domain Navier-Stokes component is now verified separately in
 [SOLUTE_MODEL.md](SOLUTE_MODEL.md). Coupling it to the growth runtime remains pending.
 The SI flow/solute mesh now also supports actual unequal/focused cells; its
 separate operators and evidence are in [RECTILINEAR_FLOW.md](RECTILINEAR_FLOW.md).
+The next fixed-domain foundation represents true sloped crystal intersections
+and a shared pressure projection; see [CUTCELL_PRESSURE.md](CUTCELL_PRESSURE.md).
+It remains separate from the illustrative moving-growth approximation here.
 Sources and numeric provenance are maintained in [SOURCES.md](../SOURCES.md).
 
 ## Geometry and fluid accounting

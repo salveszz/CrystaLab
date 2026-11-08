@@ -8,6 +8,7 @@
 # Save declared settings/source fingerprints before measurements. Export raw
 # fields, metrics and plots to a fresh directory, with all model limits explicit.
 # Archive the shared mesh implementation and actual cell edges/volumes as well.
+# Include the shared pressure projection and residual-checked linear solver.
 # No experimental calibration, quality labels or growing-boundary claim occurs.
 
 """Verify isothermal three-dimensional Navier-Stokes against analytic flows."""
@@ -212,6 +213,8 @@ def run_study(protocol, reference, output):
         for name in (
             "src/simulation/flow.py",
             "src/simulation/mesh.py",
+            "src/simulation/pressure.py",
+            "src/simulation/linear.py",
             "src/simulation/units.py",
             "src/simulation/crystal.py",
             "scripts/check_flow.py",

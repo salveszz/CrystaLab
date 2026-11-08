@@ -1,0 +1,674 @@
+{
+  "record_kind": "numerical_geometry_pressure_verification_not_experimental_validation",
+  "date": "2026-11-08",
+  "study_directory": "results/cutcell_pressure_final_v2_8011b79",
+  "raw_artifacts_tracked": false,
+  "manifest": {
+    "protocol": {
+      "source_id": "DESIGN-CUTCELL-PRESSURE-005",
+      "length_m": 0.01,
+      "sloped_wall": {
+        "intercept_m": 0.002,
+        "slope_dz_dy": 0.5,
+        "counts": [
+          8,
+          16,
+          24
+        ],
+        "potential_scale_m2_per_s": 1e-06,
+        "focus_width_m": 0.0036,
+        "quadrature_order": 8,
+        "finest_relative_potential_tolerance": 0.05,
+        "finest_relative_gradient_projection_tolerance": 0.05
+      },
+      "rotated_cube": {
+        "width_m": 0.003,
+        "center_m": [
+          0.005,
+          0.005,
+          0.005
+        ],
+        "angles_rad_xyz": [
+          0.3,
+          0.2,
+          0.1
+        ],
+        "counts": [
+          8,
+          12,
+          16
+        ],
+        "max_axis_refinements": 48
+      },
+      "subcell_cube": {
+        "width_m": 0.0002,
+        "center_m": [
+          0.0051,
+          0.0052,
+          0.0049
+        ],
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ]
+      },
+      "tiny_layer": {
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "liquid_fraction_in_top_cells": 1e-07,
+        "relative_volume_tolerance": 1e-06
+      },
+      "projection": {
+        "random_seed": 71,
+        "speed_scale_m_per_s": 0.0001,
+        "max_relative_integral_flux_residual": 1e-10,
+        "max_relative_norm_increase": 1e-12
+      },
+      "max_geometry_volume_relative_error": 1e-10,
+      "max_normalized_area_closure": 1e-09,
+      "max_normalized_moment_closure": 1e-09,
+      "limits": "Fixed convex-solid cut-cell geometry and impermeable pressure projection only. Two-point pressure values at nominal Cartesian centers; A*d projection norm is not a physical cut-cell kinetic-energy measurement. No embedded no-slip viscosity, nonlinear cut-cell momentum, moving interface, physical growth calibration or AI training-readiness claim."
+    },
+    "sources": {
+      "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+      "src/simulation/cutcell.py": "b83d97d63f064f34af3ad502d10b726d69b526471b356a7cc98d587bfb7aed3f",
+      "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+      "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+      "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+      "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+      "scripts/check_cutcell.py": "e20617a85af0c52528dcb3121eb1da3a874d4bbd30dabdef347f4ea5ad7a751e"
+    },
+    "git_commit": "8011b790f4469b78ac0cbdf9ef509d425050329d",
+    "environment": {
+      "python": "3.14.8",
+      "numpy": "2.5.0",
+      "scipy": "1.18.0",
+      "threads": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1"
+      }
+    }
+  },
+  "results": [
+    {
+      "case": "uniform_poisson_8",
+      "grid_counts_xyz": [
+        8,
+        8,
+        8
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 5.500000000000002e-07,
+      "cut_cell_count": 96,
+      "min_liquid_fraction": 0.15999999999999864,
+      "normalized_area_closure": 3.624509308223752e-15,
+      "normalized_moment_closure": 3.775893416852019e-14,
+      "embedded_wall_area_m2": 0.00011180339887498949,
+      "relative_integral_flux_residual": 2.2765670898544003e-14,
+      "relative_projection_norm_change": -0.38006676362274516,
+      "max_divergence_per_s": 6.020220498160935e-15,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "n": 8,
+      "relative_potential_rms_error": 0.026722917333214552,
+      "relative_gradient_projection_error": 0.023052073304979215,
+      "geometry_volume_relative_error": 4.440892098500626e-16,
+      "runtime_s": 0.18971593098831363,
+      "constraints_pass": true
+    },
+    {
+      "case": "uniform_poisson_16",
+      "grid_counts_xyz": [
+        16,
+        16,
+        16
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 5.500000000000002e-07,
+      "cut_cell_count": 384,
+      "min_liquid_fraction": 0.08999999999999711,
+      "normalized_area_closure": 7.34099564699579e-15,
+      "normalized_moment_closure": 1.60244713997121e-13,
+      "embedded_wall_area_m2": 0.00011180339887498949,
+      "relative_integral_flux_residual": 4.616114584710087e-13,
+      "relative_projection_norm_change": -0.3714121971171196,
+      "max_divergence_per_s": 7.723293470450643e-13,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "n": 16,
+      "relative_potential_rms_error": 0.008802130163130792,
+      "relative_gradient_projection_error": 0.007219121231442985,
+      "geometry_volume_relative_error": 4.440892098500626e-16,
+      "runtime_s": 1.052435987003264,
+      "constraints_pass": true
+    },
+    {
+      "case": "uniform_poisson_24",
+      "grid_counts_xyz": [
+        24,
+        24,
+        24
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 5.500000000000003e-07,
+      "cut_cell_count": 864,
+      "min_liquid_fraction": 0.039999999999992146,
+      "normalized_area_closure": 1.478963732506092e-14,
+      "normalized_moment_closure": 4.823974476202273e-13,
+      "embedded_wall_area_m2": 0.00011180339887498949,
+      "relative_integral_flux_residual": 4.483991660393449e-13,
+      "relative_projection_norm_change": -0.34780581018178786,
+      "max_divergence_per_s": 2.141190619805896e-12,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "n": 24,
+      "relative_potential_rms_error": 0.004106480585009827,
+      "relative_gradient_projection_error": 0.003636650611796275,
+      "geometry_volume_relative_error": 6.661338147750939e-16,
+      "runtime_s": 3.1964004220062634,
+      "constraints_pass": true
+    },
+    {
+      "case": "focused_poisson_8",
+      "grid_counts_xyz": [
+        8,
+        8,
+        8
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 5.5e-07,
+      "cut_cell_count": 112,
+      "min_liquid_fraction": 0.02777777777777731,
+      "normalized_area_closure": 3.957306572365091e-15,
+      "normalized_moment_closure": 3.7060569551447044e-14,
+      "embedded_wall_area_m2": 0.00011180339887498949,
+      "relative_integral_flux_residual": 3.587526677120449e-16,
+      "relative_projection_norm_change": -0.5027133973607931,
+      "max_divergence_per_s": 7.625655417136435e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "n": 8,
+      "relative_potential_rms_error": 0.26089394684122996,
+      "relative_gradient_projection_error": 0.19452126514659285,
+      "geometry_volume_relative_error": 0.0,
+      "runtime_s": 0.19930306100286543,
+      "constraints_pass": true
+    },
+    {
+      "case": "focused_poisson_16",
+      "grid_counts_xyz": [
+        16,
+        16,
+        16
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 5.5e-07,
+      "cut_cell_count": 448,
+      "min_liquid_fraction": 0.0014505780984479088,
+      "normalized_area_closure": 9.240983687780527e-15,
+      "normalized_moment_closure": 2.2433767728762918e-13,
+      "embedded_wall_area_m2": 0.00011180339887498952,
+      "relative_integral_flux_residual": 2.4170468415954984e-13,
+      "relative_projection_norm_change": -0.40497963734815523,
+      "max_divergence_per_s": 1.7523437734650187e-11,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "n": 16,
+      "relative_potential_rms_error": 0.06434820800207407,
+      "relative_gradient_projection_error": 0.03693479272000681,
+      "geometry_volume_relative_error": 0.0,
+      "runtime_s": 1.0794102380023105,
+      "constraints_pass": true
+    },
+    {
+      "case": "focused_poisson_24",
+      "grid_counts_xyz": [
+        24,
+        24,
+        24
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 5.5e-07,
+      "cut_cell_count": 984,
+      "min_liquid_fraction": 0.008348905025586498,
+      "normalized_area_closure": 1.052337926423651e-14,
+      "normalized_moment_closure": 3.2560104685925196e-13,
+      "embedded_wall_area_m2": 0.00011180339887498952,
+      "relative_integral_flux_residual": 1.8566435753224469e-13,
+      "relative_projection_norm_change": -0.3843892919553599,
+      "max_divergence_per_s": 8.286989091297866e-12,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "n": 24,
+      "relative_potential_rms_error": 0.021723400088773947,
+      "relative_gradient_projection_error": 0.010853310236921815,
+      "geometry_volume_relative_error": 0.0,
+      "runtime_s": 3.24036613899807,
+      "constraints_pass": true
+    },
+    {
+      "case": "rotated_cube_8",
+      "grid_counts_xyz": [
+        14,
+        12,
+        12
+      ],
+      "axis_refinement_count": 14,
+      "liquid_volume_m3": 9.73e-07,
+      "cut_cell_count": 284,
+      "min_liquid_fraction": 7.46091729098285e-05,
+      "normalized_area_closure": 2.824520538499954e-14,
+      "normalized_moment_closure": 7.595890921677014e-13,
+      "embedded_wall_area_m2": 5.400000000000002e-05,
+      "relative_integral_flux_residual": 8.567399006514634e-15,
+      "relative_projection_norm_change": -0.38531445542310083,
+      "max_divergence_per_s": 7.978110588628031e-15,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "geometry_volume_relative_error": 2.220446049250313e-16,
+      "n": 8,
+      "runtime_s": 1.4853175419993931,
+      "constraints_pass": true
+    },
+    {
+      "case": "rotated_cube_12",
+      "grid_counts_xyz": [
+        20,
+        19,
+        20
+      ],
+      "axis_refinement_count": 23,
+      "liquid_volume_m3": 9.73e-07,
+      "cut_cell_count": 800,
+      "min_liquid_fraction": 2.68061370467961e-10,
+      "normalized_area_closure": 3.765159845456962e-14,
+      "normalized_moment_closure": 1.7307483332224894e-12,
+      "embedded_wall_area_m2": 5.4000000000000025e-05,
+      "relative_integral_flux_residual": 3.785110209434113e-13,
+      "relative_projection_norm_change": -0.3879393135171908,
+      "max_divergence_per_s": 3.000535385867068e-08,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "geometry_volume_relative_error": 2.220446049250313e-16,
+      "n": 12,
+      "runtime_s": 4.5164627469930565,
+      "constraints_pass": true
+    },
+    {
+      "case": "rotated_cube_16",
+      "grid_counts_xyz": [
+        31,
+        27,
+        33
+      ],
+      "axis_refinement_count": 43,
+      "liquid_volume_m3": 9.73e-07,
+      "cut_cell_count": 2046,
+      "min_liquid_fraction": 1.5463594844850916e-08,
+      "normalized_area_closure": 9.188621774001244e-14,
+      "normalized_moment_closure": 8.781897905257401e-12,
+      "embedded_wall_area_m2": 5.4000000000000025e-05,
+      "relative_integral_flux_residual": 4.5242645293366424e-13,
+      "relative_projection_norm_change": -0.36747317228183823,
+      "max_divergence_per_s": 6.716886247747069e-08,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "geometry_volume_relative_error": 2.220446049250313e-16,
+      "n": 16,
+      "runtime_s": 19.33780056500109,
+      "constraints_pass": true
+    },
+    {
+      "case": "subcell_cube",
+      "grid_counts_xyz": [
+        8,
+        8,
+        8
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 9.999920000000004e-07,
+      "cut_cell_count": 1,
+      "min_liquid_fraction": 0.995904,
+      "normalized_area_closure": 4.8288307535432335e-17,
+      "normalized_moment_closure": 9.655121974330951e-16,
+      "embedded_wall_area_m2": 2.400000000000018e-07,
+      "relative_integral_flux_residual": 2.4048155793900288e-14,
+      "relative_projection_norm_change": -0.38257150711253446,
+      "max_divergence_per_s": 6.359364549307676e-15,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "geometry_volume_relative_error": 2.220446049250313e-16,
+      "runtime_s": 0.03251318700495176,
+      "constraints_pass": true
+    },
+    {
+      "case": "tiny_layer",
+      "grid_counts_xyz": [
+        8,
+        8,
+        8
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 1.25000001508092e-14,
+      "cut_cell_count": 64,
+      "min_liquid_fraction": 9.999999930395818e-08,
+      "normalized_area_closure": 1.7618285302889431e-15,
+      "normalized_moment_closure": 2.372826400622375e-14,
+      "embedded_wall_area_m2": 0.0001,
+      "relative_integral_flux_residual": 1.3356413147751665e-15,
+      "relative_projection_norm_change": -0.46463432688187717,
+      "max_divergence_per_s": 2.0602827574802055e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "geometry_volume_relative_error": 1.2591091946845268e-08,
+      "geometry_volume_tolerance": 1e-06,
+      "runtime_s": 0.2669084869994549,
+      "constraints_pass": true
+    },
+    {
+      "case": "periodic_wall",
+      "grid_counts_xyz": [
+        8,
+        8,
+        8
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 5.500000000000002e-07,
+      "cut_cell_count": 96,
+      "min_liquid_fraction": 0.15999999999999864,
+      "normalized_area_closure": 3.624509308223752e-15,
+      "normalized_moment_closure": 3.775893416852019e-14,
+      "embedded_wall_area_m2": 0.00011180339887498949,
+      "relative_integral_flux_residual": 3.052939653335937e-15,
+      "relative_projection_norm_change": -0.382088508210061,
+      "max_divergence_per_s": 8.073282778517549e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 1,
+      "geometry_volume_relative_error": 4.440892098500626e-16,
+      "runtime_s": 0.20124423199740704,
+      "constraints_pass": true
+    },
+    {
+      "case": "disconnected_regions",
+      "grid_counts_xyz": [
+        10,
+        10,
+        10
+      ],
+      "axis_refinement_count": 0,
+      "liquid_volume_m3": 8.000000000000002e-07,
+      "cut_cell_count": 0,
+      "min_liquid_fraction": 1.0,
+      "normalized_area_closure": 5.5057141571529475e-15,
+      "normalized_moment_closure": 7.312804110727859e-14,
+      "embedded_wall_area_m2": 0.00020000000000000004,
+      "relative_integral_flux_residual": 4.066415521861392e-15,
+      "relative_projection_norm_change": -0.4034572622236535,
+      "max_divergence_per_s": 1.34416849539867e-15,
+      "blocked_face_speed_m_per_s": 0.0,
+      "connected_liquid_regions": 2,
+      "geometry_volume_relative_error": 0.0,
+      "runtime_s": 0.15988386499520857,
+      "constraints_pass": true
+    },
+    {
+      "case": "split_cell_rejection",
+      "constraints_pass": true
+    }
+  ],
+  "gates": {
+    "geometry_and_projection": true,
+    "split_cell_rejected": true,
+    "uniform_relative_potential_rms_error": true,
+    "uniform_relative_gradient_projection_error": true,
+    "focused_relative_potential_rms_error": true,
+    "focused_relative_gradient_projection_error": true,
+    "tiny_capacity_retained": true,
+    "disconnected_gauges": true
+  },
+  "overall_pass": true,
+  "limits": "Fixed convex-solid cut-cell geometry and impermeable pressure projection only. Two-point pressure values at nominal Cartesian centers; A*d projection norm is not a physical cut-cell kinetic-energy measurement. No embedded no-slip viscosity, nonlinear cut-cell momentum, moving interface, physical growth calibration or AI training-readiness claim.",
+  "figures_visually_inspected": true,
+  "regressions": {
+    "rectilinear": {
+      "study_directory": "results/rectilinear_cutcell_regression_8011b79",
+      "sources": {
+        "src/simulation/flow.py": "80ab956148340124be50bb5244105192c0bb0d309420889882a9b48f5c4f6934",
+        "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+        "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+        "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+        "src/simulation/solute.py": "6a43739f5dfabe5109ddbb701fb353e0b33eb1c5367c1ba44a5872f587dfe12c",
+        "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+        "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+        "scripts/check_flow.py": "de9cb15d225fca650da60dc9525e9d0fcf62033b53f8c5df5149f14a87b6489b",
+        "scripts/check_solute.py": "d014719144870c61a05ee1dd9da5a2b9f225e42b932c11c28303bae2ad2dcb72",
+        "scripts/check_rectilinear_flow.py": "8338f974c9d8d05a40a366d24d1b39afee513ee7e3fb5066921c8df02bfe62fa",
+        "scripts/describe_physical_setup.py": "c0bd7e2e22b24ecbda70b0f9a1d5bb7a5ace0c6f74868ac12f4e40e02ff0dece"
+      },
+      "case_count": 20,
+      "gates": {
+        "invariants": true,
+        "channel_relative_rms_error": true,
+        "decay_relative_rms_error": true,
+        "abc_relative_velocity_error": true,
+        "abc_relative_pressure_error": true,
+        "focused_abc_solute_relative_velocity_error": true,
+        "focused_abc_solute_relative_pressure_error": true,
+        "wave_relative_rms_error": true,
+        "diffusion_relative_rms_error": true,
+        "nonzero_aligned_cube": true
+      },
+      "overall_pass": true
+    },
+    "uniform_flow": {
+      "study_directory": "results/flow_cutcell_regression_8011b79",
+      "sources": {
+        "src/simulation/flow.py": "80ab956148340124be50bb5244105192c0bb0d309420889882a9b48f5c4f6934",
+        "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+        "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+        "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+        "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+        "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+        "scripts/check_flow.py": "de9cb15d225fca650da60dc9525e9d0fcf62033b53f8c5df5149f14a87b6489b",
+        "scripts/describe_physical_setup.py": "c0bd7e2e22b24ecbda70b0f9a1d5bb7a5ace0c6f74868ac12f4e40e02ff0dece"
+      },
+      "case_count": 11,
+      "gates": {
+        "rest": true,
+        "incompressibility_and_walls": true,
+        "nonzero_obstacle": true,
+        "channel": true,
+        "decay": true,
+        "abc": true,
+        "abc_pressure": true
+      },
+      "overall_pass": true
+    },
+    "solute": {
+      "study_directory": "results/solute_cutcell_regression_8011b79",
+      "sources": {
+        "src/simulation/flow.py": "80ab956148340124be50bb5244105192c0bb0d309420889882a9b48f5c4f6934",
+        "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+        "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+        "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+        "src/simulation/solute.py": "6a43739f5dfabe5109ddbb701fb353e0b33eb1c5367c1ba44a5872f587dfe12c",
+        "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+        "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+        "scripts/check_solute.py": "d014719144870c61a05ee1dd9da5a2b9f225e42b932c11c28303bae2ad2dcb72",
+        "scripts/describe_physical_setup.py": "c0bd7e2e22b24ecbda70b0f9a1d5bb7a5ace0c6f74868ac12f4e40e02ff0dece"
+      },
+      "case_count": 15,
+      "gates": {
+        "conservation_bounds_and_flow": true,
+        "periodic_3d": true,
+        "diffusion_3d": true,
+        "pulse": true,
+        "temporal_diffusion": true,
+        "pulse_numerical_diffusion": true,
+        "rest": true,
+        "coupled_uniform": true,
+        "nonzero_coupled_flow": true
+      },
+      "overall_pass": true
+    }
+  },
+  "first_aborted_study": {
+    "study_directory": "results/cutcell_pressure_first_8011b79",
+    "source_snapshot": {
+      "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+      "src/simulation/cutcell.py": "14fbe2eeba6aec2b0b4a18836438e06efc12c2aac83045b08e1bc32f65cf9539",
+      "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+      "src/simulation/pressure.py": "cb679cb788cbd05a7fc2006389c9e7ab04999c40daa2273a4b0ce3baec65a46a",
+      "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+      "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+      "scripts/check_cutcell.py": "4273366db3c989bd334344578a3aadd42b2d2caddb5f751189784bba75ed0c28"
+    },
+    "failure_record": {
+      "record_kind": "aborted_study_failure_record_reconstructed_from_preserved_console_log",
+      "overall_pass": false,
+      "completed_cases": [
+        {
+          "case": "uniform_poisson_8",
+          "liquid_volume_m3": 5.500000000000002e-07,
+          "cut_cell_count": 96,
+          "min_liquid_fraction": 0.15999999999999864,
+          "normalized_area_closure": 3.624509308223752e-15,
+          "normalized_moment_closure": 3.775893416852019e-14,
+          "embedded_wall_area_m2": 0.00011180339887498949,
+          "relative_integral_flux_residual": 2.2765670898544003e-14,
+          "relative_projection_norm_change": -0.38006676362274516,
+          "max_divergence_per_s": 6.020220498160935e-15,
+          "blocked_face_speed_m_per_s": 0.0,
+          "connected_liquid_regions": 1,
+          "n": 8,
+          "relative_potential_rms_error": 0.026722917333214552,
+          "relative_gradient_projection_error": 0.023052073304979215,
+          "geometry_volume_relative_error": 4.440892098500626e-16,
+          "runtime_s": 0.19481999399431515,
+          "constraints_pass": true
+        },
+        {
+          "case": "uniform_poisson_12",
+          "liquid_volume_m3": 5.500000000000003e-07,
+          "cut_cell_count": 216,
+          "min_liquid_fraction": 0.009999999999998618,
+          "normalized_area_closure": 2.8332112556534008e-15,
+          "normalized_moment_closure": 5.1886628009801037e-14,
+          "embedded_wall_area_m2": 0.00011180339887498948,
+          "relative_integral_flux_residual": 1.4639095878701004e-15,
+          "relative_projection_norm_change": -0.3730637384874009,
+          "max_divergence_per_s": 3.908428394313455e-15,
+          "blocked_face_speed_m_per_s": 0.0,
+          "connected_liquid_regions": 1,
+          "n": 12,
+          "relative_potential_rms_error": 0.014407947735513299,
+          "relative_gradient_projection_error": 0.012270227345087965,
+          "geometry_volume_relative_error": 6.661338147750939e-16,
+          "runtime_s": 0.4890694049972808,
+          "constraints_pass": true
+        },
+        {
+          "case": "uniform_poisson_16",
+          "liquid_volume_m3": 5.500000000000002e-07,
+          "cut_cell_count": 384,
+          "min_liquid_fraction": 0.08999999999999711,
+          "normalized_area_closure": 7.34099564699579e-15,
+          "normalized_moment_closure": 1.60244713997121e-13,
+          "embedded_wall_area_m2": 0.00011180339887498949,
+          "relative_integral_flux_residual": 4.616114584710087e-13,
+          "relative_projection_norm_change": -0.3714121971171196,
+          "max_divergence_per_s": 7.723293470450643e-13,
+          "blocked_face_speed_m_per_s": 0.0,
+          "connected_liquid_regions": 1,
+          "n": 16,
+          "relative_potential_rms_error": 0.008802130163130792,
+          "relative_gradient_projection_error": 0.007219121231442985,
+          "geometry_volume_relative_error": 4.440892098500626e-16,
+          "runtime_s": 1.049441923998529,
+          "constraints_pass": true
+        },
+        {
+          "case": "focused_poisson_8",
+          "liquid_volume_m3": 5.5e-07,
+          "cut_cell_count": 112,
+          "min_liquid_fraction": 0.02777777777777731,
+          "normalized_area_closure": 3.957306572365091e-15,
+          "normalized_moment_closure": 3.7060569551447044e-14,
+          "embedded_wall_area_m2": 0.00011180339887498949,
+          "relative_integral_flux_residual": 3.587526677120449e-16,
+          "relative_projection_norm_change": -0.5027133973607931,
+          "max_divergence_per_s": 7.625655417136435e-16,
+          "blocked_face_speed_m_per_s": 0.0,
+          "connected_liquid_regions": 1,
+          "n": 8,
+          "relative_potential_rms_error": 0.26089394684122996,
+          "relative_gradient_projection_error": 0.19452126514659285,
+          "geometry_volume_relative_error": 0.0,
+          "runtime_s": 0.20093411099514924,
+          "constraints_pass": true
+        },
+        {
+          "case": "focused_poisson_12",
+          "liquid_volume_m3": 5.500000000000001e-07,
+          "cut_cell_count": 252,
+          "min_liquid_fraction": 0.049382716049381076,
+          "normalized_area_closure": 2.72105343451791e-15,
+          "normalized_moment_closure": 5.2921322355484956e-14,
+          "embedded_wall_area_m2": 0.00011180339887498946,
+          "relative_integral_flux_residual": 5.987594231551568e-16,
+          "relative_projection_norm_change": -0.41000602747614323,
+          "max_divergence_per_s": 2.8954436351769475e-15,
+          "blocked_face_speed_m_per_s": 0.0,
+          "connected_liquid_regions": 1,
+          "n": 12,
+          "relative_potential_rms_error": 0.13784475254422304,
+          "relative_gradient_projection_error": 0.10143541105118971,
+          "geometry_volume_relative_error": 2.220446049250313e-16,
+          "runtime_s": 0.5153032969974447,
+          "constraints_pass": true
+        },
+        {
+          "case": "focused_poisson_16",
+          "liquid_volume_m3": 5.5e-07,
+          "cut_cell_count": 448,
+          "min_liquid_fraction": 0.0014505780984479088,
+          "normalized_area_closure": 9.240983687780527e-15,
+          "normalized_moment_closure": 2.2433767728762918e-13,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "relative_integral_flux_residual": 2.4170468415954984e-13,
+          "relative_projection_norm_change": -0.40497963734815523,
+          "max_divergence_per_s": 1.7523437734650187e-11,
+          "blocked_face_speed_m_per_s": 0.0,
+          "connected_liquid_regions": 1,
+          "n": 16,
+          "relative_potential_rms_error": 0.06434820800207407,
+          "relative_gradient_projection_error": 0.03693479272000681,
+          "geometry_volume_relative_error": 0.0,
+          "runtime_s": 1.0595427840016782,
+          "constraints_pass": true
+        }
+      ],
+      "abort_case": "rotated_cube_8",
+      "abort_reason": "Split liquid cell rejected before a per-case failure report was implemented.",
+      "additional_failed_accuracy_gate": {
+        "case": "focused_poisson_16",
+        "measured_relative_potential_error": 0.06434820800207407,
+        "declared_tolerance": 0.05
+      },
+      "followup": "Keep the failed stage; add bounded topology refinement, increase Poisson levels to 8/16/24 with the same 5 percent thresholds, and persist case-level failures."
+    }
+  },
+  "full_test_suite": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest discover -s tests -q",
+    "test_count": 165,
+    "result": "PASS",
+    "test_sources": {
+      "tests/test_cutcell.py": "40a751679100936e24cc4f4c4309646edf591251fafa0c4ce6252bd2c0767f54",
+      "tests/test_rectilinear_flow.py": "caaa96501fb7ea2a895101a0fa29e92857a0a6f738b8afb8fc227aaa545ef6d5"
+    }
+  }
+}

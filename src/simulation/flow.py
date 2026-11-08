@@ -11,6 +11,9 @@
 # viscous stiffness retain compatible conservation on unequal cells. Canonical
 # Crystal intersections still reject partial momentum cells; oblique embedded
 # boundaries and growth coupling require a separate verified discretization.
+# Pressure construction/projection delegates to the same compatible operator
+# used by the independent sloped-wall pressure verification. Momentum still
+# requires aligned full cells until embedded no-slip viscosity is verified.
 # Pressure is a dynamic pressure in Pa with a mean-zero gauge, not an absolute
 # free-surface stress condition. Sources/method limits are recorded in SOURCES.md.
 
@@ -21,39 +24,13 @@ from numbers import Integral
 
 import numpy as np
 from scipy.sparse import coo_matrix, diags
-from scipy.sparse.csgraph import connected_components
-from scipy.sparse.linalg import cg, factorized
+from scipy.sparse.linalg import factorized
 
 from .crystal import Crystal
 from .mesh import RectilinearGrid
+from .linear import solve_spd as _solve
+from .pressure import PressureProjection
 from .units import FluidPropertiesSI, finite_number
-
-
-def _solve(system, rhs, guess=None, direct=None):
-    """Solve an SPD system, checking the actual residual instead of clipping it."""
-    if not np.any(rhs):
-        return np.zeros_like(rhs)
-    if direct is not None:
-        answer = direct(rhs)
-        status = 0
-    else:
-        answer, status = cg(
-            system,
-            rhs,
-            x0=guess,
-            M=diags(1 / system.diagonal()),
-            rtol=2e-13,
-            atol=0.0,
-            maxiter=4000,
-        )
-    scale = max(float(np.linalg.norm(rhs)), np.finfo(float).tiny)
-    if (
-        status != 0
-        or not np.isfinite(answer).all()
-        or np.linalg.norm(system @ answer - rhs) > 3e-12 * scale
-    ):
-        raise ArithmeticError("Flow linear solve failed its residual check")
-    return answer
 
 
 @dataclass
@@ -284,52 +261,15 @@ class IncompressibleFlow:
         )
 
     def _pressure_system(self):
-        cells = np.argwhere(self.fluid)
-        lookup = np.full(self.shape, -1, dtype=int)
-        lookup[tuple(cells.T)] = np.arange(len(cells))
-        rows, columns, values = [], [], []
-        diagonal = np.zeros(len(cells))
-        for axis in range(3):
-            for sign in (-1, 1):
-                other = cells.copy()
-                other[:, axis] += sign
-                if self.periodic[axis]:
-                    other[:, axis] %= self.shape[axis]
-                valid = np.all((other >= 0) & (other < np.array(self.shape)), axis=1)
-                ids = np.full(len(cells), -1, dtype=int)
-                ids[valid] = lookup[tuple(other[valid].T)]
-                present = ids >= 0
-                face = cells.copy()
-                face[:, axis] += sign == 1
-                weight = (
-                    self.grid.face_areas[axis][tuple(face.T)]
-                    / self.grid.pressure_distances[axis][face[:, axis]]
+        volumes = np.where(self.fluid, self.cell_volumes, 0.0)
+        self.pressure_operator = PressureProjection(
+            self.grid, volumes, self.grid.face_areas
+        )
+        for momentum, pressure in zip(self.components, self.pressure_operator.faces):
+            if not np.array_equal(momentum.cells, pressure.cells):
+                raise ArithmeticError(
+                    "Momentum and pressure open-face layouts disagree"
                 )
-                diagonal[present] += weight[present]
-                rows.extend(np.flatnonzero(present))
-                columns.extend(ids[present])
-                values.extend(-weight[present])
-        rows.extend(np.arange(len(cells)))
-        columns.extend(np.arange(len(cells)))
-        values.extend(diagonal)
-        self._p_matrix = coo_matrix(
-            (values, (rows, columns)), shape=(len(cells), len(cells))
-        ).tocsr()
-        count, labels = connected_components(self._p_matrix, directed=False)
-        # One pressure gauge per disconnected fluid component. No pressure
-        # Dirichlet condition is added to an already impermeable rigid lid.
-        groups = [np.flatnonzero(labels == k) for k in range(count)]
-        self._pressure_groups = []
-        for nodes in groups:
-            reduced = self._p_matrix[nodes[:-1]][:, nodes[:-1]].tocsc()
-            direct = (
-                factorized(reduced)
-                if 0 < len(nodes) <= 2000 and len(nodes) > 1
-                else None
-            )
-            self._pressure_groups.append((nodes, reduced, direct))
-        self._p_cells = cells
-        self._p_lookup = lookup
 
     def face_positions(self, component):
         axis = self.components[component].axis
@@ -378,35 +318,17 @@ class IncompressibleFlow:
         return np.stack(result, axis=-1)
 
     def set_pressure(self, pressure_Pa):
-        """Initialize dynamic pressure in Pa; choose a gauge in each fluid region."""
-        pressure = np.array(pressure_Pa, dtype=float, copy=True)
-        if pressure.shape != self.shape or not np.isfinite(pressure).all():
-            raise ValueError("Pressure must be finite and match cell centers")
-        values = pressure[self.fluid]
-        volumes = self.cell_volumes[self.fluid]
-        for nodes, _system, _direct in self._pressure_groups:
-            values[nodes] -= np.average(values[nodes], weights=volumes[nodes])
-        pressure[self.fluid] = values
-        pressure[~self.fluid] = 0
-        self.pressure = pressure
+        """Initialize dynamic pressure with one volume-weighted gauge per region."""
+        self.pressure = self.pressure_operator.mean_zero(pressure_Pa)
 
     def _pressure_gradient(self, component):
-        left, right = component.cells.copy(), component.cells.copy()
-        left[:, component.axis] -= 1
-        if self.periodic[component.axis]:
-            left[:, component.axis] %= self.shape[component.axis]
-        return (
-            self.pressure[tuple(right.T)] - self.pressure[tuple(left.T)]
-        ) / component.pressure_distance
+        return self.pressure_operator.gradient_at_open_faces(
+            self.pressure, 2 - component.axis
+        )
 
     def divergence(self, fields=None):
-        fields = self.velocity if fields is None else fields
-        return (
-            sum(
-                np.diff(value * self.grid.face_areas[c.axis], axis=c.axis)
-                for value, c in zip(fields, self.components)
-            )
-            / self.cell_volumes
+        return self.pressure_operator.divergence(
+            self.velocity if fields is None else fields
         )
 
     def volume_fluxes_m3_per_s(self):
@@ -421,43 +343,8 @@ class IncompressibleFlow:
         ]
 
     def _project(self, fields, dt):
-        volumes = self.cell_volumes[self.fluid]
-        rhs = -self.divergence(fields)[self.fluid] * volumes
-        velocity_scale = max(
-            float(np.max(abs(u) * self.grid.face_areas[c.axis], initial=0))
-            for u, c in zip(fields, self.components)
-        )
-        phi = np.zeros(len(rhs))
-        for nodes, system, direct in self._pressure_groups:
-            local = rhs[nodes].copy()
-            scale = max(
-                float(np.linalg.norm(local)),
-                velocity_scale * np.sqrt(len(nodes)),
-                1e-30,
-            )
-            if abs(float(local.sum())) > 1e-10 * scale * max(1, np.sqrt(len(nodes))):
-                raise ArithmeticError(
-                    "Pressure projection has an incompatible net volume flux"
-                )
-            local -= local.sum() * volumes[nodes] / volumes[nodes].sum()
-            if len(nodes) > 1:
-                phi[nodes[:-1]] = _solve(system, local[:-1], direct=direct)
-            phi[nodes] -= np.average(phi[nodes], weights=volumes[nodes])
-        corrected = []
-        for value, component in zip(fields, self.components):
-            cells = component.cells
-            left, right = cells.copy(), cells.copy()
-            left[:, component.axis] -= 1
-            if self.periodic[component.axis]:
-                left[:, component.axis] %= self.shape[component.axis]
-            p_left = phi[self._p_lookup[tuple(left.T)]]
-            p_right = phi[self._p_lookup[tuple(right.T)]]
-            updated = value.copy()
-            updated[tuple(cells.T)] -= (p_right - p_left) / component.pressure_distance
-            corrected.append(updated)
-        corrected = self._enforce_boundaries(corrected)
-        pressure = np.zeros(self.shape)
-        pressure[self.fluid] = phi * self.properties.density_kg_per_m3 / dt
+        corrected, phi = self.pressure_operator.project(fields)
+        pressure = phi * self.properties.density_kg_per_m3 / dt
         return corrected, pressure
 
     def _advection(self, index):

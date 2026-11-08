@@ -16,6 +16,10 @@ agitation multipliers do not enter this resolved-flow component.
 For actual unequal-cell capacities, areas, diffusion distances and reconstruction
 offsets, see [RECTILINEAR_FLOW.md](RECTILINEAR_FLOW.md). `flow.cell_volumes`
 supplies per-cell capacities; `flow.cell_volume` is only their minimum.
+The canonical flow now shares its pressure operator with the sloped-wall
+verification in [CUTCELL_PRESSURE.md](CUTCELL_PRESSURE.md). Passive solute has
+not yet been connected to partial momentum cells; full cut-cell momentum remains
+the prerequisite for that runtime integration.
 
 ## Conservative and bounded update
 

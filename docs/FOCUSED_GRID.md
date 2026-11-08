@@ -5,6 +5,9 @@ with actual primal/dual volumes, face areas and distances. That separate fixed-
 aligned-solid milestone is described in [RECTILINEAR_FLOW.md](RECTILINEAR_FLOW.md).
 The illustrative growth benchmark below uses its stated model units; source its
 SI geometry and kinetics explicitly before coupling these runtimes.
+Bounded static axis refinement can now resolve disconnected liquid pockets in
+the separate cut-cell geometry/pressure component. It records actual final edges
+and stops at a declared refinement limit; see [CUTCELL_PRESSURE.md](CUTCELL_PRESSURE.md).
 
 The historical result directories cited below were cleared on 2026-11-07.
 The final benchmark summary/provenance is retained in
