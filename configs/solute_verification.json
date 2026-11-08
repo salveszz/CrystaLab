@@ -1,0 +1,60 @@
+{
+  "source_id": "DESIGN-SOLUTE-003",
+  "fluid_reference": "physical_reference.json",
+  "periodic_3d": {
+    "length_m": 0.01,
+    "counts": [8, 12, 20],
+    "velocity_m_per_s": [0.0003, -0.0002, 0.0001],
+    "mean_kg_per_m3": 270.0,
+    "amplitude_kg_per_m3": 20.0,
+    "duration_s": 4.0,
+    "max_substep_s": 0.05,
+    "finest_relative_rms_tolerance": 0.05
+  },
+  "diffusion_3d": {
+    "length_m": 0.01,
+    "counts": [6, 10, 16],
+    "mean_kg_per_m3": 270.0,
+    "amplitude_kg_per_m3": 20.0,
+    "duration_s": 1000.0,
+    "finest_relative_rms_tolerance": 0.001
+  },
+  "pulse": {
+    "length_m": 0.01,
+    "x_counts": [64, 128, 256],
+    "transverse_counts": 3,
+    "velocity_m_per_s": 0.001,
+    "mean_kg_per_m3": 100.0,
+    "amplitude_kg_per_m3": 200.0,
+    "initial_center_m": 0.003,
+    "initial_sigma_m": 0.0005,
+    "duration_s": 4.0,
+    "max_substep_s": 0.05,
+    "finest_relative_rms_tolerance": 0.02,
+    "finest_abs_excess_diffusivity_over_physical_tolerance": 1.0
+  },
+  "temporal_diffusion": {
+    "length_m": 0.01,
+    "counts_xyz": [64, 3, 3],
+    "x_cycles": 8,
+    "mean_kg_per_m3": 270.0,
+    "amplitude_kg_per_m3": 20.0,
+    "duration_s": 40.0,
+    "timesteps_s": [0.8, 0.4, 0.2],
+    "finest_relative_rms_tolerance": 0.00001,
+    "reference": "Exact exponential of the centered spatial diffusion operator, isolating time error; continuous PDE spatial error is checked separately."
+  },
+  "obstacle": {
+    "counts_xyz": [20, 20, 16],
+    "duration_s": 2.0,
+    "max_dt_s": 0.05,
+    "vortical_acceleration_scale_m_per_s2": 0.0001,
+    "relative_concentration_amplitude": 0.02,
+    "uniform_absolute_tolerance_kg_per_m3": 0.0000000001
+  },
+  "max_relative_mass_drift": 0.000000000001,
+  "concentration_bound_tolerance_kg_per_m3": 0.0000000001,
+  "max_scaled_divergence": 0.000000001,
+  "max_blocked_face_speed_m_per_s": 0.00000000000001,
+  "limits": "Numerical verification on uniform fixed geometry with prescribed periodic velocity or resolved manufactured obstacle flow. Constant properties, passive solute, no heat/buoyancy/growth; not experimental KDP validation or evidence of resolved interfacial boundary layers."
+}

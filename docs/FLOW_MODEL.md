@@ -139,18 +139,20 @@ fixed-crystal case reaches maximum centered speed 3.879e-5 m/s at 2 s, with
 nonzero motion in all three components. Its flow is an example, not an
 experimentally validated or spatially converged obstacle prediction. The final
 images were inspected and all field archives checked finite with correct SI
-domain dimensions. The full working suite passes 122 tests.
+domain dimensions. The momentum checkpoint's full suite passed 122 tests.
 
 Uniform grids, fixed aligned solids and constant properties are the current
 scope. Focused/nonuniform momentum cells, oblique cut faces, moving/growing
-solids, deformable free surfaces, turbulence closures, thermal/solute transport
-and buoyancy remain unsupported by this component. The original growth demo
+solids, deformable free surfaces, turbulence closures, thermal transport
+and buoyancy remain unsupported. Passive solute transport now uses this
+component's native face volume fluxes; see [SOLUTE_MODEL.md](SOLUTE_MODEL.md).
+The original growth demo
 still uses its conservative displacement approximation; it has not quietly
 become a calibrated CFD growth simulator.
 
-Next connect conservative, adequately resolved solute transport to these face
-volume fluxes. KDP's large solutal Peclet/Schmidt scales make numerical diffusion
-an important separate check. Then extend the momentum discretization to actual
-cut-cell geometry and couple interfacial uptake/motion. Keep empirical stirring
+Conservative fixed-grid solute coupling has its own spatial/time, high-Peclet
+diffusion and coupled-invariant checks. Next extend momentum consistently to
+focused/nonuniform cells and oblique cut faces, then couple interfacial
+uptake/motion. Keep empirical stirring
 effects out of a resolved-flow path unless their remaining contribution is
 explicitly justified and calibrated. Validate kinetics and quality independently.

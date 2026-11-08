@@ -10,6 +10,8 @@ isothermal 3D flow case. `simulation.units` and `describe_physical_setup.py`
 already validate that definition and calculate concentration/transport scales.
 The descriptor does not run a flow or growth prediction; `check_flow.py` exercises
 the new fixed-domain Navier-Stokes component described in `FLOW_MODEL.md`.
+`check_solute.py` verifies passive scalar transport and fixed-domain flow coupling
+as described in `SOLUTE_MODEL.md`.
 The existing `Simulation`
 and `configs/default.json` / `focused.json` remain the explicitly illustrative
 numerical benchmark; none of their coefficients has been silently reinterpreted.
@@ -129,6 +131,10 @@ resolution than velocity alone. The code reports diffusion time as L2/D.
 3. Advect solute conservatively with the same volume fluxes; check constant-field
    preservation, positivity and total solute mass. Add the heat equation only
    with sourced thermal properties and actual thermal boundary conditions.
+
+   Fixed-grid passive solute coupling is now implemented, with 3D cell-average
+   wave/diffusion references, a high-Peclet pulse broadening check and coupled
+   fixed-cube tests. Heat and concentration-dependent properties remain pending.
 4. Add a defined forcing case: rotation requires axis, angular velocity and ramp
    history; pumps require physical ports, flow rates and matching outlet/balance
    conditions. The illustrative `rotation`/`circulation` numbers are not rpm or
@@ -147,7 +153,8 @@ resolution than velocity alone. The code reports diffusion time as L2/D.
    Profile cost before synthetic batches. Geometry/transport fidelity does not
    supply optical quality labels; the quality target needs independent data.
 
-The physical definition, conversions and initial uniform-grid momentum component
-are implemented. Arbitrary momentum cut cells, conservative scalar coupling,
-growing-interface integration, kinetic calibration and quality validation remain
-subsequent work, with source/uncertainty tracking required throughout.
+The physical definition, conversions, initial uniform-grid momentum component and
+conservative passive solute coupling are implemented. Arbitrary momentum cut
+cells, thermal transport/buoyancy, growing-interface integration, kinetic
+calibration and quality validation remain subsequent work, with
+source/uncertainty tracking required throughout.

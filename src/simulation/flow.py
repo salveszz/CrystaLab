@@ -338,6 +338,17 @@ class IncompressibleFlow:
             for value, c in zip(fields, self.components)
         )
 
+    def volume_fluxes_m3_per_s(self):
+        """Native x/y/z face velocities times face area, including end aliases.
+
+        Returned arrays are independent copies. Scalar transport uses these
+        exact fluxes; cell-centered velocity is only an inspection/export field.
+        """
+        return [
+            value * (self.cell_volume / self.spacing[component.axis])
+            for value, component in zip(self.velocity, self.components)
+        ]
+
     def _project(self, fields, dt):
         rhs = -self.divergence(fields)[self.fluid]
         velocity_scale = max(

@@ -8,7 +8,8 @@ The physical setup has explicit SI units, sourced fluid properties and
 boundary conditions in [PHYSICAL_MODEL.md](PHYSICAL_MODEL.md). It is a separate
 input definition and has not relabeled this illustrative growth engine. A fixed-
 domain Navier-Stokes component is now verified separately in
-[FLOW_MODEL.md](FLOW_MODEL.md); coupling it to the growth runtime remains pending.
+[FLOW_MODEL.md](FLOW_MODEL.md), with conservative passive solute coupling in
+[SOLUTE_MODEL.md](SOLUTE_MODEL.md). Coupling it to the growth runtime remains pending.
 Sources and numeric provenance are maintained in [SOURCES.md](../SOURCES.md).
 
 ## Geometry and fluid accounting

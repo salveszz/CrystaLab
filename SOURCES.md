@@ -1,6 +1,6 @@
 # CrystaLab sources and data register
 
-Last audit: 2026-11-07. This file records the websites and numeric evidence used
+Last audit: 2026-11-08. This file records the websites and numeric evidence used
 or cited in the project. It separates imported values, method references,
 project choices and sources awaiting audit. A search result alone is not an
 experimental dataset. No imported record establishes calibrated optical quality.
@@ -25,6 +25,8 @@ corresponding JSON together when values, units or interpretations change.
 | NUM-LIMIT | [OpenFOAM limited normal-gradient correction](https://doc.openfoam.com/2312/tools/processing/numerics/schemes/sngrad/rtm/limited/) | Background considered for bounded corrections; indexed content only, direct access blocked. Not an assertion that our limiter is OpenFOAM's implementation. |
 | NUM-SOLVE | [SciPy sparse direct solve](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.spsolve.html), [CG](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.cg.html), [GMRES](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.gmres.html) | Sparse solver APIs; no experimental data. Record package versions with each study. |
 | NUM-VERIFY | [NASA verification assessment](https://www.grc.nasa.gov/www/wind/valid/tutorial/verassess.html) | Verification/convergence background cited in the diagnostic documentation. |
+| SOLUTE-SSP-1998 | [Gottlieb and Shu, primary paper](https://www.cfm.brown.edu/people/sg/SSP1.pdf) | Two-stage SSP RK2, equation 2.4/3.2; institutional PDF inspected 2026-11-08. No physical parameters imported. |
+| SOLUTE-FCT-2015 | [Chaplin and Colella, primary preprint](https://arxiv.org/html/1506.02999) | Section 4/4.1 correction budgets, equations 43-53; full text inspected 2026-11-08. Our lower-order, stagewise scheme is distinct. |
 | FLOW-2000 | [Natural/forced solutal convection above a growing crystal](https://www.sciencedirect.com/science/article/abs/pii/S0022024899007459) | KDP Navier-Stokes/Boussinesq background; indexed abstract inspected, full page blocked. No constants imported. |
 | FLOW-2001 | [Transient three-dimensional KDP flow study](https://www.sciencedirect.com/science/article/abs/pii/S0022024800008460) | 3D hydrodynamics background; indexed abstract only. No numerical dataset imported. |
 | FLOW-2005 | [Schlieren study of ramp rate and rotation](https://www.sciencedirect.com/science/article/abs/pii/S0022024804013612) | Candidate concentration-pattern validation; abstract inspected, observations not imported. |
@@ -298,6 +300,71 @@ Final measured source SHA256 values:
 - `src/simulation/crystal.py`: `7a58827d41d1d4c6c629294ec955f049a426c781f1c7f487dada797db387aba3`.
 - `scripts/check_flow.py`: `6ff1e9b5fd46f6c01d5c981391695d13fc0e0b91d706165ba35dd7fce2f4b68d`.
 - `scripts/describe_physical_setup.py`: `c0bd7e2e22b24ecbda70b0f9a1d5bb7a5ace0c6f74868ac12f4e40e02ff0dece`.
+
+## SOLUTE-SSP-1998
+
+[Gottlieb and Shu, Total Variation Diminishing Runge-Kutta Schemes (1998)](https://www.cfm.brown.edu/people/sg/SSP1.pdf),
+Mathematics of Computation 67, 73-85,
+[DOI](https://doi.org/10.1090/S0025-5718-98-00913-2).
+The institutional primary PDF was inspected on 2026-11-08: equation 2.4 on printed
+page 76 and equation 3.2 on page 78 supply the two-stage convex-combination time
+integrator. The scalar implementation combines two bounded Euler stages.
+Limiter/boundary behavior and first-order momentum coupling prevent a global
+second-order accuracy claim. No material coefficients come from this paper.
+
+## SOLUTE-FCT-2015
+
+[Chaplin and Colella, A Single Stage Flux-Corrected Transport Algorithm for
+High-Order Finite-Volume Methods (2015)](https://arxiv.org/html/1506.02999),
+arXiv:1506.02999. Primary full text inspected on 2026-11-08, especially section 4
+and 4.1, equations 43-53. This supplies the framework of a conservative low-order
+base plus paired, budget-limited flux corrections. Our donor/diffusion base,
+MC reconstruction, immediate-neighbor bounds and RK2 stagewise limiting are
+project choices; the cited paper instead develops higher-order fluxes, CTU,
+RK4 and smooth-extremum treatments that we do not claim to implement. No physical
+constants or experimental observations are imported.
+
+## DESIGN-SOLUTE-003
+
+`configs/solute_verification.json` declares fifteen fixed-grid numerical cases
+and their acceptance limits. Use the VTT-2006 reference D with frozen density
+and viscosity; concentration perturbations are mathematical verification fields,
+not evidence that these properties are constant over that composition range.
+Lengths, durations, velocity amplitudes, concentration waves/pulses, grids,
+timesteps and tolerances are project verification choices.
+
+Three-dimensional periodic wave and no-flux diffusion references use integrated
+cell means. Temporal diffusion uses a semidiscrete eigenmode to isolate time
+error. The periodic Gaussian pulse has Pe=17543.86 at 1 mm/s over 10 mm, and
+explicitly measures numerical broadening using the difference of numerical and
+exact center-weighted variances divided by twice elapsed time. This diagnostic
+is not a universal numerical diffusivity or a KDP boundary-layer resolution
+certificate. Fixed-cube forcing is manufactured, without calibrated pumps,
+surface uptake, heat, buoyancy, growth or quality observations.
+
+## SOLUTE-NUMERICAL-20261108
+
+The accepted study `results/solute_verification_final_5a015f5/` passes all fifteen
+cases and every original gate in DESIGN-SOLUTE-003. The retained
+`docs/SOLUTE_CHECKPOINT.json` includes the exact protocol/reference, environment,
+six source SHA256 values, complete per-case metrics, gates and the momentum
+recheck identity. Generated raw fields/figures and source archives remain local,
+ignored artifacts; their hashes were checked against the current sources and
+all arrays checked finite. All three exported figures were inspected.
+
+Finest relative fluctuation RMS errors are 1.59195% (periodic 3D wave), 0.05437%
+(Neumann 3D diffusion), 0.88601% (pulse), and 0.00006836% (semidiscrete temporal
+reference). Pulse excess-diffusivity diagnostics across nx=64/128/256 are
+1.860245e-9 / 6.982865e-11 / 6.491146e-12 m2/s, or 3.26359 / 0.12251 / 0.01139
+times physical D. Maximum relative solute-mass drift is 6.66134e-16; all measured
+concentration-bound violations and coupled uniform-concentration errors are zero.
+These are numerical results for the stated fields, not new physical constants.
+
+The eleven-case momentum rerun `results/flow_verification_solute_5a015f5/` also
+passes, with source identity checked. The full suite passes 138 tests. Fixed
+uniform geometry and constant properties remain explicit; focused/sloped momentum
+geometry, growing-interface coupling, kinetic calibration and experimental
+validation are still pending.
 
 ## Updating this register
 
