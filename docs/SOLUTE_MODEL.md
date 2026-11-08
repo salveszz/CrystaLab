@@ -7,11 +7,15 @@ SI grid of `simulation.flow`. It solves the passive, constant-property equation
 run. Verification fields with other concentrations test the numerical PDE; they
 do not validate using that property point over a composition range.
 
-This component uses uniform, fixed geometry and the flow solver's fixed,
+This component uses uniform or rectilinear fixed geometry and the flow solver's fixed,
 grid-aligned solid. There is no heat, buoyancy, surface uptake, dissolution or
 growing-crystal integration. The existing illustrative `Simulation` retains its
 own concentration basis and displacement model. Its empirical mixing and
 agitation multipliers do not enter this resolved-flow component.
+
+For actual unequal-cell capacities, areas, diffusion distances and reconstruction
+offsets, see [RECTILINEAR_FLOW.md](RECTILINEAR_FLOW.md). `flow.cell_volumes`
+supplies per-cell capacities; `flow.cell_volume` is only their minimum.
 
 ## Conservative and bounded update
 
@@ -99,7 +103,8 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python scripts/check_solute.p
 
 The output directory must be fresh. Before measurement the runner records the
 protocol, reference inputs, Git commit, package versions, thread settings and
-SHA256 hashes, and archives the six measured Python source files. Source changes
+SHA256 hashes, and archives the measured Python source files, including the shared
+mesh implementation. Source changes
 during the study invalidate the result. Outputs include initial/final scalar
 fields, native velocity/pressure, fluid masks, domain dimensions, exact reference
 fields where available, reports and three figures. Generated artifacts remain
@@ -130,9 +135,9 @@ finest-level error tolerances, plus a pulse excess-diffusivity bound relative to
 physical D. Tests retain failed gates and reject overwriting existing studies.
 Numerical tolerances are working verification choices, not experimental errors.
 
-The accepted source-matched study is
+The original uniform-grid source-matched study is
 `results/solute_verification_final_5a015f5/`. All fifteen cases pass the original
-protocol; all six sources match their saved hashes and archived copies. All
+protocol; its six historical sources are preserved with hashes and archived copies. All
 raw fields are finite, and the three exported figures were visually inspected.
 Maximum relative mass drift is 6.661e-16, concentration bound violations are zero,
 and resolved uniform-solute error is exactly zero in this study.
@@ -157,8 +162,9 @@ atomic rollback, strong-forcing subcycling and sharp-front concentration bounds.
 
 ## Next integration
 
-Extend momentum consistently to focused/nonuniform cells and oblique cut faces,
-verify their pressure/viscous/advective operators, then couple interfacial uptake
+Focused/nonuniform momentum and scalar operators now have separate references
+and a tracked summary in `RECTILINEAR_CHECKPOINT.json`. Next implement oblique
+momentum cut faces and verify their pressure/viscous/advective operators, then couple interfacial uptake
 and moving geometry. That work needs an explicit solution/solid-density and
 partial-volume closure before claiming physical rising-level conservation.
 Thermal properties, density derivatives, kinetics and independent quality data

@@ -11,7 +11,8 @@ already validate that definition and calculate concentration/transport scales.
 The descriptor does not run a flow or growth prediction; `check_flow.py` exercises
 the new fixed-domain Navier-Stokes component described in `FLOW_MODEL.md`.
 `check_solute.py` verifies passive scalar transport and fixed-domain flow coupling
-as described in `SOLUTE_MODEL.md`.
+as described in `SOLUTE_MODEL.md`. `check_rectilinear_flow.py` verifies actual
+unequal-cell metrics and focused flow/solute coupling; see `RECTILINEAR_FLOW.md`.
 The existing `Simulation`
 and `configs/default.json` / `focused.json` remain the explicitly illustrative
 numerical benchmark; none of their coefficients has been silently reinterpreted.
@@ -125,9 +126,9 @@ resolution than velocity alone. The code reports diffusion time as L2/D.
    sensitivity, including unequal cells. Audit geometric tolerances and time
    control in physical scales before connecting the current geometry engine.
 
-   The uniform-grid fixed-box component now passes rest/channel, viscous-decay
-   and nonlinear 3D ABC references; details are in `FLOW_MODEL.md`. Unequal-cell
-   momentum and general cut faces remain follow-up work.
+   The fixed-box component now passes rest/channel, viscous-decay and nonlinear
+   3D ABC references. Unequal/focused momentum and passive solute have independent
+   verification in `RECTILINEAR_FLOW.md`. General oblique cut faces remain pending.
 3. Advect solute conservatively with the same volume fluxes; check constant-field
    preservation, positivity and total solute mass. Add the heat equation only
    with sourced thermal properties and actual thermal boundary conditions.
@@ -153,7 +154,7 @@ resolution than velocity alone. The code reports diffusion time as L2/D.
    Profile cost before synthetic batches. Geometry/transport fidelity does not
    supply optical quality labels; the quality target needs independent data.
 
-The physical definition, conversions, initial uniform-grid momentum component and
+The physical definition, conversions, uniform/rectilinear momentum component and
 conservative passive solute coupling are implemented. Arbitrary momentum cut
 cells, thermal transport/buoyancy, growing-interface integration, kinetic
 calibration and quality validation remain subsequent work, with

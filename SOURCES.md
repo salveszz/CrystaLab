@@ -27,6 +27,7 @@ corresponding JSON together when values, units or interpretations change.
 | NUM-VERIFY | [NASA verification assessment](https://www.grc.nasa.gov/www/wind/valid/tutorial/verassess.html) | Verification/convergence background cited in the diagnostic documentation. |
 | SOLUTE-SSP-1998 | [Gottlieb and Shu, primary paper](https://www.cfm.brown.edu/people/sg/SSP1.pdf) | Two-stage SSP RK2, equation 2.4/3.2; institutional PDF inspected 2026-11-08. No physical parameters imported. |
 | SOLUTE-FCT-2015 | [Chaplin and Colella, primary preprint](https://arxiv.org/html/1506.02999) | Section 4/4.1 correction budgets, equations 43-53; full text inspected 2026-11-08. Our lower-order, stagewise scheme is distinct. |
+| FLOW-NONUNIFORM-2002 | [Ham, Lien and Strong, primary publisher record](https://doi.org/10.1006/jcph.2002.7006) | Staggered-grid nonuniform conservation background; indexed primary abstract inspected 2026-11-08, full publisher access blocked. No material constants or numerical results imported. |
 | FLOW-2000 | [Natural/forced solutal convection above a growing crystal](https://www.sciencedirect.com/science/article/abs/pii/S0022024899007459) | KDP Navier-Stokes/Boussinesq background; indexed abstract inspected, full page blocked. No constants imported. |
 | FLOW-2001 | [Transient three-dimensional KDP flow study](https://www.sciencedirect.com/science/article/abs/pii/S0022024800008460) | 3D hydrodynamics background; indexed abstract only. No numerical dataset imported. |
 | FLOW-2005 | [Schlieren study of ramp rate and rotation](https://www.sciencedirect.com/science/article/abs/pii/S0022024804013612) | Candidate concentration-pattern validation; abstract inspected, observations not imported. |
@@ -365,6 +366,67 @@ passes, with source identity checked. The full suite passes 138 tests. Fixed
 uniform geometry and constant properties remain explicit; focused/sloped momentum
 geometry, growing-interface coupling, kinetic calibration and experimental
 validation are still pending.
+
+## FLOW-NONUNIFORM-2002
+
+[Ham, Lien and Strong, A Fully Conservative Second-Order Finite Difference Scheme
+for Incompressible Flow on Nonuniform Grids (2002)](https://doi.org/10.1006/jcph.2002.7006),
+Journal of Computational Physics 177, 117-133. Primary publisher metadata/abstract
+was inspected through the index on 2026-11-08; direct full text was blocked.
+It motivates keeping nonuniform staggered operators mutually consistent. Our
+actual primal/dual finite-volume measures, symmetric stiffness and bounded
+upwind flux implementation are project derivations checked independently. We
+do not reproduce or claim its nondissipative second-order method. No physical
+constants, experimental observations or reported numerical results are imported.
+
+## DESIGN-FLOW-RECT-004
+
+`configs/rectilinear_verification.json` declares twenty unequal/focused-grid
+numerical cases. Smooth stretching is
+`edge/L = s + amplitude*sin(2*pi*s)/(2*pi)`, with fixed x/y/z amplitudes
+0.4 / -0.25 / 0.3. Focused nonlinear flow uses the existing 3.6 mm central-band
+generator, now shared by the SI flow and illustrative growth tank. The aligned
+fixed cube has four cells across its 1 mm width and coarser far-field cells.
+These are design/verification choices, not an experimental KDP apparatus.
+
+Channel/decay and nonlinear ABC fields use the existing analytical references;
+3D scalar wave/diffusion references integrate actual cell means. Error norms,
+pressure gauges, energy and solute mass use physical volumes. Density, viscosity
+and solute diffusivity retain VTT-2006 provenance and the same property limitations.
+No thermal, buoyancy, interfacial growth or quality mechanism is added.
+
+The first study `results/rectilinear_verification_first_8011b79/` failed the
+diffusion gate: relative fluctuation RMS 0.156298% at 16 cells per axis exceeds
+0.15%. Its other gates passed. Its protocol, sources and failed result are
+retained. The next protocol increases diffusion levels from 6/10/16 to 8/12/20,
+retaining the same fields, properties, duration and 0.15% threshold. Resolution
+is increased; the acceptance tolerance is not relaxed.
+
+## FLOW-RECT-NUMERICAL-20261108
+
+`results/rectilinear_verification_final_v2_8011b79/` passes all twenty cases of
+DESIGN-FLOW-RECT-004 at the original acceptance thresholds. The diffusion grid
+increase is described above; the failed first study remains retained. A later
+plot-only fix replaces crowded logarithmic tick labels with declared grid/time
+levels; numerical results are unchanged in the final source-matched rerun.
+
+Finest volume-weighted relative RMS errors: channel 0.04044%, viscous time decay
+0.15730%, stretched ABC velocity/pressure 0.32612%/1.12922%, focused ABC
+velocity/pressure 0.81133%/2.47371%, 3D scalar wave 2.20441%, Neumann diffusion
+0.10067%. All refinement gates pass. Maximum normalized divergence is 5.155e-16;
+blocked-face velocity, measured solute-mass drift, scalar-bound violations and
+coupled uniform-concentration errors are zero in this study.
+
+`docs/RECTILINEAR_CHECKPOINT.json` preserves protocol/reference inputs, environment,
+nine source hashes, measured metrics, failure history and regression identities.
+Source archives match their hashes/current measured sources, raw fields are
+finite and mesh volumes match their edge products. The final figures were
+inspected. Separate current-source regressions in
+`results/flow_rectilinear_regression_8011b79/` (eleven cases) and
+`results/solute_rectilinear_regression_8011b79/` (fifteen cases) pass. The full suite
+passes 151 tests. This establishes the fixed rectilinear/aligned-solid numerical
+milestone; oblique momentum boundaries, growing-interface integration, physical
+calibration and AI growth-control readiness remain pending.
 
 ## Updating this register
 

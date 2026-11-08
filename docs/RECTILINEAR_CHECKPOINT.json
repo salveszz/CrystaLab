@@ -1,0 +1,727 @@
+{
+  "record_kind": "numerical_verification_summary_not_experimental_validation",
+  "date": "2026-11-08",
+  "review_status": "local_uncommitted_no_push_authorized",
+  "study_directory": "results/rectilinear_verification_final_v2_8011b79",
+  "raw_artifacts_tracked": false,
+  "manifest": {
+    "protocol": {
+      "source_id": "DESIGN-FLOW-RECT-004",
+      "fluid_reference": "physical_reference.json",
+      "stretch_amplitudes_xyz": [
+        0.4,
+        -0.25,
+        0.3
+      ],
+      "channel": {
+        "lengths_m": [
+          0.01,
+          0.01,
+          0.008
+        ],
+        "horizontal_counts": [
+          4,
+          4
+        ],
+        "vertical_counts": [
+          8,
+          16,
+          32
+        ],
+        "target_steady_max_speed_m_per_s": 0.001,
+        "duration_s": 400.0,
+        "max_dt_s": 1.0,
+        "finest_relative_rms_tolerance": 0.002
+      },
+      "decay": {
+        "lengths_m": [
+          0.01,
+          0.01,
+          0.008
+        ],
+        "counts_xyz": [
+          4,
+          4,
+          48
+        ],
+        "initial_speed_m_per_s": 0.001,
+        "duration_s": 10.0,
+        "timesteps_s": [
+          0.5,
+          0.25,
+          0.125
+        ],
+        "finest_relative_rms_tolerance": 0.003
+      },
+      "abc": {
+        "length_m": 0.01,
+        "counts": [
+          8,
+          12,
+          20
+        ],
+        "coefficient_speed_m_per_s": 0.0001,
+        "duration_s": 0.5,
+        "max_dt_s": 0.005,
+        "finest_relative_velocity_tolerance": 0.02,
+        "finest_relative_pressure_tolerance": 0.1
+      },
+      "focused_abc_solute": {
+        "length_m": 0.01,
+        "counts": [
+          12,
+          18,
+          24
+        ],
+        "focus_width_m": 0.0036,
+        "coefficient_speed_m_per_s": 0.0001,
+        "concentration_kg_per_m3": 270.0,
+        "duration_s": 0.5,
+        "max_dt_s": 0.005,
+        "finest_relative_velocity_tolerance": 0.05,
+        "finest_relative_pressure_tolerance": 0.15
+      },
+      "wave": {
+        "lengths_m": [
+          0.01,
+          0.012,
+          0.008
+        ],
+        "counts": [
+          8,
+          12,
+          20
+        ],
+        "velocity_m_per_s": [
+          0.0003,
+          -0.0002,
+          0.0001
+        ],
+        "mean_kg_per_m3": 270.0,
+        "amplitude_kg_per_m3": 20.0,
+        "duration_s": 4.0,
+        "max_substep_s": 0.05,
+        "finest_relative_rms_tolerance": 0.05
+      },
+      "diffusion": {
+        "lengths_m": [
+          0.01,
+          0.012,
+          0.008
+        ],
+        "counts": [
+          8,
+          12,
+          20
+        ],
+        "mean_kg_per_m3": 270.0,
+        "amplitude_kg_per_m3": 20.0,
+        "duration_s": 1000.0,
+        "finest_relative_rms_tolerance": 0.0015
+      },
+      "obstacle": {
+        "counts_xyz": [
+          20,
+          20,
+          16
+        ],
+        "cells_across_solid": 4,
+        "duration_s": 2.0,
+        "max_dt_s": 0.05,
+        "vortical_acceleration_scale_m_per_s2": 0.0001,
+        "relative_concentration_amplitude": 0.02
+      },
+      "max_relative_mass_drift": 1e-12,
+      "max_uniform_error_kg_per_m3": 1e-10,
+      "max_concentration_bound_violation_kg_per_m3": 1e-10,
+      "max_scaled_divergence": 1e-09,
+      "max_blocked_face_speed_m_per_s": 1e-14,
+      "limits": "Fixed rectilinear/focused cells, constant properties and aligned solid only. Independent channel/ABC/wave/diffusion references verify numerical behavior. No oblique momentum cut cells, moving interface, buoyancy, calibrated KDP kinetics or experimental growth/quality validation."
+    },
+    "reference": {
+      "schema_version": 1,
+      "unit_system": "SI",
+      "case_id": "kdp_water_30C_stationary_rest_reference",
+      "mode": "stationary_isothermal_rest",
+      "purpose": "Inputs for fixed-crystal flow verification; not a reproduction of a published tank or a calibrated growth experiment.",
+      "temperature_K": 303.15,
+      "molality_mol_per_kg_water": 2.2,
+      "fluid": {
+        "temperature_K": 303.15,
+        "molality_mol_per_kg_water": 2.2,
+        "density_kg_per_m3": 1170.0,
+        "dynamic_viscosity_Pa_s": 0.0015,
+        "solute_diffusivity_m2_per_s": 5.7e-10,
+        "source_id": "VTT-2006"
+      },
+      "property_limits": "Single binary KDP-water CFD reference point at 30 C; reported density/viscosity were calculated and diffusivity estimated. No numerical uncertainties supplied. Do not extrapolate to another temperature/composition or treat these as independently measured constants.",
+      "domain": {
+        "size_m": [
+          0.01,
+          0.01,
+          0.01
+        ],
+        "liquid_height_m": 0.008,
+        "source_id": "DESIGN-REST-001"
+      },
+      "crystal": {
+        "shape": "box",
+        "size_m": [
+          0.001,
+          0.001,
+          0.001
+        ],
+        "center_m": [
+          0.005,
+          0.005,
+          0.004
+        ],
+        "source_id": "DESIGN-REST-001",
+        "purpose": "Fixed verification obstacle, not a crystallographic KDP habit. Growth and dissolution disabled."
+      },
+      "boundaries": {
+        "walls": "stationary_no_slip",
+        "crystal": "stationary_no_slip_no_solute_flux",
+        "free_surface": "flat_impermeable_zero_tangential_stress",
+        "pressure": "dynamic_pressure_fluid_mean_zero",
+        "temperature": "uniform_isothermal",
+        "solute": "closed_no_flux",
+        "inlets_outlets": "none"
+      },
+      "actuation": {
+        "rotation_rad_per_s": 0.0,
+        "circulation_m3_per_s": 0.0
+      },
+      "gravity_m_per_s2": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "duration_s": 120.0,
+      "design_source_id": "DESIGN-REST-001",
+      "additional_data_needed": {
+        "nonisothermal_flow": [
+          "solution heat capacity and thermal conductivity versus temperature/composition",
+          "thermal expansion and temperature boundary histories"
+        ],
+        "solutal_buoyancy": [
+          "density derivative with an explicit concentration basis and validity range"
+        ],
+        "growing_crystal": [
+          "solid density and lattice metric",
+          "facet-specific kinetics",
+          "solution-density/partial-volume closure and interface mass balances"
+        ],
+        "actuated_experiment": [
+          "actual tank/seed geometry",
+          "rotation axis and speed/ramp history",
+          "pump inlet/outlet geometry and flow rates"
+        ],
+        "quality": [
+          "independent measured inclusion, transmission or usable-crystal target"
+        ]
+      }
+    },
+    "sources": {
+      "src/simulation/flow.py": "8d496d8a07baecc7a2fd5e484560363e3788f2f0c966b28b2e4a07cfe91a7c0e",
+      "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+      "src/simulation/solute.py": "6a43739f5dfabe5109ddbb701fb353e0b33eb1c5367c1ba44a5872f587dfe12c",
+      "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+      "src/simulation/crystal.py": "7a58827d41d1d4c6c629294ec955f049a426c781f1c7f487dada797db387aba3",
+      "scripts/check_flow.py": "1862fa33b1f22877481255daa30940abc74fad1f9deb7c0cca2ea42a85158243",
+      "scripts/check_solute.py": "a13d07d50000f44ba3de3efbb36a9bd367454a6a380aa547296808743678ff63",
+      "scripts/check_rectilinear_flow.py": "8a974604a3ddb38cf38622ff607282ba67b7fb8ed46996654f1e7e8f67a35a70",
+      "scripts/describe_physical_setup.py": "c0bd7e2e22b24ecbda70b0f9a1d5bb7a5ace0c6f74868ac12f4e40e02ff0dece"
+    },
+    "git_commit": "8011b790f4469b78ac0cbdf9ef509d425050329d",
+    "environment": {
+      "python": "3.14.8",
+      "numpy": "2.5.0",
+      "scipy": "1.18.0",
+      "threads": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1"
+      }
+    },
+    "method": "Rectilinear MAC; actual primal/dual volumes and face areas; compatible pressure projection; symmetric viscous stiffness; conservative limited momentum and scalar face transfers."
+  },
+  "results": [
+    {
+      "case": "channel_8",
+      "time_s": 400.0,
+      "max_speed_m_per_s": 0.0009999999958533934,
+      "max_divergence_per_s": 2.0727766547010293e-16,
+      "scaled_divergence": 3.8623710506836995e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 2.521684326702572e-10,
+      "mean_dynamic_pressure_Pa": 7.174648137343063e-36,
+      "relative_rms_error": 0.006422173895270013,
+      "nz": 8,
+      "acceleration_m_per_s2": 4.0064102564102564e-05,
+      "n": 8,
+      "runtime_s": 0.8631093800067902,
+      "constraints_pass": true
+    },
+    {
+      "case": "channel_16",
+      "time_s": 400.0,
+      "max_speed_m_per_s": 0.0009999999960625247,
+      "max_divergence_per_s": 1.178209664239347e-16,
+      "scaled_divergence": 2.19545260099357e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 2.502387369421191e-10,
+      "mean_dynamic_pressure_Pa": -2.5111268480700717e-35,
+      "relative_rms_error": 0.0016153162874315925,
+      "nz": 16,
+      "acceleration_m_per_s2": 4.0064102564102564e-05,
+      "n": 16,
+      "runtime_s": 1.501122501998907,
+      "constraints_pass": true
+    },
+    {
+      "case": "channel_32",
+      "time_s": 400.0,
+      "max_speed_m_per_s": 0.0009999999961134095,
+      "max_divergence_per_s": 1.3303944008175172e-16,
+      "scaled_divergence": 2.4790306310712164e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 2.497594776709626e-10,
+      "mean_dynamic_pressure_Pa": 3.7666902721051083e-35,
+      "relative_rms_error": 0.0004044467006300613,
+      "nz": 32,
+      "acceleration_m_per_s2": 4.0064102564102564e-05,
+      "n": 32,
+      "runtime_s": 2.802604665994295,
+      "constraints_pass": true
+    },
+    {
+      "case": "decay_0.5",
+      "time_s": 10.0,
+      "max_speed_m_per_s": 0.0006136356344436044,
+      "max_divergence_per_s": 8.761774651449107e-17,
+      "scaled_divergence": 2.6606208518650915e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 8.813716573142188e-11,
+      "mean_dynamic_pressure_Pa": 4.4841550858394136e-35,
+      "relative_rms_error": 0.006076389475397857,
+      "dt_s": 0.5,
+      "runtime_s": 0.05843949799600523,
+      "constraints_pass": true
+    },
+    {
+      "case": "decay_0.25",
+      "time_s": 10.0,
+      "max_speed_m_per_s": 0.0006118103152695616,
+      "max_divergence_per_s": 9.762027018847254e-17,
+      "scaled_divergence": 2.9732038958053204e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 8.761354788423366e-11,
+      "mean_dynamic_pressure_Pa": -2.4214437463532834e-35,
+      "relative_rms_error": 0.0030837678353165974,
+      "dt_s": 0.25,
+      "runtime_s": 0.08088364699506201,
+      "constraints_pass": true
+    },
+    {
+      "case": "decay_0.125",
+      "time_s": 10.0,
+      "max_speed_m_per_s": 0.0006108885296495434,
+      "max_divergence_per_s": 7.418248379761492e-17,
+      "scaled_divergence": 2.262772450882949e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 8.734971574497377e-11,
+      "mean_dynamic_pressure_Pa": 1.4349296274686124e-35,
+      "relative_rms_error": 0.0015730118215871857,
+      "dt_s": 0.125,
+      "runtime_s": 0.15118950299802236,
+      "constraints_pass": true
+    },
+    {
+      "case": "abc_8",
+      "time_s": 0.5,
+      "max_speed_m_per_s": 0.00019188216091710092,
+      "max_divergence_per_s": 6.250187712312439e-17,
+      "scaled_divergence": 3.2746900149307615e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 1.0849553597915294e-11,
+      "mean_dynamic_pressure_Pa": 5.048709793414475e-23,
+      "n": 8,
+      "relative_velocity_error": 0.017098947025806787,
+      "relative_pressure_error": 0.09476468910961992,
+      "runtime_s": 0.23713395699451212,
+      "constraints_pass": true
+    },
+    {
+      "case": "abc_12",
+      "time_s": 0.5,
+      "max_speed_m_per_s": 0.00019043799818115932,
+      "max_divergence_per_s": 1.0240778846731478e-16,
+      "scaled_divergence": 3.416323923885065e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 1.0711559068745478e-11,
+      "mean_dynamic_pressure_Pa": 6.271444196507043e-23,
+      "n": 12,
+      "relative_velocity_error": 0.008186046920073726,
+      "relative_pressure_error": 0.031579041430908,
+      "runtime_s": 0.8893964529997902,
+      "constraints_pass": true
+    },
+    {
+      "case": "abc_20",
+      "time_s": 0.5,
+      "max_speed_m_per_s": 0.0001904536860737465,
+      "max_divergence_per_s": 1.748167839379365e-16,
+      "scaled_divergence": 3.4371976128318584e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 1.0633689664135058e-11,
+      "mean_dynamic_pressure_Pa": 1.2621774483536187e-23,
+      "n": 20,
+      "relative_velocity_error": 0.0032612022471939276,
+      "relative_pressure_error": 0.011292177093391599,
+      "runtime_s": 2.518769476999296,
+      "constraints_pass": true
+    },
+    {
+      "case": "focused_abc_solute_12",
+      "time_s": 0.5,
+      "max_speed_m_per_s": 0.00019285295576626705,
+      "max_divergence_per_s": 1.0095688204869621e-16,
+      "scaled_divergence": 3.376719872670704e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 1.0807010483740123e-11,
+      "mean_dynamic_pressure_Pa": -6.3108872417680944e-24,
+      "solute_mass_kg": 0.00027000000000000006,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 270.0,
+      "max_concentration_kg_per_m3": 270.0,
+      "solute_substeps": 100,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "n": 12,
+      "relative_velocity_error": 0.031101863683689734,
+      "relative_pressure_error": 0.15286329066039947,
+      "uniform_error_kg_per_m3": 0.0,
+      "runtime_s": 0.9514319800073281,
+      "constraints_pass": true
+    },
+    {
+      "case": "focused_abc_solute_18",
+      "time_s": 0.5,
+      "max_speed_m_per_s": 0.00019187789268621037,
+      "max_divergence_per_s": 2.4196928572655667e-16,
+      "scaled_divergence": 5.15514621560533e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 1.0714389225439287e-11,
+      "mean_dynamic_pressure_Pa": 7.099748146989105e-23,
+      "solute_mass_kg": 0.00027000000000000006,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 270.0,
+      "max_concentration_kg_per_m3": 270.0,
+      "solute_substeps": 100,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "n": 18,
+      "relative_velocity_error": 0.019680828302426186,
+      "relative_pressure_error": 0.07717026722277087,
+      "uniform_error_kg_per_m3": 0.0,
+      "runtime_s": 2.25688564000302,
+      "constraints_pass": true
+    },
+    {
+      "case": "focused_abc_solute_24",
+      "time_s": 0.5,
+      "max_speed_m_per_s": 0.00019028876919232395,
+      "max_divergence_per_s": 2.585764987477705e-16,
+      "scaled_divergence": 4.2991556411476864e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 1.0649787352635839e-11,
+      "mean_dynamic_pressure_Pa": 4.378178023976615e-23,
+      "solute_mass_kg": 0.00027,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 270.0,
+      "max_concentration_kg_per_m3": 270.0,
+      "solute_substeps": 100,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "n": 24,
+      "relative_velocity_error": 0.008113267606827271,
+      "relative_pressure_error": 0.024737129259840614,
+      "uniform_error_kg_per_m3": 0.0,
+      "runtime_s": 4.2771930290036835,
+      "constraints_pass": true
+    },
+    {
+      "case": "wave_8",
+      "time_s": 4.0,
+      "max_speed_m_per_s": 0.00037416573867739413,
+      "max_divergence_per_s": 0.0,
+      "scaled_divergence": 0.0,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 7.862399999999999e-11,
+      "mean_dynamic_pressure_Pa": 0.0,
+      "solute_mass_kg": 0.0002592,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 253.17659653892508,
+      "max_concentration_kg_per_m3": 287.1218398514973,
+      "solute_substeps": 80,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "n": 8,
+      "relative_rms_error": 0.1410983913487376,
+      "concentration_bound_violation_kg_per_m3": 0,
+      "runtime_s": 0.03297392099921126,
+      "constraints_pass": true
+    },
+    {
+      "case": "wave_12",
+      "time_s": 4.0,
+      "max_speed_m_per_s": 0.00037416573867739413,
+      "max_divergence_per_s": 0.0,
+      "scaled_divergence": 0.0,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 7.862399999999999e-11,
+      "mean_dynamic_pressure_Pa": 0.0,
+      "solute_mass_kg": 0.0002592,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 251.44141531270003,
+      "max_concentration_kg_per_m3": 288.96523986511124,
+      "solute_substeps": 80,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "n": 12,
+      "relative_rms_error": 0.059662660073615426,
+      "concentration_bound_violation_kg_per_m3": 0,
+      "runtime_s": 0.08801065299485344,
+      "constraints_pass": true
+    },
+    {
+      "case": "wave_20",
+      "time_s": 4.0,
+      "max_speed_m_per_s": 0.00037416573867739413,
+      "max_divergence_per_s": 0.0,
+      "scaled_divergence": 0.0,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 7.862399999999999e-11,
+      "mean_dynamic_pressure_Pa": 0.0,
+      "solute_mass_kg": 0.0002592,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 250.60415778344876,
+      "max_concentration_kg_per_m3": 289.5609521314053,
+      "solute_substeps": 80,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "n": 20,
+      "relative_rms_error": 0.022044118513067985,
+      "concentration_bound_violation_kg_per_m3": 0,
+      "runtime_s": 0.2460549310053466,
+      "constraints_pass": true
+    },
+    {
+      "case": "diffusion_8",
+      "time_s": 1000.0,
+      "max_speed_m_per_s": 0.0,
+      "max_divergence_per_s": 0.0,
+      "scaled_divergence": 0.0,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 0.0,
+      "mean_dynamic_pressure_Pa": 0.0,
+      "solute_mass_kg": 0.0002592,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 254.91847824205178,
+      "max_concentration_kg_per_m3": 285.0815217579483,
+      "solute_substeps": 10,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "n": 8,
+      "relative_rms_error": 0.0059273005049163266,
+      "concentration_bound_violation_kg_per_m3": 0,
+      "runtime_s": 0.009477321000304073,
+      "constraints_pass": true
+    },
+    {
+      "case": "diffusion_12",
+      "time_s": 1000.0,
+      "max_speed_m_per_s": 0.0,
+      "max_divergence_per_s": 0.0,
+      "scaled_divergence": 0.0,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 0.0,
+      "mean_dynamic_pressure_Pa": 0.0,
+      "solute_mass_kg": 0.0002592,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 254.07201868142891,
+      "max_concentration_kg_per_m3": 285.9279813185711,
+      "solute_substeps": 24,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "n": 12,
+      "relative_rms_error": 0.0027404905839766907,
+      "concentration_bound_violation_kg_per_m3": 0,
+      "runtime_s": 0.033844640012830496,
+      "constraints_pass": true
+    },
+    {
+      "case": "diffusion_20",
+      "time_s": 1000.0,
+      "max_speed_m_per_s": 0.0,
+      "max_divergence_per_s": 0.0,
+      "scaled_divergence": 0.0,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 0.0,
+      "mean_dynamic_pressure_Pa": 0.0,
+      "solute_mass_kg": 0.0002592,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 253.6138028290656,
+      "max_concentration_kg_per_m3": 286.38619717093434,
+      "solute_substeps": 71,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "n": 20,
+      "relative_rms_error": 0.0010067381201461377,
+      "concentration_bound_violation_kg_per_m3": 0,
+      "runtime_s": 0.20226382699911483,
+      "constraints_pass": true
+    },
+    {
+      "case": "aligned_cube_uniform",
+      "time_s": 2.0,
+      "max_speed_m_per_s": 3.8698132215232165e-05,
+      "max_divergence_per_s": 5.286560121459769e-17,
+      "scaled_divergence": 3.41031247690233e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 1.7668363093340148e-13,
+      "mean_dynamic_pressure_Pa": -1.1847723232355624e-23,
+      "solute_mass_kg": 0.0002153913657690109,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 269.5761774330549,
+      "max_concentration_kg_per_m3": 269.5761774330549,
+      "solute_substeps": 40,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "velocity_mode": "resolved_manufactured_acceleration",
+      "uniform_max_error_kg_per_m3": 0.0,
+      "concentration_bound_violation_kg_per_m3": 0.0,
+      "uniform_error_kg_per_m3": 0.0,
+      "runtime_s": 0.8714948449924123,
+      "constraints_pass": true
+    },
+    {
+      "case": "aligned_cube_nonuniform",
+      "time_s": 2.0,
+      "max_speed_m_per_s": 3.8698132215232165e-05,
+      "max_divergence_per_s": 5.286560121459769e-17,
+      "scaled_divergence": 3.41031247690233e-16,
+      "blocked_face_speed_m_per_s": 0.0,
+      "kinetic_energy_J": 1.7668363093340148e-13,
+      "mean_dynamic_pressure_Pa": -1.1847723232355624e-23,
+      "solute_mass_kg": 0.0002153913657690109,
+      "solute_mass_drift_kg": 0.0,
+      "min_concentration_kg_per_m3": 264.2638176371403,
+      "max_concentration_kg_per_m3": 274.88853722896954,
+      "solute_substeps": 40,
+      "limited_face_stages": 0,
+      "relative_mass_drift": 0.0,
+      "velocity_mode": "resolved_manufactured_acceleration",
+      "uniform_max_error_kg_per_m3": null,
+      "concentration_bound_violation_kg_per_m3": 0,
+      "runtime_s": 0.8310242419975111,
+      "constraints_pass": true
+    }
+  ],
+  "gates": {
+    "invariants": true,
+    "channel_relative_rms_error": true,
+    "decay_relative_rms_error": true,
+    "abc_relative_velocity_error": true,
+    "abc_relative_pressure_error": true,
+    "focused_abc_solute_relative_velocity_error": true,
+    "focused_abc_solute_relative_pressure_error": true,
+    "wave_relative_rms_error": true,
+    "diffusion_relative_rms_error": true,
+    "nonzero_aligned_cube": true
+  },
+  "overall_pass": true,
+  "limits": "Fixed rectilinear/focused cells, constant properties and aligned solid only. Independent channel/ABC/wave/diffusion references verify numerical behavior. No oblique momentum cut cells, moving interface, buoyancy, calibrated KDP kinetics or experimental growth/quality validation.",
+  "figures_visually_inspected": true,
+  "regressions": {
+    "uniform_momentum": {
+      "study_directory": "results/flow_rectilinear_regression_8011b79",
+      "sources": {
+        "src/simulation/flow.py": "8d496d8a07baecc7a2fd5e484560363e3788f2f0c966b28b2e4a07cfe91a7c0e",
+        "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+        "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+        "src/simulation/crystal.py": "7a58827d41d1d4c6c629294ec955f049a426c781f1c7f487dada797db387aba3",
+        "scripts/check_flow.py": "1862fa33b1f22877481255daa30940abc74fad1f9deb7c0cca2ea42a85158243",
+        "scripts/describe_physical_setup.py": "c0bd7e2e22b24ecbda70b0f9a1d5bb7a5ace0c6f74868ac12f4e40e02ff0dece"
+      },
+      "case_count": 11,
+      "gates": {
+        "rest": true,
+        "incompressibility_and_walls": true,
+        "nonzero_obstacle": true,
+        "channel": true,
+        "decay": true,
+        "abc": true,
+        "abc_pressure": true
+      },
+      "overall_pass": true
+    },
+    "uniform_solute": {
+      "study_directory": "results/solute_rectilinear_regression_8011b79",
+      "sources": {
+        "src/simulation/flow.py": "8d496d8a07baecc7a2fd5e484560363e3788f2f0c966b28b2e4a07cfe91a7c0e",
+        "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+        "src/simulation/solute.py": "6a43739f5dfabe5109ddbb701fb353e0b33eb1c5367c1ba44a5872f587dfe12c",
+        "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+        "src/simulation/crystal.py": "7a58827d41d1d4c6c629294ec955f049a426c781f1c7f487dada797db387aba3",
+        "scripts/check_solute.py": "a13d07d50000f44ba3de3efbb36a9bd367454a6a380aa547296808743678ff63",
+        "scripts/describe_physical_setup.py": "c0bd7e2e22b24ecbda70b0f9a1d5bb7a5ace0c6f74868ac12f4e40e02ff0dece"
+      },
+      "case_count": 15,
+      "gates": {
+        "conservation_bounds_and_flow": true,
+        "periodic_3d": true,
+        "diffusion_3d": true,
+        "pulse": true,
+        "temporal_diffusion": true,
+        "pulse_numerical_diffusion": true,
+        "rest": true,
+        "coupled_uniform": true,
+        "nonzero_coupled_flow": true
+      },
+      "overall_pass": true
+    }
+  },
+  "failed_first_study": {
+    "study_directory": "results/rectilinear_verification_first_8011b79",
+    "overall_pass": false,
+    "gates": {
+      "invariants": true,
+      "channel_relative_rms_error": true,
+      "decay_relative_rms_error": true,
+      "abc_relative_velocity_error": true,
+      "abc_relative_pressure_error": true,
+      "focused_abc_solute_relative_velocity_error": true,
+      "focused_abc_solute_relative_pressure_error": true,
+      "wave_relative_rms_error": true,
+      "diffusion_relative_rms_error": false,
+      "nonzero_aligned_cube": true
+    },
+    "diffusion_counts": [
+      6,
+      10,
+      16
+    ],
+    "finest_diffusion_error": 0.0015629823400646777,
+    "unchanged_tolerance": 0.0015,
+    "resolution_followup": "Increase diffusion levels to 8/12/20; retain original physical fields and 0.15 percent gate."
+  },
+  "full_test_suite": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest discover -s tests -q",
+    "test_count": 151,
+    "result": "PASS",
+    "new_test_sources": {
+      "tests/test_rectilinear_flow.py": "caaa96501fb7ea2a895101a0fa29e92857a0a6f738b8afb8fc227aaa545ef6d5"
+    }
+  }
+}

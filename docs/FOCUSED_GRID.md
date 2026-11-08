@@ -1,5 +1,11 @@
 # Focused 3D liquid grid
 
+The resolved SI flow/solute solver now uses the same focused-axis generator,
+with actual primal/dual volumes, face areas and distances. That separate fixed-
+aligned-solid milestone is described in [RECTILINEAR_FLOW.md](RECTILINEAR_FLOW.md).
+The illustrative growth benchmark below uses its stated model units; source its
+SI geometry and kinetics explicitly before coupling these runtimes.
+
 The historical result directories cited below were cleared on 2026-11-07.
 The final benchmark summary/provenance is retained in
 [NUMERICAL_CHECKPOINT.json](NUMERICAL_CHECKPOINT.json); fresh runs regenerate raw artifacts.

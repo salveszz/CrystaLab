@@ -1,5 +1,8 @@
 # HOW THIS FILE WORKS
-# Carry C [kg KDP/m3 solution] on the fixed SI flow grid. Each independent open
+# Carry C [kg KDP/m3 solution] on the fixed uniform or rectilinear SI flow grid.
+# Actual cell volumes, face areas and center distances define every transfer.
+# Linear slopes use physical distances and actual donor-to-face offsets.
+# Each independent open
 # face transfers one signed solute mass between its two neighboring liquid cells.
 # Donor advection plus centered diffusion supplies a positive low-order update.
 # Limited linear reconstruction supplies an advective correction; paired flux
@@ -43,11 +46,15 @@ class SoluteTransport:
         )
         self._fluid = flow.fluid.copy()
         self._spacing = flow.spacing.copy()
+        self._edges = tuple(e.copy() for e in flow.grid.edges)
         self._active = np.flatnonzero(self._fluid)
         if not len(self._active):
             raise ValueError("Solute transport requires liquid cells")
         lookup = np.full(flow.shape, -1, dtype=int)
         lookup.flat[self._active] = np.arange(len(self._active))
+        self._volumes = flow.cell_volumes[self._fluid].copy()
+        coordinates = np.array(np.unravel_index(self._active, flow.shape))
+        self._widths = np.array([w[ix] for w, ix in zip(flow.grid.widths, coordinates)])
         left, right, axes, conductance = [], [], [], []
         self._faces = []
         # Component.cells omits the duplicate periodic end face. Each connection
@@ -62,23 +69,24 @@ class SoluteTransport:
             right.append(lookup[tuple(hi.T)])
             axes.append(np.full(len(hi), component.axis))
             conductance.append(
-                np.full(
-                    len(hi),
-                    self.diffusivity_m2_per_s
-                    * flow.cell_volume
-                    / flow.spacing[component.axis] ** 2,
-                )
+                self.diffusivity_m2_per_s
+                * flow.grid.face_areas[component.axis][tuple(hi.T)]
+                / flow.grid.pressure_distances[component.axis][hi[:, component.axis]]
             )
             self._faces.append(tuple(component.cells.T))
         self._i, self._j = np.concatenate(left), np.concatenate(right)
         self._axes = np.concatenate(axes)
         self._conductance = np.concatenate(conductance)
         self._neighbors = np.full((3, 2, len(self._active)), -1, dtype=int)
+        self._distances = np.ones((3, 2, len(self._active)))
         for axis in range(3):
             select = self._axes == axis
             i, j = self._i[select], self._j[select]
             self._neighbors[axis, 1, i] = j
             self._neighbors[axis, 0, j] = i
+            distance = 0.5 * (self._widths[axis, i] + self._widths[axis, j])
+            self._distances[axis, 1, i] = distance
+            self._distances[axis, 0, j] = distance
         self.concentration = self._field(concentration_kg_per_m3)
         self.time_s = flow.time_s
         self.initial_mass_kg = self.mass_kg
@@ -104,12 +112,17 @@ class SoluteTransport:
 
     @property
     def mass_kg(self):
-        return float(np.sum(self.concentration[self._fluid]) * self.flow.cell_volume)
+        return float(np.sum(self.concentration[self._fluid] * self._volumes))
 
     def _fluxes(self, supplied=None):
         flow = self.flow
-        if not np.array_equal(flow.fluid, self._fluid) or not np.array_equal(
-            flow.spacing, self._spacing
+        if (
+            not np.array_equal(flow.fluid, self._fluid)
+            or not np.array_equal(flow.spacing, self._spacing)
+            or any(
+                not np.array_equal(e, previous)
+                for e, previous in zip(flow.grid.edges, self._edges)
+            )
         ):
             raise ValueError("Solute geometry must remain fixed")
         fields = flow.volume_fluxes_m3_per_s() if supplied is None else supplied
@@ -148,7 +161,7 @@ class SoluteTransport:
         ) - np.bincount(self._i, weights=transfer, minlength=len(self._active))
 
     def _euler(self, old, flux, dt):
-        i, j, volume = self._i, self._j, self.flow.cell_volume
+        i, j, volume = self._i, self._j, self._volumes
         donor = np.where(flux >= 0, old[i], old[j])
         low_flux = flux * donor + self._conductance * (old[i] - old[j])
         low = old + self._balance(dt * low_flux) / volume
@@ -159,7 +172,8 @@ class SoluteTransport:
             a, b = np.where(left >= 0, a, old), np.where(right >= 0, b, old)
             lower = np.minimum(lower, np.minimum(a, b))
             upper = np.maximum(upper, np.maximum(a, b))
-            backward, forward = old - a, b - old
+            backward = (old - a) / self._distances[axis, 0]
+            forward = (b - old) / self._distances[axis, 1]
             slopes[axis] = np.where(
                 backward * forward > 0,
                 np.sign(backward)
@@ -172,12 +186,15 @@ class SoluteTransport:
         # Antidiffusive mass, positive left -> right. Diffusion is already in the
         # low-order update. Limit total incoming/outgoing corrections jointly in
         # all three directions, rather than limiting each face independently.
-        correction = (
-            0.5
-            * dt
-            * flux
-            * np.where(flux >= 0, slopes[self._axes, i], -slopes[self._axes, j])
+        donor_offset = np.where(
+            flux >= 0,
+            0.5 * self._widths[self._axes, i] * slopes[self._axes, i],
+            -0.5 * self._widths[self._axes, j] * slopes[self._axes, j],
         )
+        reconstructed = np.clip(
+            donor + donor_offset, np.minimum(old[i], old[j]), np.maximum(old[i], old[j])
+        )
+        correction = dt * flux * (reconstructed - donor)
         positive, negative = np.maximum(correction, 0), np.maximum(-correction, 0)
         incoming = np.bincount(j, positive, len(old)) + np.bincount(
             i, negative, len(old)
@@ -223,17 +240,20 @@ class SoluteTransport:
         flux = self._fluxes(volume_fluxes_m3_per_s)
         old = self._field(self.concentration).flat[self._active].copy()
         rate = (
-            np.bincount(
-                self._i,
-                np.maximum(flux, 0) + self._conductance,
-                len(old),
+            (
+                np.bincount(
+                    self._i,
+                    np.maximum(flux, 0) + self._conductance,
+                    len(old),
+                )
+                + np.bincount(
+                    self._j,
+                    np.maximum(-flux, 0) + self._conductance,
+                    len(old),
+                )
             )
-            + np.bincount(
-                self._j,
-                np.maximum(-flux, 0) + self._conductance,
-                len(old),
-            )
-        ).max(initial=0) / self.flow.cell_volume
+            / self._volumes
+        ).max(initial=0)
         count = math.ceil(dt / min(maximum, 0.45 / rate if rate else maximum))
         sub_dt = dt / count
         initial_min, initial_max = old.min(), old.max()

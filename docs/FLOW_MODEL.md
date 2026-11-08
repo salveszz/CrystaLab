@@ -2,8 +2,9 @@
 
 `src/simulation/flow.py` implements a constant-density, isothermal Navier-Stokes
 component in SI units. It advances all three velocity components and dynamic
-pressure. This is the first uniform-grid, fixed-geometry momentum milestone,
-independent of the illustrative crystal-growth engine.
+pressure on uniform or explicitly edged rectilinear grids, independently of the
+illustrative crystal-growth engine. Unequal-cell operators and their latest
+evidence are described in [RECTILINEAR_FLOW.md](RECTILINEAR_FLOW.md).
 
 `configs/physical_reference.json` supplies the sourced KDP-water density and
 viscosity at 30 C, the reference fixed cube and the rest-case definition.
@@ -34,11 +35,12 @@ The first-order time step is:
 
 1. Form a momentum predictor from old velocity, conservative advective fluxes,
    prescribed acceleration and the old dynamic-pressure gradient. Solve viscosity
-   implicitly using the symmetric staggered Laplacian.
-2. Solve `(-D*G)*phi=-D*u_star` with the same divergence/gradient operators.
-   Phi has units m2/s. Each disconnected fluid region receives one gauge.
+   implicitly using actual momentum volumes and a symmetric viscous stiffness.
+2. Solve `K_p*phi=-V*D*u_star`, where `K_p=-V*D*G` is the symmetric pressure
+   stiffness and V contains actual cell volumes. Phi has units m2/s.
+   Each disconnected fluid region receives one gauge.
 3. Set `u_new=u_star-G*phi` and `p_new=p_old+rho*phi/dt`, then subtract each
-   connected region's mean pressure. This is incremental pressure correction.
+   connected region's volume-weighted mean pressure. This is incremental pressure correction.
 
 Shared momentum fluxes use upwind donor selection and monotonized central linear
 slopes. Limited reconstruction reduces donor-cell numerical diffusion without
@@ -46,6 +48,9 @@ new face-reconstruction extrema. Boundary slopes fall back to lower order.
 There is no post-step clipping of solved velocity or pressure. First-order time
 integration and limiter/boundary errors remain; no global second-order claim is made.
 
+On unequal cells, all gradients, fluxes and reconstruction offsets use actual
+coordinates; `flow.spacing` stores minimum axis widths for a conservative CFL
+bound. Viscosity is solved in its symmetric volume-weighted form.
 Small sparse systems use cached factorization; larger ones use diagonal-
 preconditioned conjugate gradients. Every solve checks its residual. Momentum
 advection requires `dt*sum(max(abs(u_component))/component_spacing)<=0.45`.
@@ -141,8 +146,8 @@ experimentally validated or spatially converged obstacle prediction. The final
 images were inspected and all field archives checked finite with correct SI
 domain dimensions. The momentum checkpoint's full suite passed 122 tests.
 
-Uniform grids, fixed aligned solids and constant properties are the current
-scope. Focused/nonuniform momentum cells, oblique cut faces, moving/growing
+Uniform/rectilinear grids, fixed aligned solids and constant properties are the
+current scope. Oblique cut faces, moving/growing
 solids, deformable free surfaces, turbulence closures, thermal transport
 and buoyancy remain unsupported. Passive solute transport now uses this
 component's native face volume fluxes; see [SOLUTE_MODEL.md](SOLUTE_MODEL.md).
@@ -151,8 +156,9 @@ still uses its conservative displacement approximation; it has not quietly
 become a calibrated CFD growth simulator.
 
 Conservative fixed-grid solute coupling has its own spatial/time, high-Peclet
-diffusion and coupled-invariant checks. Next extend momentum consistently to
-focused/nonuniform cells and oblique cut faces, then couple interfacial
+diffusion and coupled-invariant checks. Focused/nonuniform momentum and scalar
+operators now have a separate measured study. Next extend momentum to
+oblique cut faces, then couple interfacial
 uptake/motion. Keep empirical stirring
 effects out of a resolved-flow path unless their remaining contribution is
 explicitly justified and calibrated. Validate kinetics and quality independently.

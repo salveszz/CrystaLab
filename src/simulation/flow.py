@@ -6,23 +6,26 @@
 # pressure correction removes divergence without discarding established pressure.
 # Closed faces enforce no penetration; reflected tangential ghosts impose no-slip
 # walls/solid and a shear-free rigid lid. Periodic axes support analytic tests.
-# This first verified momentum discretization uses uniform cells and a stationary
-# grid-aligned solid. Canonical Crystal intersections reject partial cut cells;
-# no sloped solid is silently rounded to voxels. Growth coupling is a later step.
+# Uniform or explicitly edged rectilinear cells use actual primal/dual volumes,
+# face areas and distances. Volume-weighted pressure projection and symmetric
+# viscous stiffness retain compatible conservation on unequal cells. Canonical
+# Crystal intersections still reject partial momentum cells; oblique embedded
+# boundaries and growth coupling require a separate verified discretization.
 # Pressure is a dynamic pressure in Pa with a mean-zero gauge, not an absolute
 # free-surface stress condition. Sources/method limits are recorded in SOURCES.md.
 
-"""Staggered-grid SI flow for fixed, grid-aligned three-dimensional domains."""
+"""Staggered-grid SI flow on fixed rectilinear three-dimensional domains."""
 
 from dataclasses import dataclass
 from numbers import Integral
 
 import numpy as np
-from scipy.sparse import coo_matrix, diags, eye
+from scipy.sparse import coo_matrix, diags
 from scipy.sparse.csgraph import connected_components
 from scipy.sparse.linalg import cg, factorized
 
 from .crystal import Crystal
+from .mesh import RectilinearGrid
 from .units import FluidPropertiesSI, finite_number
 
 
@@ -62,10 +65,15 @@ class _Component:
     neighbors: list
     ghosts: list
     laplacian: object
+    volumes: np.ndarray
+    stiffness: object
+    distances: list
+    offsets: list
+    pressure_distance: np.ndarray
 
 
 class IncompressibleFlow:
-    """Uniform MAC grid with fixed solid and first-order projection stepping.
+    """Rectilinear MAC grid with fixed solid and first-order projection stepping.
 
     User coordinates/counts/velocity components follow x/y/z. Scalar arrays index
     z/y/x. A periodic normal direction retains a duplicate end face for convenient
@@ -81,6 +89,7 @@ class IncompressibleFlow:
         periodic_xyz=(False, False, False),
         shear_free_top=True,
         solid_box_m=None,
+        grid_edges_m=None,
     ):
         if len(lengths_m) != 3 or len(counts_xyz) != 3 or len(periodic_xyz) != 3:
             raise ValueError("Flow geometry needs three x/y/z dimensions")
@@ -99,10 +108,15 @@ class IncompressibleFlow:
         if not isinstance(properties, FluidPropertiesSI):
             raise ValueError("Flow requires FluidPropertiesSI")
         self.properties = properties
-        self.shape = tuple(int(n) for n in counts_xyz[::-1])
-        self.periodic = tuple(periodic_xyz[::-1])
-        self.spacing = self.lengths[::-1] / np.array(self.shape)
-        self.cell_volume = float(np.prod(self.spacing))
+        self.grid = RectilinearGrid(
+            self.lengths, counts_xyz, periodic_xyz, grid_edges_m
+        )
+        self.shape, self.periodic = self.grid.shape, self.grid.periodic
+        # Minimum spacings/volume summarize CFL bounds; operators always use
+        # complete metric arrays, never these summaries as universal measures.
+        self.spacing = np.array([w.min() for w in self.grid.widths])
+        self.cell_volumes = self.grid.volumes
+        self.cell_volume = float(self.cell_volumes.min())
         self.shear_free_top = shear_free_top
         self.fluid = np.ones(self.shape, dtype=bool)
         self.solid_vertices_m = np.empty((0, 3))
@@ -132,15 +146,31 @@ class IncompressibleFlow:
         scale = float(self.lengths.max())
         box = Crystal.box(bounds.mean(axis=0) / scale, (bounds[1] - bounds[0]) / scale)
         self.solid_vertices_m = box.vertices * scale
-        lower = np.floor(bounds[0] / self.spacing[::-1]).astype(int)
-        upper = np.ceil(bounds[1] / self.spacing[::-1]).astype(int)
+        lower = [
+            max(0, np.searchsorted(e, value, side="right") - 1)
+            for e, value in zip(self.grid.edges[::-1], bounds[0])
+        ]
+        upper = [
+            np.searchsorted(e, value, side="left")
+            for e, value in zip(self.grid.edges[::-1], bounds[1])
+        ]
         for z in range(lower[2], upper[2]):
             for y in range(lower[1], upper[1]):
                 for x in range(lower[0], upper[0]):
-                    lo = np.array([x, y, z]) * self.spacing[::-1] / scale
-                    hi = lo + self.spacing[::-1] / scale
+                    lo = (
+                        np.array(
+                            [e[k] for e, k in zip(self.grid.edges[::-1], (x, y, z))]
+                        )
+                        / scale
+                    )
+                    hi = (
+                        np.array(
+                            [e[k + 1] for e, k in zip(self.grid.edges[::-1], (x, y, z))]
+                        )
+                        / scale
+                    )
                     fraction = box.clipped_volume(lo, hi) / (
-                        self.cell_volume / scale**3
+                        self.cell_volumes[z, y, x] / scale**3
                     )
                     if 1e-8 < fraction < 1 - 1e-8:
                         raise ValueError(
@@ -177,11 +207,13 @@ class IncompressibleFlow:
             first, last = [slice(None)] * 3, [slice(None)] * 3
             first[axis], last[axis] = 0, -1
             lookup[tuple(last)] = lookup[tuple(first)]
-        neighbors, ghosts = [], []
+        neighbors, ghosts, distances, offsets = [], [], [], []
+        volumes = self.grid.momentum_volumes[axis][tuple(cells.T)]
+        measures = self.grid.momentum_widths[axis]
         rows, columns, values = [], [], []
         diagonal = np.zeros(len(cells))
         for direction_axis in range(3):
-            ns, gs = [], []
+            ns, gs, ds, os = [], [], [], []
             for sign in (-1, 1):
                 other = cells.copy()
                 other[:, direction_axis] += sign
@@ -201,23 +233,55 @@ class IncompressibleFlow:
                     and not self.periodic[0]
                 ):
                     ghost[other[:, 0] == self.shape[0]] = 1.0
-                coefficient = 1 / self.spacing[direction_axis] ** 2
+                coordinate = cells[:, direction_axis]
+                widths = self.grid.widths[direction_axis]
+                if direction_axis == axis:
+                    distance = widths[(coordinate + (sign == 1) - 1) % len(widths)]
+                    offset = 0.5 * distance
+                else:
+                    other_coordinate = (
+                        (coordinate + sign) % len(widths)
+                        if self.periodic[direction_axis]
+                        else np.clip(coordinate + sign, 0, len(widths) - 1)
+                    )
+                    distance = 0.5 * (widths[coordinate] + widths[other_coordinate])
+                    offset = 0.5 * widths[coordinate]
+                area = volumes / measures[direction_axis][coordinate]
+                coefficient = area / distance
                 present = ids >= 0
                 diagonal += coefficient * np.where(present, 1.0, 1 - ghost)
                 rows.extend(np.flatnonzero(present))
                 columns.extend(ids[present])
-                values.extend(np.full(present.sum(), -coefficient))
+                values.extend(-coefficient[present])
                 ns.append(ids)
                 gs.append(ghost)
+                ds.append(distance)
+                os.append(offset)
             neighbors.append(ns)
             ghosts.append(gs)
+            distances.append(ds)
+            offsets.append(os)
         rows.extend(np.arange(len(cells)))
         columns.extend(np.arange(len(cells)))
         values.extend(diagonal)
         matrix = coo_matrix(
             (values, (rows, columns)), shape=(len(cells), len(cells))
         ).tocsr()
-        return _Component(axis, mask, cells, lookup, neighbors, ghosts, matrix)
+        laplacian = diags(1 / volumes) @ matrix
+        return _Component(
+            axis,
+            mask,
+            cells,
+            lookup,
+            neighbors,
+            ghosts,
+            laplacian,
+            volumes,
+            matrix,
+            distances,
+            offsets,
+            self.grid.pressure_distances[axis][cells[:, axis]],
+        )
 
     def _pressure_system(self):
         cells = np.argwhere(self.fluid)
@@ -235,11 +299,16 @@ class IncompressibleFlow:
                 ids = np.full(len(cells), -1, dtype=int)
                 ids[valid] = lookup[tuple(other[valid].T)]
                 present = ids >= 0
-                weight = 1 / self.spacing[axis] ** 2
-                diagonal[present] += weight
+                face = cells.copy()
+                face[:, axis] += sign == 1
+                weight = (
+                    self.grid.face_areas[axis][tuple(face.T)]
+                    / self.grid.pressure_distances[axis][face[:, axis]]
+                )
+                diagonal[present] += weight[present]
                 rows.extend(np.flatnonzero(present))
                 columns.extend(ids[present])
-                values.extend(np.full(present.sum(), -weight))
+                values.extend(-weight[present])
         rows.extend(np.arange(len(cells)))
         columns.extend(np.arange(len(cells)))
         values.extend(diagonal)
@@ -264,13 +333,11 @@ class IncompressibleFlow:
 
     def face_positions(self, component):
         axis = self.components[component].axis
-        coordinates = [
-            (np.arange(self.shape[d] + (d == axis)) + (0 if d == axis else 0.5))
-            * self.spacing[d]
-            for d in range(3)
-        ]
-        z, y, x = np.meshgrid(*coordinates, indexing="ij")
-        return np.stack((x, y, z), axis=-1)
+        return self.grid.positions(axis)
+
+    def cell_positions(self):
+        """Cartesian cell centers in [z,y,x,xyz] order, in meters."""
+        return self.grid.positions()
 
     def _enforce_boundaries(self, fields):
         if len(fields) != 3:
@@ -316,8 +383,9 @@ class IncompressibleFlow:
         if pressure.shape != self.shape or not np.isfinite(pressure).all():
             raise ValueError("Pressure must be finite and match cell centers")
         values = pressure[self.fluid]
+        volumes = self.cell_volumes[self.fluid]
         for nodes, _system, _direct in self._pressure_groups:
-            values[nodes] -= values[nodes].mean()
+            values[nodes] -= np.average(values[nodes], weights=volumes[nodes])
         pressure[self.fluid] = values
         pressure[~self.fluid] = 0
         self.pressure = pressure
@@ -329,13 +397,16 @@ class IncompressibleFlow:
             left[:, component.axis] %= self.shape[component.axis]
         return (
             self.pressure[tuple(right.T)] - self.pressure[tuple(left.T)]
-        ) / self.spacing[component.axis]
+        ) / component.pressure_distance
 
     def divergence(self, fields=None):
         fields = self.velocity if fields is None else fields
-        return sum(
-            np.diff(value, axis=c.axis) / self.spacing[c.axis]
-            for value, c in zip(fields, self.components)
+        return (
+            sum(
+                np.diff(value * self.grid.face_areas[c.axis], axis=c.axis)
+                for value, c in zip(fields, self.components)
+            )
+            / self.cell_volumes
         )
 
     def volume_fluxes_m3_per_s(self):
@@ -345,14 +416,15 @@ class IncompressibleFlow:
         exact fluxes; cell-centered velocity is only an inspection/export field.
         """
         return [
-            value * (self.cell_volume / self.spacing[component.axis])
+            value * self.grid.face_areas[component.axis]
             for value, component in zip(self.velocity, self.components)
         ]
 
     def _project(self, fields, dt):
-        rhs = -self.divergence(fields)[self.fluid]
+        volumes = self.cell_volumes[self.fluid]
+        rhs = -self.divergence(fields)[self.fluid] * volumes
         velocity_scale = max(
-            float(np.max(abs(u), initial=0)) / self.spacing[c.axis]
+            float(np.max(abs(u) * self.grid.face_areas[c.axis], initial=0))
             for u, c in zip(fields, self.components)
         )
         phi = np.zeros(len(rhs))
@@ -367,10 +439,10 @@ class IncompressibleFlow:
                 raise ArithmeticError(
                     "Pressure projection has an incompatible net volume flux"
                 )
-            local -= local.mean()
+            local -= local.sum() * volumes[nodes] / volumes[nodes].sum()
             if len(nodes) > 1:
                 phi[nodes[:-1]] = _solve(system, local[:-1], direct=direct)
-            phi[nodes] -= phi[nodes].mean()
+            phi[nodes] -= np.average(phi[nodes], weights=volumes[nodes])
         corrected = []
         for value, component in zip(fields, self.components):
             cells = component.cells
@@ -381,7 +453,7 @@ class IncompressibleFlow:
             p_left = phi[self._p_lookup[tuple(left.T)]]
             p_right = phi[self._p_lookup[tuple(right.T)]]
             updated = value.copy()
-            updated[tuple(cells.T)] -= (p_right - p_left) / self.spacing[component.axis]
+            updated[tuple(cells.T)] -= (p_right - p_left) / component.pressure_distance
             corrected.append(updated)
         corrected = self._enforce_boundaries(corrected)
         pressure = np.zeros(self.shape)
@@ -397,6 +469,7 @@ class IncompressibleFlow:
         if self.periodic[component.axis]:
             left[:, component.axis] %= self.shape[component.axis]
         result = np.zeros(len(cells))
+        volume_fluxes = self.volume_fluxes_m3_per_s()
         for axis in range(3):
             neighbors = []
             for side in range(2):
@@ -405,7 +478,8 @@ class IncompressibleFlow:
                 present = ids >= 0
                 other[present] = value[ids[present]]
                 neighbors.append(other)
-            backward, forward = value - neighbors[0], neighbors[1] - value
+            backward = (value - neighbors[0]) / component.distances[axis][0]
+            forward = (neighbors[1] - value) / component.distances[axis][1]
             # Monotonized central slopes reduce donor-cell numerical diffusion
             # without creating new reconstruction extrema. They become zero at
             # an extremum; unavailable boundary slopes use the low-order base.
@@ -426,25 +500,42 @@ class IncompressibleFlow:
                 other_slope[present] = slope[ids[present]]
                 if axis == component.axis:
                     speed = 0.5 * (value + neighbors[side])
+                    area = (
+                        component.volumes
+                        / self.grid.momentum_widths[component.axis][axis][
+                            cells[:, axis]
+                        ]
+                    )
+                    volume_flux = speed * area
                 else:
                     a, b = left.copy(), right.copy()
                     a[:, axis] = b[:, axis] = cells[:, axis] + side
-                    transverse = self.velocity[2 - axis]
-                    speed = 0.5 * (transverse[tuple(a.T)] + transverse[tuple(b.T)])
+                    transverse = volume_fluxes[2 - axis]
+                    volume_flux = 0.5 * (
+                        transverse[tuple(a.T)] + transverse[tuple(b.T)]
+                    )
+                own_offset = component.offsets[axis][side]
+                other_offset = np.zeros_like(value)
+                other_offset[present] = component.offsets[axis][1 - side][ids[present]]
                 if side == 1:
                     donor = np.where(
-                        speed >= 0,
-                        value + 0.5 * slope,
-                        neighbors[side] - 0.5 * other_slope,
+                        volume_flux >= 0,
+                        value + own_offset * slope,
+                        neighbors[side] - other_offset * other_slope,
                     )
                 else:
                     donor = np.where(
-                        speed >= 0,
-                        neighbors[side] + 0.5 * other_slope,
-                        value - 0.5 * slope,
+                        volume_flux >= 0,
+                        neighbors[side] + other_offset * other_slope,
+                        value - own_offset * slope,
                     )
-                fluxes.append(speed * donor)
-            result += (fluxes[1] - fluxes[0]) / self.spacing[axis]
+                donor = np.clip(
+                    donor,
+                    np.minimum(value, neighbors[side]),
+                    np.maximum(value, neighbors[side]),
+                )
+                fluxes.append(volume_flux * donor)
+            result += (fluxes[1] - fluxes[0]) / component.volumes
         return result
 
     def step(self, dt_s, acceleration=(0.0, 0.0, 0.0)):
@@ -485,10 +576,10 @@ class IncompressibleFlow:
             key = (index, dt)
             if key not in self._viscous_cache:
                 system = (
-                    eye(len(cells), format="csc")
+                    diags(component.volumes, format="csc")
                     + dt
                     * self.properties.kinematic_viscosity_m2_per_s
-                    * component.laplacian
+                    * component.stiffness
                 ).tocsc()
                 direct = factorized(system) if 0 < len(cells) <= 2000 else None
                 # Keep only the current timestep per component; adaptive stepping
@@ -498,7 +589,7 @@ class IncompressibleFlow:
                 }
                 self._viscous_cache[key] = (system, direct)
             system, direct = self._viscous_cache[key]
-            answer = _solve(system, rhs, old, direct)
+            answer = _solve(system, component.volumes * rhs, old, direct)
             field = np.zeros(component.mask.shape)
             field[tuple(cells.T)] = answer
             predictor.append(field)
@@ -538,9 +629,8 @@ class IncompressibleFlow:
         energy = (
             0.5
             * self.properties.density_kg_per_m3
-            * self.cell_volume
             * sum(
-                float(np.sum(u[tuple(c.cells.T)] ** 2))
+                float(np.sum(c.volumes * u[tuple(c.cells.T)] ** 2))
                 for u, c in zip(self.velocity, self.components)
             )
         )
@@ -558,5 +648,9 @@ class IncompressibleFlow:
             scaled_divergence=div / max(face_scale, 1e-30),
             blocked_face_speed_m_per_s=leakage,
             kinetic_energy_J=energy,
-            mean_dynamic_pressure_Pa=float(self.pressure[self.fluid].mean()),
+            mean_dynamic_pressure_Pa=float(
+                np.average(
+                    self.pressure[self.fluid], weights=self.cell_volumes[self.fluid]
+                )
+            ),
         )

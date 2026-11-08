@@ -7,6 +7,7 @@
 # Run rest and manufactured vortical forcing around the physical fixed cube.
 # Save declared settings/source fingerprints before measurements. Export raw
 # fields, metrics and plots to a fresh directory, with all model limits explicit.
+# Archive the shared mesh implementation and actual cell edges/volumes as well.
 # No experimental calibration, quality labels or growing-boundary claim occurs.
 
 """Verify isothermal three-dimensional Navier-Stokes against analytic flows."""
@@ -45,28 +46,25 @@ def abc_velocity(position, t, length, speed, nu):
 
 
 def abc_pressure(flow, t, length, speed):
-    z, y, x = np.meshgrid(
-        *[(np.arange(n) + 0.5) * h for n, h in zip(flow.shape, flow.spacing)],
-        indexing="ij",
-    )
     velocity = abc_velocity(
-        np.stack((x, y, z), axis=-1),
+        flow.cell_positions(),
         t,
         length,
         speed,
         flow.properties.kinematic_viscosity_m2_per_s,
     )
     pressure = -0.5 * flow.properties.density_kg_per_m3 * np.sum(velocity**2, axis=-1)
-    return pressure - pressure.mean()
+    return pressure - np.average(pressure, weights=flow.cell_volumes)
 
 
-def channel_case(properties, settings, nz):
+def channel_case(properties, settings, nz, *, grid_edges_m=None):
     lengths = settings["lengths_m"]
     flow = IncompressibleFlow(
         lengths,
         [*settings["horizontal_counts"], nz],
         properties,
         periodic_xyz=(True, True, False),
+        grid_edges_m=grid_edges_m,
     )
     nu = properties.kinematic_viscosity_m2_per_s
     H = lengths[2]
@@ -74,20 +72,24 @@ def channel_case(properties, settings, nz):
     flow.run_until(settings["duration_s"], settings["max_dt_s"], (force, 0, 0))
     z = flow.face_positions(0)[..., 2]
     exact = force * (2 * H * z - z**2) / (2 * nu)
-    error = np.sqrt(np.mean((flow.velocity[0] - exact) ** 2)) / np.sqrt(
-        np.mean(exact**2)
+    component = flow.components[0]
+    index = tuple(component.cells.T)
+    error = np.sqrt(
+        np.sum(component.volumes * (flow.velocity[0][index] - exact[index]) ** 2)
+        / np.sum(component.volumes * exact[index] ** 2)
     )
     return flow, dict(
         relative_rms_error=float(error), nz=nz, acceleration_m_per_s2=force
     )
 
 
-def decay_case(properties, settings, dt):
+def decay_case(properties, settings, dt, *, grid_edges_m=None):
     flow = IncompressibleFlow(
         settings["lengths_m"],
         settings["counts_xyz"],
         properties,
         periodic_xyz=(True, True, False),
+        grid_edges_m=grid_edges_m,
     )
     k = np.pi / (2 * settings["lengths_m"][2])
     initial = settings["initial_speed_m_per_s"] * np.sin(
@@ -100,16 +102,23 @@ def decay_case(properties, settings, dt):
     exact = initial * np.exp(
         -properties.kinematic_viscosity_m2_per_s * k * k * settings["duration_s"]
     )
-    error = np.sqrt(np.mean((flow.velocity[0] - exact) ** 2)) / np.sqrt(
-        np.mean(exact**2)
+    component = flow.components[0]
+    index = tuple(component.cells.T)
+    error = np.sqrt(
+        np.sum(component.volumes * (flow.velocity[0][index] - exact[index]) ** 2)
+        / np.sum(component.volumes * exact[index] ** 2)
     )
     return flow, dict(relative_rms_error=float(error), dt_s=dt)
 
 
-def abc_case(properties, settings, n):
+def abc_case(properties, settings, n, *, grid_edges_m=None):
     length, speed = settings["length_m"], settings["coefficient_speed_m_per_s"]
     flow = IncompressibleFlow(
-        [length] * 3, [n] * 3, properties, periodic_xyz=(True, True, True)
+        [length] * 3,
+        [n] * 3,
+        properties,
+        periodic_xyz=(True, True, True),
+        grid_edges_m=grid_edges_m,
     )
     nu = properties.kinematic_viscosity_m2_per_s
     flow.set_velocity(
@@ -126,11 +135,14 @@ def abc_case(properties, settings, n):
             ..., i
         ]
         index = tuple(component.cells.T)
-        error += float(np.sum((flow.velocity[i][index] - exact[index]) ** 2))
-        scale += float(np.sum(exact[index] ** 2))
+        error += float(
+            np.sum(component.volumes * (flow.velocity[i][index] - exact[index]) ** 2)
+        )
+        scale += float(np.sum(component.volumes * exact[index] ** 2))
     exact_pressure = abc_pressure(flow, flow.time_s, length, speed)
-    p_error = np.sqrt(np.mean((flow.pressure - exact_pressure) ** 2)) / np.sqrt(
-        np.mean(exact_pressure**2)
+    p_error = np.sqrt(
+        np.sum(flow.cell_volumes * (flow.pressure - exact_pressure) ** 2)
+        / np.sum(flow.cell_volumes * exact_pressure**2)
     )
     return flow, dict(
         n=n,
@@ -183,6 +195,10 @@ def _save_fields(path, flow):
         fluid=flow.fluid,
         lengths_m=flow.lengths,
         solid_vertices_m=flow.solid_vertices_m,
+        x_edges_m=flow.grid.edges[2],
+        y_edges_m=flow.grid.edges[1],
+        z_edges_m=flow.grid.edges[0],
+        cell_volumes_m3=flow.cell_volumes,
     )
 
 
@@ -195,6 +211,7 @@ def run_study(protocol, reference, output):
         name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
         for name in (
             "src/simulation/flow.py",
+            "src/simulation/mesh.py",
             "src/simulation/units.py",
             "src/simulation/crystal.py",
             "scripts/check_flow.py",

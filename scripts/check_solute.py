@@ -7,6 +7,7 @@
 # while carrying uniform/nonuniform solute to check actual coupling invariants.
 # Archive sources, protocol, reference and environment; reject changed sources.
 # Raw SI fields and readable reports/figures go to a fresh ignored results folder.
+# Use the flow mesh's actual centers and archive its edges/volumes for replay.
 
 """Verify conservative fixed-grid solute transport and its momentum coupling."""
 
@@ -33,11 +34,7 @@ from describe_physical_setup import describe_setup
 
 
 def cell_centers_m(flow):
-    z, y, x = np.meshgrid(
-        *[(np.arange(n) + 0.5) * h for n, h in zip(flow.shape, flow.spacing)],
-        indexing="ij",
-    )
-    return np.stack((x, y, z), axis=-1)
+    return flow.cell_positions()
 
 
 def _flow(properties, length, counts, speed=(0, 0, 0), *, periodic=True):
@@ -191,7 +188,7 @@ def temporal_case(properties, settings, dt):
     )
 
 
-def obstacle_case(reference, settings, *, uniform=False, rest=False):
+def obstacle_case(reference, settings, *, uniform=False, rest=False, grid_edges_m=None):
     domain, crystal = reference["domain"], reference["crystal"]
     center, size = np.array(crystal["center_m"]), np.array(crystal["size_m"])
     flow = IncompressibleFlow(
@@ -199,6 +196,7 @@ def obstacle_case(reference, settings, *, uniform=False, rest=False):
         settings["counts_xyz"],
         FluidPropertiesSI(**reference["fluid"]),
         solid_box_m=[center - size / 2, center + size / 2],
+        grid_edges_m=grid_edges_m,
     )
     mean = (
         flow.properties.density_kg_per_m3
@@ -288,6 +286,7 @@ def run_study(protocol, reference, output):
         name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
         for name in (
             "src/simulation/flow.py",
+            "src/simulation/mesh.py",
             "src/simulation/solute.py",
             "src/simulation/units.py",
             "src/simulation/crystal.py",
@@ -366,6 +365,10 @@ def run_study(protocol, reference, output):
             fluid=flow.fluid,
             lengths_m=flow.lengths,
             solid_vertices_m=flow.solid_vertices_m,
+            x_edges_m=flow.grid.edges[2],
+            y_edges_m=flow.grid.edges[1],
+            z_edges_m=flow.grid.edges[0],
+            cell_volumes_m3=flow.cell_volumes,
             time_s=scalar.time_s,
             velocity_mode=row["velocity_mode"],
         )

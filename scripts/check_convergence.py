@@ -10,6 +10,7 @@
 # refinement gate is a result to report, not a reason to retune its tolerance.
 # Final archives include liquid centroids to inspect reconstructed facet sampling.
 # Optional process workers run independent cases; the worker count is fingerprinted.
+# Source identity includes the shared mesh and its input-validation dependencies.
 
 """Measure grid/time sensitivity of the existing 3D simulator, without AI."""
 
@@ -47,7 +48,14 @@ def solver_fingerprint():
     """Record the actual core sources, including any uncommitted solver changes."""
     return {
         name: hashlib.sha256((ROOT / "src/simulation" / name).read_bytes()).hexdigest()
-        for name in ("crystal.py", "tank.py", "physics.py", "engine.py")
+        for name in (
+            "crystal.py",
+            "tank.py",
+            "physics.py",
+            "engine.py",
+            "mesh.py",
+            "units.py",
+        )
     }
 
 

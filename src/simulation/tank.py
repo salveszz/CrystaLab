@@ -5,6 +5,7 @@
 # Tank creates cell-center coordinates and a flattened [n_cells, 3] position
 # matrix so the engine can sample solution beside arbitrary crystal faces.
 # Uniform or focused rectilinear cells use their actual edge-defined volumes;
+# the focused-axis generator is shared with the SI flow mesh in mesh.py.
 # solute mass uses only each cell's liquid portion, at its actual liquid centroid.
 # Exact partial-cell solid volumes exclude crystal from the solution. Open-face
 # transport avoids diffusion through solid. Liquid first moments locate cell
@@ -22,57 +23,13 @@ import math
 import numpy as np
 
 from .crystal import Crystal
+from .mesh import focused_axis_edges as _axis_edges
 from .physics import (
     diffuse_liquid,
     displace_liquid,
     liquid_gradient,
     nonnegative_gradient,
 )
-
-
-def _axis_edges(length, count, center, focus_width):
-    """Fixed rectilinear mesh with a uniform central band and stretched tails."""
-    if focus_width <= 0 or focus_width >= length:
-        return np.linspace(0.0, length, count + 1)
-    low = max(0.0, center - focus_width / 2)
-    high = min(length, center + focus_width / 2)
-    tails = low + length - high
-    if tails <= 0:
-        return np.linspace(0.0, length, count + 1)
-    inner = max(1, min(count - 2, int(round(0.6 * count))))
-    outside = count - inner
-    left = int(round(outside * low / tails))
-    left = (
-        max(1, min(outside - 1, left))
-        if low > 0 and high < length
-        else (0 if low == 0 else outside)
-    )
-    right = outside - left
-    step = (high - low) / inner
-
-    def widths(span, n):
-        if not n:
-            return np.empty(0)
-        if n == 1:
-            return np.array([span])
-        lo, hi = 1e-8, 4.0
-        powers = np.arange(1, n + 1)
-        for _ in range(64):
-            ratio = (lo + hi) / 2
-            if step * np.sum(ratio**powers) < span:
-                lo = ratio
-            else:
-                hi = ratio
-        values = step * ((lo + hi) / 2) ** powers
-        return values * (span / values.sum())
-
-    left_edges = low - np.r_[0.0, np.cumsum(widths(low, left))]
-    right_edges = high + np.cumsum(widths(length - high, right))
-    result = np.r_[
-        left_edges[::-1][:-1], np.linspace(low, high, inner + 1), right_edges
-    ]
-    result[0], result[-1] = 0.0, length
-    return result
 
 
 @dataclass(frozen=True)

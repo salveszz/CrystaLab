@@ -1,0 +1,74 @@
+{
+  "source_id": "DESIGN-FLOW-RECT-004",
+  "fluid_reference": "physical_reference.json",
+  "stretch_amplitudes_xyz": [0.4, -0.25, 0.3],
+  "channel": {
+    "lengths_m": [0.01, 0.01, 0.008],
+    "horizontal_counts": [4, 4],
+    "vertical_counts": [8, 16, 32],
+    "target_steady_max_speed_m_per_s": 0.001,
+    "duration_s": 400.0,
+    "max_dt_s": 1.0,
+    "finest_relative_rms_tolerance": 0.002
+  },
+  "decay": {
+    "lengths_m": [0.01, 0.01, 0.008],
+    "counts_xyz": [4, 4, 48],
+    "initial_speed_m_per_s": 0.001,
+    "duration_s": 10.0,
+    "timesteps_s": [0.5, 0.25, 0.125],
+    "finest_relative_rms_tolerance": 0.003
+  },
+  "abc": {
+    "length_m": 0.01,
+    "counts": [8, 12, 20],
+    "coefficient_speed_m_per_s": 0.0001,
+    "duration_s": 0.5,
+    "max_dt_s": 0.005,
+    "finest_relative_velocity_tolerance": 0.02,
+    "finest_relative_pressure_tolerance": 0.1
+  },
+  "focused_abc_solute": {
+    "length_m": 0.01,
+    "counts": [12, 18, 24],
+    "focus_width_m": 0.0036,
+    "coefficient_speed_m_per_s": 0.0001,
+    "concentration_kg_per_m3": 270.0,
+    "duration_s": 0.5,
+    "max_dt_s": 0.005,
+    "finest_relative_velocity_tolerance": 0.05,
+    "finest_relative_pressure_tolerance": 0.15
+  },
+  "wave": {
+    "lengths_m": [0.01, 0.012, 0.008],
+    "counts": [8, 12, 20],
+    "velocity_m_per_s": [0.0003, -0.0002, 0.0001],
+    "mean_kg_per_m3": 270.0,
+    "amplitude_kg_per_m3": 20.0,
+    "duration_s": 4.0,
+    "max_substep_s": 0.05,
+    "finest_relative_rms_tolerance": 0.05
+  },
+  "diffusion": {
+    "lengths_m": [0.01, 0.012, 0.008],
+    "counts": [8, 12, 20],
+    "mean_kg_per_m3": 270.0,
+    "amplitude_kg_per_m3": 20.0,
+    "duration_s": 1000.0,
+    "finest_relative_rms_tolerance": 0.0015
+  },
+  "obstacle": {
+    "counts_xyz": [20, 20, 16],
+    "cells_across_solid": 4,
+    "duration_s": 2.0,
+    "max_dt_s": 0.05,
+    "vortical_acceleration_scale_m_per_s2": 0.0001,
+    "relative_concentration_amplitude": 0.02
+  },
+  "max_relative_mass_drift": 1e-12,
+  "max_uniform_error_kg_per_m3": 1e-10,
+  "max_concentration_bound_violation_kg_per_m3": 1e-10,
+  "max_scaled_divergence": 1e-9,
+  "max_blocked_face_speed_m_per_s": 1e-14,
+  "limits": "Fixed rectilinear/focused cells, constant properties and aligned solid only. Independent channel/ABC/wave/diffusion references verify numerical behavior. No oblique momentum cut cells, moving interface, buoyancy, calibrated KDP kinetics or experimental growth/quality validation."
+}
