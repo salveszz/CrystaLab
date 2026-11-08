@@ -187,14 +187,15 @@ protocol, sources, results, failed-stage history and current regression identiti
 The preceding local changes for shared mesh metrics, unequal-cell flow/solute,
 their tests and runner are reviewed separately in
 [RECTILINEAR_FLOW.md](RECTILINEAR_FLOW.md#file-by-file-review).
-All code files retain purpose summaries at the top. No commit or push is part of
-this work; the user requested a recommendation and explicitly withheld push approval.
+All code files retain purpose summaries at the top. The user approved committing
+and pushing both milestones on 2026-11-08: rectilinear flow/solute in `ab0a6a1`
+and cut-cell geometry/shared pressure in `cb83f64`.
 
 ## Commit boundary and next work
 
-The reviewable scope is **verified rectilinear flow/solute plus cut-cell
-geometry and pressure foundations**. It is reasonable to checkpoint these as
-two focused commits after review. Their titles/descriptions must not claim
+The committed scope is **verified rectilinear flow/solute plus cut-cell
+geometry and pressure foundations**, checkpointed in two focused commits after
+review. Their titles/descriptions must not claim
 complete oblique no-slip Navier-Stokes or AI-ready growth physics.
 
 Next implement and independently verify embedded tangential no-slip viscosity,
@@ -202,4 +203,6 @@ consistent nonlinear momentum fluxes and small-cell time-stepping behavior.
 Only then connect the partial-cell geometry to the full resolved momentum/scalar
 runtime. Interfacial uptake, moving geometry, the physical density/partial-volume
 closure, KDP calibration and meaningful quality/actuator/observation contracts
-remain prerequisites for growth-control training; see [AI_READINESS.md](AI_READINESS.md).
+remain prerequisites for simulation-driven growth-control training. Real-data
+ingestion and an offline XGBoost baseline can proceed in parallel; see
+[AI_READINESS.md](AI_READINESS.md).

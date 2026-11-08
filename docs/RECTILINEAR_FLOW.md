@@ -157,8 +157,9 @@ declared fields, not experimental accuracy or KDP growth/quality validation.
 | `docs/FLOW_MODEL.md`, `docs/PHYSICAL_MODEL.md`, `docs/SOLUTE_MODEL.md`, `docs/FLUID_MODEL.md`, `docs/FOCUSED_GRID.md` | Update the implementation status, contracts and links to the current unequal-grid evidence. |
 | `SOURCES.md` | Register the nonuniform-method background, explicit design choices, failed-stage history and measured checkpoint. |
 
-Every Python file added or changed has an explanatory summary at the top. This
-work is local for review; no commit or push is included in this step.
+Every Python file added or changed has an explanatory summary at the top. The
+user approved committing and pushing this milestone on 2026-11-08; its commit is
+`ab0a6a1`. The subsequent cut-cell/shared-pressure milestone is `cb83f64`.
 
 ## AI preparation
 
