@@ -5,10 +5,12 @@ The physical-model work uses SI internally. The unit choices follow
 [source and data register](../SOURCES.md). Display conversions happen at input
 and output boundaries. A changed label does not convert a model.
 
-`configs/physical_reference.json` is an input definition for a future stationary,
+`configs/physical_reference.json` is an input definition for a stationary,
 isothermal 3D flow case. `simulation.units` and `describe_physical_setup.py`
 already validate that definition and calculate concentration/transport scales.
-They do not run Navier-Stokes or calibrated growth. The existing `Simulation`
+The descriptor does not run a flow or growth prediction; `check_flow.py` exercises
+the new fixed-domain Navier-Stokes component described in `FLOW_MODEL.md`.
+The existing `Simulation`
 and `configs/default.json` / `focused.json` remain the explicitly illustrative
 numerical benchmark; none of their coefficients has been silently reinterpreted.
 
@@ -85,14 +87,16 @@ temperature and composition, no growth or dissolution. Define:
 - Top: flat, impermeable surface with zero tangential stress. This is a
   stationary free-surface approximation; evaporation and waves are disabled.
 - Pressure: use a dynamic pressure in Pa relative to the hydrostatic rest
-  profile, `p_h=rho*g_abs*(H-z)`. Set its surface gauge to zero. The pressure
-  condition at walls follows the normal momentum/projection equation; do not
-  also impose zero pressure on every wall.
+  profile, `p_h=rho*g_abs*(H-z)`. In the fixed impermeable-lid approximation,
+  choose a fluid-volume mean-zero gauge. This is not atmospheric pressure fixed
+  independently at every top cell. The pressure condition at impermeable walls
+  follows the normal momentum/projection equation. A deformable free surface
+  needs a separate normal-stress/kinematic boundary treatment.
 - Temperature: a prescribed uniform 303.15 K for this isothermal benchmark;
   there is no claim of a solved heat equation or a calibrated bath model.
 
 The expected rest solution has zero velocity, constant composition and balanced
-hydrostatic pressure. This is a verification target; no flow solve has run yet.
+hydrostatic pressure. This target is checked by the fixed-domain flow benchmark.
 The rising-level growth condition remains the intended later open-tank model.
 
 Inspect the definition without producing results files:
@@ -118,6 +122,10 @@ resolution than velocity alone. The code reports diffusion time as L2/D.
    Check pressure/velocity errors, divergence, blocked-wall leakage and grid/time
    sensitivity, including unequal cells. Audit geometric tolerances and time
    control in physical scales before connecting the current geometry engine.
+
+   The uniform-grid fixed-box component now passes rest/channel, viscous-decay
+   and nonlinear 3D ABC references; details are in `FLOW_MODEL.md`. Unequal-cell
+   momentum and general cut faces remain follow-up work.
 3. Advect solute conservatively with the same volume fluxes; check constant-field
    preservation, positivity and total solute mass. Add the heat equation only
    with sourced thermal properties and actual thermal boundary conditions.
@@ -139,6 +147,7 @@ resolution than velocity alone. The code reports diffusion time as L2/D.
    Profile cost before synthetic batches. Geometry/transport fidelity does not
    supply optical quality labels; the quality target needs independent data.
 
-The physical definition and conversions are implemented in this step. The flow
-solver, growing-interface integration, kinetic calibration and quality validation
-remain subsequent work, with source/uncertainty tracking required throughout.
+The physical definition, conversions and initial uniform-grid momentum component
+are implemented. Arbitrary momentum cut cells, conservative scalar coupling,
+growing-interface integration, kinetic calibration and quality validation remain
+subsequent work, with source/uncertainty tracking required throughout.

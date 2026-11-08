@@ -1,0 +1,39 @@
+{
+  "source_id": "DESIGN-FLOW-002",
+  "fluid_reference": "physical_reference.json",
+  "channel": {
+    "lengths_m": [0.01, 0.01, 0.008],
+    "horizontal_counts": [4, 4],
+    "vertical_counts": [8, 16, 32],
+    "target_steady_max_speed_m_per_s": 0.001,
+    "duration_s": 400.0,
+    "max_dt_s": 1.0,
+    "finest_relative_rms_tolerance": 0.001
+  },
+  "decay": {
+    "lengths_m": [0.01, 0.01, 0.008],
+    "counts_xyz": [4, 4, 48],
+    "initial_speed_m_per_s": 0.001,
+    "duration_s": 10.0,
+    "timesteps_s": [0.5, 0.25, 0.125],
+    "finest_relative_rms_tolerance": 0.003
+  },
+  "abc": {
+    "length_m": 0.01,
+    "counts": [12, 18, 24],
+    "coefficient_speed_m_per_s": 0.0001,
+    "duration_s": 0.5,
+    "max_dt_s": 0.01,
+    "finest_relative_velocity_tolerance": 0.02,
+    "finest_relative_pressure_tolerance": 0.1
+  },
+  "obstacle": {
+    "counts_xyz": [20, 20, 16],
+    "duration_s": 2.0,
+    "max_dt_s": 0.05,
+    "vortical_acceleration_scale_m_per_s2": 0.0001
+  },
+  "max_scaled_divergence": 1e-9,
+  "max_blocked_face_speed_m_per_s": 1e-14,
+  "limits": "Numerical tests on uniform grids and a fixed aligned box. Not a validated growth/quality model or a complete cut-cell flow solver. Criteria are working verification choices, not experimental accuracy limits."
+}

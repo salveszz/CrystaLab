@@ -5,8 +5,8 @@
 # The KDP solubility relation is transcribed from KDP-2025 in SOURCES.md; its
 # project use is restricted to the temperatures covered by that reference.
 # FluidPropertiesSI computes transport scales from supplied physical properties.
-# These helpers do not assign physical units to the legacy illustrative engine
-# or claim that a Navier-Stokes solver or calibrated growth law exists yet.
+# These helpers do not assign physical units to the legacy illustrative engine.
+# The fixed-domain flow solver lives in flow.py; growth kinetics remain uncalibrated.
 
 """SI units, concentration conversions and sourced KDP reference relations."""
 

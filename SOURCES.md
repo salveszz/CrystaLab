@@ -175,7 +175,8 @@ Internal numerical evidence is separate from physical measurements.
 fully resolved inputs, environment, source hashes, case summaries and gates.
 All old generated files in `results/` were removed at the user's request on
 2026-11-07, including plots, fields, raw histories and archived source copies.
-The directory retains only `.gitkeep`. The compact record is not a resumable
+At cleanup the directory retained only `.gitkeep`; new flow verification runs
+produce fresh artifacts. The compact record is not a resumable
 raw dataset. New runs must use fresh output directories.
 
 | Final focused benchmark | Net growth / trajectory difference | Face-advance difference |
@@ -214,6 +215,89 @@ from physical-model calibration and future 3D training data.
 
 - Manifest SHA256: `057bfd059a998a01302089e309c20762c4425c7fcf84cd8707a4e33fbcc174ff`.
 - JSONL SHA256: `5d4e1f9bc726fe2e110f7add1db075795174347f570b146c6ea10e1e50fa4cf3`.
+
+## FLOW-PROJECTION-1968
+
+[Chorin, Numerical Solution of the Navier-Stokes Equations (1968)](https://math.berkeley.edu/~chorin/chorin68.pdf),
+[DOI](https://doi.org/10.1090/S0025-5718-1968-0242392-2), supplies projection-method
+background. The publisher abstract and scanned institutional paper were consulted
+on 2026-11-07. Our staggered-grid discretization, boundary closures and code are
+project implementations, not a transcription of the paper. No physical constants
+are taken from it.
+
+## FLOW-BELTRAMI-1996
+
+[Switzer, NASA CR-4756, Validation Tests of TASS for Application to 3-D Vortex
+Simulations (1996)](https://ntrs.nasa.gov/api/citations/19970001365/downloads/19970001365.pdf)
+documents analytic viscously decaying Beltrami flow as a test of nonlinear 3D
+Navier-Stokes solvers. Primary report text was inspected on 2026-11-07. Our
+periodic ABC benchmark is derived from the Beltrami identity; it does not reproduce
+the TASS discretization or claim the NASA report's numerical results.
+
+## DESIGN-FLOW-002
+
+New flow verification choices: uniform orthogonal 3D grids, constant density and
+viscosity from VTT-2006, fixed geometry, isothermal fluid. Periodic channel and ABC
+fields are manufactured/reference flows, not laboratory KDP experiments. Grid
+sizes, speeds, acceleration, viscosity-decay times and tolerances must be recorded
+with each generated verification report. Pressure correction uses impermeable
+normal-velocity boundaries and a gauge; a rigid, shear-free top must not also
+clamp pressure independently at every top cell in a driven flow. Arbitrary cut
+cells and moving/growing interfaces are outside this first momentum solver.
+
+## FLOW-BOUNDARIES-2001
+
+[Brown, Cortez and Minion, Accurate Projection Methods (2001)](https://www.math.tulane.edu/~cortez/Prints/accproj.html),
+[DOI](https://doi.org/10.1006/jcph.2001.6715), is consulted for the relationship
+between pressure updates and numerical boundary conditions. Our initial solver
+uses first-order time stepping, incremental pressure correction and limited
+linear upwind momentum fluxes; it does
+not claim the paper's second-order scheme or pressure accuracy. Boundary and
+time errors are measured separately in project benchmarks.
+
+
+## FLOW-NUMERICAL-20261107
+
+New numerical evidence, not laboratory data. The declared inputs/tolerances are
+in `configs/flow_verification.json`; physical coefficients come from VTT-2006.
+The final source-matched study is `results/flow_verification_final_5505e9d/`,
+with resolved settings/environment, all source copies, final native fields,
+report and figures. All eleven cases pass; the complete suite passes 122 tests.
+
+| Case | Relative velocity/RMS error (%) | Relative pressure error (%) | Scaled divergence |
+|---|---:|---:|---:|
+| rest | n/a | n/a | 0.000e+00 |
+| channel_8 | 0.534881 | n/a | 1.847e-16 |
+| channel_16 | 0.133721 | n/a | 1.720e-16 |
+| channel_32 | 0.033430 | n/a | 1.945e-16 |
+| decay_0.5 | 0.607019 | n/a | 1.723e-16 |
+| decay_0.25 | 0.307717 | n/a | 1.709e-16 |
+| decay_0.125 | 0.156570 | n/a | 1.771e-16 |
+| abc_12 | 0.591286 | 2.839061 | 2.245e-16 |
+| abc_18 | 0.306224 | 1.607187 | 2.630e-16 |
+| abc_24 | 0.201550 | 1.407454 | 3.075e-16 |
+| obstacle | n/a | n/a | 1.768e-16 |
+
+All blocked-face velocities are zero. Rest runs to 120 s. The manufactured
+obstacle flow runs to 2 s with acceleration scale 1e-4 m/s2, reaching centered
+speed 3.879061e-5 m/s. These are computed outcomes under DESIGN-FLOW-002, not
+measured circulation or calibrated quality labels. Neither focused/oblique
+momentum cut cells nor growing-crystal coupling is established by these tests.
+
+The donor-only study `results/flow_verification_5505e9d/` failed its original
+ABC velocity-refinement monotonicity gate. Its exact five source files were
+preserved and verified against the original recorded hashes. The limited-flux
+follow-up kept the same protocol/tolerances. An intermediate figure-scale bug
+in `flow_verification_limited_5505e9d` was corrected in the final runner; raw
+numerical fields were unaffected. Both histories remain marked, not relabeled.
+
+Final measured source SHA256 values:
+
+- `src/simulation/flow.py`: `5b2bf56a05f9236eafe309768450f3185abd6ac4003bb808bda9ad47d315d64d`.
+- `src/simulation/units.py`: `fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee`.
+- `src/simulation/crystal.py`: `7a58827d41d1d4c6c629294ec955f049a426c781f1c7f487dada797db387aba3`.
+- `scripts/check_flow.py`: `6ff1e9b5fd46f6c01d5c981391695d13fc0e0b91d706165ba35dd7fce2f4b68d`.
+- `scripts/describe_physical_setup.py`: `c0bd7e2e22b24ecbda70b0f9a1d5bb7a5ace0c6f74868ac12f4e40e02ff0dece`.
 
 ## Updating this register
 
