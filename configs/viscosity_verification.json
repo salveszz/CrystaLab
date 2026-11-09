@@ -1,0 +1,38 @@
+{
+  "source_id": "DESIGN-CUTCELL-VISCOSITY-006",
+  "length_m": 0.01,
+  "kinematic_viscosity_m2_per_s": 0.000001,
+  "speed_m_per_s": 0.0001,
+  "dt_s": 0.1,
+  "seed": 109,
+  "sloped_wall": {
+    "intercept_m": 0.002,
+    "slope_dz_dy": 0.5,
+    "counts": [8, 16, 24],
+    "focus_width_m": 0.0036,
+    "quadrature_order": 8
+  },
+  "rotated_cube": {
+    "width_m": 0.003,
+    "center_m": [0.005, 0.005, 0.005],
+    "angles_rad_xyz": [0.3, 0.2, 0.1],
+    "counts_xyz": [8, 8, 8],
+    "max_axis_refinements": 48
+  },
+  "subcell_cube": {
+    "width_m": 0.0002,
+    "center_m": [0.0051, 0.0052, 0.0049],
+    "counts_xyz": [8, 8, 8]
+  },
+  "tiny_layer": {"n": 8, "fraction": 0.0000001},
+  "temporal": {"n": 8, "duration_s": 1.0, "steps": [4, 8, 16]},
+  "gates": {
+    "affine_relative_max_error": 0.0000000001,
+    "finest_relative_volume_rms_error": 0.03,
+    "minimum_spatial_rate": 1.0,
+    "minimum_temporal_rate": 0.8,
+    "maximum_relative_balance_error": 0.00000001,
+    "maximum_relative_energy_increase": 0.000000000001
+  },
+  "limits": "Standalone constant-nu vector diffusion on stationary cut polyhedra, using liquid-volume means and auxiliary face means. Not a coupled incompressible momentum time step; no nonlinear advection, MAC/mean energy-compatible pressure transfer, small-cell advective control, free-surface stress, moving growth, KDP calibration or AI implementation. Numerical convergence claims are limited to the declared cases, not arbitrary cut shapes."
+}

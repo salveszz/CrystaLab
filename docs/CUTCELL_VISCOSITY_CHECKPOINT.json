@@ -1,0 +1,540 @@
+{
+  "source_id": "CUTCELL-VISCOSITY-NUMERICAL-20261109",
+  "evidence_directory": "results/viscosity_final_3b99100",
+  "working_tree_changes_uncommitted": true,
+  "manifest": {
+    "protocol": {
+      "source_id": "DESIGN-CUTCELL-VISCOSITY-006",
+      "length_m": 0.01,
+      "kinematic_viscosity_m2_per_s": 1e-06,
+      "speed_m_per_s": 0.0001,
+      "dt_s": 0.1,
+      "seed": 109,
+      "sloped_wall": {
+        "intercept_m": 0.002,
+        "slope_dz_dy": 0.5,
+        "counts": [
+          8,
+          16,
+          24
+        ],
+        "focus_width_m": 0.0036,
+        "quadrature_order": 8
+      },
+      "rotated_cube": {
+        "width_m": 0.003,
+        "center_m": [
+          0.005,
+          0.005,
+          0.005
+        ],
+        "angles_rad_xyz": [
+          0.3,
+          0.2,
+          0.1
+        ],
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "max_axis_refinements": 48
+      },
+      "subcell_cube": {
+        "width_m": 0.0002,
+        "center_m": [
+          0.0051,
+          0.0052,
+          0.0049
+        ],
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ]
+      },
+      "tiny_layer": {
+        "n": 8,
+        "fraction": 1e-07
+      },
+      "temporal": {
+        "n": 8,
+        "duration_s": 1.0,
+        "steps": [
+          4,
+          8,
+          16
+        ]
+      },
+      "gates": {
+        "affine_relative_max_error": 1e-10,
+        "finest_relative_volume_rms_error": 0.03,
+        "minimum_spatial_rate": 1.0,
+        "minimum_temporal_rate": 0.8,
+        "maximum_relative_balance_error": 1e-08,
+        "maximum_relative_energy_increase": 1e-12
+      },
+      "limits": "Standalone constant-nu vector diffusion on stationary cut polyhedra, using liquid-volume means and auxiliary face means. Not a coupled incompressible momentum time step; no nonlinear advection, MAC/mean energy-compatible pressure transfer, small-cell advective control, free-surface stress, moving growth, KDP calibration or AI implementation. Numerical convergence claims are limited to the declared cases, not arbitrary cut shapes."
+    },
+    "sources": {
+      "src/simulation/viscosity.py": "b4ac716d35a09a6aa8ac2871f1c150115ff5d6711ca590693aedbc9cf68edd46",
+      "src/simulation/cutcell.py": "b83d97d63f064f34af3ad502d10b726d69b526471b356a7cc98d587bfb7aed3f",
+      "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+      "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+      "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+      "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+      "scripts/check_viscosity.py": "b85785ee7910b683afbba759812295f93bdc0e2bc033efd276a97b3f24a7a806",
+      "scripts/check_cutcell.py": "e20617a85af0c52528dcb3121eb1da3a874d4bbd30dabdef347f4ea5ad7a751e",
+      "tests/test_viscosity.py": "a56b4859f147b24c9756d56c68db240cdf9cb60fff2b20d06c9dda2032f7bf91",
+      "configs/viscosity_verification.json": "a4472b4e06e9c4a41cf5cb52178fb7f28d8fec951da1dc63fa4cf28c7af97cd4"
+    },
+    "git_commit": "3b99100a8ef0f28d8e92e477da3da82569a99aad",
+    "environment": {
+      "python": "3.14.8",
+      "numpy": "2.5.0",
+      "scipy": "1.18.0",
+      "threads": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1"
+      }
+    }
+  },
+  "report": {
+    "protocol": {
+      "source_id": "DESIGN-CUTCELL-VISCOSITY-006",
+      "length_m": 0.01,
+      "kinematic_viscosity_m2_per_s": 1e-06,
+      "speed_m_per_s": 0.0001,
+      "dt_s": 0.1,
+      "seed": 109,
+      "sloped_wall": {
+        "intercept_m": 0.002,
+        "slope_dz_dy": 0.5,
+        "counts": [
+          8,
+          16,
+          24
+        ],
+        "focus_width_m": 0.0036,
+        "quadrature_order": 8
+      },
+      "rotated_cube": {
+        "width_m": 0.003,
+        "center_m": [
+          0.005,
+          0.005,
+          0.005
+        ],
+        "angles_rad_xyz": [
+          0.3,
+          0.2,
+          0.1
+        ],
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "max_axis_refinements": 48
+      },
+      "subcell_cube": {
+        "width_m": 0.0002,
+        "center_m": [
+          0.0051,
+          0.0052,
+          0.0049
+        ],
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ]
+      },
+      "tiny_layer": {
+        "n": 8,
+        "fraction": 1e-07
+      },
+      "temporal": {
+        "n": 8,
+        "duration_s": 1.0,
+        "steps": [
+          4,
+          8,
+          16
+        ]
+      },
+      "gates": {
+        "affine_relative_max_error": 1e-10,
+        "finest_relative_volume_rms_error": 0.03,
+        "minimum_spatial_rate": 1.0,
+        "minimum_temporal_rate": 0.8,
+        "maximum_relative_balance_error": 1e-08,
+        "maximum_relative_energy_increase": 1e-12
+      },
+      "limits": "Standalone constant-nu vector diffusion on stationary cut polyhedra, using liquid-volume means and auxiliary face means. Not a coupled incompressible momentum time step; no nonlinear advection, MAC/mean energy-compatible pressure transfer, small-cell advective control, free-surface stress, moving growth, KDP calibration or AI implementation. Numerical convergence claims are limited to the declared cases, not arbitrary cut shapes."
+    },
+    "results": [
+      {
+        "case": "uniform_shear_8",
+        "n": 8,
+        "relative_volume_rms_error": 0.01894321939989367,
+        "affine_relative_max_error": 5.421010862427522e-16,
+        "max_relative_moment_defect": 1.3322676295501878e-14,
+        "energy_m5_per_s2": 1.593427419703082e-16,
+        "dissipation_m5_per_s3": 4.6800419216021406e-17,
+        "body_power_m5_per_s3": 5.0873042330990886e-17,
+        "boundary_power_m5_per_s3": -4.072623114969517e-18,
+        "work_residual_m5_per_s3": 3.774822690998982e-32,
+        "max_cell_momentum_residual_m4_per_s2": 1.5146129380243427e-28,
+        "max_interior_flux_residual_m4_per_s2": 1.356316904035267e-28,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000002e-07,
+        "cut_cell_count": 96,
+        "min_liquid_fraction": 0.15999999999999864,
+        "normalized_area_closure": 3.624509308223752e-15,
+        "normalized_moment_closure": 3.775893416852019e-14,
+        "embedded_wall_area_m2": 0.00011180339887498949,
+        "wall_trace_exactly_zero": true,
+        "relative_steady_balance_error": 7.420084425930691e-16
+      },
+      {
+        "case": "uniform_shear_16",
+        "n": 16,
+        "relative_volume_rms_error": 0.0048634122204098355,
+        "affine_relative_max_error": 2.913793338554793e-15,
+        "max_relative_moment_defect": 6.195044477408373e-14,
+        "energy_m5_per_s2": 1.5735090037685174e-16,
+        "dissipation_m5_per_s3": 4.667206735994203e-17,
+        "body_power_m5_per_s3": 5.051512674104547e-17,
+        "boundary_power_m5_per_s3": -3.8430593811029866e-18,
+        "work_residual_m5_per_s3": -4.5683058280865234e-31,
+        "max_cell_momentum_residual_m4_per_s2": 8.066102755884846e-29,
+        "max_interior_flux_residual_m4_per_s2": 1.4749233737304105e-28,
+        "grid_counts_xyz": [
+          16,
+          16,
+          16
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000002e-07,
+        "cut_cell_count": 384,
+        "min_liquid_fraction": 0.08999999999999711,
+        "normalized_area_closure": 7.34099564699579e-15,
+        "normalized_moment_closure": 1.60244713997121e-13,
+        "embedded_wall_area_m2": 0.00011180339887498949,
+        "wall_trace_exactly_zero": true,
+        "relative_steady_balance_error": 9.043441287408668e-15
+      },
+      {
+        "case": "uniform_shear_24",
+        "n": 24,
+        "relative_volume_rms_error": 0.0021695389921672402,
+        "affine_relative_max_error": 2.420142536894987e-13,
+        "max_relative_moment_defect": 2.97983859809392e-13,
+        "energy_m5_per_s2": 1.5701736722858973e-16,
+        "dissipation_m5_per_s3": 4.665131972649597e-17,
+        "body_power_m5_per_s3": 5.0447669410674077e-17,
+        "boundary_power_m5_per_s3": -3.796349684178136e-18,
+        "work_residual_m5_per_s3": 3.004450713244088e-32,
+        "max_cell_momentum_residual_m4_per_s2": 6.660944268459918e-29,
+        "max_interior_flux_residual_m4_per_s2": 4.2050230552806034e-27,
+        "grid_counts_xyz": [
+          24,
+          24,
+          24
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000003e-07,
+        "cut_cell_count": 864,
+        "min_liquid_fraction": 0.039999999999992146,
+        "normalized_area_closure": 1.478963732506092e-14,
+        "normalized_moment_closure": 4.823974476202273e-13,
+        "embedded_wall_area_m2": 0.00011180339887498949,
+        "wall_trace_exactly_zero": true,
+        "relative_steady_balance_error": 4.2050230552806034e-15
+      },
+      {
+        "case": "focused_shear_8",
+        "n": 8,
+        "relative_volume_rms_error": 0.08771668581049948,
+        "affine_relative_max_error": 1.0842021724855044e-15,
+        "max_relative_moment_defect": 3.6193270602780103e-14,
+        "energy_m5_per_s2": 1.7100966619926656e-16,
+        "dissipation_m5_per_s3": 4.802678275237984e-17,
+        "body_power_m5_per_s3": 5.1952327345861434e-17,
+        "boundary_power_m5_per_s3": -3.925544593481708e-18,
+        "work_residual_m5_per_s3": 1.1247430875221457e-31,
+        "max_cell_momentum_residual_m4_per_s2": 3.6918690364343352e-28,
+        "max_interior_flux_residual_m4_per_s2": 5.415160335792924e-28,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.5e-07,
+        "cut_cell_count": 112,
+        "min_liquid_fraction": 0.02777777777777731,
+        "normalized_area_closure": 3.957306572365091e-15,
+        "normalized_moment_closure": 3.7060569551447044e-14,
+        "embedded_wall_area_m2": 0.00011180339887498949,
+        "wall_trace_exactly_zero": true,
+        "relative_steady_balance_error": 2.164952264860842e-15
+      },
+      {
+        "case": "focused_shear_16",
+        "n": 16,
+        "relative_volume_rms_error": 0.02030092723209396,
+        "affine_relative_max_error": 3.5092310306949646e-15,
+        "max_relative_moment_defect": 5.382172748322168e-12,
+        "energy_m5_per_s2": 1.5982634284615544e-16,
+        "dissipation_m5_per_s3": 4.698932354984895e-17,
+        "body_power_m5_per_s3": 5.0659701265372747e-17,
+        "boundary_power_m5_per_s3": -3.670377715523695e-18,
+        "work_residual_m5_per_s3": -9.860761315262648e-32,
+        "max_cell_momentum_residual_m4_per_s2": 2.99372713531374e-28,
+        "max_interior_flux_residual_m4_per_s2": 3.9630493522411104e-28,
+        "grid_counts_xyz": [
+          16,
+          16,
+          16
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.5e-07,
+        "cut_cell_count": 448,
+        "min_liquid_fraction": 0.0014505780984479088,
+        "normalized_area_closure": 9.240983687780527e-15,
+        "normalized_moment_closure": 2.2433767728762918e-13,
+        "embedded_wall_area_m2": 0.00011180339887498952,
+        "wall_trace_exactly_zero": true,
+        "relative_steady_balance_error": 1.9464704822495155e-15
+      },
+      {
+        "case": "focused_shear_24",
+        "n": 24,
+        "relative_volume_rms_error": 0.007692618889988925,
+        "affine_relative_max_error": 1.320693771358905e-13,
+        "max_relative_moment_defect": 1.035335308361563e-12,
+        "energy_m5_per_s2": 1.5791068360786576e-16,
+        "dissipation_m5_per_s3": 4.677798435139749e-17,
+        "body_power_m5_per_s3": 5.050418906767684e-17,
+        "boundary_power_m5_per_s3": -3.726204716279638e-18,
+        "work_residual_m5_per_s3": 2.850376317693109e-31,
+        "max_cell_momentum_residual_m4_per_s2": 1.7473269050645411e-28,
+        "max_interior_flux_residual_m4_per_s2": 6.3705448477254335e-27,
+        "grid_counts_xyz": [
+          24,
+          24,
+          24
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.5e-07,
+        "cut_cell_count": 984,
+        "min_liquid_fraction": 0.008348905025586498,
+        "normalized_area_closure": 1.052337926423651e-14,
+        "normalized_moment_closure": 3.2560104685925196e-13,
+        "embedded_wall_area_m2": 0.00011180339887498952,
+        "wall_trace_exactly_zero": true,
+        "relative_steady_balance_error": 6.3705448477254335e-15
+      },
+      {
+        "case": "rotated_cube",
+        "energy_m5_per_s2": 4.417174129832437e-15,
+        "dissipation_m5_per_s3": 6.142851553138802e-14,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "work_residual_m5_per_s3": -2.524354896707238e-29,
+        "max_cell_momentum_residual_m4_per_s2": 1.2116903504194741e-27,
+        "max_interior_flux_residual_m4_per_s2": 1.7670484276950664e-27,
+        "previous_energy_m5_per_s2": 1.4260331572138847e-14,
+        "relative_energy_increase": -0.6902474456861507,
+        "relative_balance_error": 1.7670484276950664e-15,
+        "max_relative_moment_defect": 7.607541255117135e-11,
+        "grid_counts_xyz": [
+          14,
+          12,
+          12
+        ],
+        "axis_refinement_count": 14,
+        "liquid_volume_m3": 9.73e-07,
+        "cut_cell_count": 284,
+        "min_liquid_fraction": 7.46091729098285e-05,
+        "normalized_area_closure": 2.824520538499954e-14,
+        "normalized_moment_closure": 7.595890921677014e-13,
+        "embedded_wall_area_m2": 5.400000000000002e-05,
+        "wall_trace_exactly_zero": true
+      },
+      {
+        "case": "subcell_cube",
+        "energy_m5_per_s2": 7.097396350923822e-15,
+        "dissipation_m5_per_s3": 5.819809944737388e-14,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "work_residual_m5_per_s3": 2.524354896707238e-29,
+        "max_cell_momentum_residual_m4_per_s2": 1.4136387421560532e-27,
+        "max_interior_flux_residual_m4_per_s2": 1.1107161545511846e-27,
+        "previous_energy_m5_per_s2": 1.4293207522132665e-14,
+        "relative_energy_increase": -0.5034427129156499,
+        "relative_balance_error": 1.4136387421560532e-15,
+        "max_relative_moment_defect": 8.881784197001252e-16,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 9.999920000000004e-07,
+        "cut_cell_count": 1,
+        "min_liquid_fraction": 0.995904,
+        "normalized_area_closure": 4.8288307535432335e-17,
+        "normalized_moment_closure": 9.655121974330951e-16,
+        "embedded_wall_area_m2": 2.400000000000018e-07,
+        "wall_trace_exactly_zero": true
+      },
+      {
+        "case": "tiny_layer",
+        "energy_m5_per_s2": 2.719526166262844e-49,
+        "dissipation_m5_per_s3": 1.3685689421956701e-34,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "work_residual_m5_per_s3": 2.935178385274871e-38,
+        "max_cell_momentum_residual_m4_per_s2": 1.4444474582904269e-34,
+        "max_interior_flux_residual_m4_per_s2": 1.1995114854620434e-42,
+        "previous_energy_m5_per_s2": 1.722292394557701e-22,
+        "relative_energy_increase": -1.0,
+        "relative_balance_error": 1.7042276877897084e-17,
+        "max_relative_moment_defect": 2.0311851534060565e-08,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1.25000001508092e-14,
+        "cut_cell_count": 64,
+        "min_liquid_fraction": 9.999999930395818e-08,
+        "normalized_area_closure": 1.7618285302889431e-15,
+        "normalized_moment_closure": 2.372826400622375e-14,
+        "embedded_wall_area_m2": 0.0001,
+        "wall_trace_exactly_zero": true
+      },
+      {
+        "case": "periodic_sloped_wall",
+        "energy_m5_per_s2": 3.880995707360786e-15,
+        "dissipation_m5_per_s3": 3.25262344188077e-14,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "work_residual_m5_per_s3": 6.310887241768095e-30,
+        "max_cell_momentum_residual_m4_per_s2": 2.4233807008389483e-27,
+        "max_interior_flux_residual_m4_per_s2": 1.072850831100576e-27,
+        "previous_energy_m5_per_s2": 7.989331576427919e-15,
+        "relative_energy_increase": -0.5142277335426346,
+        "relative_balance_error": 2.4233807008389483e-15,
+        "max_relative_moment_defect": 1.3322676295501878e-14,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000002e-07,
+        "cut_cell_count": 96,
+        "min_liquid_fraction": 0.15999999999999864,
+        "normalized_area_closure": 3.624509308223752e-15,
+        "normalized_moment_closure": 3.775893416852019e-14,
+        "embedded_wall_area_m2": 0.00011180339887498949,
+        "wall_trace_exactly_zero": true
+      },
+      {
+        "case": "temporal_4",
+        "steps": 4,
+        "dt_s": 0.25,
+        "relative_temporal_rms_error": 0.016680673803306963,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1.0000000000000004e-06,
+        "cut_cell_count": 0,
+        "min_liquid_fraction": 1.0,
+        "normalized_area_closure": 0.0,
+        "normalized_moment_closure": 7.335520501646285e-16,
+        "embedded_wall_area_m2": 0.0,
+        "wall_trace_exactly_zero": true
+      },
+      {
+        "case": "temporal_8",
+        "steps": 8,
+        "dt_s": 0.125,
+        "relative_temporal_rms_error": 0.008555776553133224,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1.0000000000000004e-06,
+        "cut_cell_count": 0,
+        "min_liquid_fraction": 1.0,
+        "normalized_area_closure": 0.0,
+        "normalized_moment_closure": 7.335520501646285e-16,
+        "embedded_wall_area_m2": 0.0,
+        "wall_trace_exactly_zero": true
+      },
+      {
+        "case": "temporal_16",
+        "steps": 16,
+        "dt_s": 0.0625,
+        "relative_temporal_rms_error": 0.004334203337784101,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1.0000000000000004e-06,
+        "cut_cell_count": 0,
+        "min_liquid_fraction": 1.0,
+        "normalized_area_closure": 0.0,
+        "normalized_moment_closure": 7.335520501646285e-16,
+        "embedded_wall_area_m2": 0.0,
+        "wall_trace_exactly_zero": true
+      }
+    ],
+    "gates": {
+      "all_cases_completed": true,
+      "all_wall_traces_zero": true,
+      "uniform_spatial_refinement": true,
+      "uniform_affine_exactness": true,
+      "focused_spatial_refinement": true,
+      "focused_affine_exactness": true,
+      "energy_and_flux_balances": true,
+      "steady_work_and_flux_balances": true,
+      "tiny_capacity_retained": true,
+      "first_order_implicit_time": true
+    },
+    "overall_pass": true
+  },
+  "full_suite": {
+    "tests": 186,
+    "result": "PASS",
+    "seconds": 62.299
+  },
+  "prior_measurement": "results/viscosity_initial_3b99100; all original gates passed; final adds explicit steady balance/tiny-retention gates and source/config/test archival without relaxing thresholds",
+  "verification": {
+    "source_hashes_match": true,
+    "archived_source_hashes_match": true,
+    "finite_field_archives": 13,
+    "refinement_figure_visually_inspected": true,
+    "focused_ruff": "PASS",
+    "formatting": "PASS",
+    "whitespace": "PASS"
+  }
+}
