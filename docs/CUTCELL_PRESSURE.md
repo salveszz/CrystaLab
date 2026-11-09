@@ -3,9 +3,10 @@
 This completed foundation represents actual sloped crystal surfaces and verifies
 their pressure projection. A subsequent standalone embedded viscosity study now
 passes; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md). Together these do **not**
-yet enable full sloped-crystal momentum time stepping: their unknowns need an
-energy-compatible pressure/viscosity transfer, followed by nonlinear momentum
-transport and advective small-cell verification. `IncompressibleFlow` continues
+yet enable full sloped-crystal Navier–Stokes time stepping. The new
+[linear Stokes coupling](CUTCELL_STOKES.md) uses shared viscous face means and
+pressure with a compatible energy budget. Nonlinear momentum transport and
+advective small-cell verification remain required. `IncompressibleFlow` continues
 to reject partial momentum cells.
 
 The existing uniform/rectilinear runtime now delegates to the same

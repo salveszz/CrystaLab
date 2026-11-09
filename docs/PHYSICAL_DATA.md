@@ -70,8 +70,9 @@ step; those choices should follow the actual available measurements.
 
 A standalone embedded tangential no-slip viscosity operator now passes its
 independent numerical checks; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md).
-Next join its velocity representation with pressure using a compatible energy
-budget, then verify nonlinear cut-cell momentum and advective small-cell handling.
+Pressure now couples to the same velocity representation in the
+[linear Stokes step](CUTCELL_STOKES.md), with a compatible energy budget. Next
+verify nonlinear cut-cell momentum and advective small-cell handling.
 Interfacial uptake/motion and physical density/partial-volume accounting follow.
 
 ## Files changed

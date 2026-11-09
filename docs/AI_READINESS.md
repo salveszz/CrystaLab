@@ -6,8 +6,9 @@ to those actions, and observations must represent quantities available to future
 sensors/cameras. A passing passive-fluid test does not supply growth/quality
 labels or a calibrated actuator response.
 
-The current work is physical-reference and source-audit preparation only;
-model training remains deferred. The existing package layout and placeholder
+Current work covers physical-reference/source audits and fixed-domain numerical
+flow verification, including pressure/viscosity coupling; model training remains
+deferred. The existing package layout and placeholder
 commands are preserved. See [PHYSICAL_DATA.md](PHYSICAL_DATA.md).
 
 ## Real-data preparation and the first XGBoost baseline
@@ -50,7 +51,7 @@ growth-control training; it does not block the real-data work above.
 | Convex crystal geometry and local facet sampling | Implemented and tested in the illustrative 3D growth engine. |
 | SI contract and reference properties | Explicit concentration bases and a sourced constant-property point at 30 C; broader property curves remain to obtain. |
 | Fixed-domain momentum and passive solute | Uniform and unequal/focused Cartesian grids have independent numerical references. |
-| Sloped crystal momentum boundary | Actual geometry/shared pressure and a standalone embedded no-slip viscosity operator are numerically verified. The new viscosity uses volume/face means; energy-compatible pressure transfer, nonlinear momentum fluxes and advective small-cell handling remain required. The full runtime still rejects partial momentum cells; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md). |
+| Sloped crystal momentum boundary | Actual geometry/shared pressure and embedded no-slip viscosity are verified. A monolithic linear Stokes step now joins pressure to the same face means, with conserved volume and a compatible energy budget; see [CUTCELL_STOKES.md](CUTCELL_STOKES.md). Nonlinear momentum fluxes and advective small-cell handling remain required; the full runtime still rejects partial momentum cells. |
 | Flow coupled to crystal growth | Pending. Reconcile interfacial solute flux, solution/solid densities, solvent accounting and rising-level volume closure. |
 | KDP kinetic calibration | Published reference records exist; face laws, applicable ranges, uncertainty and independent experimental validation remain required. |
 | Temperature/buoyancy and physical forcing | Source thermal properties and density derivatives; define physical ports/rotation geometry, setpoints and histories. |
@@ -61,11 +62,11 @@ growth-control training; it does not block the real-data work above.
 
 ## Next implementation order
 
-1. Join the verified standalone [embedded viscosity](CUTCELL_VISCOSITY.md)
-   with pressure using a defined velocity representation and compatible energy
-   budget. Then add conservative nonlinear momentum fluxes and verified
-   advective small-cell handling before enabling oblique cut-cell time stepping.
-   The geometry/pressure foundation is in [CUTCELL_PRESSURE.md](CUTCELL_PRESSURE.md).
+1. Build conservative nonlinear momentum transport on the shared volume/face
+   representation and fluxes from [linear Stokes coupling](CUTCELL_STOKES.md).
+   Verify momentum/energy, advective small-cell handling and combined spatial/time
+   accuracy before enabling the full oblique cut-cell runtime. Keep the measured
+   resolution limits, including failed coarse focused grids, explicit.
 2. Couple conservative interfacial uptake and boundary motion using an explicit
    density/partial-volume closure; repeat coupled growth/flow/scalar refinement.
 3. Add sourced physical properties, defined forcing and applicable kinetics,

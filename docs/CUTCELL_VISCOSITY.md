@@ -73,8 +73,10 @@ quadrature of kinetic energy; it does not resolve within-cell fluctuations.
 x/y/z MAC array shapes. This checks layout, blocked faces and periodic aliases.
 It is **not an energy-compatible pressure transfer**. The existing pressure
 operator acts on different unknowns and an A*d metric. Pressure/viscosity
-coupling, its energy budget and time/splitting error must be designed and
-verified before enabling cut-cell flow. Nonlinear momentum fluxes and advective
+coupling is now implemented directly on these shared traces in
+[CUTCELL_STOKES.md](CUTCELL_STOKES.md), with a monolithic linear solve and
+combined conservation/work checks. This does not turn normal-face export into
+an energy-compatible interpolation or enable full nonlinear cut-cell flow. Nonlinear momentum fluxes and advective
 small-cell handling remain subsequent work. The canonical flow's partial-cell
 rejection remains active.
 
@@ -140,8 +142,7 @@ normalized flux/work balance error is below 2.5e-15. Wall traces are exactly zer
 | `roadmap.md`, `PROGRESS.md` | Local progress/status, including the approved checkpoint push and the next coupling step. |
 
 Existing solver, runner and package layouts are preserved. No AI implementation
-or ML dependency is added. The new viscosity work is local for review after the
-separately approved `3b99100` checkpoint push.
-
-An existing local `.gitignore` edit removes the `roadmap.md` ignore rule. That
-edit was preserved; the roadmap therefore currently appears as untracked.
+or ML dependency is added. The viscosity files and roadmap were subsequently
+committed as `d532f35`, after the tracked documentation checkpoint `aa4669b`.
+The roadmap is now tracked. The next local coupling work is described in
+[CUTCELL_STOKES.md](CUTCELL_STOKES.md).

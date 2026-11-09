@@ -1,27 +1,37 @@
 # Current local scope — 2026-11-09
 
-Preserved the original package folders, starter commands and numerical runner
-defaults after restoring origin/main 345df81. The bounded COD reference and
-standalone physical-data audit were approved, committed as 3b99100 (`llalal`)
-and pushed to origin/main; local/remote SHA equality was verified.
+The original package layout, starter commands and runner defaults are preserved.
+Physical-reference/source audit is committed as 3b99100 (`llalal`). The standalone
+embedded no-slip viscosity and roadmap are committed in d532f35, after the
+tracked-documentation checkpoint aa4669b. Those milestones contain no AI work.
 
-The next local step adds a standalone constant-nu embedded no-slip viscosity
-operator in the existing simulation package. All 13 declared numerical cases
-and all 186 tests pass. See docs/CUTCELL_VISCOSITY.md for the full file review,
-method, evidence and limits. This work remains uncommitted for review; the
-checkpoint push does not include these later physics changes.
+Current local work: couple pressure and viscosity on the same liquid-volume and
+shared-face velocity means, using a monolithic fixed-domain linear Stokes solve.
+Pressure is the negative adjoint of integrated face divergence, so pressure work
+vanishes with conserved volume. The implementation and 12 new tests are present;
+all 198 tests pass. See docs/CUTCELL_STOKES.md for the derivation/file review.
 
-Next: design/verify energy-compatible transfer between the pressure MAC fields
-and viscous volume/face means, then conservative nonlinear momentum and advective
-small-cell handling. Keep the canonical partial-cell runtime guard until the
-combined step is verified. Then address physical uptake/motion and explicit
-solution/solid density and partial-volume closure. Collect physical measurements
-for calibration. No AI training, forecast pipeline, new experiments package,
-placeholder deletion or ML dependency is included.
+Numerical acceptance: all 17 cases in results/stokes_refined_d532f35 pass the
+unchanged gates on 12/18/24 grids. Finest uniform/focused velocity RMS errors
+are 0.654%/1.888%; pressure RMS over the prescribed scale is 1.979%/3.024%.
+Pressure work and integrated volume residuals are near roundoff; pressure and
+velocity pass time refinement. The original 6/12/18 study fails focused
+accuracy/refinement and remains in results/stokes_initial_d532f35. Acceptance
+does not validate those coarse focused meshes. All source hashes/fields were
+checked; docs/CUTCELL_STOKES_CHECKPOINT.json retains both protocols/results.
+This coupling work remains local and uncommitted.
 
-The longer sections below are development history, including superseded local
-experiments. Their historical claims do not override this current scope. Further
-commit/push requires a separate review and authorization.
+Next: conservative nonlinear momentum fluxes on the shared representation,
+then momentum/energy and advective small-cell handling under refinement before
+enabling partial cells in the full Navier–Stokes runtime. Follow with passive
+solute, physical uptake/motion and explicit solution/solid density/partial-volume
+closure. The illustrative growth engine and canonical partial-cell guard remain
+in place. AI training, new experiment packages, placeholder deletion and ML
+changes remain outside this work.
+
+The longer sections below contain development history, including superseded
+local experiments. Their historical claims do not override this current scope.
+Explain every affected file; further commit/push requires separate authorization.
 
 # KDP AI — Simulation-First Coding Goal
 
@@ -333,7 +343,9 @@ prediction remain unfinished. No AI model, commit or push is part of this step.
 - [x] Add and verify the initial uniform-grid, stationary-aligned-crystal 3D incompressible Navier-Stokes solver, including velocity/pressure, viscosity, nonlinear conservative momentum transport, rest/channel/decay/ABC references and blocked-face/divergence checks.
 - [x] Extend momentum and passive solute to nonuniform/focused Cartesian cells with actual primal/dual volumes, face areas and distances. Independent numerical references pass.
 - [x] Implement actual oblique geometry and shared compatible pressure projection, with independent manufactured Poisson, geometry-closure and topology-resolution verification.
-- [ ] Complete embedded no-slip viscosity, conservative nonlinear momentum and small-cell time stepping. The full momentum runtime continues to reject partial cells until that stage is verified.
+- [x] Verify stationary embedded no-slip viscosity on real cut facets, with independent affine/shear refinement and energy/flux checks; see docs/CUTCELL_VISCOSITY.md.
+- [x] Verify monolithic fixed cut-cell pressure/viscosity coupling (linear Stokes), including cellwise volume, stationary no slip, pressure work, energy, velocity/pressure and gradient-force refinement. All 198 tests and 17 refined numerical cases pass. The failed coarse focused study is retained; see docs/CUTCELL_STOKES.md and its checkpoint.
+- [ ] Add conservative nonlinear cut-cell momentum fluxes, verify momentum/energy and advective small-cell handling, then enable the combined partial-cell runtime only after spatial/time verification.
 - [x] Couple conservative passive solute advection-diffusion to resolved face volume fluxes, with high-Peclet broadening/refinement, positivity, mass and fixed-obstacle coupling checks. Empirical mixing/agitation multipliers do not enter this resolved path.
 - [ ] Add heat advection-diffusion only after obtaining sourced thermal properties and physical boundary conditions.
 - [ ] Add thermal and solutal buoyancy where the physical scales justify them. Use a Boussinesq approximation only when relative density variations are small enough.

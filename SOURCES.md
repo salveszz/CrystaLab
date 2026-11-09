@@ -585,3 +585,36 @@ needs energy-compatible pressure transfer, nonlinear momentum fluxes and
 advective small-cell verification before cut-cell flow can run. Fixed geometry,
 constant viscosity, stationary embedded walls and no free-surface stress are
 current limits; no growth calibration or AI readiness is established.
+
+## HYBRID-STOKES-2018
+
+Di Pietro, D. A.; Krell, S., *A Hybrid High-Order method for the steady
+incompressible Navier–Stokes problem*, author manuscript dated 2018-11-09,
+[primary PDF](https://arxiv.org/pdf/1607.08159), accessed 2026-11-09.
+Equation 17 defines the hybrid discrete divergence; its k=0 case is the
+face-area-normal sum used in `simulation/stokes.py`. Section 3.5, equation 38,
+uses the divergence/pressure pairing. The project's negative transpose pressure
+force enforces that adjoint relation on its existing mimetic viscous operator.
+This is not a reproduction of the paper's entire viscous/nonlinear scheme or
+proof of its inf-sup/convergence bounds on all project cut geometries.
+See `docs/CUTCELL_STOKES.md` for the independent project derivation, units,
+energy identity and measured limits, including gradient-force leakage.
+
+## CUTCELL-STOKES-NUMERICAL-20261109
+
+`configs/stokes_verification.json` declares fixed-domain linear pressure/viscosity
+coupling checks. Inputs are mathematical tests, not calibrated KDP conditions.
+The first 6/12/18-grid study in `results/stokes_initial_d532f35/` failed focused
+velocity accuracy (4.4208% at 18, gate 3%) and the coarse focused pressure rate
+(0.507, gate 0.8). Conservation/energy/time gates pass. Retain this failed
+protocol and results. The refined 12/18/24 study uses every original tolerance
+unchanged, with added gradient-state balance and pressure-time checks. New
+acceptance applies only to that measured refined regime. No nonlinear momentum,
+growing interface, physical growth prediction or AI readiness is established.
+
+The completed `results/stokes_refined_d532f35/` study passes all 17 cases.
+Finest uniform/focused velocity errors are 0.65395%/1.8883%; pressure RMS over
+the declared scale is 1.9792%/3.0236%. All 198 regression tests pass. Exact source
+hashes, full metrics, original failed evidence and environment are retained in
+`docs/CUTCELL_STOKES_CHECKPOINT.json`. The result verifies a fixed linear
+operator at its declared resolution, not full nonlinear cut-cell growth flow.

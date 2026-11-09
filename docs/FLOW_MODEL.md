@@ -163,9 +163,10 @@ Conservative fixed-grid solute coupling has its own spatial/time, high-Peclet
 diffusion and coupled-invariant checks. Focused/nonuniform momentum and scalar
 operators now have a separate measured study. A standalone embedded no-slip
 viscosity operator is verified in [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md).
-Its volume/face-mean representation still needs energy-compatible pressure
-transfer, nonlinear momentum transport and advective small-cell handling before
-oblique momentum time stepping. Then couple interfacial uptake/motion. Keep
+The subsequent [linear Stokes operator](CUTCELL_STOKES.md) now couples pressure
+on those same face means with conserved volume and an energy identity.
+Nonlinear momentum transport and advective small-cell handling remain before
+full oblique Navier–Stokes time stepping. Then couple interfacial uptake/motion. Keep
 empirical stirring
 effects out of a resolved-flow path unless their remaining contribution is
 explicitly justified and calibrated. Validate kinetics and quality independently.
