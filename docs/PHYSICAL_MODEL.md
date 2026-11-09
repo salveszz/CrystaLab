@@ -73,8 +73,11 @@ do not imply matching experimental precision.
 
 No pure-water viscosity, heat capacity or density is silently substituted for
 this concentrated solution. Heat capacity/conductivity, thermal/solutal density
-derivatives, solid density, lattice metric and facet kinetics remain separate
-inputs to obtain and audit before enabling the corresponding physics.
+derivatives and facet kinetics remain separate inputs to obtain and audit.
+A bounded 295 K solid-density/lattice reference is now checked separately in
+`simulation.material`; see [PHYSICAL_DATA.md](PHYSICAL_DATA.md). Its measurement
+pressure is unknown. It supplies no property curve and does not reparameterize
+this 303.15 K fluid reference or the illustrative growing-crystal engine.
 
 ## First stationary open-tank case
 

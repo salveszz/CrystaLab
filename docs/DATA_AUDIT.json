@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-11-09",
+  "baseline_git_commit": "345df81afbf142661c3074960e85f846813f4f6e",
+  "scope": "Bounded physical reference and standalone source audit; original repository layout preserved. No model training or forecasting implementation.",
+  "structure": {
+    "reference": {
+      "source_id": "COD-9010000",
+      "a_m": 7.4521e-10,
+      "c_m": 6.974000000000001e-10,
+      "density_kg_per_m3": 2333.8948984452236,
+      "reported_density_kg_per_m3": 2334.0,
+      "temperature_K": 295.0,
+      "pressure_Pa": null
+    },
+    "normal_101_crystal_axes": [
+      0.6832971831425787,
+      0.0,
+      0.73014036972997
+    ],
+    "mass_of_one_physical_mm3_kg": 2.333894898445224e-06,
+    "runtime_parameters_changed": false,
+    "limits": [
+      "Measurement pressure is unreported in this CIF; atmospheric pressure is not independently confirmed.",
+      "295 K is a single structural reference point; no thermal expansion curve is supplied.",
+      "Density is calculated from the unit cell and formula, not an independent bulk-density measurement.",
+      "Facet normals are expressed in crystal axes; world orientation must be supplied separately.",
+      "No kinetic coefficients, growth observations or optical-quality labels are supplied.",
+      "The illustrative model-unit growth engine is not reparameterized by this reference."
+    ]
+  },
+  "source_access_audit": {
+    "schema_version": 1,
+    "checked_at_utc": "2026-11-08T22:51:41.973481+00:00",
+    "network_requested": true,
+    "sources": [
+      {
+        "source_id": "COD-9010000",
+        "reason": "295 K unit-cell structure, no timestamped growth observations; measurement pressure remains unreported.",
+        "assets": [],
+        "data_status": "structural_reference_only"
+      },
+      {
+        "source_id": "KDP-2016",
+        "reason": "Two fitted face-rate summaries from one batch; raw observations and action histories absent.",
+        "assets": [],
+        "data_status": "aggregate_reference_only"
+      },
+      {
+        "source_id": "KDP-2025",
+        "reason": "Tables contain modes/means and shared-face counts, not independent trajectory samples.",
+        "assets": [],
+        "data_status": "aggregate_reference_only"
+      },
+      {
+        "source_id": "KDP-2026",
+        "reason": "Supplementary solubility/micrographs and three movies; phase-specific conditions, timing, scale and labels need audit.",
+        "assets": [
+          {
+            "name": "d5ra09916a1.pdf",
+            "url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a1.pdf",
+            "status": "unavailable_or_invalid",
+            "error": "HTTPError: HTTP Error 404: Not Found"
+          },
+          {
+            "name": "d5ra09916a2.mov",
+            "url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a2.mov",
+            "status": "unavailable_or_invalid",
+            "error": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "name": "d5ra09916a3.mov",
+            "url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a3.mov",
+            "status": "unavailable_or_invalid",
+            "error": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "name": "d5ra09916a4.mov",
+            "url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a4.mov",
+            "status": "unavailable_or_invalid",
+            "error": "HTTPError: HTTP Error 403: Forbidden"
+          }
+        ],
+        "data_status": "requires_extraction_and_condition_audit"
+      },
+      {
+        "source_id": "LGA-LEEDS-2026",
+        "reason": "Record describes synthetic RGB/3D labels and experimental images/manual measurements. Archive record exposes no direct file downloads; file access remains unverified.",
+        "assets": [],
+        "data_status": "other_material_vision_candidate"
+      },
+      {
+        "source_id": "MFA-STRATH-2022",
+        "reason": "Listed paired instrument/image-feature CSVs can test ingestion if accessible; they cannot calibrate KDP kinetics.",
+        "assets": [
+          {
+            "name": "README.txt",
+            "url": "https://pureportal.strath.ac.uk/files/133925194/README.txt",
+            "status": "unavailable_or_invalid",
+            "error": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "name": "MFA_90_1_MDB_File_Pure.csv",
+            "url": "https://pureportal.strath.ac.uk/files/133925110/MFA_90_1_MDB_File_Pure.csv",
+            "status": "unavailable_or_invalid",
+            "error": "HTTPError: HTTP Error 403: Forbidden"
+          },
+          {
+            "name": "MFA_90_1_MDB_Img_Pure.csv",
+            "url": "https://pureportal.strath.ac.uk/files/133925114/MFA_90_1_MDB_Img_Pure.csv",
+            "status": "unavailable_or_invalid",
+            "error": "HTTPError: HTTP Error 403: Forbidden"
+          }
+        ],
+        "data_status": "other_material_pipeline_candidate"
+      },
+      {
+        "source_id": "KDP-IEEE-2024",
+        "reason": "Listing describes 338 surface-defect images, requires a subscription and lists no uploaded files; these are not in-solution growth trajectories.",
+        "assets": [],
+        "data_status": "unavailable_and_wrong_target"
+      }
+    ],
+    "verified_kdp_trajectory_sources": [],
+    "measurement_readiness": "no_verified_KDP_growth_trajectories"
+  },
+  "original_access_report_sha256": "c4ab7467884239604ceaa93d40634d8baf81287cb712b75178adcf534fe5f37f",
+  "verification": {
+    "full_tests": 175,
+    "full_test_status": "PASS",
+    "elapsed_s": 124.669,
+    "new_physical_source_tests": 10,
+    "source_audit_tests_after_import_order_cleanup": "5 PASS",
+    "headless_smoke_duration_model_units": 2,
+    "headless_gif_frames": 3,
+    "headless_single_pass": true,
+    "headless_fields_finite": true,
+    "original_python_files_unchanged": true,
+    "existing_package_directories_and_starter_scripts_preserved": true,
+    "no_new_package_directories": true
+  },
+  "source_sha256": {
+    "configs/kdp_material_reference.json": "6091d8ccf78830ce35bd8f560391a84738d490d5bd1696d33fca8fd49bb8211f",
+    "configs/data_sources.json": "ff7701ff97cdd5dc22f222eec595f502ed5b76d8e2eb972809915cbd6f436b24",
+    "src/simulation/material.py": "dc724208e9b208f2f1b680f3650ea20ff75905a94c307b1ed289746bc209f5a9",
+    "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+    "scripts/check_material_reference.py": "177216c842fa8202b3e6bf37df75929fa4071c12cc45fa8ef035113a365049a7",
+    "scripts/audit_data_sources.py": "cce553ae4a54f4b31dffa733daff079e01d86c3cd1aded3e07d0d8f1f291b189",
+    "tests/test_material_reference.py": "a2a5aac3bda87eda47f456b6eae4594cc29d629bf78b640d2eb7ebeb989abc03",
+    "tests/test_data_sources.py": "53b9280a29739e9faf9ca317fa051244ba805c28479b72553c0a8b13e7967e4f"
+  },
+  "next_step": "Embedded tangential no-slip viscosity on sloped momentum boundaries, with independent numerical verification; AI training remains deferred."
+}

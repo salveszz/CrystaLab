@@ -15,6 +15,11 @@ The steps below are our proposed validation workflow, not completed validation.
 [PHYSICAL_MODEL.md](PHYSICAL_MODEL.md) defines the new SI reference inputs and
 concentration conversions. That reference does not yet calibrate the growth engine.
 
+[PHYSICAL_DATA.md](PHYSICAL_DATA.md) documents the bounded COD reference and
+standalone source/access audit. Model training remains deferred. Published fit
+summaries and aggregate tables are not raw trajectories, and no inaccessible
+candidate file is represented as an imported experimental dataset.
+
 ## First published reference
 
 `configs/benchmarks/kdp_wu2016.json` records the two face-growth regression

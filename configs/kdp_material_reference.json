@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source_id": "COD-9010000",
+  "archive": "data/COD.zip",
+  "archive_sha256": "ca550dbe0bab266603a0082a3e1d05b1c91cb304ef7768e680f79d7124b2fd26",
+  "entry": "9010000.cif",
+  "entry_sha256": "a07836a19b9a89864bd6f0b565689fcdce997c55a4724309a10b7f78ed5ee1ce",
+  "source_url": "https://www.crystallography.net/cod/9010000.html",
+  "doi": "10.1088/0022-3719/15/1/005",
+  "authors": "Nelmes, Meyer and Tibballs (1982)",
+  "cod_revision": "291792",
+  "status": "structural_reference_only_not_runtime_calibration",
+  "cif_scalars": {
+    "_cod_database_code": "9010000",
+    "_chemical_formula_sum": "H2 K O4 P",
+    "_space_group_IT_number": "122",
+    "_cell_length_a": "7.4521",
+    "_cell_length_b": "7.4521",
+    "_cell_length_c": "6.974",
+    "_cell_angle_alpha": "90",
+    "_cell_angle_beta": "90",
+    "_cell_angle_gamma": "90",
+    "_cell_formula_units_Z": "4",
+    "_cell_volume": "387.293",
+    "_diffrn_ambient_temperature": "295",
+    "_exptl_crystal_density_diffrn": "2.334"
+  },
+  "limits": [
+    "Measurement pressure is unreported in this CIF; atmospheric pressure is not independently confirmed.",
+    "295 K is a single structural reference point; no thermal expansion curve is supplied.",
+    "Density is calculated from the unit cell and formula, not an independent bulk-density measurement.",
+    "Facet normals are expressed in crystal axes; world orientation must be supplied separately.",
+    "No kinetic coefficients, growth observations or optical-quality labels are supplied.",
+    "The illustrative model-unit growth engine is not reparameterized by this reference."
+  ]
+}

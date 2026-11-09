@@ -6,6 +6,10 @@ to those actions, and observations must represent quantities available to future
 sensors/cameras. A passing passive-fluid test does not supply growth/quality
 labels or a calibrated actuator response.
 
+The current work is physical-reference and source-audit preparation only;
+model training remains deferred. The existing package layout and placeholder
+commands are preserved. See [PHYSICAL_DATA.md](PHYSICAL_DATA.md).
+
 ## Real-data preparation and the first XGBoost baseline
 
 Real-data ingestion and an offline supervised baseline can proceed alongside

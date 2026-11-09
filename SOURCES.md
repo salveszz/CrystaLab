@@ -16,6 +16,12 @@ corresponding JSON together when values, units or interpretations change.
 |---|---|---|
 | BIPM-SI | [SI base units](https://www.bipm.org/en/measurement-units/si-base-units), [SI Brochure](https://www.bipm.org/en/publications/si-brochure) | SI convention; official base-unit page inspected. |
 | NIST-KDP | [NIST Chemistry WebBook: KDP](https://webbook.nist.gov/cgi/cbook.cgi?ID=C7778770&Mask=80) | Molecular weight for molality-to-mass-ratio conversion; official entry inspected. |
+| COD-9010000 | [COD entry](https://www.crystallography.net/cod/9010000.html), [original paper DOI](https://doi.org/10.1088/0022-3719/15/1/005) | Hash-pinned local CIF, revision 291792, 295 K cell/density reference. Measurement pressure missing; original paper access blocked. |
+| CIF-CORE | [IUCr density definition](https://www.iucr.org/__data/iucr/cifdic_html/3/CORE_DIC/Iexptl_crystal.density_diffrn.html), [pressure definition](https://www.iucr.org/__data/iucr/cifdic_html/3/CORE_DIC/Icell_measurement.pressure.html) | Official field meanings/units: calculated density in Mg/m3 and cell measurement pressure in kPa, distinct from synthesis pressure. |
+| KDP-2026 | [Li et al., primary article](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/), [publisher](https://pubs.rsc.org/en/content/articlelanding/2026/ra/d5ra09916a) | Supplementary-data candidate across stable/metastable KDP phases; listed files could not be downloaded in this audit. No numeric observations imported. |
+| LGA-LEEDS-2026 | [University of Leeds dataset record](https://archive.researchdata.leeds.ac.uk/1537/) | Other-material vision candidate; record describes synthetic/experimental images and measurements. Direct file access unverified. |
+| MFA-STRATH-2022 | [University of Strathclyde dataset](https://pureportal.strath.ac.uk/en/datasets/data-for-direct-image-feature-extraction-and-multivariate-analysi/) | Other-material process/image CSV candidate; public file requests returned 403. No numeric observations imported. |
+| KDP-IEEE-2024 | [IEEE DataPort listing](https://ieee-dataport.org/documents/images-micro-craters-and-micro-cracks-surface-kdp-crystals) | Surface-defect images, subscription required and no files listed; not a growth-control dataset. |
 | KDP-2016 | [Wu et al., accepted manuscript](https://eprints.whiterose.ac.uk/105693/3/20160707%20Crystal%20Face%20Specific%20Growth%20Kinetics%20FINAL%20x-x.pdf), [repository record](https://eprints.whiterose.ac.uk/id/eprint/105693/), [DOI](https://doi.org/10.1021/acs.cgd.6b00189) | Two published face-distance fit summaries; manuscript inspected. |
 | KDP-2025 | [Maksimovic et al., PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC11800150/), [ACS full text](https://pubs.acs.org/doi/10.1021/acsomega.4c09287), [PubMed](https://pubmed.ncbi.nlm.nih.gov/39926492/) | Tables 1/2 and solubility relation transcribed from indexed primary full text; direct page access was intermittently blocked. |
 | VTT-2006 | [Manninen (ed.), VTT Research Notes 2340](https://publications.vtt.fi/pdf/tiedotteet/2006/T2340.pdf) | Binary-solution CFD property point; original institutional PDF downloaded, text checked and Table 2.1 visually inspected. |
@@ -201,6 +207,9 @@ historical labels, not files retained after cleanup. Do not claim those raw
 observations are still available or substitute them for the final-source study.
 
 ## DESIGN-LEGACY-001 and local legacy data
+
+The local files described below are historical obsolete outputs and are no
+longer present. Their hashes identify those old files, not active inputs.
 
 The original `SimulationConfig` and `configs/default.json` / `focused.json`
 contain project-chosen illustrative numbers, not measured KDP constants. Examples
@@ -488,6 +497,54 @@ uniform momentum (eleven cases), scalar/high-Peclet transport (fifteen cases)
 and rectilinear flow/solute (twenty cases) pass separately; the full suite passes
 165 tests. Raw arrays and archived hashes are checked and figures inspected.
 This is local numerical evidence, not calibrated KDP growth/quality data.
+
+## COD-9010000 and bounded structural reference
+
+Nelmes, Meyer and Tibballs (1982), *The crystal structure of tetragonal KH2PO4
+and KD2PO4 as a function of temperature*, DOI 10.1088/0022-3719/15/1/005.
+The tracked `data/COD.zip` contains the COD record for its KH2PO4 sample at
+295 K. `configs/kdp_material_reference.json` pins archive/entry SHA256 and
+transcribes the selected scalar fields; it does not import the paper's KD2PO4
+structure or infer a temperature law. The original-paper request returned an
+HTML access challenge, so missing pressure is retained as unknown.
+
+The CIF gives a=b=7.4521 Angstrom, c=6.974 Angstrom, angles 90 degrees, Z=4,
+V=387.293 Angstrom cubed, space group 122 and calculated density 2.334 Mg/m3.
+Using NIST-KDP's molar mass and exact SI Avogadro constant gives derived density
+2333.8948984452236 kg/m3; displayed digits are computational, not independent
+measurement precision. The cell-volume check uses relative tolerance 1e-5 and
+rounded-density agreement 1e-3, explicit numerical consistency choices.
+
+`simulation.material` derives crystal-frame normals from the gradient of the
+tetragonal plane equation. It does not supply facet kinetics, optical quality,
+thermal expansion or a physical solution/solid partial-volume closure. It never
+relabels the old model-unit growing-crystal runtime. The broader COD collection
+includes different phases/conditions and known metadata conflicts; there is no
+general all-phase CIF importer in this milestone.
+
+## Measurement-source access audit
+
+`configs/data_sources.json` registers the sources above, their materials,
+stated licenses, local records and eligibility limits. `docs/DATA_AUDIT.json`
+preserves the 2026-11-08 access results. The KDP-2026 paper lists one supplementary
+PDF and three movies, with solubility/micrograph information, under CC BY-NC 3.0.
+This audit received 404 for its PDF and 403 for its movie requests. The
+Strathclyde README and paired CSV requests returned 403. These access failures
+are specific observations, not evidence of permanent unavailability. Leeds
+describes alpha-LGA vision data under CC BY 4.0; no direct file URLs were exposed
+by the inspected archive record. IEEE lists a subscription requirement and no
+uploaded files. No unavailable payload is represented as a downloaded dataset.
+
+No registered source currently supplies reviewed raw KDP facet trajectories.
+KDP-2016 and KDP-2025 remain their existing
+fit/aggregate records. Counts are not expanded into sample rows, and fitted
+lines are not reconstructed as measured frames. Other-material candidates are
+kept separate from KDP calibration and evaluation.
+
+The standalone `scripts/audit_data_sources.py` records physical-data metadata
+and access outcomes. It creates no models, forecast datasets or training labels.
+Existing packages, starter scripts, solver code and runner defaults remain
+unchanged. See `docs/PHYSICAL_DATA.md` for the bounded scope and its checks.
 
 ## Updating this register
 

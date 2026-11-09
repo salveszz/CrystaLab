@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-11-08",
+  "sources": [
+    {
+      "source_id": "COD-9010000",
+      "material": "KDP",
+      "url": "https://www.crystallography.net/cod/9010000.html",
+      "license": "COD public-domain dedication; retain original paper attribution",
+      "reason": "295 K unit-cell structure, no timestamped growth observations; measurement pressure remains unreported.",
+      "local_reference": "configs/materials/kdp_cod_9010000.json",
+      "data_status": "structural_reference_only"
+    },
+    {
+      "source_id": "KDP-2016",
+      "material": "KDP",
+      "url": "https://eprints.whiterose.ac.uk/id/eprint/105693/",
+      "license": "Accepted manuscript; publisher terms apply",
+      "reason": "Two fitted face-rate summaries from one batch; raw observations and action histories absent.",
+      "local_reference": "configs/benchmarks/kdp_wu2016.json",
+      "data_status": "aggregate_reference_only"
+    },
+    {
+      "source_id": "KDP-2025",
+      "material": "KDP",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11800150/",
+      "license": "CC BY-NC-ND 4.0; source attribution retained",
+      "reason": "Tables contain modes/means and shared-face counts, not independent trajectory samples.",
+      "local_reference": "configs/benchmarks/kdp_maksimovic2025.json",
+      "data_status": "aggregate_reference_only"
+    },
+    {
+      "source_id": "KDP-2026",
+      "material": "KDP_multiple_phases",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/",
+      "license": "CC BY-NC 3.0",
+      "reason": "Supplementary solubility/micrographs and three movies; phase-specific conditions, timing, scale and labels need audit.",
+      "assets": [
+        {
+          "name": "d5ra09916a1.pdf",
+          "kind": "pdf",
+          "url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a1.pdf",
+          "max_bytes": 2000000
+        },
+        {
+          "name": "d5ra09916a2.mov",
+          "kind": "mov",
+          "url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a2.mov",
+          "max_bytes": 15000000
+        },
+        {
+          "name": "d5ra09916a3.mov",
+          "kind": "mov",
+          "url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a3.mov",
+          "max_bytes": 15000000
+        },
+        {
+          "name": "d5ra09916a4.mov",
+          "kind": "mov",
+          "url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a4.mov",
+          "max_bytes": 15000000
+        }
+      ],
+      "data_status": "requires_extraction_and_condition_audit"
+    },
+    {
+      "source_id": "LGA-LEEDS-2026",
+      "material": "alpha_L_glutamic_acid",
+      "url": "https://archive.researchdata.leeds.ac.uk/1537/",
+      "license": "CC BY 4.0 per repository record",
+      "reason": "Record describes synthetic RGB/3D labels and experimental images/manual measurements. Archive record exposes no direct file downloads; file access remains unverified.",
+      "data_status": "other_material_vision_candidate"
+    },
+    {
+      "source_id": "MFA-STRATH-2022",
+      "material": "mefenamic_acid",
+      "url": "https://pureportal.strath.ac.uk/en/datasets/data-for-direct-image-feature-extraction-and-multivariate-analysi/",
+      "license": "CC BY 4.0 per file listing",
+      "reason": "Listed paired instrument/image-feature CSVs can test ingestion if accessible; they cannot calibrate KDP kinetics.",
+      "assets": [
+        {
+          "name": "README.txt",
+          "kind": "text",
+          "url": "https://pureportal.strath.ac.uk/files/133925194/README.txt",
+          "max_bytes": 8000000
+        },
+        {
+          "name": "MFA_90_1_MDB_File_Pure.csv",
+          "kind": "csv",
+          "url": "https://pureportal.strath.ac.uk/files/133925110/MFA_90_1_MDB_File_Pure.csv",
+          "max_bytes": 8000000
+        },
+        {
+          "name": "MFA_90_1_MDB_Img_Pure.csv",
+          "kind": "csv",
+          "url": "https://pureportal.strath.ac.uk/files/133925114/MFA_90_1_MDB_Img_Pure.csv",
+          "max_bytes": 8000000
+        }
+      ],
+      "data_status": "other_material_pipeline_candidate"
+    },
+    {
+      "source_id": "KDP-IEEE-2024",
+      "material": "KDP",
+      "url": "https://ieee-dataport.org/documents/images-micro-craters-and-micro-cracks-surface-kdp-crystals",
+      "license": "Subscription/access terms need review",
+      "reason": "Listing describes 338 surface-defect images, requires a subscription and lists no uploaded files; these are not in-solution growth trajectories.",
+      "data_status": "unavailable_and_wrong_target"
+    }
+  ],
+  "scope": "Physical reference and measurement-source audit only; model training is deferred."
+}
