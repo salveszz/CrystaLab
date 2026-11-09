@@ -68,10 +68,11 @@ view does not independently measure 3D crystal mass or internal optical quality.
 There is no new observation adapter or training schema implementation in this
 step; those choices should follow the actual available measurements.
 
-The next simulation task is embedded tangential no-slip viscosity on sloped
-momentum boundaries, followed by independent refinement checks. Nonlinear
-cut-cell momentum, small-cell dynamics, interfacial uptake/motion and physical
-density/partial-volume accounting remain separate follow-up steps.
+A standalone embedded tangential no-slip viscosity operator now passes its
+independent numerical checks; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md).
+Next join its velocity representation with pressure using a compatible energy
+budget, then verify nonlinear cut-cell momentum and advective small-cell handling.
+Interfacial uptake/motion and physical density/partial-volume accounting follow.
 
 ## Files changed
 

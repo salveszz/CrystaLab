@@ -16,6 +16,9 @@ unequal-cell metrics and focused flow/solute coupling; see `RECTILINEAR_FLOW.md`
 `check_cutcell.py` verifies fixed sloped/rotated geometry and shared pressure
 projection, as described in `CUTCELL_PRESSURE.md`. It does not advance cut-cell
 momentum, temperature or crystal growth.
+`check_viscosity.py` now verifies a standalone constant-nu embedded no-slip
+operator; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md). Its volume/face means
+still need compatible pressure transfer before a complete cut-cell flow step.
 The existing `Simulation`
 and `configs/default.json` / `focused.json` remain the explicitly illustrative
 numerical benchmark; none of their coefficients has been silently reinterpreted.
@@ -135,7 +138,8 @@ resolution than velocity alone. The code reports diffusion time as L2/D.
    The fixed-box component now passes rest/channel, viscous-decay and nonlinear
    3D ABC references. Unequal/focused momentum and passive solute have independent
    verification in `RECTILINEAR_FLOW.md`. Actual cut geometry and pressure
-   projection are verified separately; oblique no-slip viscosity and nonlinear
+   projection are verified separately. Standalone oblique no-slip viscosity now
+   passes `CUTCELL_VISCOSITY.md`; energy-compatible pressure transfer and nonlinear
    momentum time stepping remain pending.
 3. Advect solute conservatively with the same volume fluxes; check constant-field
    preservation, positivity and total solute mass. Add the heat equation only

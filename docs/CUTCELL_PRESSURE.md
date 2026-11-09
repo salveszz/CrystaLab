@@ -1,14 +1,17 @@
 # Fixed sloped-wall geometry and pressure foundation
 
-The next local milestone represents actual sloped crystal surfaces and verifies
-their pressure projection. It does **not** enable a full sloped-crystal momentum
-time step. `IncompressibleFlow` continues to reject partial momentum cells until
-embedded no-slip viscosity and nonlinear momentum transport are verified.
+This completed foundation represents actual sloped crystal surfaces and verifies
+their pressure projection. A subsequent standalone embedded viscosity study now
+passes; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md). Together these do **not**
+yet enable full sloped-crystal momentum time stepping: their unknowns need an
+energy-compatible pressure/viscosity transfer, followed by nonlinear momentum
+transport and advective small-cell verification. `IncompressibleFlow` continues
+to reject partial momentum cells.
 
 The existing uniform/rectilinear runtime now delegates to the same
 `PressureProjection` implementation used by the cut-cell references. This is a
 shared operator, not a separate replacement simulation or a second planar path.
-Earlier focused-grid changes remain local in the working tree as well.
+The earlier focused-grid and geometry/pressure checkpoints are committed.
 
 ## Geometry and conservation measures
 

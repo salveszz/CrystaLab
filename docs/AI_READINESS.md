@@ -50,7 +50,7 @@ growth-control training; it does not block the real-data work above.
 | Convex crystal geometry and local facet sampling | Implemented and tested in the illustrative 3D growth engine. |
 | SI contract and reference properties | Explicit concentration bases and a sourced constant-property point at 30 C; broader property curves remain to obtain. |
 | Fixed-domain momentum and passive solute | Uniform and unequal/focused Cartesian grids have independent numerical references. |
-| Sloped crystal momentum boundary | Actual cut-cell geometry, bounded topology refinement and compatible pressure projection are verified. Embedded no-slip viscosity and nonlinear momentum transport remain required; the full time-stepping runtime still rejects partial momentum cells. |
+| Sloped crystal momentum boundary | Actual geometry/shared pressure and a standalone embedded no-slip viscosity operator are numerically verified. The new viscosity uses volume/face means; energy-compatible pressure transfer, nonlinear momentum fluxes and advective small-cell handling remain required. The full runtime still rejects partial momentum cells; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md). |
 | Flow coupled to crystal growth | Pending. Reconcile interfacial solute flux, solution/solid densities, solvent accounting and rising-level volume closure. |
 | KDP kinetic calibration | Published reference records exist; face laws, applicable ranges, uncertainty and independent experimental validation remain required. |
 | Temperature/buoyancy and physical forcing | Source thermal properties and density derivatives; define physical ports/rotation geometry, setpoints and histories. |
@@ -61,10 +61,11 @@ growth-control training; it does not block the real-data work above.
 
 ## Next implementation order
 
-1. Complete oblique momentum cut cells on the rectilinear mesh: add embedded
-   no-slip viscosity, conservative nonlinear momentum fluxes and verified
-   small-cell time stepping to the geometry/pressure foundation in
-   [CUTCELL_PRESSURE.md](CUTCELL_PRESSURE.md).
+1. Join the verified standalone [embedded viscosity](CUTCELL_VISCOSITY.md)
+   with pressure using a defined velocity representation and compatible energy
+   budget. Then add conservative nonlinear momentum fluxes and verified
+   advective small-cell handling before enabling oblique cut-cell time stepping.
+   The geometry/pressure foundation is in [CUTCELL_PRESSURE.md](CUTCELL_PRESSURE.md).
 2. Couple conservative interfacial uptake and boundary motion using an explicit
    density/partial-volume closure; repeat coupled growth/flow/scalar refinement.
 3. Add sourced physical properties, defined forcing and applicable kinetics,

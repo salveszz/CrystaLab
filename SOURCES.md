@@ -558,3 +558,30 @@ Keep frames from an experiment together; an aggregate count is not a number of
 independent experiments. Never expand fitted lines into supposedly measured
 frames or replace unavailable quality with zero defects. Sources consulted but
 not audited remain candidates; they do not provide active model coefficients.
+
+## MFD-VISCOSITY-2005
+
+Brezzi, F.; Lipnikov, K.; Simoncini, V. (2005), *A family of mimetic finite
+difference methods on polygonal and polyhedral meshes*, author manuscript,
+[primary PDF](https://mate.unipv.it/brezzi/papers/strike1-9.pdf), accessed
+2026-11-09. Section 3, equations 3.6–3.10: consistent positive local flux metrics
+using face moments and normals. `simulation/viscosity.py` uses unit diffusion
+and an orthogonal-kernel stabilization with its explicitly declared scalar
+factor. Shared trace continuity and local cell elimination provide the project's
+implicit vector diffusion implementation. The paper's convergence assumptions
+are not asserted for all nonconvex or arbitrarily thin crystal cuts. See
+`docs/CUTCELL_VISCOSITY.md` for the derivation, representation and limits.
+
+## CUTCELL-VISCOSITY-NUMERICAL-20261109
+
+`configs/viscosity_verification.json` declares mathematical inputs and acceptance
+gates for stationary, constant-nu viscosity, not measured KDP coefficients.
+`results/viscosity_final_3b99100/` passes 13 cases: affine/sloped-wall manufactured
+shear on uniform/focused meshes, four cut-geometry energy-decay checks and three
+implicit Euler timestep checks. Finest spatial errors: 0.21695% / 0.76926%.
+`docs/CUTCELL_VISCOSITY_CHECKPOINT.json` preserves source hashes, environment,
+protocol, metrics and gates. This standalone cell-mean/face-mean operator still
+needs energy-compatible pressure transfer, nonlinear momentum fluxes and
+advective small-cell verification before cut-cell flow can run. Fixed geometry,
+constant viscosity, stationary embedded walls and no free-surface stress are
+current limits; no growth calibration or AI readiness is established.

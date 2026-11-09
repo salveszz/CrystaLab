@@ -161,9 +161,11 @@ become a calibrated CFD growth simulator.
 
 Conservative fixed-grid solute coupling has its own spatial/time, high-Peclet
 diffusion and coupled-invariant checks. Focused/nonuniform momentum and scalar
-operators now have a separate measured study. Next extend momentum to
-embedded no-slip viscosity and nonlinear momentum transport on the verified
-oblique geometry/pressure foundation, then couple interfacial
-uptake/motion. Keep empirical stirring
+operators now have a separate measured study. A standalone embedded no-slip
+viscosity operator is verified in [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md).
+Its volume/face-mean representation still needs energy-compatible pressure
+transfer, nonlinear momentum transport and advective small-cell handling before
+oblique momentum time stepping. Then couple interfacial uptake/motion. Keep
+empirical stirring
 effects out of a resolved-flow path unless their remaining contribution is
 explicitly justified and calibrated. Validate kinetics and quality independently.
