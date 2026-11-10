@@ -1,37 +1,109 @@
-# Current local scope — 2026-11-09
+# Current priorities — 2026-11-10
 
-The original package layout, starter commands and runner defaults are preserved.
-Physical-reference/source audit is committed as 3b99100 (`llalal`). The standalone
-embedded no-slip viscosity and roadmap are committed in d532f35, after the
-tracked-documentation checkpoint aa4669b. Those milestones contain no AI work.
+The simulator supports synthetic training data and controlled software experiments
+for the future predictive/controller system. A first XGBoost prototype can learn
+and be evaluated against the declared simulator. Claims about real KDP growth
+require separate experimental validation. Full CFD is not a universal prerequisite
+for either a first model or a useful experimentally calibrated reduced model.
 
-Current local work: couple pressure and viscosity on the same liquid-volume and
-shared-face velocity means, using a monolithic fixed-domain linear Stokes solve.
-Pressure is the negative adjoint of integrated face divergence, so pressure work
-vanishes with conserved volume. The implementation and 12 new tests are present;
-all 198 tests pass. See docs/CUTCELL_STOKES.md for the derivation/file review.
+Pitch_KDP.pptx, slides 7–9, proposes real plus synthetic data, treats detailed
+Navier–Stokes/HPC as an extension, and places data before model development.
+Its initial synthetic examples are labeled images for vision. The later project
+roadmap adds tabular synthetic growth trajectories for XGBoost. These are separate
+datasets; a fluid solver supplies neither camera annotations nor measured quality.
 
-Numerical acceptance: all 17 cases in results/stokes_refined_d532f35 pass the
-unchanged gates on 12/18/24 grids. Finest uniform/focused velocity RMS errors
-are 0.654%/1.888%; pressure RMS over the prescribed scale is 1.979%/3.024%.
-Pressure work and integrated volume residuals are near roundoff; pressure and
-velocity pass time refinement. The original 6/12/18 study fails focused
-accuracy/refinement and remains in results/stokes_initial_d532f35. Acceptance
-does not validate those coarse focused meshes. All source hashes/fields were
-checked; docs/CUTCELL_STOKES_CHECKPOINT.json retains both protocols/results.
-This coupling work remains local and uncommitted.
+## Current implementation and what it establishes
 
-Next: conservative nonlinear momentum fluxes on the shared representation,
-then momentum/energy and advective small-cell handling under refinement before
-enabling partial cells in the full Navier–Stokes runtime. Follow with passive
-solute, physical uptake/motion and explicit solution/solid density/partial-volume
-closure. The illustrative growth engine and canonical partial-cell guard remain
-in place. AI training, new experiment packages, placeholder deletion and ML
-changes remain outside this work.
+The illustrative 3D growing-crystal engine already has tested geometry, solute
+accounting, reproducibility and numerical convergence in declared regimes. Its
+model units, growth laws, mixing and defect counter remain illustrative. The
+new fixed-domain pressure/viscosity/momentum operators are separate from that
+growth engine and do not currently change its generated growth labels.
 
-The longer sections below contain development history, including superseded
-local experiments. Their historical claims do not override this current scope.
-Explain every affected file; further commit/push requires separate authorization.
+Numerical momentum work is retained: 214 tests and 20 declared cases pass.
+The finest closed-wall velocity errors are 4.919% on uniform 24^3 and 3.366% on
+resolved focused 34^3 (nominal background count 24). Focused background refinement
+uses extra cells; failed fixed-budget studies are preserved. See
+[the method/file review](docs/CUTCELL_MOMENTUM.md). That work is included in this
+simulation and data-preparation checkpoint.
+Numerical success is not growth calibration or evidence of realistic action effects.
+
+## Immediate milestone before the first growth model
+
+The reusable data pipeline is now implemented; there is no ML fitting or model
+code. See [SYNTHETIC_DATA.md](docs/SYNTHETIC_DATA.md) for the exact contract,
+commands, file-by-file explanation, assumptions and later evaluation protocol.
+
+- [x] Freeze a growth-only target: exact future volume gain over 10 model time
+  units, with auxiliary mass gain and mean volume-growth rate. Quality labels
+  are explicitly unavailable.
+- [x] Use the existing illustrative 3D growth engine, recording complete resolved
+  configurations, model units, actual source snapshots and numerical environment.
+- [x] Implement bounded held bath-temperature/aggregate-agitation controls without
+  resetting state/RNG. Keep exact truth, delayed/noisy sensor proxies and future
+  labels separate; expose a strict causal feature whitelist and missing flags.
+- [x] Implement reusable generation, standalone dataset audit, whole-family splits,
+  exact endpoint labels, durable raw/final fields, guarded resume and failed-run
+  preservation. Serial and parallel replay are tested. No Gym/ML layer is needed.
+- [x] Declare paired recipes and concentration groups before producing windows.
+  Define persistence/recent-rate baselines and per-scenario growth metrics for
+  later model work; do not fit or score models in this milestone.
+- [x] Complete the 32^3 focused pilot: 36 episodes, 108 samples (54 train,
+  18 validation, 36 test), fresh audit, changed-worker resume and exact full-sized
+  serial/parallel replay. All 227 tests pass. Mean cost under concurrent load is
+  116.8 worker-seconds/episode; a serial replay took 84.4 seconds under study load.
+- [x] Complete 60 resolution/action cases under the unchanged 2% gate. Finest
+  28/32 label/facet errors are 0.758% / 1.266%; timestep label errors are 1.731%
+  (1/0.5) and 0.861% (0.5/0.25). The failed coarser 24/28 facet result (2.0203%)
+  and earlier studies remain recorded. Small action effects are not uniformly
+  larger than their resolution estimates; no physical action ranking is claimed.
+  Settings, evidence and limits: [SYNTHETIC_DATA_CHECKPOINT.json](docs/SYNTHETIC_DATA_CHECKPOINT.json).
+- [x] Review the final checkpoint and changed files. The user authorized committing
+  and pushing the current repository on 2026-11-10. This checkpoint contains no ML
+  implementation; later commits and pushes still require authorization.
+
+**Exit condition:** a small reproducible dataset with reviewed fields/units,
+known action assumptions, correct labels, scenario-disjoint splits, numerical
+sensitivity and measured generation cost. The code can then generate further
+examples under this declared regime. Pilot size alone does not prove adequate
+training data or real accuracy; learning curves belong to the later model phase.
+The bounded data-generation gate is now passed. We are ready for a first synthetic
+growth-model experiment using the declared units, proxies, startup missingness,
+target and scenario split. The next implementation phase is the persistence and
+recent-rate baselines, followed by a first XGBoost comparison. No further
+simulation feature is mandatory for that experiment. Dataset scale and learning
+curves belong to the model phase; real-data calibration, images/quality and
+physical control remain separate gates. No additional CFD feature is required
+here. Model implementation has not started in this checkpoint.
+
+## Physical validation and conditional simulation work
+
+For experimental predictions or action recommendations, obtain suitable measured
+KDP trajectories with units/conditions/action histories, calibrate the relevant
+response and evaluate on whole held-out experiments. COD supplies a structural
+reference, not time-series growth labels. Published aggregates support bounded
+reference checks, not an invented collection of independent trajectories.
+A calibrated empirical/reduced growth model may be sufficient in a narrow range.
+Use detailed CFD when measured discrepancies or required flow-dependent outputs
+justify its cost. More generated samples cannot independently repair model bias.
+
+The next step on the **higher-fidelity physics track**, when needed, is the
+canonical closed/periodic flow/scalar adapter and its conservation/refinement/
+clock checks. The rigid-lid shear-free top needs its own stencil and verification.
+Moving growth, uptake and density/partial-volume closure are required if we use
+that CFD route to generate growth data. Thermal/buoyancy, physical rotation and
+ports follow the intended experiment, not an open-ended prerequisite list.
+Quality/vision/control models need their own valid labels, process limits and
+experimental assessment. Keep the current runtime guard until its checks pass.
+
+Further solver expansion is deferred from the immediate prototype sequence.
+Preserve the accepted numerical work and revisit it only for a stated modeling
+need. The original package structure and runner defaults stay unchanged.
+Explain changed files; commit/push still requires the user's authorization.
+
+The older sections below include superseded plans and development history. This
+current priority and [AI_READINESS.md](docs/AI_READINESS.md) take precedence over
+historical instructions that put every physics milestone before any AI work.
 
 # KDP AI — Simulation-First Coding Goal
 
@@ -107,9 +179,9 @@ Use simplified, explicitly labeled physics approximations initially. Do not fabr
 - [x] Replace whole-cell selection with exact facet-prism weights and consistent fractional uptake.
 - [x] Recheck the coupled spatial/time gate after the sampling correction; the completed study still fails the spatial face-advance criterion.
 
-**Next step before AI:** Fixed-aligned-crystal Navier-Stokes/passive solute are verified on uniform and unequal/focused grids. Actual sloped/rotated cut-cell geometry, bounded topology resolution and shared compatible pressure projection are now independently verified. Next implement embedded no-slip viscosity and nonlinear momentum transport before full partial-cell time stepping and growing-boundary integration. Current evidence is in docs/CUTCELL_PRESSURE.md and docs/CUTCELL_PRESSURE_CHECKPOINT.json; AI gates remain in docs/AI_READINESS.md. Explain changes and retain file-top summaries. Both local milestones remain uncommitted for review. The user requests a commit-readiness recommendation, not a push: do not commit or push without explicit subsequent authorization.
+**Current sequencing:** The fixed-domain numerical momentum milestone is complete at its declared regimes; see docs/CUTCELL_MOMENTUM.md. The immediate pre-model work is the bounded synthetic data contract, action/label audit and pilot dataset at the top of this roadmap. Full CFD/growth integration is conditional higher-fidelity work, not a universal prerequisite for the first model. Existing numerical checks apply to their measured regimes and do not validate physical growth/quality. Explain every changed file and obtain authorization before commit/push.
 
-### Simulation validation gate before AI
+### Numerical evidence and physical-validation backlog
 
 - [x] Check analytic cube/tetrahedron/octahedron geometry, rotations, invalid solids and disappearing faces.
 - [x] Check exact solid/cell intersections, blocked-face areas and sub-cell seed volume.
@@ -130,7 +202,7 @@ Use simplified, explicitly labeled physics approximations initially. Do not fabr
 
 **Geometry acceptance checks:** Known cube and tetrahedron volume/surface area; rotated seeds with unchanged volume; valid sloped faces; bounded/nondegenerate geometry; unchanged solid at zero growth; expected normal displacement under prescribed face motion. The coupled engine must additionally show 3D containment, conservation, nonnegative concentration, adequate timestep/grid convergence, and exact final-time termination when dt does not divide duration. Visual checks must show actual 3D vertices rather than an extruded 2D picture.
 
-**Control-readiness checks:** Establish documented units and parameter ranges. Add face-specific growth calibration against traceable experimental measurements, including temperature, supersaturation and solution conditions. Test for trivial optimization: finite solute, local depletion and response delays must prevent the demonstrator from teaching an unsupported "always maximize circulation/rotation" strategy. The current engine uses wetted-area face kinetics, saturating effective stirring through liquid apertures, local uptake and moving-boundary displacement. These approximations still require calibration and a proper resolved-flow model before quantitative conclusions. Add transport and quality responses only when supported by data, and label uncalibrated mechanisms as synthetic. Define equipment lag, setpoint ramp limits and the control interval separately from the numerical timestep.
+**Control-readiness checks (before physical/control claims, beyond the first synthetic growth regressor):** Establish documented units and parameter ranges. Add face-specific growth calibration against traceable experimental measurements, including temperature, supersaturation and solution conditions. Test for trivial optimization: finite solute, local depletion and response delays must prevent the demonstrator from teaching an unsupported "always maximize circulation/rotation" strategy. The current engine uses wetted-area face kinetics, saturating effective stirring through liquid apertures, local uptake and moving-boundary displacement. These approximations still require calibration and held-out experimental checks before physical quantitative conclusions. A resolved-flow model is conditional on the target and observed discrepancies; a validated reduced/empirical model may be sufficient. Add transport and quality responses only when supported by data, and label uncalibrated mechanisms as synthetic. Define equipment lag, setpoint ramp limits and the control interval separately from the numerical timestep.
 
 **Deliverable:** A functioning simulation where crystal geometry changes over time in response to environmental conditions.
 
@@ -149,13 +221,14 @@ Use simplified, explicitly labeled physics approximations initially. Do not fabr
 
 **Deliverable:** A usable visual simulation with interactive controls.
 
-## Phase 3 — AI Environment
+## Phase 3 — Simulation data interface
 
-- [ ] Wrap the simulation in a Gymnasium environment.
-- [ ] Implement `reset()`, `step()`, `render()` and `close()`.
+- [ ] Add a minimal trajectory/action recorder for the first supervised growth dataset.
+- [ ] Add a Gymnasium wrapper only if later interactive/controller work benefits from that API; it is optional for tabular XGBoost.
+- [ ] Define deterministic episode initialization, action timing and advancement. Add `reset()`, `step()`, `render()` and `close()` if implementing the optional environment wrapper.
 - [ ] Define actions: temperature, rotation and circulation adjustments.
 - [ ] Define observations: measurable simulation variables and fixed-size geometry summaries such as projected area, projected aspect ratio and orientation; use volume/surface estimates only with explicit measurement assumptions; avoid observations whose length depends on face count.
-- [ ] Define objectives for growth, quality and constraint compliance.
+- [ ] Define the first growth target/horizon and process constraints. Add quality objectives only when their labels are meaningful; retain unavailable quality explicitly.
 - [ ] Enforce safe action bounds.
 - [ ] Implement complete episode recording and replay.
 - [ ] Test determinism and API compatibility.
@@ -168,9 +241,9 @@ Use simplified, explicitly labeled physics approximations initially. Do not fabr
 ## Phase 4 — Predictive AI
 
 - [ ] Implement fixed-recipe and PID baselines.
-- [ ] Generate varied simulation trajectories after the 3D simulator acceptance checks pass; version the simulator and geometry configuration with each dataset.
+- [ ] Generate a small audited pilot in the existing illustrative 3D growth engine, with explicit model units and supported ranges; expand only after checking labels, splits and generation cost. Version simulator/configuration with every dataset.
 - [ ] Build training datasets containing states, actions and subsequent outcomes.
-- [ ] Train XGBoost models to predict growth rate, asymmetry and simulated defect risk.
+- [ ] Start with a growth-only XGBoost regressor after the bounded data-readiness milestone. Add asymmetry or quality/risk targets only with reviewed labels and measurement definitions.
 - [ ] Evaluate models on unseen episodes, seed geometries, orientations and parameter configurations.
 - [ ] Save models, metrics and configurations.
 - [ ] Implement candidate-action scoring using model predictions.
@@ -345,7 +418,8 @@ prediction remain unfinished. No AI model, commit or push is part of this step.
 - [x] Implement actual oblique geometry and shared compatible pressure projection, with independent manufactured Poisson, geometry-closure and topology-resolution verification.
 - [x] Verify stationary embedded no-slip viscosity on real cut facets, with independent affine/shear refinement and energy/flux checks; see docs/CUTCELL_VISCOSITY.md.
 - [x] Verify monolithic fixed cut-cell pressure/viscosity coupling (linear Stokes), including cellwise volume, stationary no slip, pressure work, energy, velocity/pressure and gradient-force refinement. All 198 tests and 17 refined numerical cases pass. The failed coarse focused study is retained; see docs/CUTCELL_STOKES.md and its checkpoint.
-- [ ] Add conservative nonlinear cut-cell momentum fluxes, verify momentum/energy and advective small-cell handling, then enable the combined partial-cell runtime only after spatial/time verification.
+- [x] Verify conservative split nonlinear cut-cell momentum and implicit small-cell handling at the declared regimes. All 214 tests and 20 numerical cases pass, including transport bounds, momentum/work budgets, velocity/pressure space/time refinement and Courant-1000 pure/coupled stress cases. The focused background is explicitly resolved with actual cell counts reported; original fixed-budget failures remain recorded.
+- [ ] Conditional higher-fidelity track: integrate accepted cut-cell state/flux operators into the canonical flow/scalar API and verify conservation/refinement/clocks before enabling its partial-cell path. This is deferred from the immediate synthetic prototype milestone.
 - [x] Couple conservative passive solute advection-diffusion to resolved face volume fluxes, with high-Peclet broadening/refinement, positivity, mass and fixed-obstacle coupling checks. Empirical mixing/agitation multipliers do not enter this resolved path.
 - [ ] Add heat advection-diffusion only after obtaining sourced thermal properties and physical boundary conditions.
 - [ ] Add thermal and solutal buoyancy where the physical scales justify them. Use a Boussinesq approximation only when relative density variations are small enough.

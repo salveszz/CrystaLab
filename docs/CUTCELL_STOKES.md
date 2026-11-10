@@ -179,10 +179,11 @@ Every new code file begins with a purpose summary.
 | `roadmap.md`, `docs/AI_READINESS.md` | Current completed/remaining milestones and correct commit status. |
 | `docs/CUTCELL_VISCOSITY.md`, `docs/CUTCELL_PRESSURE.md`, `docs/FLOW_MODEL.md`, `docs/PHYSICAL_MODEL.md`, `docs/PHYSICAL_DATA.md`, `SOURCES.md` | Coupling status, references and links to measured evidence. |
 
-Next implement conservative nonlinear momentum transport using a defined
-reconstruction of these volume/face unknowns and the same conservative volume
-flux. Verify momentum/energy and bounded small-cell advection before enabling
-full cut-cell Navier–Stokes. Then connect passive solute and physical interfacial
+The subsequent [momentum operator](CUTCELL_MOMENTUM.md) implements conservative
+implicit donor transport and its split coupling to this same velocity/flux
+representation. It also adds an optional Schur backend for the unchanged linear
+system. Numerical acceptance and canonical flow/scalar integration remain
+explicit gates before enabling full cut-cell Navier–Stokes. Then connect passive solute and physical interfacial
 uptake/motion with density/partial-volume closure and repeat coupled refinement.
 The existing runtime guard and illustrative growing-crystal demo stay in place.
 
@@ -217,10 +218,12 @@ Coupled time velocity errors against the separate 128-step reference are
 7.2764%, 3.6376%, 1.7266%. Both velocity and pressure pass the unchanged minimum
 0.8 time-order gate. These are temporal errors on the fixed reference grid.
 
-All current/archived source hashes match and all 17 field archives are finite.
+At this checkpoint the current/archived source hashes matched, and all 17 field
+archives were finite. The later optional Schur backend changes stokes.py; current
+source identity and evidence are recorded in the momentum checkpoint.
 The original figure is retained. `refinement_readable.png` is a plot-only re-export
 of the same archived measurements, using the archived `plot_refinement.py` helper
 for nonoverlapping tick labels; it changes no source, solver or metrics.
 
-The coupling work remains local and uncommitted. Current main/origin checkpoint
-is d532f35; no new commit or push was made for this implementation.
+The coupling milestone was subsequently committed as bb4264a. The new momentum
+work remains local for review; see CUTCELL_MOMENTUM.md.

@@ -19,8 +19,10 @@ momentum, temperature or crystal growth.
 `check_viscosity.py` now verifies a standalone constant-nu embedded no-slip
 operator; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md). Its volume/face means
 now couple directly to pressure in the fixed-domain linear Stokes operator;
-see [CUTCELL_STOKES.md](CUTCELL_STOKES.md). Nonlinear cut-cell momentum and
-advective small-cell handling remain pending.
+see [CUTCELL_STOKES.md](CUTCELL_STOKES.md). Conservative split momentum and
+implicit small-cell handling are now implemented in [CUTCELL_MOMENTUM.md](CUTCELL_MOMENTUM.md);
+its declared numerical gates pass. Canonical flow/scalar integration remains
+required before the runtime can use partial momentum cells.
 The existing `Simulation`
 and `configs/default.json` / `focused.json` remain the explicitly illustrative
 numerical benchmark; none of their coefficients has been silently reinterpreted.
@@ -142,8 +144,9 @@ resolution than velocity alone. The code reports diffusion time as L2/D.
    verification in `RECTILINEAR_FLOW.md`. Actual cut geometry and pressure
    projection are verified separately. Standalone oblique no-slip viscosity now
    passes `CUTCELL_VISCOSITY.md`; pressure/viscosity now couple in the linear
-   Stokes step documented in `CUTCELL_STOKES.md`. Conservative nonlinear
-   momentum and advective small-cell time stepping remain pending.
+   Stokes step documented in `CUTCELL_STOKES.md`. Conservative split nonlinear
+   momentum and implicit small-cell handling now pass their declared gates in
+   `CUTCELL_MOMENTUM.md`; canonical flow/scalar integration remains pending.
 3. Advect solute conservatively with the same volume fluxes; check constant-field
    preservation, positivity and total solute mass. Add the heat equation only
    with sourced thermal properties and actual thermal boundary conditions.

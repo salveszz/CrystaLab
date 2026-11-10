@@ -1,0 +1,1430 @@
+{
+  "authorization": "All changes remain local, no ML fitting/model code/dependencies, no commit or push",
+  "corrected_audit_attempt": {
+    "path": "results/synthetic_growth_verification_v2",
+    "reason": "Point-wise array ordering was compared instead of vertex point sets; corrected with a sloped-crystal regression and fresh source-matched runs",
+    "status": "interrupted_after_audit_bug"
+  },
+  "date": "2026-11-10",
+  "git_head": "bb4264a80591401c4e160f72d401b5d4252fe1ee",
+  "limitations": [
+    "One fixed geometry and illustrative kinetic law; only initial concentration groups are held out",
+    "30 model-time-unit episodes, 10-unit forecasts, 32^3 focused grid, dt=1, fixed 0.75 sampling depth",
+    "Resolution sensitivity estimates are not rigorous error bounds; some small/staged action effects do not exceed their estimates",
+    "Pilot establishes plumbing, not sufficient sample count or real predictive accuracy",
+    "Real-data calibration, vision labels, physical quality and controller assessment remain separate work"
+  ],
+  "numerical_environment": {
+    "packages": {
+      "numpy": "2.5.0",
+      "scipy": "1.18.0"
+    },
+    "python": "3.14.8",
+    "sources": {
+      "pyproject.toml": "0159aa7354d8667dcd12db56b1c21ae0367187a8ac3d4572592fc5b59d81cb29",
+      "scripts/audit_dataset.py": "de21bddd6a1f666505b9281a4fd2859edbdd817077ce2acd2e1baf9054c8cc3a",
+      "scripts/check_dataset.py": "7836952d4d6b15f9e93ddd743851a660d58cd28fcc045243d53df0c02afebc9a",
+      "scripts/generate_dataset.py": "de3befe6cdc12374e89b5e0f784f79cb077db4be9920a003b9dbc304b4571148",
+      "src/environment/__init__.py": "97947de6d361a41b1de54d8e026d1725c6d066ad58630cf9dbff23fc4a83841f",
+      "src/environment/dataset.py": "b451bed931b591b9065cc17ab3f53368358f48f23e96e9aa6bed06f87bdbd5cb",
+      "src/environment/kdp_env.py": "07e9f0bf1133f9cf567a8feddab66898bdf5c382ef28809918fdc73c26de1ed1",
+      "src/simulation/__init__.py": "465346a50fa4b15e2ae38a5b8dc19a9c1447f2a44d8ed66c7d27147d746fb2a4",
+      "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+      "src/simulation/cutcell.py": "b83d97d63f064f34af3ad502d10b726d69b526471b356a7cc98d587bfb7aed3f",
+      "src/simulation/engine.py": "751d0f5912429bd7a52b2404451971bebaa20f08b9753d24eb5685ebc91dfc20",
+      "src/simulation/flow.py": "80ab956148340124be50bb5244105192c0bb0d309420889882a9b48f5c4f6934",
+      "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+      "src/simulation/material.py": "dc724208e9b208f2f1b680f3650ea20ff75905a94c307b1ed289746bc209f5a9",
+      "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+      "src/simulation/momentum.py": "887cc8823c44571c91637e3b18909ba13c9ae74a0ed75f18e95ff038dec1c4b3",
+      "src/simulation/physics.py": "3435c217f703f11cd3a5e5d2313e41d351223210be457ae49736bd87dcdfcb79",
+      "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+      "src/simulation/solute.py": "6a43739f5dfabe5109ddbb701fb353e0b33eb1c5367c1ba44a5872f587dfe12c",
+      "src/simulation/stokes.py": "8a0e59ab0b1d8f5379e0a50afd85c6a615292f0a82e8820797bfd037a5ec98f8",
+      "src/simulation/tank.py": "f113565e583e68dd2c84050e9d3a9218c26b8d79a37a74faf8857a91e132ce42",
+      "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+      "src/simulation/viscosity.py": "b4ac716d35a09a6aa8ac2871f1c150115ff5d6711ca590693aedbc9cf68edd46"
+    },
+    "threads": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    }
+  },
+  "pilot": {
+    "audit": {
+      "episodes": 36,
+      "estimated_1000_episode_worker_seconds": 116762.48186880568,
+      "groups": 6,
+      "identity_hash": "d73ac6e10f50bdae1bf11dba34fbdd61de0d0d734f352e5be6a2ef5838d5f981",
+      "invariant_maxima": {
+        "max_carrier_relative_error": 2.370734569081431e-16,
+        "max_continuity_cell_error": 1.4959957437599786e-11,
+        "max_mass_relative_error": 5.214339496525647e-13
+      },
+      "mean_episode_seconds": 116.76248186880568,
+      "omitted_incomplete_horizons": 0,
+      "samples": 108,
+      "samples_by_split": {
+        "test": 36,
+        "train": 54,
+        "validation": 18
+      },
+      "scope": "Synthetic growth only; no ML, quality calibration or physical KDP validation",
+      "status": "pass",
+      "summed_episode_seconds": 4203.449347277005
+    },
+    "identity_hash": "d73ac6e10f50bdae1bf11dba34fbdd61de0d0d734f352e5be6a2ef5838d5f981",
+    "manifest_hash": "e938bf4aa21457d6d5cbd9a53708b997bd5a88d82c168941b15106f356d93d2f",
+    "max_volume_gain": 0.29880347931499285,
+    "min_volume_gain": 0.09745566432051389,
+    "missing_counts": {
+      "agitation_command": 0,
+      "concentration": 36,
+      "depth": 36,
+      "height": 36,
+      "horizon": 0,
+      "liquid_level": 36,
+      "observation_age": 0,
+      "recent_volume_rate": 36,
+      "surface_area": 36,
+      "temperature": 36,
+      "temperature_command": 0,
+      "volume": 36,
+      "volume_lag": 36,
+      "width": 36
+    },
+    "path": "data/synthetic_growth_pilot_32",
+    "resume": "Passed CLI resume with jobs=3 after jobs=6 generation; a failed stdin multiprocessing helper is retained in manifest execution/error history",
+    "samples_hash": "280da0822e572b41d9b8f276164d8eef7c36fdd64bcd3861b866bbd86f3410c1"
+  },
+  "previous_failed_studies": [
+    {
+      "failed_comparisons": [
+        {
+          "base": "c125__baseline",
+          "face_advance_error": 0.03343578947685485,
+          "kind": "grid",
+          "max_relative_label_error": 0.025160710718012836,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__baseline",
+          "face_advance_error": 0.03145438580928269,
+          "kind": "grid",
+          "max_relative_label_error": 0.0205148190201283,
+          "pair": [
+            1,
+            2
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__cool",
+          "face_advance_error": 0.03287798034818428,
+          "kind": "grid",
+          "max_relative_label_error": 0.02514730992044817,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__cool",
+          "face_advance_error": 0.03077461048390722,
+          "kind": "grid",
+          "max_relative_label_error": 0.020428703359235426,
+          "pair": [
+            1,
+            2
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__warm",
+          "face_advance_error": 0.03398528772260111,
+          "kind": "grid",
+          "max_relative_label_error": 0.02517493176641926,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__warm",
+          "face_advance_error": 0.03217786019361138,
+          "kind": "grid",
+          "max_relative_label_error": 0.020601417094488827,
+          "pair": [
+            1,
+            2
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__low_agitation",
+          "face_advance_error": 0.050621119032794024,
+          "kind": "grid",
+          "max_relative_label_error": 0.033590965138377976,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__low_agitation",
+          "face_advance_error": 0.045172271577864714,
+          "kind": "grid",
+          "max_relative_label_error": 0.025093772582741307,
+          "pair": [
+            1,
+            2
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__high_agitation",
+          "face_advance_error": 0.0298239167888826,
+          "kind": "grid",
+          "max_relative_label_error": 0.02333217374419057,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__high_agitation",
+          "face_advance_error": 0.02856177625880962,
+          "kind": "grid",
+          "max_relative_label_error": 0.019436403119076153,
+          "pair": [
+            1,
+            2
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__staged",
+          "face_advance_error": 0.032385490479234204,
+          "kind": "grid",
+          "max_relative_label_error": 0.025160710718012836,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__staged",
+          "face_advance_error": 0.030609061590756992,
+          "kind": "grid",
+          "max_relative_label_error": 0.0205148190201283,
+          "pair": [
+            1,
+            2
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c145__baseline",
+          "face_advance_error": 0.017021461298803883,
+          "kind": "grid",
+          "max_relative_label_error": 0.022138217298380912,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c145__cool",
+          "face_advance_error": 0.016444974431621642,
+          "kind": "grid",
+          "max_relative_label_error": 0.022116143354179368,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c145__warm",
+          "face_advance_error": 0.01763817356419001,
+          "kind": "grid",
+          "max_relative_label_error": 0.022160416664961533,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c145__warm",
+          "face_advance_error": 0.020072605083422148,
+          "kind": "grid",
+          "max_relative_label_error": 0.015294415100333084,
+          "pair": [
+            1,
+            2
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c145__low_agitation",
+          "face_advance_error": 0.03285066576999545,
+          "kind": "grid",
+          "max_relative_label_error": 0.0304291349639079,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c145__low_agitation",
+          "face_advance_error": 0.030204452098256524,
+          "kind": "grid",
+          "max_relative_label_error": 0.019382955098529265,
+          "pair": [
+            1,
+            2
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c145__high_agitation",
+          "face_advance_error": 0.01385273969501572,
+          "kind": "grid",
+          "max_relative_label_error": 0.02031417456619039,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c145__staged",
+          "face_advance_error": 0.0163264480190271,
+          "kind": "grid",
+          "max_relative_label_error": 0.022138217298380912,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        }
+      ],
+      "hash": "5c975b79ec870537218f71cdc438241442c9c8f64cb38350949c7cdead23088c",
+      "path": "results/synthetic_growth_verification_v1/report.json",
+      "status": "fail"
+    },
+    {
+      "failed_comparisons": [
+        {
+          "base": "c125__low_agitation",
+          "face_advance_error": 0.023613284372157844,
+          "kind": "grid",
+          "max_relative_label_error": 0.01253225359837863,
+          "pair": [
+            0,
+            1
+          ],
+          "pass_gate": false
+        },
+        {
+          "base": "c125__low_agitation",
+          "face_advance_error": 0.02020295755720098,
+          "kind": "grid",
+          "max_relative_label_error": 0.012150837260745825,
+          "pair": [
+            1,
+            2
+          ],
+          "pass_gate": false
+        }
+      ],
+      "hash": "ea05d2fda9212a60e9df42997f8b33e1fe8a023776c890325771b808a4b6558f",
+      "path": "results/synthetic_growth_verification_v3/report.json",
+      "status": "fail"
+    }
+  ],
+  "protocol": {
+    "description": "Bounded illustrative growth-only pilot; model units, uncalibrated controls/kinetics, quality unavailable. Independent concentration groups, paired recipes, no ML.",
+    "groups": [
+      {
+        "family_id": "c125",
+        "id": "c125",
+        "overrides": {
+          "concentration": 1.25,
+          "seed": 101
+        },
+        "split": "train"
+      },
+      {
+        "family_id": "c135",
+        "id": "c135",
+        "overrides": {
+          "concentration": 1.35,
+          "seed": 102
+        },
+        "split": "train"
+      },
+      {
+        "family_id": "c145",
+        "id": "c145",
+        "overrides": {
+          "concentration": 1.45,
+          "seed": 103
+        },
+        "split": "train"
+      },
+      {
+        "family_id": "c130",
+        "id": "c130",
+        "overrides": {
+          "concentration": 1.3,
+          "seed": 104
+        },
+        "split": "validation"
+      },
+      {
+        "family_id": "c128",
+        "id": "c128",
+        "overrides": {
+          "concentration": 1.28,
+          "seed": 105
+        },
+        "split": "test"
+      },
+      {
+        "family_id": "c140",
+        "id": "c140",
+        "overrides": {
+          "concentration": 1.4,
+          "seed": 106
+        },
+        "split": "test"
+      }
+    ],
+    "recipes": [
+      {
+        "id": "baseline",
+        "schedule": [
+          {
+            "agitation": 1,
+            "temperature": 25,
+            "time": 0
+          }
+        ]
+      },
+      {
+        "id": "cool",
+        "schedule": [
+          {
+            "agitation": 1,
+            "temperature": 22,
+            "time": 0
+          }
+        ]
+      },
+      {
+        "id": "warm",
+        "schedule": [
+          {
+            "agitation": 1,
+            "temperature": 28,
+            "time": 0
+          }
+        ]
+      },
+      {
+        "id": "low_agitation",
+        "schedule": [
+          {
+            "agitation": 0,
+            "temperature": 25,
+            "time": 0
+          }
+        ]
+      },
+      {
+        "id": "high_agitation",
+        "schedule": [
+          {
+            "agitation": 2,
+            "temperature": 25,
+            "time": 0
+          }
+        ]
+      },
+      {
+        "id": "staged",
+        "schedule": [
+          {
+            "agitation": 1,
+            "temperature": 25,
+            "time": 0
+          },
+          {
+            "agitation": 1,
+            "temperature": 22,
+            "time": 10
+          },
+          {
+            "agitation": 2,
+            "temperature": 25,
+            "time": 20
+          }
+        ]
+      }
+    ],
+    "recording": {
+      "decision_interval": 10,
+      "forecast_horizon": 10,
+      "history_samples": 2,
+      "observation_seed": 103,
+      "relative_observation_noise": 0.002,
+      "sample_interval": 2,
+      "sensor_delay": 2,
+      "temperature_observation_noise": 0.02
+    },
+    "simulation": {
+      "boundary_layer_cells": 2.4,
+      "circulation": 0.5,
+      "concentration": 1.35,
+      "concentration_noise": 0,
+      "defect_rate": 0.0,
+      "depth": 8.0,
+      "dt": 1.0,
+      "duration": 30,
+      "face_growth": [
+        0.025,
+        0.025,
+        0.025,
+        0.025,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015
+      ],
+      "grid_focus_width": 3.6,
+      "height": 8.0,
+      "impurity": 0.0,
+      "initial_liquid_height": 6.0,
+      "mixing_diffusivity": 0.02,
+      "nx": 32,
+      "ny": 32,
+      "nz": 32,
+      "rotation": 0.5,
+      "seed": 42,
+      "seed_normals": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          1
+        ],
+        [
+          1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          -1,
+          -1
+        ]
+      ],
+      "seed_offsets": [
+        0.35,
+        0.35,
+        0.35,
+        0.35,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7
+      ],
+      "temperature": 25.0,
+      "temperature_gradient": 0,
+      "width": 10.0
+    }
+  },
+  "replay": {
+    "case_identity": "72bf5db5dd3d98b216fc2fefda4e225bfb2c173b7b2087be79fb4bd664fde9ac",
+    "elapsed_seconds": 84.59552385300049,
+    "episode_id": "c135__baseline",
+    "episode_worker_seconds": 84.37847628999953,
+    "path": "results/synthetic_growth_serial_replay_32",
+    "replay": "Exact truth, observations, samples and bitwise final arrays match parallel pilot",
+    "source": {
+      "packages": {
+        "numpy": "2.5.0",
+        "scipy": "1.18.0"
+      },
+      "python": "3.14.8",
+      "sources": {
+        "pyproject.toml": "0159aa7354d8667dcd12db56b1c21ae0367187a8ac3d4572592fc5b59d81cb29",
+        "scripts/audit_dataset.py": "de21bddd6a1f666505b9281a4fd2859edbdd817077ce2acd2e1baf9054c8cc3a",
+        "scripts/check_dataset.py": "7836952d4d6b15f9e93ddd743851a660d58cd28fcc045243d53df0c02afebc9a",
+        "scripts/generate_dataset.py": "de3befe6cdc12374e89b5e0f784f79cb077db4be9920a003b9dbc304b4571148",
+        "src/environment/__init__.py": "97947de6d361a41b1de54d8e026d1725c6d066ad58630cf9dbff23fc4a83841f",
+        "src/environment/dataset.py": "b451bed931b591b9065cc17ab3f53368358f48f23e96e9aa6bed06f87bdbd5cb",
+        "src/environment/kdp_env.py": "07e9f0bf1133f9cf567a8feddab66898bdf5c382ef28809918fdc73c26de1ed1",
+        "src/simulation/__init__.py": "465346a50fa4b15e2ae38a5b8dc19a9c1447f2a44d8ed66c7d27147d746fb2a4",
+        "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+        "src/simulation/cutcell.py": "b83d97d63f064f34af3ad502d10b726d69b526471b356a7cc98d587bfb7aed3f",
+        "src/simulation/engine.py": "751d0f5912429bd7a52b2404451971bebaa20f08b9753d24eb5685ebc91dfc20",
+        "src/simulation/flow.py": "80ab956148340124be50bb5244105192c0bb0d309420889882a9b48f5c4f6934",
+        "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+        "src/simulation/material.py": "dc724208e9b208f2f1b680f3650ea20ff75905a94c307b1ed289746bc209f5a9",
+        "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+        "src/simulation/momentum.py": "887cc8823c44571c91637e3b18909ba13c9ae74a0ed75f18e95ff038dec1c4b3",
+        "src/simulation/physics.py": "3435c217f703f11cd3a5e5d2313e41d351223210be457ae49736bd87dcdfcb79",
+        "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+        "src/simulation/solute.py": "6a43739f5dfabe5109ddbb701fb353e0b33eb1c5367c1ba44a5872f587dfe12c",
+        "src/simulation/stokes.py": "8a0e59ab0b1d8f5379e0a50afd85c6a615292f0a82e8820797bfd037a5ec98f8",
+        "src/simulation/tank.py": "f113565e583e68dd2c84050e9d3a9218c26b8d79a37a74faf8857a91e132ce42",
+        "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+        "src/simulation/viscosity.py": "b4ac716d35a09a6aa8ac2871f1c150115ff5d6711ca590693aedbc9cf68edd46"
+      },
+      "threads": {
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      }
+    },
+    "status": "pass",
+    "timing_context": "One serial episode while eight refinement workers were running; worker elapsed time, not an isolated CPU benchmark"
+  },
+  "scope": "Growth-only illustrative model units, no ML work, no physical KDP validation, no camera/quality/control readiness claim",
+  "status": "pass_for_bounded_synthetic_growth_data",
+  "tests": {
+    "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest discover -s tests -v",
+    "count": 227,
+    "elapsed_seconds": 319.083,
+    "status": "pass"
+  },
+  "units": {
+    "agitation": "illustrative_dimensionless_command",
+    "concentration": "model_solute_mass/model_carrier_volume",
+    "length": "model_length",
+    "mass": "model_solute_mass",
+    "surface_area": "model_length^2",
+    "temperature": "model_temperature",
+    "time": "model_time",
+    "volume": "model_length^3"
+  },
+  "verification": {
+    "actions": [
+      {
+        "effects_exceed_summed_resolution_estimate": null,
+        "group": "c125",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_pairwise_grid_difference_estimate": 0.0016182561304600718,
+        "max_pairwise_time_difference_estimate": 0.004740759742571932,
+        "recipe": "baseline"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": false,
+        "group": "c125",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          0.0026171473164713355,
+          0.006616097543245769,
+          0.010334723540655233
+        ],
+        "max_pairwise_grid_difference_estimate": 0.001633066220509738,
+        "max_pairwise_time_difference_estimate": 0.004905264578248136,
+        "recipe": "cool"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": false,
+        "group": "c125",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          -0.0025942187165336472,
+          -0.006480618828158424,
+          -0.010000230322142034
+        ],
+        "max_pairwise_grid_difference_estimate": 0.0016036572721485065,
+        "max_pairwise_time_difference_estimate": 0.004578594966693772,
+        "recipe": "warm"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": true,
+        "group": "c125",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          -0.01755518532328404,
+          -0.022137685281808928,
+          -0.025382173553807896
+        ],
+        "max_pairwise_grid_difference_estimate": 0.0016614978186112461,
+        "max_pairwise_time_difference_estimate": 0.004491646328647514,
+        "recipe": "low_agitation"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": false,
+        "group": "c125",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          0.005701647105507357,
+          0.007032150042141971,
+          0.00804088262288083
+        ],
+        "max_pairwise_grid_difference_estimate": 0.0016130975369931244,
+        "max_pairwise_time_difference_estimate": 0.004823613043978825,
+        "recipe": "high_agitation"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": false,
+        "group": "c125",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          0.0,
+          0.0028143251600943886,
+          0.01107428285332579
+        ],
+        "max_pairwise_grid_difference_estimate": 0.0016182561304600718,
+        "max_pairwise_time_difference_estimate": 0.004740759742571932,
+        "recipe": "staged"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": null,
+        "group": "c145",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_pairwise_grid_difference_estimate": 0.00312772038330289,
+        "max_pairwise_time_difference_estimate": 0.009465961017062208,
+        "recipe": "baseline"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": false,
+        "group": "c145",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          0.0032664792016244837,
+          0.008765407697858163,
+          0.01450051149979159
+        ],
+        "max_pairwise_grid_difference_estimate": 0.0031432900424452903,
+        "max_pairwise_time_difference_estimate": 0.009678220764245404,
+        "recipe": "cool"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": false,
+        "group": "c145",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          -0.0032378737857581275,
+          -0.008584562776578486,
+          -0.014046521411047563
+        ],
+        "max_pairwise_grid_difference_estimate": 0.0031110447078391834,
+        "max_pairwise_time_difference_estimate": 0.009256692512667253,
+        "recipe": "warm"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": true,
+        "group": "c145",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          -0.03497633658190069,
+          -0.047868909333167675,
+          -0.05877911027648364
+        ],
+        "max_pairwise_grid_difference_estimate": 0.003219757633330156,
+        "max_pairwise_time_difference_estimate": 0.00890065953885022,
+        "recipe": "low_agitation"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": false,
+        "group": "c145",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          0.01143855738328825,
+          0.015485812312839187,
+          0.018922131750743976
+        ],
+        "max_pairwise_grid_difference_estimate": 0.003105658372865916,
+        "max_pairwise_time_difference_estimate": 0.00965597121654549,
+        "recipe": "high_agitation"
+      },
+      {
+        "effects_exceed_summed_resolution_estimate": false,
+        "group": "c145",
+        "interpretation": "Illustrative model response, not a physical optimum or calibrated actuator",
+        "label_differences_from_baseline": [
+          0.0,
+          0.003653977726671087,
+          0.02108223115131458
+        ],
+        "max_pairwise_grid_difference_estimate": 0.00312772038330289,
+        "max_pairwise_time_difference_estimate": 0.009465961017062208,
+        "recipe": "staged"
+      }
+    ],
+    "cases": 60,
+    "comparisons": [
+      {
+        "base": "c125__baseline",
+        "face_advance_error": 0.014998307816948796,
+        "kind": "grid",
+        "max_relative_label_error": 0.009870361945028421,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__baseline",
+        "face_advance_error": 0.00908245887666582,
+        "kind": "grid",
+        "max_relative_label_error": 0.006110908050889708,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__baseline",
+        "face_advance_error": 0.00713695892031465,
+        "kind": "dt",
+        "max_relative_label_error": 0.016072955075363736,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__baseline",
+        "face_advance_error": 0.0035737365781933626,
+        "kind": "dt",
+        "max_relative_label_error": 0.008002481343255163,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__cool",
+        "face_advance_error": 0.014798035012999268,
+        "kind": "grid",
+        "max_relative_label_error": 0.00989644668730049,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__cool",
+        "face_advance_error": 0.008751605728133457,
+        "kind": "grid",
+        "max_relative_label_error": 0.0060224743720911165,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__cool",
+        "face_advance_error": 0.007864386205049489,
+        "kind": "dt",
+        "max_relative_label_error": 0.016907241137822545,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__cool",
+        "face_advance_error": 0.0039372422917114585,
+        "kind": "dt",
+        "max_relative_label_error": 0.00841778908415216,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__warm",
+        "face_advance_error": 0.015177988456549945,
+        "kind": "grid",
+        "max_relative_label_error": 0.009827230012880777,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__warm",
+        "face_advance_error": 0.009389710035995712,
+        "kind": "grid",
+        "max_relative_label_error": 0.0061839964469860955,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__warm",
+        "face_advance_error": 0.006366266656467602,
+        "kind": "dt",
+        "max_relative_label_error": 0.01522442444169624,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__warm",
+        "face_advance_error": 0.003188782515908669,
+        "kind": "dt",
+        "max_relative_label_error": 0.007580162594941687,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__low_agitation",
+        "face_advance_error": 0.02020295755720098,
+        "kind": "grid",
+        "max_relative_label_error": 0.012150837260745825,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": false
+      },
+      {
+        "base": "c125__low_agitation",
+        "face_advance_error": 0.012662757739703247,
+        "kind": "grid",
+        "max_relative_label_error": 0.007581927551571707,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__low_agitation",
+        "face_advance_error": 0.007366346110517548,
+        "kind": "dt",
+        "max_relative_label_error": 0.016296095987455107,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__low_agitation",
+        "face_advance_error": 0.00368979028899556,
+        "kind": "dt",
+        "max_relative_label_error": 0.008093919350454374,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__high_agitation",
+        "face_advance_error": 0.013831290326158801,
+        "kind": "grid",
+        "max_relative_label_error": 0.009299975746163449,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__high_agitation",
+        "face_advance_error": 0.008245396502506117,
+        "kind": "grid",
+        "max_relative_label_error": 0.005711339601663267,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__high_agitation",
+        "face_advance_error": 0.007070579351439413,
+        "kind": "dt",
+        "max_relative_label_error": 0.01602424470182418,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__high_agitation",
+        "face_advance_error": 0.0035402899239899304,
+        "kind": "dt",
+        "max_relative_label_error": 0.007982761508213566,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__staged",
+        "face_advance_error": 0.01458940235660105,
+        "kind": "grid",
+        "max_relative_label_error": 0.009865539333171934,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__staged",
+        "face_advance_error": 0.008766213863793743,
+        "kind": "grid",
+        "max_relative_label_error": 0.006067924531694399,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__staged",
+        "face_advance_error": 0.007677168267224386,
+        "kind": "dt",
+        "max_relative_label_error": 0.016072955075363736,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c125__staged",
+        "face_advance_error": 0.003844817098135526,
+        "kind": "dt",
+        "max_relative_label_error": 0.008002481343255163,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__baseline",
+        "face_advance_error": 0.009356778930436935,
+        "kind": "grid",
+        "max_relative_label_error": 0.009698508698405158,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__baseline",
+        "face_advance_error": 0.007527927975007111,
+        "kind": "grid",
+        "max_relative_label_error": 0.005442070594904111,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__baseline",
+        "face_advance_error": 0.006944267155625733,
+        "kind": "dt",
+        "max_relative_label_error": 0.016746092054204877,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__baseline",
+        "face_advance_error": 0.003465966965847421,
+        "kind": "dt",
+        "max_relative_label_error": 0.008329374626779368,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__cool",
+        "face_advance_error": 0.009248927339297204,
+        "kind": "grid",
+        "max_relative_label_error": 0.009715068035333004,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__cool",
+        "face_advance_error": 0.00772617201661781,
+        "kind": "grid",
+        "max_relative_label_error": 0.005434477639493853,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__cool",
+        "face_advance_error": 0.00737463119807943,
+        "kind": "dt",
+        "max_relative_label_error": 0.017310044842643934,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__cool",
+        "face_advance_error": 0.003689320110387,
+        "kind": "dt",
+        "max_relative_label_error": 0.008609054595028537,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__warm",
+        "face_advance_error": 0.00945589722777979,
+        "kind": "grid",
+        "max_relative_label_error": 0.009677902940664757,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__warm",
+        "face_advance_error": 0.007314117467194696,
+        "kind": "grid",
+        "max_relative_label_error": 0.005445396790920807,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__warm",
+        "face_advance_error": 0.00647770706428085,
+        "kind": "dt",
+        "max_relative_label_error": 0.01617903443699182,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__warm",
+        "face_advance_error": 0.0032478022919391215,
+        "kind": "dt",
+        "max_relative_label_error": 0.00804813039066868,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__low_agitation",
+        "face_advance_error": 0.013481553401161963,
+        "kind": "grid",
+        "max_relative_label_error": 0.012168875213516839,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__low_agitation",
+        "face_advance_error": 0.007707489919362149,
+        "kind": "grid",
+        "max_relative_label_error": 0.006560904643859709,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__low_agitation",
+        "face_advance_error": 0.0071006459332116955,
+        "kind": "dt",
+        "max_relative_label_error": 0.01679020148671483,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__low_agitation",
+        "face_advance_error": 0.0035624443138465526,
+        "kind": "dt",
+        "max_relative_label_error": 0.008331629181855723,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__high_agitation",
+        "face_advance_error": 0.008636667473803645,
+        "kind": "grid",
+        "max_relative_label_error": 0.009145065696140422,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__high_agitation",
+        "face_advance_error": 0.007461834415989823,
+        "kind": "grid",
+        "max_relative_label_error": 0.0051599070557981595,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__high_agitation",
+        "face_advance_error": 0.006870490592585105,
+        "kind": "dt",
+        "max_relative_label_error": 0.016751675932450742,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__high_agitation",
+        "face_advance_error": 0.0034436168168081745,
+        "kind": "dt",
+        "max_relative_label_error": 0.008336765906613348,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__staged",
+        "face_advance_error": 0.009184849269458293,
+        "kind": "grid",
+        "max_relative_label_error": 0.009698508698405158,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__staged",
+        "face_advance_error": 0.00752600879931281,
+        "kind": "grid",
+        "max_relative_label_error": 0.005442070594904111,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__staged",
+        "face_advance_error": 0.00738995257320804,
+        "kind": "dt",
+        "max_relative_label_error": 0.016746092054204877,
+        "pair": [
+          0,
+          1
+        ],
+        "pass_gate": true
+      },
+      {
+        "base": "c145__staged",
+        "face_advance_error": 0.0036889858566237325,
+        "kind": "dt",
+        "max_relative_label_error": 0.008329374626779368,
+        "pair": [
+          1,
+          2
+        ],
+        "pass_gate": true
+      }
+    ],
+    "identity_hash": "7fd59fd215ce9a4f554d7f4db18460deed04b5b70ca893ad6d25e6c00f7be8ab",
+    "path": "results/synthetic_growth_verification_v4",
+    "report_hash": "93d4b5b4066186f24c6016a411f6cdf9eeb3de7d8e7389d3d587eeac04fbfc6c",
+    "settings": {
+      "boundary_layer_thickness": 0.75,
+      "grids": [
+        [
+          24,
+          24,
+          24
+        ],
+        [
+          28,
+          28,
+          28
+        ],
+        [
+          32,
+          32,
+          32
+        ]
+      ],
+      "groups": [
+        "c125",
+        "c145"
+      ],
+      "recipes": [
+        "baseline",
+        "cool",
+        "warm",
+        "low_agitation",
+        "high_agitation",
+        "staged"
+      ],
+      "relative_tolerance": 0.02,
+      "timesteps": [
+        1,
+        0.5,
+        0.25
+      ]
+    },
+    "summary": {
+      "dt_0_1": {
+        "all_pass": true,
+        "max_face_advance_error": 0.007864386205049489,
+        "max_relative_label_error": 0.017310044842643934
+      },
+      "dt_1_2": {
+        "all_pass": true,
+        "max_face_advance_error": 0.0039372422917114585,
+        "max_relative_label_error": 0.008609054595028537
+      },
+      "grid_0_1": {
+        "all_pass": false,
+        "max_face_advance_error": 0.02020295755720098,
+        "max_relative_label_error": 0.012168875213516839
+      },
+      "grid_1_2": {
+        "all_pass": true,
+        "max_face_advance_error": 0.012662757739703247,
+        "max_relative_label_error": 0.007581927551571707
+      }
+    }
+  }
+}

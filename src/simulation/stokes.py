@@ -6,6 +6,8 @@
 # indefinite face/pressure system with one pressure gauge per liquid region.
 # Implicit Euler retains cell-mean kinetic energy and stationary no-slip traces.
 # Export native normal fluxes and audit momentum, continuity and work together.
+# An optional pressure Schur solve factors the scalar velocity block and uses
+# a gauge-aware pressure preconditioner; both backends check the same equations.
 # This is fixed-domain linear Stokes, not nonlinear or growing-crystal flow.
 
 """Conservative pressure/viscosity coupling on stationary cut polyhedra."""
@@ -14,7 +16,7 @@ from dataclasses import dataclass
 
 import numpy as np
 from scipy.sparse import bmat, coo_matrix, diags, eye, kron
-from scipy.sparse.linalg import splu
+from scipy.sparse.linalg import LinearOperator, cg, splu
 
 from .pressure import PressureProjection
 from .units import finite_number
@@ -28,6 +30,90 @@ class StokesState(ViscousState):
     pressure_pa: np.ndarray
 
 
+class _SchurFactor:
+    """Solve the unchanged saddle system using scalar S and pressure CG.
+
+    The pressure preconditioner combines inverse volume mass on the gauge
+    quotient with an inverse pressure Laplacian (Cahouet-Chabard form). It is
+    only a preconditioner: the Schur matvec uses the actual viscous inverse.
+    The outer caller still checks the original, unscaled saddle residual.
+    """
+
+    def __init__(self, scalar, coupling, projection, rows, length, ratio, scale):
+        self.velocity = splu(scalar.tocsc(), permc_spec="MMD_AT_PLUS_A")
+        self.coupling = coupling.tocsr()
+        self.scale = scale
+        self.velocity_size = 3 * scalar.shape[0]
+        self.length2 = length**2
+        self.volumes = projection._volumes[rows]
+        self.groups = []
+        start = 0
+        for nodes, _matrix, _factor in projection.groups:
+            self.groups.append(
+                (slice(start, start + len(nodes) - 1), projection._volumes[nodes[-1]])
+            )
+            start += len(nodes) - 1
+        self.ratio = ratio
+        laplacian = projection.stiffness[rows][:, rows].tocsc()
+        self.pressure = (
+            splu(laplacian, permc_spec="MMD_AT_PLUS_A")
+            if len(rows) and ratio is not None
+            else None
+        )
+        self.last_pressure = None
+
+    def _velocity_solve(self, rhs):
+        return self.velocity.solve(rhs.reshape(-1, 3)).ravel()
+
+    def _precondition(self, rhs):
+        answer = rhs / self.volumes
+        # Inverting diag(V)-V*V.T/sum(V) after pinning one pressure gives
+        # diag(1/V_free)+ones*ones.T/V_pin, separately in each liquid region.
+        for local, pinned_volume in self.groups:
+            answer[local] += rhs[local].sum() / pinned_volume
+        if self.pressure is not None:
+            answer += self.pressure.solve(rhs) / self.ratio
+        return self.length2 * answer
+
+    def solve(self, scaled_rhs):
+        rhs = scaled_rhs / self.scale
+        r, boundary = rhs[: self.velocity_size], rhs[self.velocity_size :]
+        unconstrained = self._velocity_solve(r)
+        if len(boundary):
+            c = self.coupling
+            schur = LinearOperator(
+                (len(boundary),) * 2,
+                matvec=lambda p: c @ self._velocity_solve(c.T @ p),
+                dtype=float,
+            )
+            preconditioner = LinearOperator(
+                schur.shape, matvec=self._precondition, dtype=float
+            )
+            target = -boundary - c @ unconstrained
+            if np.any(target):
+                pressure, status = cg(
+                    schur,
+                    target,
+                    M=preconditioner,
+                    x0=self.last_pressure,
+                    rtol=2e-13,
+                    atol=0,
+                    maxiter=4000,
+                )
+                if status != 0 or not np.isfinite(pressure).all():
+                    raise ArithmeticError(
+                        "Stokes pressure Schur solve did not converge"
+                    )
+            else:
+                pressure = np.zeros_like(target)
+            self.last_pressure = pressure.copy()
+            velocity = self._velocity_solve(r + c.T @ pressure)
+        else:
+            pressure = np.empty(0)
+            velocity = unconstrained
+        return np.r_[velocity, pressure] / self.scale
+
+
 class CutCellStokes:
     """Implicit or steady constant-property Stokes with fixed no-slip walls.
 
@@ -39,7 +125,17 @@ class CutCellStokes:
     velocity error must be measured under refinement, especially at small nu.
     """
 
-    def __init__(self, geometry, *, kinematic_viscosity_m2_per_s, density_kg_per_m3):
+    def __init__(
+        self,
+        geometry,
+        *,
+        kinematic_viscosity_m2_per_s,
+        density_kg_per_m3,
+        linear_solver="direct",
+    ):
+        if linear_solver not in ("direct", "schur"):
+            raise ValueError("Stokes linear_solver must be direct or schur")
+        self.linear_solver = linear_solver
         self.nu = finite_number(
             kinematic_viscosity_m2_per_s, "kinematic viscosity", positive=True
         )
@@ -101,7 +197,18 @@ class CutCellStokes:
         if not np.isfinite(scale).all() or np.any(scale <= 0):
             raise ArithmeticError("Degenerate coupled Stokes scaling")
         scaled = diags(scale) @ saddle @ diags(scale)
-        factor = splu(scaled.tocsc()) if saddle.shape[0] else None
+        if self.linear_solver == "schur" and len(self.viscosity._free):
+            factor = _SchurFactor(
+                reduced,
+                coupling,
+                self.projection,
+                self._pressure_rows,
+                self.geometry.scale_m,
+                ratio,
+                scale,
+            )
+        else:
+            factor = splu(scaled.tocsc()) if saddle.shape[0] else None
         self._cache = (ratio, matrix, factors, saddle, scale, factor)
         return self._cache[1:]
 

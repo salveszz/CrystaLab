@@ -165,8 +165,11 @@ operators now have a separate measured study. A standalone embedded no-slip
 viscosity operator is verified in [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md).
 The subsequent [linear Stokes operator](CUTCELL_STOKES.md) now couples pressure
 on those same face means with conserved volume and an energy identity.
-Nonlinear momentum transport and advective small-cell handling remain before
-full oblique Navier–Stokes time stepping. Then couple interfacial uptake/motion. Keep
+The subsequent [split cut-cell momentum operator](CUTCELL_MOMENTUM.md) adds
+conservative implicit advection and small-cell handling, now accepted in its
+declared numerical regimes. State/flux integration into this canonical
+flow/scalar API remains before full
+oblique Navier–Stokes runtime support. Then couple interfacial uptake/motion. Keep
 empirical stirring
 effects out of a resolved-flow path unless their remaining contribution is
 explicitly justified and calibrated. Validate kinetics and quality independently.

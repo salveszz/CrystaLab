@@ -1,0 +1,4102 @@
+{
+  "source_id": "CUTCELL-MOMENTUM-NUMERICAL-20261109",
+  "evidence_directory": "results/momentum_background_resolved_bb4264a",
+  "working_tree_changes_uncommitted": true,
+  "manifest": {
+    "protocol": {
+      "source_id": "DESIGN-CUTCELL-MOMENTUM-008",
+      "length_m": 0.01,
+      "kinematic_viscosity_m2_per_s": 1e-06,
+      "density_kg_per_m3": 1170.0,
+      "speed_m_per_s": 0.0001,
+      "seed": 113,
+      "transport_wave": {
+        "counts": [
+          8,
+          16,
+          24
+        ],
+        "duration_s": 5.0,
+        "outgoing_courant": 0.25
+      },
+      "abc": {
+        "counts": [
+          6,
+          10,
+          14
+        ],
+        "duration_s": 1.0,
+        "dt_s": 0.025
+      },
+      "sloped_wall": {
+        "intercept_m": 0.002,
+        "slope_dz_dy": 0.5,
+        "counts": [
+          12,
+          18,
+          24
+        ],
+        "focus_width_m": 0.0036,
+        "quadrature_order": 12,
+        "streamfunction_scale": 4096.0,
+        "duration_s": 2.0,
+        "dt_s": 0.05,
+        "max_background_width_factor": 1.0
+      },
+      "temporal": {
+        "n": 6,
+        "duration_s": 0.4,
+        "decay_time_s": 1.0,
+        "steps": [
+          4,
+          8,
+          16
+        ],
+        "reference_steps": 128
+      },
+      "rotated_cube": {
+        "width_m": 0.003,
+        "center_m": [
+          0.005,
+          0.005,
+          0.005
+        ],
+        "angles_rad_xyz": [
+          0.3,
+          0.2,
+          0.1
+        ],
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "max_axis_refinements": 48
+      },
+      "subcell_cube": {
+        "width_m": 0.0002,
+        "center_m": [
+          0.0051,
+          0.0052,
+          0.0049
+        ],
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ]
+      },
+      "tiny_cycle": {
+        "n": 8,
+        "relative_gap": 1e-05,
+        "target_outgoing_courant": 1000.0
+      },
+      "unforced": {
+        "steps": 4,
+        "dt_s": 0.1
+      },
+      "gates": {
+        "finest_transport_relative_rms_error": 0.08,
+        "finest_abc_relative_velocity_error": 0.08,
+        "finest_abc_relative_pressure_error": 0.25,
+        "finest_wall_relative_velocity_error": 0.05,
+        "finest_wall_pressure_rms_over_scale": 0.25,
+        "minimum_spatial_rate": 0.7,
+        "minimum_temporal_rate": 0.7,
+        "maximum_relative_momentum_error": 1e-09,
+        "maximum_relative_work_error": 1e-08,
+        "maximum_relative_volume_flux": 1e-10,
+        "maximum_relative_bound_violation": 1e-10,
+        "maximum_relative_energy_increase": 1e-12
+      },
+      "limits": "Stationary, closed or periodic cut-cell split momentum operator. Fully implicit first-order donor transport uses the previous constrained face flux, followed by monolithic linear Stokes. First order in space/time with measured artificial damping. No fully implicit nonlinear solve, free-surface stress, moving interface, growth calibration, solute coupling, AI or automatic replacement of the canonical MAC runtime. Small-cell stability does not establish accuracy at large Courant number.",
+      "linear_solver": "schur",
+      "protocol_note": "Revision 3 retains every original acceptance tolerance and the same 3D curl reference. Original 6/10/14 wall accuracy failed (results/momentum_initial_bb4264a). Uniform 24/36/48 passed, but aggressive focused 24/36 still failed; the remaining expensive 48 case was interrupted and partial evidence retained in results/momentum_refined_bb4264a. The new focused study subdivides outer intervals wider than L/n, retaining the same focus band, domain and crystal. Report nominal background count n and actual refined counts/edges. This uses extra cells and does not validate the earlier fixed-count meshes. Use the tested Schur backend and include the complete coupled Courant-1000 case."
+    },
+    "sources": {
+      "src/simulation/momentum.py": "887cc8823c44571c91637e3b18909ba13c9ae74a0ed75f18e95ff038dec1c4b3",
+      "src/simulation/stokes.py": "8a0e59ab0b1d8f5379e0a50afd85c6a615292f0a82e8820797bfd037a5ec98f8",
+      "src/simulation/viscosity.py": "b4ac716d35a09a6aa8ac2871f1c150115ff5d6711ca590693aedbc9cf68edd46",
+      "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+      "src/simulation/cutcell.py": "b83d97d63f064f34af3ad502d10b726d69b526471b356a7cc98d587bfb7aed3f",
+      "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+      "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+      "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+      "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+      "scripts/check_momentum.py": "d709243912ff42234e1c259908117b667eb98ee39fc00620cec0cdd097444d25",
+      "scripts/check_stokes.py": "adb4f2f6bf1e80c3f870fa7954f73b8ed1511501dd292a5b2b6644037dc1252f",
+      "scripts/check_cutcell.py": "e20617a85af0c52528dcb3121eb1da3a874d4bbd30dabdef347f4ea5ad7a751e",
+      "scripts/check_viscosity.py": "b85785ee7910b683afbba759812295f93bdc0e2bc033efd276a97b3f24a7a806",
+      "configs/momentum_verification.json": "f49c9b85a04dbe5781a8db65c77f39bd68fc24a2ec735077d6ec2ce9c02c0590",
+      "tests/test_momentum.py": "b328311563e66252fdb3b9abfdacdf495b1d450d785dadb57a15afb071fb67be"
+    },
+    "git_commit": "bb4264a80591401c4e160f72d401b5d4252fe1ee",
+    "environment": {
+      "python": "3.14.8",
+      "numpy": "2.5.0",
+      "scipy": "1.18.0",
+      "threads": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1"
+      }
+    }
+  },
+  "report": {
+    "protocol": {
+      "source_id": "DESIGN-CUTCELL-MOMENTUM-008",
+      "length_m": 0.01,
+      "kinematic_viscosity_m2_per_s": 1e-06,
+      "density_kg_per_m3": 1170.0,
+      "speed_m_per_s": 0.0001,
+      "seed": 113,
+      "transport_wave": {
+        "counts": [
+          8,
+          16,
+          24
+        ],
+        "duration_s": 5.0,
+        "outgoing_courant": 0.25
+      },
+      "abc": {
+        "counts": [
+          6,
+          10,
+          14
+        ],
+        "duration_s": 1.0,
+        "dt_s": 0.025
+      },
+      "sloped_wall": {
+        "intercept_m": 0.002,
+        "slope_dz_dy": 0.5,
+        "counts": [
+          12,
+          18,
+          24
+        ],
+        "focus_width_m": 0.0036,
+        "quadrature_order": 12,
+        "streamfunction_scale": 4096.0,
+        "duration_s": 2.0,
+        "dt_s": 0.05,
+        "max_background_width_factor": 1.0
+      },
+      "temporal": {
+        "n": 6,
+        "duration_s": 0.4,
+        "decay_time_s": 1.0,
+        "steps": [
+          4,
+          8,
+          16
+        ],
+        "reference_steps": 128
+      },
+      "rotated_cube": {
+        "width_m": 0.003,
+        "center_m": [
+          0.005,
+          0.005,
+          0.005
+        ],
+        "angles_rad_xyz": [
+          0.3,
+          0.2,
+          0.1
+        ],
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "max_axis_refinements": 48
+      },
+      "subcell_cube": {
+        "width_m": 0.0002,
+        "center_m": [
+          0.0051,
+          0.0052,
+          0.0049
+        ],
+        "counts_xyz": [
+          8,
+          8,
+          8
+        ]
+      },
+      "tiny_cycle": {
+        "n": 8,
+        "relative_gap": 1e-05,
+        "target_outgoing_courant": 1000.0
+      },
+      "unforced": {
+        "steps": 4,
+        "dt_s": 0.1
+      },
+      "gates": {
+        "finest_transport_relative_rms_error": 0.08,
+        "finest_abc_relative_velocity_error": 0.08,
+        "finest_abc_relative_pressure_error": 0.25,
+        "finest_wall_relative_velocity_error": 0.05,
+        "finest_wall_pressure_rms_over_scale": 0.25,
+        "minimum_spatial_rate": 0.7,
+        "minimum_temporal_rate": 0.7,
+        "maximum_relative_momentum_error": 1e-09,
+        "maximum_relative_work_error": 1e-08,
+        "maximum_relative_volume_flux": 1e-10,
+        "maximum_relative_bound_violation": 1e-10,
+        "maximum_relative_energy_increase": 1e-12
+      },
+      "limits": "Stationary, closed or periodic cut-cell split momentum operator. Fully implicit first-order donor transport uses the previous constrained face flux, followed by monolithic linear Stokes. First order in space/time with measured artificial damping. No fully implicit nonlinear solve, free-surface stress, moving interface, growth calibration, solute coupling, AI or automatic replacement of the canonical MAC runtime. Small-cell stability does not establish accuracy at large Courant number.",
+      "linear_solver": "schur",
+      "protocol_note": "Revision 3 retains every original acceptance tolerance and the same 3D curl reference. Original 6/10/14 wall accuracy failed (results/momentum_initial_bb4264a). Uniform 24/36/48 passed, but aggressive focused 24/36 still failed; the remaining expensive 48 case was interrupted and partial evidence retained in results/momentum_refined_bb4264a. The new focused study subdivides outer intervals wider than L/n, retaining the same focus band, domain and crystal. Report nominal background count n and actual refined counts/edges. This uses extra cells and does not validate the earlier fixed-count meshes. Use the tested Schur backend and include the complete coupled Courant-1000 case."
+    },
+    "results": [
+      {
+        "case": "transport_wave_8",
+        "max_outgoing_courant": 0.19999999999999996,
+        "old_energy_m5_per_s2": 2.601839421990859e-15,
+        "energy_m5_per_s2": 2.2811372050855913e-15,
+        "donor_dissipation_m5_per_s3": 1.0690073896842265e-16,
+        "divergence_work_m5_per_s3": 0.0,
+        "euler_damping_m5_per_s2": 5.345036948421135e-17,
+        "work_residual_m5_per_s3": 7.395570986446986e-32,
+        "momentum_change_m4_per_s": [
+          0.0,
+          6.310887241768095e-30,
+          -1.2101126286090321e-27
+        ],
+        "bound_violation_m_per_s": 0.0,
+        "max_integrated_momentum_residual_m4_per_s": 3.7865323450608567e-29,
+        "relative_work_error": 7.106098596957311e-17,
+        "relative_momentum_error": 1.210112628609032e-17,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.12325980388900204,
+        "n": 8,
+        "steps": 2,
+        "dt_s": 2.5,
+        "relative_rms_error": 0.13137113733805794,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1.0000000000000004e-06,
+        "cut_cell_count": 0,
+        "min_liquid_fraction": 1.0,
+        "normalized_area_closure": 0.0,
+        "normalized_moment_closure": 7.335520501646285e-16,
+        "embedded_wall_area_m2": 0.0,
+        "seconds": 0.03287302400076442
+      },
+      {
+        "case": "transport_wave_16",
+        "max_outgoing_courant": 0.19999999999999996,
+        "old_energy_m5_per_s2": 2.770168770604114e-15,
+        "energy_m5_per_s2": 2.6725206793317995e-15,
+        "donor_dissipation_m5_per_s3": 6.50987275148768e-17,
+        "divergence_work_m5_per_s3": 0.0,
+        "euler_damping_m5_per_s2": 1.62746818787192e-17,
+        "work_residual_m5_per_s3": 4.930380657631324e-31,
+        "momentum_change_m4_per_s": [
+          0.0,
+          -1.6157843491189374e-27,
+          -4.039953910863107e-28
+        ],
+        "bound_violation_m_per_s": 0.0,
+        "max_integrated_momentum_residual_m4_per_s": 3.1554436208840472e-30,
+        "relative_work_error": 3.346135955076408e-16,
+        "relative_momentum_error": 1.615784349118937e-17,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.035249870805170946,
+        "n": 16,
+        "steps": 4,
+        "dt_s": 1.25,
+        "relative_rms_error": 0.07041349669245434,
+        "grid_counts_xyz": [
+          16,
+          16,
+          16
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1.0000000000000004e-06,
+        "cut_cell_count": 0,
+        "min_liquid_fraction": 1.0,
+        "normalized_area_closure": 0.0,
+        "normalized_moment_closure": 3.667760250823143e-15,
+        "embedded_wall_area_m2": 0.0,
+        "seconds": 0.2240334719999737
+      },
+      {
+        "case": "transport_wave_24",
+        "max_outgoing_courant": 0.24,
+        "old_energy_m5_per_s2": 2.867404673508921e-15,
+        "energy_m5_per_s2": 2.81040695564103e-15,
+        "donor_dissipation_m5_per_s3": 4.5965901506363144e-17,
+        "divergence_work_m5_per_s3": 0.0,
+        "euler_damping_m5_per_s2": 1.1031816361527158e-17,
+        "work_residual_m5_per_s3": -8.566536392634425e-31,
+        "momentum_change_m4_per_s": [
+          0.0,
+          2.2716728880036324e-27,
+          7.395570986446986e-32
+        ],
+        "bound_violation_m_per_s": 0.0,
+        "max_integrated_momentum_residual_m4_per_s": 1.5777218104420236e-30,
+        "relative_work_error": 3.03468625481985e-16,
+        "relative_momentum_error": 2.726549807476698e-17,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.019877807410469406,
+        "n": 24,
+        "steps": 5,
+        "dt_s": 1.0,
+        "relative_rms_error": 0.04936286910327756,
+        "grid_counts_xyz": [
+          24,
+          24,
+          24
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1.0000000000000006e-06,
+        "cut_cell_count": 0,
+        "min_liquid_fraction": 1.0,
+        "normalized_area_closure": 0.0,
+        "normalized_moment_closure": 5.570410880937647e-15,
+        "embedded_wall_area_m2": 0.0,
+        "seconds": 0.7253841479996481
+      },
+      {
+        "case": "abc_6",
+        "energy_m5_per_s2": 6.418130827524925e-15,
+        "dissipation_m5_per_s3": 4.625835983657266e-15,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": 9.089243719773764e-34,
+        "work_residual_m5_per_s3": 2.129924444096732e-29,
+        "max_cell_momentum_residual_m4_per_s2": 5.427363027920561e-27,
+        "max_face_momentum_residual_m4_per_s2": 1.0827115924158387e-27,
+        "max_integral_flux_m3_per_s": 6.72084247699335e-25,
+        "max_divergence_per_s": 1.451701975030563e-16,
+        "advection_max_outgoing_courant": 0.004058159419569479,
+        "advection_old_energy_m5_per_s2": 6.539620899934668e-15,
+        "advection_energy_m5_per_s2": 6.534299908766867e-15,
+        "advection_donor_dissipation_m5_per_s3": 2.1268269626241114e-16,
+        "advection_divergence_work_m5_per_s3": 1.0669112673425886e-32,
+        "advection_euler_damping_m5_per_s2": 3.923761240698704e-21,
+        "advection_work_residual_m5_per_s3": 5.283590817247149e-31,
+        "advection_momentum_change_m4_per_s": [
+          -3.842492165524972e-28,
+          1.1297474238896415e-27,
+          -1.5533164261867486e-28
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 4.0389678347315804e-28,
+        "stokes_euler_damping_m5_per_s2": 5.231816505110895e-19,
+        "combined_work_residual_m5_per_s3": 2.2089014270560307e-29,
+        "max_outgoing_courant": 0.005870061775837683,
+        "wall_momentum_impulse_m4_per_s": [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          3.549874073494553e-29,
+          4.259848888193464e-29,
+          -1.4988357199199224e-29
+        ],
+        "relative_work_error": 3.014099738763548e-16,
+        "relative_momentum_error": 3.367844419614804e-17,
+        "relative_advection_momentum_error": 3.210614580442941e-17,
+        "relative_volume_flux": 3.412120026781239e-16,
+        "relative_pressure_work": 5.950064031071738e-20,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.018577540543819104,
+        "wall_trace_exactly_zero": true,
+        "n": 6,
+        "steps": 40,
+        "dt_s": 0.025,
+        "relative_velocity_error": 0.023019579585606662,
+        "forced": false,
+        "max_cell_width_m": 0.0016666666666666668,
+        "max_cell_width_over_background": 1.0,
+        "relative_pressure_error": 0.3907985579402912,
+        "grid_counts_xyz": [
+          6,
+          6,
+          6
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1.0000000000000006e-06,
+        "cut_cell_count": 0,
+        "min_liquid_fraction": 1.0,
+        "normalized_area_closure": 0.0,
+        "normalized_moment_closure": 1.8568036269792156e-15,
+        "embedded_wall_area_m2": 0.0,
+        "seconds": 0.2409933529997943
+      },
+      {
+        "case": "abc_10",
+        "energy_m5_per_s2": 6.611809767820832e-15,
+        "dissipation_m5_per_s3": 5.054166679136905e-15,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": 1.4069497781979983e-33,
+        "work_residual_m5_per_s3": 6.863089875422803e-29,
+        "max_cell_momentum_residual_m4_per_s2": 2.8335883715538744e-27,
+        "max_face_momentum_residual_m4_per_s2": 1.1461162876729775e-27,
+        "max_integral_flux_m3_per_s": 3.4896682092080855e-25,
+        "max_divergence_per_s": 3.4896682092080855e-16,
+        "advection_max_outgoing_courant": 0.007023012180919847,
+        "advection_old_energy_m5_per_s2": 6.742288421424638e-15,
+        "advection_energy_m5_per_s2": 6.738771599150746e-15,
+        "advection_donor_dissipation_m5_per_s3": 1.405154430459556e-16,
+        "advection_divergence_work_m5_per_s3": -7.559061859574513e-33,
+        "advection_euler_damping_m5_per_s2": 3.936197743779311e-21,
+        "advection_work_residual_m5_per_s3": 1.520858942006136e-30,
+        "advection_momentum_change_m4_per_s": [
+          8.011868568650901e-29,
+          -3.8252358332232626e-28,
+          -5.595365748829349e-28
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 1.0097419586828951e-28,
+        "stokes_euler_damping_m5_per_s2": 6.076643514925084e-19,
+        "combined_work_residual_m5_per_s3": 7.021002751444825e-29,
+        "max_outgoing_courant": 0.010304541667141138,
+        "wall_momentum_impulse_m4_per_s": [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          -3.285605670245514e-28,
+          -1.5624376304033665e-28,
+          -8.377702813447145e-28
+        ],
+        "relative_work_error": 3.85748481883147e-16,
+        "relative_momentum_error": 2.349720813813936e-17,
+        "relative_advection_momentum_error": 1.792982229954207e-17,
+        "relative_volume_flux": 8.788794008375919e-17,
+        "relative_pressure_work": 3.788103855693055e-20,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.019352280034356073,
+        "wall_trace_exactly_zero": true,
+        "n": 10,
+        "steps": 40,
+        "dt_s": 0.025,
+        "relative_velocity_error": 0.007991023303018178,
+        "forced": false,
+        "max_cell_width_m": 0.001,
+        "max_cell_width_over_background": 1.0,
+        "relative_pressure_error": 0.19657613570570992,
+        "grid_counts_xyz": [
+          10,
+          10,
+          10
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1.0000000000000004e-06,
+        "cut_cell_count": 0,
+        "min_liquid_fraction": 1.0,
+        "normalized_area_closure": 0.0,
+        "normalized_moment_closure": 1.790898559972238e-15,
+        "embedded_wall_area_m2": 0.0,
+        "seconds": 1.2908007619998898
+      },
+      {
+        "case": "abc_14",
+        "energy_m5_per_s2": 6.683932278351497e-15,
+        "dissipation_m5_per_s3": 5.191106801477728e-15,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": -2.2665303942454277e-33,
+        "work_residual_m5_per_s3": 5.443140246024981e-29,
+        "max_cell_momentum_residual_m4_per_s2": 1.0128974023037792e-27,
+        "max_face_momentum_residual_m4_per_s2": 1.1657885064969265e-27,
+        "max_integral_flux_m3_per_s": 2.803043677303717e-25,
+        "max_divergence_per_s": 7.6915518505214e-16,
+        "advection_max_outgoing_courant": 0.009946908304188765,
+        "advection_old_energy_m5_per_s2": 6.8169353064372375e-15,
+        "advection_energy_m5_per_s2": 6.814343981631779e-15,
+        "advection_donor_dissipation_m5_per_s3": 1.0349564696442175e-16,
+        "advection_divergence_work_m5_per_s3": 4.510026805656577e-33,
+        "advection_euler_damping_m5_per_s2": 3.9336313488488574e-21,
+        "advection_work_residual_m5_per_s3": 2.8366524759829847e-29,
+        "advection_momentum_change_m4_per_s": [
+          -1.310988216864169e-28,
+          -3.2851742619379714e-29,
+          -3.5240820196793193e-28
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 5.679798517591285e-29,
+        "stokes_euler_damping_m5_per_s2": 6.340332433391886e-19,
+        "combined_work_residual_m5_per_s3": 5.048483140375051e-29,
+        "max_outgoing_courant": 0.014632345933819098,
+        "wall_momentum_impulse_m4_per_s": [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          -1.3095091026668796e-28,
+          5.662542185289575e-29,
+          1.4471899825312343e-27
+        ],
+        "relative_work_error": 2.8728608324785566e-16,
+        "relative_momentum_error": 3.9812823810372933e-17,
+        "relative_advection_momentum_error": 9.029807285177107e-18,
+        "relative_volume_flux": 5.169878828456423e-17,
+        "relative_pressure_work": 3.630311371807233e-20,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.01951067776162485,
+        "wall_trace_exactly_zero": true,
+        "n": 14,
+        "steps": 40,
+        "dt_s": 0.025,
+        "relative_velocity_error": 0.004175842551049411,
+        "forced": false,
+        "max_cell_width_m": 0.0007142857142857143,
+        "max_cell_width_over_background": 1.0,
+        "relative_pressure_error": 0.14765863386793726,
+        "grid_counts_xyz": [
+          14,
+          14,
+          14
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 1e-06,
+        "cut_cell_count": 0,
+        "min_liquid_fraction": 1.0,
+        "normalized_area_closure": 0.0,
+        "normalized_moment_closure": 3.4399579539946744e-15,
+        "embedded_wall_area_m2": 0.0,
+        "seconds": 5.726180781000039
+      },
+      {
+        "case": "uniform_wall_12",
+        "energy_m5_per_s2": 1.1800283390413475e-16,
+        "dissipation_m5_per_s3": 3.615139942237478e-16,
+        "body_power_m5_per_s3": 3.646532924076003e-16,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": 1.8845267763844055e-33,
+        "work_residual_m5_per_s3": -8.581943832189523e-31,
+        "max_cell_momentum_residual_m4_per_s2": 1.9622915017372669e-28,
+        "max_face_momentum_residual_m4_per_s2": 2.058926962626841e-28,
+        "max_integral_flux_m3_per_s": 7.108583389127582e-26,
+        "max_divergence_per_s": 3.4523008147612055e-15,
+        "advection_max_outgoing_courant": 0.005147301650785047,
+        "advection_old_energy_m5_per_s2": 1.178978728339134e-16,
+        "advection_energy_m5_per_s2": 1.1784600600989309e-16,
+        "advection_donor_dissipation_m5_per_s3": 1.0356865773196861e-18,
+        "advection_divergence_work_m5_per_s3": 2.2162590140041575e-34,
+        "advection_euler_damping_m5_per_s2": 8.249515433569083e-23,
+        "advection_work_residual_m5_per_s3": 1.4774785964146268e-31,
+        "advection_momentum_change_m4_per_s": [
+          7.356069815341276e-29,
+          2.3016777480626088e-29,
+          1.3616768103286888e-30
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 1.262177448353619e-29,
+        "stokes_euler_damping_m5_per_s2": 1.3701495092226958e-22,
+        "combined_work_residual_m5_per_s3": -6.902532920683853e-31,
+        "max_outgoing_courant": 0.005147301650785047,
+        "wall_momentum_impulse_m4_per_s": [
+          -1.7697131589188859e-13,
+          5.4396218534420055e-14,
+          1.2257801746971393e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          1.7679227258214895e-13,
+          -5.424425013991579e-14,
+          -1.225480498375592e-13
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          2.524354896707238e-29,
+          3.155443620884047e-29,
+          1.0097419586828951e-28
+        ],
+        "relative_work_error": 6.203358823682958e-16,
+        "relative_momentum_error": 7.825500179792436e-18,
+        "relative_advection_momentum_error": 1.285891120951514e-18,
+        "relative_volume_flux": 3.077693490065464e-17,
+        "relative_pressure_work": 1.7518234867066663e-18,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": 0.021663230826034496,
+        "wall_trace_exactly_zero": true,
+        "n": 12,
+        "steps": 40,
+        "dt_s": 0.05,
+        "relative_velocity_error": 0.18161929987040462,
+        "forced": true,
+        "max_cell_width_m": 0.0008333333333333334,
+        "max_cell_width_over_background": 1.0,
+        "pressure_rms_over_scale": 0.5772212669918367,
+        "grid_counts_xyz": [
+          12,
+          12,
+          12
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000003e-07,
+        "cut_cell_count": 216,
+        "min_liquid_fraction": 0.009999999999998618,
+        "normalized_area_closure": 2.8332112556534008e-15,
+        "normalized_moment_closure": 5.1886628009801037e-14,
+        "embedded_wall_area_m2": 0.00011180339887498948,
+        "seconds": 2.917293720000089
+      },
+      {
+        "case": "uniform_wall_18",
+        "energy_m5_per_s2": 1.0818748083076527e-16,
+        "dissipation_m5_per_s3": 3.358913432826488e-16,
+        "body_power_m5_per_s3": 3.3737634028957934e-16,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": -1.8945952853978443e-34,
+        "work_residual_m5_per_s3": 6.59823598947067e-31,
+        "max_cell_momentum_residual_m4_per_s2": 1.0106509976166459e-28,
+        "max_face_momentum_residual_m4_per_s2": 1.5441952219701306e-28,
+        "max_integral_flux_m3_per_s": 4.0389678347315804e-26,
+        "max_divergence_per_s": 2.4383195323644465e-16,
+        "advection_max_outgoing_courant": 0.00785232267551282,
+        "advection_old_energy_m5_per_s2": 1.0814667818635512e-16,
+        "advection_energy_m5_per_s2": 1.0811331877988978e-16,
+        "advection_donor_dissipation_m5_per_s3": 6.656758949679042e-19,
+        "advection_divergence_work_m5_per_s3": 3.8032851162439604e-35,
+        "advection_euler_damping_m5_per_s2": 7.56117169606964e-23,
+        "advection_work_residual_m5_per_s3": 3.000979181866938e-31,
+        "advection_momentum_change_m4_per_s": [
+          7.241127038394248e-29,
+          -8.096511532259686e-30,
+          -1.2184861770881457e-29
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 5.5220263365470826e-30,
+        "stokes_euler_damping_m5_per_s2": 8.779947108447575e-23,
+        "combined_work_residual_m5_per_s3": 1.1832913578315177e-30,
+        "max_outgoing_courant": 0.00785232267551282,
+        "wall_momentum_impulse_m4_per_s": [
+          -1.7681994988885383e-13,
+          5.426411657968196e-14,
+          1.225534505370757e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          1.767922724548306e-13,
+          -5.4244250297468974e-14,
+          -1.2254805011919224e-13
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          -7.068193710780266e-28,
+          5.048709793414476e-29,
+          -6.058451752097371e-28
+        ],
+        "relative_work_error": 5.9343819216441055e-16,
+        "relative_momentum_error": 1.009741958682895e-17,
+        "relative_advection_momentum_error": 7.493541368520134e-19,
+        "relative_volume_flux": 8.116101746133885e-18,
+        "relative_pressure_work": 7.853617487024435e-19,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": 0.010557348782826548,
+        "wall_trace_exactly_zero": true,
+        "n": 18,
+        "steps": 40,
+        "dt_s": 0.05,
+        "relative_velocity_error": 0.08560302706355548,
+        "forced": true,
+        "max_cell_width_m": 0.0005555555555555556,
+        "max_cell_width_over_background": 1.0,
+        "pressure_rms_over_scale": 0.29286121186489844,
+        "grid_counts_xyz": [
+          18,
+          18,
+          18
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.5e-07,
+        "cut_cell_count": 486,
+        "min_liquid_fraction": 0.15999999999999845,
+        "normalized_area_closure": 5.191971799426855e-15,
+        "normalized_moment_closure": 1.1428470315687377e-13,
+        "embedded_wall_area_m2": 0.00011180339887498945,
+        "seconds": 11.213314685999649
+      },
+      {
+        "case": "uniform_wall_24",
+        "energy_m5_per_s2": 1.0496349139454453e-16,
+        "dissipation_m5_per_s3": 3.254308262628984e-16,
+        "body_power_m5_per_s3": 3.263571637273223e-16,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": 7.875629779521105e-35,
+        "work_residual_m5_per_s3": 3.8171931497755015e-31,
+        "max_cell_momentum_residual_m4_per_s2": 8.47285916013943e-29,
+        "max_face_momentum_residual_m4_per_s2": 1.8641769266504035e-28,
+        "max_integral_flux_m3_per_s": 3.110005232743317e-26,
+        "max_divergence_per_s": 3.862302750551591e-15,
+        "advection_max_outgoing_courant": 0.010688867120429107,
+        "advection_old_energy_m5_per_s2": 1.049419250452094e-16,
+        "advection_energy_m5_per_s2": 1.0491725215520034e-16,
+        "advection_donor_dissipation_m5_per_s3": 4.91994825396884e-19,
+        "advection_divergence_work_m5_per_s3": -3.119500782756971e-35,
+        "advection_euler_damping_m5_per_s2": 7.314873922753159e-23,
+        "advection_work_residual_m5_per_s3": 8.663565248959804e-32,
+        "advection_momentum_change_m4_per_s": [
+          -9.764697933266733e-31,
+          1.523690912025616e-31,
+          -8.769179508185638e-30
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 2.7610131682735413e-30,
+        "stokes_euler_damping_m5_per_s2": 7.763387702975792e-23,
+        "combined_work_residual_m5_per_s3": 6.902532920683853e-31,
+        "max_outgoing_courant": 0.010688867120429107,
+        "wall_momentum_impulse_m4_per_s": [
+          -1.768000895789118e-13,
+          5.424950402364789e-14,
+          1.2254962569367412e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          1.7679227258552398e-13,
+          -5.4244249908294916e-14,
+          -1.2254804997211613e-13
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          -3.7865323450608567e-28,
+          2.8398992587956425e-28,
+          -6.058451752097371e-28
+        ],
+        "relative_work_error": 6.8364956021193375e-16,
+        "relative_momentum_error": 1.1359597035182568e-17,
+        "relative_advection_momentum_error": 5.444658057628542e-19,
+        "relative_volume_flux": 4.927540758372528e-18,
+        "relative_pressure_work": 6.588809593239373e-19,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": 0.0061185556094349725,
+        "wall_trace_exactly_zero": true,
+        "n": 24,
+        "steps": 40,
+        "dt_s": 0.05,
+        "relative_velocity_error": 0.04918964228763967,
+        "forced": true,
+        "max_cell_width_m": 0.0004166666666666667,
+        "max_cell_width_over_background": 1.0,
+        "pressure_rms_over_scale": 0.17387413466402254,
+        "grid_counts_xyz": [
+          24,
+          24,
+          24
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000003e-07,
+        "cut_cell_count": 864,
+        "min_liquid_fraction": 0.039999999999992146,
+        "normalized_area_closure": 1.478963732506092e-14,
+        "normalized_moment_closure": 4.823974476202273e-13,
+        "embedded_wall_area_m2": 0.00011180339887498949,
+        "seconds": 31.001017567000417
+      },
+      {
+        "case": "focused_wall_12",
+        "energy_m5_per_s2": 1.1352281633132984e-16,
+        "dissipation_m5_per_s3": 3.519727190777011e-16,
+        "body_power_m5_per_s3": 3.540440431709265e-16,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": -1.7852763646969159e-34,
+        "work_residual_m5_per_s3": 1.1601801984988709e-30,
+        "max_cell_momentum_residual_m4_per_s2": 1.650013516834543e-28,
+        "max_face_momentum_residual_m4_per_s2": 2.3596801827423516e-28,
+        "max_integral_flux_m3_per_s": 1.2914599651554228e-25,
+        "max_divergence_per_s": 8.170727473494942e-15,
+        "advection_max_outgoing_courant": 0.008430931202463757,
+        "advection_old_energy_m5_per_s2": 1.1345636171830026e-16,
+        "advection_energy_m5_per_s2": 1.1341935602290575e-16,
+        "advection_donor_dissipation_m5_per_s3": 7.385023861404839e-19,
+        "advection_divergence_work_m5_per_s3": 1.778072538509153e-35,
+        "advection_euler_damping_m5_per_s2": 8.057608752702585e-23,
+        "advection_work_residual_m5_per_s3": 7.4361933225329685e-31,
+        "advection_momentum_change_m4_per_s": [
+          2.0814093037167554e-29,
+          -3.1023408610687013e-29,
+          -1.6584352962700487e-29
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 1.1044052673094165e-29,
+        "stokes_euler_damping_m5_per_s2": 1.0589623721482125e-22,
+        "combined_work_residual_m5_per_s3": 1.4298103907130839e-30,
+        "max_outgoing_courant": 0.008430931202463757,
+        "wall_momentum_impulse_m4_per_s": [
+          -1.7684304402212147e-13,
+          5.427795073487992e-14,
+          1.225639137122825e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          1.7679227175511283e-13,
+          -5.4244249700306033e-14,
+          -1.2254804956725353e-13
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          -5.048709793414476e-29,
+          1.4515040656066617e-28,
+          -1.5146129380243427e-28
+        ],
+        "relative_work_error": 6.301146842092235e-16,
+        "relative_momentum_error": 7.573064690121712e-18,
+        "relative_advection_momentum_error": 8.436159996109864e-19,
+        "relative_volume_flux": 3.193308944334656e-17,
+        "relative_pressure_work": 4.408182559192766e-18,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": 0.015898267694402834,
+        "wall_trace_exactly_zero": true,
+        "n": 12,
+        "steps": 40,
+        "dt_s": 0.05,
+        "relative_velocity_error": 0.1352583026129088,
+        "forced": true,
+        "max_cell_width_m": 0.0007262402221926327,
+        "max_cell_width_over_background": 0.8714882666311592,
+        "pressure_rms_over_scale": 0.475916627936341,
+        "grid_counts_xyz": [
+          17,
+          17,
+          17
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000001e-07,
+        "cut_cell_count": 442,
+        "min_liquid_fraction": 1.0549600240162563e-05,
+        "normalized_area_closure": 3.563182725243752e-15,
+        "normalized_moment_closure": 8.63250432940694e-14,
+        "embedded_wall_area_m2": 0.00011180339887498946,
+        "seconds": 10.194870813000307
+      },
+      {
+        "case": "focused_wall_18",
+        "energy_m5_per_s2": 1.0480318845979443e-16,
+        "dissipation_m5_per_s3": 3.2524175463304337e-16,
+        "body_power_m5_per_s3": 3.261011353630787e-16,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": 7.74247959301063e-34,
+        "work_residual_m5_per_s3": 3.7911930955262738e-31,
+        "max_cell_momentum_residual_m4_per_s2": 7.844543775082538e-29,
+        "max_face_momentum_residual_m4_per_s2": 1.9863271074432196e-28,
+        "max_integral_flux_m3_per_s": 2.8272774843121063e-26,
+        "max_divergence_per_s": 8.220053056168173e-16,
+        "advection_max_outgoing_courant": 0.01334348108753701,
+        "advection_old_energy_m5_per_s2": 1.0478314770318698e-16,
+        "advection_energy_m5_per_s2": 1.0476029694633912e-16,
+        "advection_donor_dissipation_m5_per_s3": 4.55541869083295e-19,
+        "advection_divergence_work_m5_per_s3": -2.318947005970283e-35,
+        "advection_euler_damping_m5_per_s2": 7.366339368725451e-23,
+        "advection_work_residual_m5_per_s3": -1.6497908920682645e-31,
+        "advection_momentum_change_m4_per_s": [
+          4.4582460640767665e-30,
+          9.493918677692176e-30,
+          -4.664522285895538e-30
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 1.7749370367472766e-30,
+        "stokes_euler_damping_m5_per_s2": 7.752304648267408e-23,
+        "combined_work_residual_m5_per_s3": 4.437342591868191e-31,
+        "max_outgoing_courant": 0.01334348108753701,
+        "wall_momentum_impulse_m4_per_s": [
+          -1.7679752696184997e-13,
+          5.424754955330126e-14,
+          1.225498342447611e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          1.7679227249104213e-13,
+          -5.424424982054557e-14,
+          -1.2254804958799646e-13
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          -5.553580772755923e-28,
+          -5.679798517591285e-29,
+          -7.32062920045099e-28
+        ],
+        "relative_work_error": 8.720422044748095e-16,
+        "relative_momentum_error": 1.3379080952548359e-17,
+        "relative_advection_momentum_error": 5.45468371354445e-19,
+        "relative_volume_flux": 4.119747191426212e-18,
+        "relative_pressure_work": 6.452070365749739e-19,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": 0.005884608333492469,
+        "wall_trace_exactly_zero": true,
+        "n": 18,
+        "steps": 40,
+        "dt_s": 0.05,
+        "relative_velocity_error": 0.04848975935093168,
+        "forced": true,
+        "max_cell_width_m": 0.000484563816749088,
+        "max_cell_width_over_background": 0.8722148701483584,
+        "pressure_rms_over_scale": 0.177119705834203,
+        "grid_counts_xyz": [
+          27,
+          27,
+          27
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.5e-07,
+        "cut_cell_count": 1134,
+        "min_liquid_fraction": 0.0005247632818167339,
+        "normalized_area_closure": 1.094540331790553e-14,
+        "normalized_moment_closure": 2.950715069791375e-13,
+        "embedded_wall_area_m2": 0.00011180339887498949,
+        "seconds": 62.8255747230005
+      },
+      {
+        "case": "focused_wall_24",
+        "energy_m5_per_s2": 1.0389368776622427e-16,
+        "dissipation_m5_per_s3": 3.2125732120192204e-16,
+        "body_power_m5_per_s3": 3.218940951545112e-16,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": 9.479297091646546e-34,
+        "work_residual_m5_per_s3": 1.7233221142376986e-30,
+        "max_cell_momentum_residual_m4_per_s2": 6.473204617481051e-29,
+        "max_face_momentum_residual_m4_per_s2": 1.9642636540003194e-28,
+        "max_integral_flux_m3_per_s": 1.655976812239948e-26,
+        "max_divergence_per_s": 7.720232156665005e-16,
+        "advection_max_outgoing_courant": 0.01775637732991715,
+        "advection_old_energy_m5_per_s2": 1.038794451502659e-16,
+        "advection_energy_m5_per_s2": 1.0386192426278296e-16,
+        "advection_donor_dissipation_m5_per_s3": 3.4895710995974955e-19,
+        "advection_divergence_work_m5_per_s3": 1.95391172275216e-35,
+        "advection_euler_damping_m5_per_s2": 7.303198498542285e-23,
+        "advection_work_residual_m5_per_s3": 6.408727281120803e-31,
+        "advection_momentum_change_m4_per_s": [
+          3.46583910864316e-29,
+          -1.970372576911341e-29,
+          8.077490339482148e-30
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 1.1832913578315177e-30,
+        "stokes_euler_damping_m5_per_s2": 7.519418823013569e-23,
+        "combined_work_residual_m5_per_s3": 2.3665827156630354e-30,
+        "max_outgoing_courant": 0.01775637732991715,
+        "wall_momentum_impulse_m4_per_s": [
+          -1.767945318155725e-13,
+          5.4245561059587606e-14,
+          1.2254880905758687e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          1.767922724327515e-13,
+          -5.4244250134629964e-14,
+          -1.225480497598139e-13
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          -1.1864468014524018e-27,
+          -6.626431603856499e-28,
+          6.058451752097371e-28
+        ],
+        "relative_work_error": 1.5484243633039836e-15,
+        "relative_momentum_error": 2.701059739476744e-17,
+        "relative_advection_momentum_error": 5.228640211030635e-19,
+        "relative_volume_flux": 2.908056841006738e-18,
+        "relative_pressure_work": 8.355775157427843e-19,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": 0.004189153385484534,
+        "wall_trace_exactly_zero": true,
+        "n": 24,
+        "steps": 40,
+        "dt_s": 0.05,
+        "relative_velocity_error": 0.03366455899731547,
+        "forced": true,
+        "max_cell_width_m": 0.00039171262460022636,
+        "max_cell_width_over_background": 0.9401102990405432,
+        "pressure_rms_over_scale": 0.12812665203870047,
+        "grid_counts_xyz": [
+          34,
+          34,
+          34
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.5e-07,
+        "cut_cell_count": 1802,
+        "min_liquid_fraction": 0.00834890502558596,
+        "normalized_area_closure": 1.2447121325608488e-14,
+        "normalized_moment_closure": 5.857905186406362e-13,
+        "embedded_wall_area_m2": 0.0001118033988749895,
+        "seconds": 120.90964293900015
+      },
+      {
+        "case": "tiny_cycle",
+        "max_outgoing_courant": 1000.0,
+        "old_energy_m5_per_s2": 1.2817419500511172e-19,
+        "energy_m5_per_s2": 1.2796939597679303e-25,
+        "donor_dissipation_m5_per_s3": 2.0466850130675546e-21,
+        "divergence_work_m5_per_s3": 0.0,
+        "euler_damping_m5_per_s2": 1.279182306767952e-19,
+        "work_residual_m5_per_s3": 1.1322361587120273e-34,
+        "momentum_change_m4_per_s": [
+          -1.7391781767057308e-35,
+          8.695890883528654e-36,
+          -4.347945441764327e-36
+        ],
+        "bound_violation_m_per_s": 0.0,
+        "max_integrated_momentum_residual_m4_per_s": 2.407412430484045e-35,
+        "dt_s": 0.1250003577917991,
+        "relative_work_error": 1.1041998347496646e-16,
+        "relative_momentum_error": 5.088323872356982e-17,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.999999001597818,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 3.750012500000001e-07,
+        "cut_cell_count": 96,
+        "min_liquid_fraction": 9.999838041223774e-11,
+        "normalized_area_closure": 3.404443356950048e-15,
+        "normalized_moment_closure": 3.7312391569369225e-14,
+        "embedded_wall_area_m2": 0.00011180339887498949,
+        "seconds": 0.23166723799931788
+      },
+      {
+        "case": "tiny_coupled",
+        "energy_m5_per_s2": 5.331596140148016e-30,
+        "dissipation_m5_per_s3": 1.7644347134532677e-28,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": -1.959960511355616e-45,
+        "work_residual_m5_per_s3": 1.1699160618955033e-40,
+        "max_cell_momentum_residual_m4_per_s2": 5.7777898331617076e-34,
+        "max_face_momentum_residual_m4_per_s2": 1.925929944387236e-34,
+        "max_integral_flux_m3_per_s": 3.2419840792288724e-30,
+        "max_divergence_per_s": 4.4060317378156713e-16,
+        "advection_max_outgoing_courant": 1000.0,
+        "advection_old_energy_m5_per_s2": 1.2817419500511172e-19,
+        "advection_energy_m5_per_s2": 1.2796939597679303e-25,
+        "advection_donor_dissipation_m5_per_s3": 2.0466850130675546e-21,
+        "advection_divergence_work_m5_per_s3": 0.0,
+        "advection_euler_damping_m5_per_s2": 1.279182306767952e-19,
+        "advection_work_residual_m5_per_s3": 1.1322361587120273e-34,
+        "advection_momentum_change_m4_per_s": [
+          -1.7391781767057308e-35,
+          8.695890883528654e-36,
+          -4.347945441764327e-36
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 2.407412430484045e-35,
+        "stokes_euler_damping_m5_per_s2": 1.279420088836047e-25,
+        "combined_work_residual_m5_per_s3": 9.651142041648469e-35,
+        "max_outgoing_courant": 1000.0,
+        "wall_momentum_impulse_m4_per_s": [
+          -1.188402225095646e-19,
+          6.848269277490517e-20,
+          -2.857594002495837e-20
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          1.6851887013388314e-34,
+          -1.5648180798146291e-34,
+          4.995380793254393e-34
+        ],
+        "relative_work_error": 9.412161381293798e-17,
+        "relative_momentum_error": 4.995380793254392e-24,
+        "relative_advection_momentum_error": 1.7391781767057305e-25,
+        "relative_volume_flux": 3.2419840792288724e-22,
+        "relative_pressure_work": 1.9114281557803333e-27,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.9999999999584035,
+        "wall_trace_exactly_zero": true,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 3.750012500000001e-07,
+        "cut_cell_count": 96,
+        "min_liquid_fraction": 9.999838041223774e-11,
+        "normalized_area_closure": 3.404443356950048e-15,
+        "normalized_moment_closure": 3.7312391569369225e-14,
+        "embedded_wall_area_m2": 0.00011180339887498949,
+        "seconds": 0.23604760200032615
+      },
+      {
+        "case": "rotated_cube",
+        "energy_m5_per_s2": 2.140801325231084e-16,
+        "dissipation_m5_per_s3": 1.479988839973126e-15,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": -3.242158606778034e-31,
+        "work_residual_m5_per_s3": 2.7610131682735413e-30,
+        "max_cell_momentum_residual_m4_per_s2": 4.0389678347315804e-28,
+        "max_face_momentum_residual_m4_per_s2": 3.7865323450608567e-28,
+        "max_integral_flux_m3_per_s": 1.0291167769455758e-23,
+        "max_divergence_per_s": 3.769210058403353e-14,
+        "advection_max_outgoing_courant": 0.017492417338950763,
+        "advection_old_energy_m5_per_s2": 3.9462878472810705e-16,
+        "advection_energy_m5_per_s2": 3.9356293964203626e-16,
+        "advection_donor_dissipation_m5_per_s3": 1.0634778952734133e-17,
+        "advection_divergence_work_m5_per_s3": 2.97007954721305e-32,
+        "advection_euler_damping_m5_per_s2": 2.367190797378558e-21,
+        "advection_work_residual_m5_per_s3": 1.1444171302516888e-31,
+        "advection_momentum_change_m4_per_s": [
+          -6.391184075974459e-29,
+          4.855192352602446e-29,
+          5.852361840608381e-29
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 2.524354896707238e-29,
+        "stokes_euler_damping_m5_per_s2": 3.1483923121615643e-17,
+        "combined_work_residual_m5_per_s3": 3.6200886654272555e-30,
+        "max_outgoing_courant": 0.038726360811461885,
+        "wall_momentum_impulse_m4_per_s": [
+          6.641695413701306e-14,
+          9.462678495876941e-14,
+          -2.1429542680883442e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          -1.0097419586828951e-28,
+          -4.291403324402304e-28,
+          -4.796274303743752e-28
+        ],
+        "relative_work_error": 9.739964768997771e-16,
+        "relative_momentum_error": 3.6232381376801066e-17,
+        "relative_advection_momentum_error": 5.882930200685695e-18,
+        "relative_volume_flux": 3.0828633688939207e-15,
+        "relative_pressure_work": 1.7946513180752234e-16,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.45751516156986316,
+        "wall_trace_exactly_zero": true,
+        "forced": false,
+        "grid_counts_xyz": [
+          14,
+          12,
+          12
+        ],
+        "axis_refinement_count": 14,
+        "liquid_volume_m3": 9.73e-07,
+        "cut_cell_count": 284,
+        "min_liquid_fraction": 7.46091729098285e-05,
+        "normalized_area_closure": 2.824520538499954e-14,
+        "normalized_moment_closure": 7.595890921677014e-13,
+        "embedded_wall_area_m2": 5.400000000000002e-05,
+        "seconds": 2.227804320999894
+      },
+      {
+        "case": "subcell_cube",
+        "energy_m5_per_s2": 5.946881651279944e-16,
+        "dissipation_m5_per_s3": 3.712877020182405e-15,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": 1.3256529313144738e-32,
+        "work_residual_m5_per_s3": 3.1554436208840472e-30,
+        "max_cell_momentum_residual_m4_per_s2": 4.543838814073028e-28,
+        "max_face_momentum_residual_m4_per_s2": 2.6426840324903895e-28,
+        "max_integral_flux_m3_per_s": 6.161849328666499e-24,
+        "max_divergence_per_s": 3.154866856277247e-15,
+        "advection_max_outgoing_courant": 0.008583134613084822,
+        "advection_old_energy_m5_per_s2": 1.040883917317059e-15,
+        "advection_energy_m5_per_s2": 1.036120097369206e-15,
+        "advection_donor_dissipation_m5_per_s3": 4.750997310809465e-17,
+        "advection_divergence_work_m5_per_s3": -4.8413091362816354e-32,
+        "advection_euler_damping_m5_per_s2": 1.2822637043333223e-20,
+        "advection_work_residual_m5_per_s3": -1.5275272886522135e-30,
+        "advection_momentum_change_m4_per_s": [
+          3.950467501927098e-29,
+          -4.571079167206441e-29,
+          -5.854827030937197e-29
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 1.0097419586828951e-28,
+        "stokes_euler_damping_m5_per_s2": 7.014423022297154e-17,
+        "combined_work_residual_m5_per_s3": 3.168700150197192e-30,
+        "max_outgoing_courant": 0.017342701650242032,
+        "wall_momentum_impulse_m4_per_s": [
+          1.4562358531887676e-13,
+          7.469154338901473e-15,
+          -8.362217901817754e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          3.0292258760486853e-28,
+          3.076557530361946e-28,
+          -1.0097419586828951e-27
+        ],
+        "relative_work_error": 5.954748463195493e-16,
+        "relative_momentum_error": 2.01948391736579e-17,
+        "relative_advection_momentum_error": 1.1135757753326106e-17,
+        "relative_volume_flux": 2.053088129750757e-15,
+        "relative_pressure_work": 9.836256166853118e-18,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.4286700416499478,
+        "wall_trace_exactly_zero": true,
+        "forced": false,
+        "grid_counts_xyz": [
+          8,
+          8,
+          8
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 9.999920000000004e-07,
+        "cut_cell_count": 1,
+        "min_liquid_fraction": 0.995904,
+        "normalized_area_closure": 4.8288307535432335e-17,
+        "normalized_moment_closure": 9.655121974330951e-16,
+        "embedded_wall_area_m2": 2.400000000000018e-07,
+        "seconds": 0.1302471399994829
+      },
+      {
+        "case": "periodic_wall",
+        "energy_m5_per_s2": 8.620230292108957e-16,
+        "dissipation_m5_per_s3": 3.7110611581914115e-15,
+        "body_power_m5_per_s3": 0.0,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": -3.2610121379045055e-31,
+        "work_residual_m5_per_s3": 3.1554436208840472e-30,
+        "max_cell_momentum_residual_m4_per_s2": 1.4136387421560532e-27,
+        "max_face_momentum_residual_m4_per_s2": 2.9661170036310044e-28,
+        "max_integral_flux_m3_per_s": 1.9225486893322323e-23,
+        "max_divergence_per_s": 3.239351158166675e-14,
+        "advection_max_outgoing_courant": 0.0071648472246794385,
+        "advection_old_energy_m5_per_s2": 1.286591325836777e-15,
+        "advection_energy_m5_per_s2": 1.2789882259034313e-15,
+        "advection_donor_dissipation_m5_per_s3": 7.578405318373165e-17,
+        "advection_divergence_work_m5_per_s3": 1.861182021312924e-31,
+        "advection_euler_damping_m5_per_s2": 2.4694614972410048e-20,
+        "advection_work_residual_m5_per_s3": 1.355487911419606e-32,
+        "advection_momentum_change_m4_per_s": [
+          2.20042888750086e-28,
+          -5.896735266527063e-29,
+          -1.429810390713084e-28
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 2.524354896707238e-28,
+        "stokes_euler_damping_m5_per_s2": 4.585908087339492e-17,
+        "combined_work_residual_m5_per_s3": 4.40706421753562e-30,
+        "max_outgoing_courant": 0.018939969724296478,
+        "wall_momentum_impulse_m4_per_s": [
+          3.1352803295460543e-13,
+          -2.4857586560106914e-13,
+          -1.369120863269044e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          5.553580772755923e-28,
+          -5.553580772755923e-28,
+          0.0
+        ],
+        "relative_work_error": 3.425380016975741e-16,
+        "relative_momentum_error": 2.0699710152999347e-17,
+        "relative_advection_momentum_error": 8.050325537780424e-18,
+        "relative_volume_flux": 8.19425794310343e-15,
+        "relative_pressure_work": 5.324382574669893e-17,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.3299946829268021,
+        "wall_trace_exactly_zero": true,
+        "forced": false,
+        "grid_counts_xyz": [
+          6,
+          6,
+          6
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000003e-07,
+        "cut_cell_count": 54,
+        "min_liquid_fraction": 0.08999999999999934,
+        "normalized_area_closure": 1.831178664125929e-15,
+        "normalized_moment_closure": 1.3852477774010059e-14,
+        "embedded_wall_area_m2": 0.00011180339887498952,
+        "seconds": 0.13105462200019247
+      },
+      {
+        "case": "temporal_4",
+        "energy_m5_per_s2": 5.4258839099815e-17,
+        "dissipation_m5_per_s3": 1.3012042951807926e-16,
+        "body_power_m5_per_s3": 7.547013145731748e-17,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": 5.318233931546025e-34,
+        "work_residual_m5_per_s3": 1.232595164407831e-31,
+        "max_cell_momentum_residual_m4_per_s2": 3.9127500898962186e-28,
+        "max_face_momentum_residual_m4_per_s2": 1.001853349630685e-28,
+        "max_integral_flux_m3_per_s": 2.4783106633912978e-24,
+        "max_divergence_per_s": 3.4718563610569295e-15,
+        "advection_max_outgoing_courant": 0.003124645715768087,
+        "advection_old_energy_m5_per_s2": 5.998640318434968e-17,
+        "advection_energy_m5_per_s2": 5.993056601663907e-17,
+        "advection_donor_dissipation_m5_per_s3": 5.57717571080834e-19,
+        "advection_divergence_work_m5_per_s3": -1.980357577789048e-34,
+        "advection_euler_damping_m5_per_s2": 6.541060252880114e-23,
+        "advection_work_residual_m5_per_s3": 8.858733467847267e-32,
+        "advection_momentum_change_m4_per_s": [
+          4.1887604065337004e-29,
+          -9.89245489990997e-30,
+          -6.080933613820689e-29
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 5.048709793414476e-29,
+        "stokes_euler_damping_m5_per_s2": 2.0669711074790645e-19,
+        "combined_work_residual_m5_per_s3": 2.0954117794933126e-31,
+        "max_outgoing_courant": 0.003124645715768087,
+        "wall_momentum_impulse_m4_per_s": [
+          -1.6819132676047475e-13,
+          6.208805050582068e-14,
+          1.1009632169171497e-13
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          2.370148312474056e-13,
+          -7.272202855318747e-14,
+          -1.64292827218027e-13
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          1.5146129380243427e-28,
+          3.7865323450608567e-29,
+          -1.135959703518257e-28
+        ],
+        "relative_work_error": 3.4931445598658617e-16,
+        "relative_momentum_error": 3.155443620884047e-18,
+        "relative_advection_momentum_error": 3.0056686231926694e-18,
+        "relative_volume_flux": 2.478310663391298e-16,
+        "relative_pressure_work": 3.1086418123125745e-18,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.0954810387102687,
+        "wall_trace_exactly_zero": true,
+        "steps": 4,
+        "dt_s": 0.1,
+        "forced": true,
+        "relative_temporal_velocity_error": 0.021099829191953735,
+        "temporal_pressure_rms_over_scale": 0.0688132664198481,
+        "grid_counts_xyz": [
+          6,
+          6,
+          6
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000003e-07,
+        "cut_cell_count": 54,
+        "min_liquid_fraction": 0.08999999999999934,
+        "normalized_area_closure": 1.831178664125929e-15,
+        "normalized_moment_closure": 1.3852477774010059e-14,
+        "embedded_wall_area_m2": 0.00011180339887498952,
+        "seconds": 0.26955519400053163
+      },
+      {
+        "case": "temporal_8",
+        "energy_m5_per_s2": 5.453446415614344e-17,
+        "dissipation_m5_per_s3": 1.3159921388010454e-16,
+        "body_power_m5_per_s3": 7.645083573942512e-17,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": 4.7649413610751406e-33,
+        "work_residual_m5_per_s3": 1.1093356479670479e-31,
+        "max_cell_momentum_residual_m4_per_s2": 4.480729941655347e-28,
+        "max_face_momentum_residual_m4_per_s2": 7.257520328033309e-29,
+        "max_integral_flux_m3_per_s": 1.6317430052315585e-24,
+        "max_divergence_per_s": 2.402176119706624e-15,
+        "advection_max_outgoing_courant": 0.0015413055120712304,
+        "advection_old_energy_m5_per_s2": 5.736900327066058e-17,
+        "advection_energy_m5_per_s2": 5.734280976657463e-17,
+        "advection_donor_dissipation_m5_per_s3": 5.23571542830382e-19,
+        "advection_divergence_work_m5_per_s3": 7.023875135517076e-34,
+        "advection_euler_damping_m5_per_s2": 1.4926944426927165e-23,
+        "advection_work_residual_m5_per_s3": -1.6598684917316355e-31,
+        "advection_momentum_change_m4_per_s": [
+          4.9128871952052115e-29,
+          -9.499883270622352e-29,
+          6.835586392110738e-29
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 5.048709793414476e-29,
+        "stokes_euler_damping_m5_per_s2": 5.092670339722056e-20,
+        "combined_work_residual_m5_per_s3": -4.930380657631324e-32,
+        "max_outgoing_courant": 0.0015413055120712304,
+        "wall_momentum_impulse_m4_per_s": [
+          -8.758039414716225e-14,
+          3.184562098197157e-14,
+          5.733155216082886e-14
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          1.185074156237028e-13,
+          -3.636101427659373e-14,
+          -8.21464136090135e-14
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          8.835242138475332e-29,
+          -1.262177448353619e-28,
+          6.310887241768094e-29
+        ],
+        "relative_work_error": 2.2172661386214821e-16,
+        "relative_momentum_error": 2.5874637691249183e-18,
+        "relative_advection_momentum_error": 1.808249711578393e-18,
+        "relative_volume_flux": 2.788503393098683e-16,
+        "relative_pressure_work": 5.434487880083904e-18,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.04940889597025244,
+        "wall_trace_exactly_zero": true,
+        "steps": 8,
+        "dt_s": 0.05,
+        "forced": true,
+        "relative_temporal_velocity_error": 0.010667406121591044,
+        "temporal_pressure_rms_over_scale": 0.03487034721079128,
+        "grid_counts_xyz": [
+          6,
+          6,
+          6
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000003e-07,
+        "cut_cell_count": 54,
+        "min_liquid_fraction": 0.08999999999999934,
+        "normalized_area_closure": 1.831178664125929e-15,
+        "normalized_moment_closure": 1.3852477774010059e-14,
+        "embedded_wall_area_m2": 0.00011180339887498952,
+        "seconds": 0.28550130299936427
+      },
+      {
+        "case": "temporal_16",
+        "energy_m5_per_s2": 5.469184048589929e-17,
+        "dissipation_m5_per_s3": 1.3242055346624606e-16,
+        "body_power_m5_per_s3": 7.697771727372187e-17,
+        "boundary_power_m5_per_s3": -0.0,
+        "pressure_work_m5_per_s3": -4.7763950128578446e-33,
+        "work_residual_m5_per_s3": 1.2942249226282225e-31,
+        "max_cell_momentum_residual_m4_per_s2": 1.3505298697383722e-27,
+        "max_face_momentum_residual_m4_per_s2": 7.573064690121713e-29,
+        "max_integral_flux_m3_per_s": 1.2019968276161183e-24,
+        "max_divergence_per_s": 1.1839426413948717e-15,
+        "advection_max_outgoing_courant": 0.0007652868534048739,
+        "advection_old_energy_m5_per_s2": 5.610324237760406e-17,
+        "advection_energy_m5_per_s2": 5.609055732414776e-17,
+        "advection_donor_dissipation_m5_per_s3": 5.072595067035605e-19,
+        "advection_divergence_work_m5_per_s3": -3.132654074866768e-34,
+        "advection_euler_damping_m5_per_s2": 3.565788710100004e-24,
+        "advection_work_residual_m5_per_s3": -2.45002664841885e-31,
+        "advection_momentum_change_m4_per_s": [
+          -1.4857225444110758e-30,
+          8.608896318981561e-29,
+          -3.8308203078382564e-29
+        ],
+        "advection_bound_violation_m_per_s": 0.0,
+        "advection_max_integrated_momentum_residual_m4_per_s": 5.048709793414476e-29,
+        "stokes_euler_damping_m5_per_s2": 1.2645933435365157e-20,
+        "combined_work_residual_m5_per_s3": -1.232595164407831e-31,
+        "max_outgoing_courant": 0.0007652868534048739,
+        "wall_momentum_impulse_m4_per_s": [
+          -4.4724056742346245e-14,
+          1.6138461228408428e-14,
+          2.9275033005649286e-14
+        ],
+        "body_momentum_impulse_m4_per_s": [
+          5.92537078118514e-14,
+          -1.8180507138296866e-14,
+          -4.107320680450675e-14
+        ],
+        "combined_momentum_residual_m4_per_s": [
+          -3.7865323450608567e-29,
+          1.4830585018155022e-28,
+          -3.7865323450608567e-29
+        ],
+        "relative_work_error": 3.6800596309871927e-16,
+        "relative_momentum_error": 2.6821270777514398e-18,
+        "relative_advection_momentum_error": 2.1350658005996574e-18,
+        "relative_volume_flux": 4.2813059048154753e-16,
+        "relative_pressure_work": 2.1283952631071733e-18,
+        "relative_bound_violation": 0.0,
+        "relative_energy_increase": -0.025157224999676542,
+        "wall_trace_exactly_zero": true,
+        "steps": 16,
+        "dt_s": 0.025,
+        "forced": true,
+        "relative_temporal_velocity_error": 0.005093462063332991,
+        "temporal_pressure_rms_over_scale": 0.01667055643617084,
+        "grid_counts_xyz": [
+          6,
+          6,
+          6
+        ],
+        "axis_refinement_count": 0,
+        "liquid_volume_m3": 5.500000000000003e-07,
+        "cut_cell_count": 54,
+        "min_liquid_fraction": 0.08999999999999934,
+        "normalized_area_closure": 1.831178664125929e-15,
+        "normalized_moment_closure": 1.3852477774010059e-14,
+        "embedded_wall_area_m2": 0.00011180339887498952,
+        "seconds": 0.31911170999956084
+      }
+    ],
+    "gates": {
+      "all_cases_completed": true,
+      "relative_work_error": true,
+      "relative_momentum_error": true,
+      "relative_bound_violation": true,
+      "volume_and_walls": true,
+      "unforced_energy": true,
+      "transport_wave_relative_rms_error": true,
+      "abc_relative_velocity_error": true,
+      "abc_relative_pressure_error": true,
+      "uniform_wall_relative_velocity_error": true,
+      "uniform_wall_pressure_rms_over_scale": true,
+      "focused_wall_relative_velocity_error": true,
+      "focused_wall_pressure_rms_over_scale": true,
+      "relative_temporal_velocity_error": true,
+      "temporal_pressure_rms_over_scale": true,
+      "tiny_capacity_large_courant": true
+    },
+    "overall_pass": true
+  },
+  "previous_failed_study": {
+    "directory": "results/momentum_initial_bb4264a",
+    "manifest": {
+      "protocol": {
+        "source_id": "DESIGN-CUTCELL-MOMENTUM-008",
+        "length_m": 0.01,
+        "kinematic_viscosity_m2_per_s": 1e-06,
+        "density_kg_per_m3": 1170.0,
+        "speed_m_per_s": 0.0001,
+        "seed": 113,
+        "transport_wave": {
+          "counts": [
+            8,
+            16,
+            24
+          ],
+          "duration_s": 5.0,
+          "outgoing_courant": 0.25
+        },
+        "abc": {
+          "counts": [
+            6,
+            10,
+            14
+          ],
+          "duration_s": 1.0,
+          "dt_s": 0.025
+        },
+        "sloped_wall": {
+          "intercept_m": 0.002,
+          "slope_dz_dy": 0.5,
+          "counts": [
+            6,
+            10,
+            14
+          ],
+          "focus_width_m": 0.0036,
+          "quadrature_order": 12,
+          "streamfunction_scale": 4096.0,
+          "duration_s": 2.0,
+          "dt_s": 0.05
+        },
+        "temporal": {
+          "n": 6,
+          "duration_s": 0.4,
+          "decay_time_s": 1.0,
+          "steps": [
+            4,
+            8,
+            16
+          ],
+          "reference_steps": 128
+        },
+        "rotated_cube": {
+          "width_m": 0.003,
+          "center_m": [
+            0.005,
+            0.005,
+            0.005
+          ],
+          "angles_rad_xyz": [
+            0.3,
+            0.2,
+            0.1
+          ],
+          "counts_xyz": [
+            8,
+            8,
+            8
+          ],
+          "max_axis_refinements": 48
+        },
+        "subcell_cube": {
+          "width_m": 0.0002,
+          "center_m": [
+            0.0051,
+            0.0052,
+            0.0049
+          ],
+          "counts_xyz": [
+            8,
+            8,
+            8
+          ]
+        },
+        "tiny_cycle": {
+          "n": 8,
+          "relative_gap": 1e-05,
+          "target_outgoing_courant": 1000.0
+        },
+        "unforced": {
+          "steps": 4,
+          "dt_s": 0.1
+        },
+        "gates": {
+          "finest_transport_relative_rms_error": 0.08,
+          "finest_abc_relative_velocity_error": 0.08,
+          "finest_abc_relative_pressure_error": 0.25,
+          "finest_wall_relative_velocity_error": 0.05,
+          "finest_wall_pressure_rms_over_scale": 0.25,
+          "minimum_spatial_rate": 0.7,
+          "minimum_temporal_rate": 0.7,
+          "maximum_relative_momentum_error": 1e-09,
+          "maximum_relative_work_error": 1e-08,
+          "maximum_relative_volume_flux": 1e-10,
+          "maximum_relative_bound_violation": 1e-10,
+          "maximum_relative_energy_increase": 1e-12
+        },
+        "limits": "Stationary, closed or periodic cut-cell split momentum operator. Fully implicit first-order donor transport uses the previous constrained face flux, followed by monolithic linear Stokes. First order in space/time with measured artificial damping. No fully implicit nonlinear solve, free-surface stress, moving interface, growth calibration, solute coupling, AI or automatic replacement of the canonical MAC runtime. Small-cell stability does not establish accuracy at large Courant number."
+      },
+      "sources": {
+        "src/simulation/momentum.py": "887cc8823c44571c91637e3b18909ba13c9ae74a0ed75f18e95ff038dec1c4b3",
+        "src/simulation/stokes.py": "2f8154a292cb1a6090be1ee1381e39656940a4ce57f4a5f09562be3bc2f849f0",
+        "src/simulation/viscosity.py": "b4ac716d35a09a6aa8ac2871f1c150115ff5d6711ca590693aedbc9cf68edd46",
+        "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+        "src/simulation/cutcell.py": "b83d97d63f064f34af3ad502d10b726d69b526471b356a7cc98d587bfb7aed3f",
+        "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+        "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+        "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+        "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+        "scripts/check_momentum.py": "4db739d5f41bc76b6794c771b4601193e95d4cc7e6a590be9c7fa53b26179c5a",
+        "scripts/check_stokes.py": "adb4f2f6bf1e80c3f870fa7954f73b8ed1511501dd292a5b2b6644037dc1252f",
+        "scripts/check_cutcell.py": "e20617a85af0c52528dcb3121eb1da3a874d4bbd30dabdef347f4ea5ad7a751e",
+        "scripts/check_viscosity.py": "b85785ee7910b683afbba759812295f93bdc0e2bc033efd276a97b3f24a7a806",
+        "configs/momentum_verification.json": "1e0118aab4f038b054d89ff7b622ad885e54c90f0f08101695d376b988221636",
+        "tests/test_momentum.py": "a8e204f84b8a3783280196469a771a08c4c610189d2383a0ae0eafb8adafcae8"
+      },
+      "git_commit": "bb4264a80591401c4e160f72d401b5d4252fe1ee",
+      "environment": {
+        "python": "3.14.8",
+        "numpy": "2.5.0",
+        "scipy": "1.18.0",
+        "threads": {
+          "OPENBLAS_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1"
+        }
+      }
+    },
+    "report": {
+      "protocol": {
+        "source_id": "DESIGN-CUTCELL-MOMENTUM-008",
+        "length_m": 0.01,
+        "kinematic_viscosity_m2_per_s": 1e-06,
+        "density_kg_per_m3": 1170.0,
+        "speed_m_per_s": 0.0001,
+        "seed": 113,
+        "transport_wave": {
+          "counts": [
+            8,
+            16,
+            24
+          ],
+          "duration_s": 5.0,
+          "outgoing_courant": 0.25
+        },
+        "abc": {
+          "counts": [
+            6,
+            10,
+            14
+          ],
+          "duration_s": 1.0,
+          "dt_s": 0.025
+        },
+        "sloped_wall": {
+          "intercept_m": 0.002,
+          "slope_dz_dy": 0.5,
+          "counts": [
+            6,
+            10,
+            14
+          ],
+          "focus_width_m": 0.0036,
+          "quadrature_order": 12,
+          "streamfunction_scale": 4096.0,
+          "duration_s": 2.0,
+          "dt_s": 0.05
+        },
+        "temporal": {
+          "n": 6,
+          "duration_s": 0.4,
+          "decay_time_s": 1.0,
+          "steps": [
+            4,
+            8,
+            16
+          ],
+          "reference_steps": 128
+        },
+        "rotated_cube": {
+          "width_m": 0.003,
+          "center_m": [
+            0.005,
+            0.005,
+            0.005
+          ],
+          "angles_rad_xyz": [
+            0.3,
+            0.2,
+            0.1
+          ],
+          "counts_xyz": [
+            8,
+            8,
+            8
+          ],
+          "max_axis_refinements": 48
+        },
+        "subcell_cube": {
+          "width_m": 0.0002,
+          "center_m": [
+            0.0051,
+            0.0052,
+            0.0049
+          ],
+          "counts_xyz": [
+            8,
+            8,
+            8
+          ]
+        },
+        "tiny_cycle": {
+          "n": 8,
+          "relative_gap": 1e-05,
+          "target_outgoing_courant": 1000.0
+        },
+        "unforced": {
+          "steps": 4,
+          "dt_s": 0.1
+        },
+        "gates": {
+          "finest_transport_relative_rms_error": 0.08,
+          "finest_abc_relative_velocity_error": 0.08,
+          "finest_abc_relative_pressure_error": 0.25,
+          "finest_wall_relative_velocity_error": 0.05,
+          "finest_wall_pressure_rms_over_scale": 0.25,
+          "minimum_spatial_rate": 0.7,
+          "minimum_temporal_rate": 0.7,
+          "maximum_relative_momentum_error": 1e-09,
+          "maximum_relative_work_error": 1e-08,
+          "maximum_relative_volume_flux": 1e-10,
+          "maximum_relative_bound_violation": 1e-10,
+          "maximum_relative_energy_increase": 1e-12
+        },
+        "limits": "Stationary, closed or periodic cut-cell split momentum operator. Fully implicit first-order donor transport uses the previous constrained face flux, followed by monolithic linear Stokes. First order in space/time with measured artificial damping. No fully implicit nonlinear solve, free-surface stress, moving interface, growth calibration, solute coupling, AI or automatic replacement of the canonical MAC runtime. Small-cell stability does not establish accuracy at large Courant number."
+      },
+      "results": [
+        {
+          "case": "transport_wave_8",
+          "max_outgoing_courant": 0.19999999999999996,
+          "old_energy_m5_per_s2": 2.601839421990859e-15,
+          "energy_m5_per_s2": 2.2811372050855913e-15,
+          "donor_dissipation_m5_per_s3": 1.0690073896842265e-16,
+          "divergence_work_m5_per_s3": 0.0,
+          "euler_damping_m5_per_s2": 5.345036948421135e-17,
+          "work_residual_m5_per_s3": 7.395570986446986e-32,
+          "momentum_change_m4_per_s": [
+            0.0,
+            6.310887241768095e-30,
+            -1.2101126286090321e-27
+          ],
+          "bound_violation_m_per_s": 0.0,
+          "max_integrated_momentum_residual_m4_per_s": 3.7865323450608567e-29,
+          "relative_work_error": 7.106098596957311e-17,
+          "relative_momentum_error": 1.210112628609032e-17,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.12325980388900204,
+          "n": 8,
+          "steps": 2,
+          "dt_s": 2.5,
+          "relative_rms_error": 0.13137113733805794,
+          "grid_counts_xyz": [
+            8,
+            8,
+            8
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000004e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 7.335520501646285e-16,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 0.035589552000146796
+        },
+        {
+          "case": "transport_wave_16",
+          "max_outgoing_courant": 0.19999999999999996,
+          "old_energy_m5_per_s2": 2.770168770604114e-15,
+          "energy_m5_per_s2": 2.6725206793317995e-15,
+          "donor_dissipation_m5_per_s3": 6.50987275148768e-17,
+          "divergence_work_m5_per_s3": 0.0,
+          "euler_damping_m5_per_s2": 1.62746818787192e-17,
+          "work_residual_m5_per_s3": 4.930380657631324e-31,
+          "momentum_change_m4_per_s": [
+            0.0,
+            -1.6157843491189374e-27,
+            -4.039953910863107e-28
+          ],
+          "bound_violation_m_per_s": 0.0,
+          "max_integrated_momentum_residual_m4_per_s": 3.1554436208840472e-30,
+          "relative_work_error": 3.346135955076408e-16,
+          "relative_momentum_error": 1.615784349118937e-17,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.035249870805170946,
+          "n": 16,
+          "steps": 4,
+          "dt_s": 1.25,
+          "relative_rms_error": 0.07041349669245434,
+          "grid_counts_xyz": [
+            16,
+            16,
+            16
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000004e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 3.667760250823143e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 0.2232918449999488
+        },
+        {
+          "case": "transport_wave_24",
+          "max_outgoing_courant": 0.24,
+          "old_energy_m5_per_s2": 2.867404673508921e-15,
+          "energy_m5_per_s2": 2.81040695564103e-15,
+          "donor_dissipation_m5_per_s3": 4.5965901506363144e-17,
+          "divergence_work_m5_per_s3": 0.0,
+          "euler_damping_m5_per_s2": 1.1031816361527158e-17,
+          "work_residual_m5_per_s3": -8.566536392634425e-31,
+          "momentum_change_m4_per_s": [
+            0.0,
+            2.2716728880036324e-27,
+            7.395570986446986e-32
+          ],
+          "bound_violation_m_per_s": 0.0,
+          "max_integrated_momentum_residual_m4_per_s": 1.5777218104420236e-30,
+          "relative_work_error": 3.03468625481985e-16,
+          "relative_momentum_error": 2.726549807476698e-17,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.019877807410469406,
+          "n": 24,
+          "steps": 5,
+          "dt_s": 1.0,
+          "relative_rms_error": 0.04936286910327756,
+          "grid_counts_xyz": [
+            24,
+            24,
+            24
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000006e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 5.570410880937647e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 0.7524114070001815
+        },
+        {
+          "case": "abc_6",
+          "energy_m5_per_s2": 6.418130827524919e-15,
+          "dissipation_m5_per_s3": 4.62583598365726e-15,
+          "body_power_m5_per_s3": 0.0,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": -2.1340839827532382e-32,
+          "work_residual_m5_per_s3": -1.5777218104420236e-29,
+          "max_cell_momentum_residual_m4_per_s2": 5.7050420665583574e-27,
+          "max_face_momentum_residual_m4_per_s2": 3.533307994484912e-27,
+          "max_integral_flux_m3_per_s": 5.182803525527564e-24,
+          "max_divergence_per_s": 1.1194855615139534e-15,
+          "advection_max_outgoing_courant": 0.00405815941956949,
+          "advection_old_energy_m5_per_s2": 6.539620899934663e-15,
+          "advection_energy_m5_per_s2": 6.534299908766863e-15,
+          "advection_donor_dissipation_m5_per_s3": 2.1268269626241085e-16,
+          "advection_divergence_work_m5_per_s3": 1.4073994184485388e-33,
+          "advection_euler_damping_m5_per_s2": 3.92376124069868e-21,
+          "advection_work_residual_m5_per_s3": 3.177771073785233e-29,
+          "advection_momentum_change_m4_per_s": [
+            -4.104788416510959e-28,
+            1.9140477270023444e-27,
+            -1.88094022088635e-28
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 4.0389678347315804e-28,
+          "stokes_euler_damping_m5_per_s2": 5.231816505110909e-19,
+          "combined_work_residual_m5_per_s3": -1.5798558944247768e-29,
+          "max_outgoing_courant": 0.005870061775837683,
+          "wall_momentum_impulse_m4_per_s": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -7.1194696696196315e-28,
+            5.9125124846314835e-28,
+            -1.7571876663798038e-28
+          ],
+          "relative_work_error": 3.7046736421469613e-16,
+          "relative_momentum_error": 4.136392156526375e-17,
+          "relative_advection_momentum_error": 2.97178694138728e-17,
+          "relative_volume_flux": 9.65474871214237e-16,
+          "relative_pressure_work": 1.94510037632721e-19,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.018577540543819215,
+          "wall_trace_exactly_zero": true,
+          "n": 6,
+          "steps": 40,
+          "dt_s": 0.025,
+          "relative_velocity_error": 0.02301957958560636,
+          "forced": false,
+          "relative_pressure_error": 0.3907985579402926,
+          "grid_counts_xyz": [
+            6,
+            6,
+            6
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000006e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 1.8568036269792156e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 0.3696684669998831
+        },
+        {
+          "case": "abc_10",
+          "energy_m5_per_s2": 6.611809767820832e-15,
+          "dissipation_m5_per_s3": 5.054166679136906e-15,
+          "body_power_m5_per_s3": 0.0,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": -2.495641995506669e-32,
+          "work_residual_m5_per_s3": 6.941975965944904e-29,
+          "max_cell_momentum_residual_m4_per_s2": 2.3792044901465716e-27,
+          "max_face_momentum_residual_m4_per_s2": 4.736320874946955e-27,
+          "max_integral_flux_m3_per_s": 3.567216391634932e-24,
+          "max_divergence_per_s": 3.567216391634932e-15,
+          "advection_max_outgoing_courant": 0.007023012180919841,
+          "advection_old_energy_m5_per_s2": 6.742288421424638e-15,
+          "advection_energy_m5_per_s2": 6.738771599150746e-15,
+          "advection_donor_dissipation_m5_per_s3": 1.405154430459556e-16,
+          "advection_divergence_work_m5_per_s3": -8.044990408643608e-32,
+          "advection_euler_damping_m5_per_s2": 3.9361977437793115e-21,
+          "advection_work_residual_m5_per_s3": 1.4479680997792742e-30,
+          "advection_momentum_change_m4_per_s": [
+            3.2915221270346718e-28,
+            -3.528796696183179e-28,
+            -4.3781780239766155e-28
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 1.0097419586828951e-28,
+          "stokes_euler_damping_m5_per_s2": 6.076643514925069e-19,
+          "combined_work_residual_m5_per_s3": 7.097252504993599e-29,
+          "max_outgoing_courant": 0.010304541667141138,
+          "wall_momentum_impulse_m4_per_s": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -1.4741838166317658e-27,
+            -5.298680092756384e-28,
+            -7.159898791012208e-28
+          ],
+          "relative_work_error": 3.7941719379942403e-16,
+          "relative_momentum_error": 2.846703184103173e-17,
+          "relative_advection_momentum_error": 1.792982229954207e-17,
+          "relative_volume_flux": 1.0456079930553115e-15,
+          "relative_pressure_work": 3.55408830951149e-19,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.019352280034356073,
+          "wall_trace_exactly_zero": true,
+          "n": 10,
+          "steps": 40,
+          "dt_s": 0.025,
+          "relative_velocity_error": 0.007991023303018137,
+          "forced": false,
+          "relative_pressure_error": 0.19657613570570692,
+          "grid_counts_xyz": [
+            10,
+            10,
+            10
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000004e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 1.790898559972238e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 6.670693000000028
+        },
+        {
+          "case": "abc_14",
+          "energy_m5_per_s2": 6.6839322783514275e-15,
+          "dissipation_m5_per_s3": 5.191106801477676e-15,
+          "body_power_m5_per_s3": 0.0,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 3.743663585015505e-32,
+          "work_residual_m5_per_s3": -2.8398992587956425e-29,
+          "max_cell_momentum_residual_m4_per_s2": 9.939647405784749e-28,
+          "max_face_momentum_residual_m4_per_s2": 5.232637643847412e-27,
+          "max_integral_flux_m3_per_s": 3.431507072387951e-24,
+          "max_divergence_per_s": 9.416055406632537e-15,
+          "advection_max_outgoing_courant": 0.009946908304188715,
+          "advection_old_energy_m5_per_s2": 6.816935306437169e-15,
+          "advection_energy_m5_per_s2": 6.814343981631709e-15,
+          "advection_donor_dissipation_m5_per_s3": 1.0349564696442017e-16,
+          "advection_divergence_work_m5_per_s3": -3.057458641347499e-32,
+          "advection_euler_damping_m5_per_s2": 3.933631348848757e-21,
+          "advection_work_residual_m5_per_s3": -4.8007178726717806e-30,
+          "advection_momentum_change_m4_per_s": [
+            5.774708345250688e-29,
+            -6.119218693702677e-29,
+            -2.2481919501216633e-28
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 6.310887241768094e-29,
+          "stokes_euler_damping_m5_per_s2": 6.340332433391981e-19,
+          "combined_work_residual_m5_per_s3": -3.309472138343234e-29,
+          "max_outgoing_courant": 0.014632345933819098,
+          "wall_momentum_impulse_m4_per_s": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -1.7217135775481464e-27,
+            -8.324454702344727e-28,
+            1.4641011881869098e-27
+          ],
+          "relative_work_error": 3.801493381578348e-16,
+          "relative_momentum_error": 4.560897931148432e-17,
+          "relative_advection_momentum_error": 8.703662604674795e-18,
+          "relative_volume_flux": 1.3144416921350455e-15,
+          "relative_pressure_work": 3.4982306458227397e-19,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.019510677761625184,
+          "wall_trace_exactly_zero": true,
+          "n": 14,
+          "steps": 40,
+          "dt_s": 0.025,
+          "relative_velocity_error": 0.004175842551050556,
+          "forced": false,
+          "relative_pressure_error": 0.14765863386792238,
+          "grid_counts_xyz": [
+            14,
+            14,
+            14
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 3.4399579539946744e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 73.26564653300011
+        },
+        {
+          "case": "uniform_wall_6",
+          "energy_m5_per_s2": 1.6881749272522014e-16,
+          "dissipation_m5_per_s3": 4.1842111822007135e-16,
+          "body_power_m5_per_s3": 4.3395641034066737e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": -6.369380833276209e-33,
+          "work_residual_m5_per_s3": -9.244463733058732e-33,
+          "max_cell_momentum_residual_m4_per_s2": 1.5509005396645092e-27,
+          "max_face_momentum_residual_m4_per_s2": 3.818086781269697e-28,
+          "max_integral_flux_m3_per_s": 4.1359030627651384e-25,
+          "max_divergence_per_s": 8.933550615572696e-17,
+          "advection_max_outgoing_courant": 0.002716073861252671,
+          "advection_old_energy_m5_per_s2": 1.6817189458911365e-16,
+          "advection_energy_m5_per_s2": 1.6804180742337728e-16,
+          "advection_donor_dissipation_m5_per_s3": 2.5992541619819263e-18,
+          "advection_divergence_work_m5_per_s3": 1.6166337039143543e-34,
+          "advection_euler_damping_m5_per_s2": 1.2445763731333058e-22,
+          "advection_work_residual_m5_per_s3": 9.681340534194162e-31,
+          "advection_momentum_change_m4_per_s": [
+            7.965472916290613e-29,
+            -1.3374687906345213e-28,
+            3.238287497441864e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 1.0097419586828951e-28,
+          "stokes_euler_damping_m5_per_s2": 1.0793041869444e-21,
+          "combined_work_residual_m5_per_s3": 9.367723249499515e-31,
+          "max_outgoing_courant": 0.002716073861252671,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.7524662238768545e-13,
+            5.519534003410014e-14,
+            1.2003420788827768e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.7679227222249004e-13,
+            -5.424425125900264e-14,
+            -1.2254804825201465e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -1.0097419586828951e-28,
+            2.524354896707238e-29,
+            7.573064690121713e-29
+          ],
+          "relative_work_error": 4.327697592650783e-16,
+          "relative_momentum_error": 5.4904719003382414e-18,
+          "relative_advection_momentum_error": 3.164747427333517e-18,
+          "relative_volume_flux": 1.1179862966537015e-16,
+          "relative_pressure_work": 3.6020126035687145e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.057151390759983656,
+          "wall_trace_exactly_zero": true,
+          "n": 6,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.5661267936278428,
+          "forced": true,
+          "pressure_rms_over_scale": 1.3094402764794624,
+          "grid_counts_xyz": [
+            6,
+            6,
+            6
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.500000000000003e-07,
+          "cut_cell_count": 54,
+          "min_liquid_fraction": 0.08999999999999934,
+          "normalized_area_closure": 1.831178664125929e-15,
+          "normalized_moment_closure": 1.3852477774010059e-14,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "seconds": 0.38717820200008646
+        },
+        {
+          "case": "uniform_wall_10",
+          "energy_m5_per_s2": 1.2598658093145484e-16,
+          "dissipation_m5_per_s3": 3.7767677504166644e-16,
+          "body_power_m5_per_s3": 3.8224940805864236e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 3.875361527694245e-33,
+          "work_residual_m5_per_s3": 1.1971580534311058e-30,
+          "max_cell_momentum_residual_m4_per_s2": 4.703583147380283e-28,
+          "max_face_momentum_residual_m4_per_s2": 6.04267453399295e-28,
+          "max_integral_flux_m3_per_s": 5.105255343100718e-25,
+          "max_divergence_per_s": 5.105255343100718e-16,
+          "advection_max_outgoing_courant": 0.004059838347800112,
+          "advection_old_energy_m5_per_s2": 1.2582237619403262e-16,
+          "advection_energy_m5_per_s2": 1.2575814817362076e-16,
+          "advection_donor_dissipation_m5_per_s3": 1.2827977955148934e-18,
+          "advection_divergence_work_m5_per_s3": 1.316811772878948e-33,
+          "advection_euler_damping_m5_per_s2": 8.813063612203894e-23,
+          "advection_work_residual_m5_per_s3": 1.79657924623137e-31,
+          "advection_momentum_change_m4_per_s": [
+            -8.248607112375434e-30,
+            7.05179610249251e-29,
+            -4.924458799210525e-30
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 1.8932661725304283e-29,
+          "stokes_euler_damping_m5_per_s2": 1.9889301477955868e-22,
+          "combined_work_residual_m5_per_s3": 1.3805065841367707e-30,
+          "max_outgoing_courant": 0.004059838347800112,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.7717965620342927e-13,
+            5.4620907313492155e-14,
+            1.22589983629355e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.7679227259555708e-13,
+            -5.424425036554482e-14,
+            -1.2254804910451567e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            3.7865323450608567e-28,
+            -1.135959703518257e-28,
+            -3.281661365719409e-28
+          ],
+          "relative_work_error": 7.214296324352332e-16,
+          "relative_momentum_error": 4.03896783473158e-18,
+          "relative_advection_momentum_error": 1.5238947655506387e-18,
+          "relative_volume_flux": 7.198450423450359e-17,
+          "relative_pressure_work": 4.345159025301081e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.029128141433214738,
+          "wall_trace_exactly_zero": true,
+          "n": 10,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.25059214705713484,
+          "forced": true,
+          "pressure_rms_over_scale": 0.7578785401199828,
+          "grid_counts_xyz": [
+            10,
+            10,
+            10
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.500000000000001e-07,
+          "cut_cell_count": 100,
+          "min_liquid_fraction": 0.2499999999999988,
+          "normalized_area_closure": 2.9890933422252003e-15,
+          "normalized_moment_closure": 4.427964245598007e-14,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "seconds": 1.6783356679998178
+        },
+        {
+          "case": "uniform_wall_14",
+          "energy_m5_per_s2": 1.1324167382616596e-16,
+          "dissipation_m5_per_s3": 3.5005132233135736e-16,
+          "body_power_m5_per_s3": 3.5238128248720653e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 7.213374993527972e-33,
+          "work_residual_m5_per_s3": 5.79704913260558e-31,
+          "max_cell_momentum_residual_m4_per_s2": 1.9073177574046776e-28,
+          "max_face_momentum_residual_m4_per_s2": 5.991398575153585e-28,
+          "max_integral_flux_m3_per_s": 3.1503949110906327e-25,
+          "max_divergence_per_s": 8.644683636032697e-16,
+          "advection_max_outgoing_courant": 0.006170704780831551,
+          "advection_old_energy_m5_per_s2": 1.1316897667907822e-16,
+          "advection_energy_m5_per_s2": 1.1312528547925098e-16,
+          "advection_donor_dissipation_m5_per_s3": 8.722397899779181e-19,
+          "advection_divergence_work_m5_per_s3": 3.2210403039793638e-34,
+          "advection_euler_damping_m5_per_s2": 7.921032837361409e-23,
+          "advection_work_residual_m5_per_s3": 6.665012717939428e-31,
+          "advection_momentum_change_m4_per_s": [
+            4.110818795159632e-29,
+            3.4975976297841065e-30,
+            -5.580925411986559e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 9.466330862652142e-30,
+          "stokes_euler_damping_m5_per_s2": 1.0966087750923648e-22,
+          "combined_work_residual_m5_per_s3": 1.232595164407831e-30,
+          "max_outgoing_courant": 0.006170704780831551,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.768797298019034e-13,
+            5.431315023651357e-14,
+            1.2256420912344684e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.767922723049938e-13,
+            -5.424425007806501e-14,
+            -1.2254804985578118e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -1.5146129380243427e-28,
+            -2.208810534618833e-28,
+            -2.524354896707238e-28
+          ],
+          "relative_work_error": 6.779580993889278e-16,
+          "relative_momentum_error": 8.07793566946316e-18,
+          "relative_advection_momentum_error": 1.386074452190422e-18,
+          "relative_volume_flux": 6.442153696396871e-17,
+          "relative_pressure_work": 4.899916566452556e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.016621770896610766,
+          "wall_trace_exactly_zero": true,
+          "n": 14,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.1371460561174185,
+          "forced": true,
+          "pressure_rms_over_scale": 0.45031754239648725,
+          "grid_counts_xyz": [
+            14,
+            14,
+            14
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.5e-07,
+          "cut_cell_count": 294,
+          "min_liquid_fraction": 0.03999999999999796,
+          "normalized_area_closure": 3.3024869861658385e-15,
+          "normalized_moment_closure": 5.656000287258871e-14,
+          "embedded_wall_area_m2": 0.0001118033988749895,
+          "seconds": 6.170466032000149
+        },
+        {
+          "case": "focused_wall_6",
+          "energy_m5_per_s2": 1.1263074650358161e-16,
+          "dissipation_m5_per_s3": 2.006982341240283e-16,
+          "body_power_m5_per_s3": 2.1875434244877348e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": -1.0259297201090685e-33,
+          "work_residual_m5_per_s3": 2.865783757248207e-31,
+          "max_cell_momentum_residual_m4_per_s2": 1.6834291717416392e-27,
+          "max_face_momentum_residual_m4_per_s2": 1.609276246650864e-27,
+          "max_integral_flux_m3_per_s": 4.652890945610781e-25,
+          "max_divergence_per_s": 1.0194376976551581e-16,
+          "advection_max_outgoing_courant": 0.004439573121631626,
+          "advection_old_energy_m5_per_s2": 1.1180060454900526e-16,
+          "advection_energy_m5_per_s2": 1.1173095038654808e-16,
+          "advection_donor_dissipation_m5_per_s3": 1.3916332174166123e-18,
+          "advection_divergence_work_m5_per_s3": -2.3209437383366033e-34,
+          "advection_euler_damping_m5_per_s2": 7.250158636065555e-23,
+          "advection_work_residual_m5_per_s3": 4.907171220247958e-32,
+          "advection_momentum_change_m4_per_s": [
+            -2.7952176840858586e-29,
+            1.3459939195333514e-29,
+            -3.0864182916772087e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 1.0097419586828951e-28,
+          "stokes_euler_damping_m5_per_s2": 3.009299203736103e-21,
+          "combined_work_residual_m5_per_s3": 3.4512664603419266e-31,
+          "max_outgoing_courant": 0.004439573121631626,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.563577281188675e-13,
+            4.899228047057297e-14,
+            1.0222960720392718e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.7679227293868964e-13,
+            -5.424425148038305e-14,
+            -1.2254804839838235e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            1.0097419586828951e-28,
+            -2.145701662201152e-28,
+            -8.835242138475332e-29
+          ],
+          "relative_work_error": 6.452560111299636e-16,
+          "relative_momentum_error": 6.05845175209737e-18,
+          "relative_advection_momentum_error": 3.459432403306128e-18,
+          "relative_volume_flux": 1.550963648536927e-16,
+          "relative_pressure_work": 1.6853528368280357e-17,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.03166697244130301,
+          "wall_trace_exactly_zero": true,
+          "n": 6,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.6311851964323228,
+          "forced": true,
+          "pressure_rms_over_scale": 2.5168079007390207,
+          "grid_counts_xyz": [
+            6,
+            6,
+            6
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.5e-07,
+          "cut_cell_count": 66,
+          "min_liquid_fraction": 0.003086419753086231,
+          "normalized_area_closure": 1.6807781174780403e-15,
+          "normalized_moment_closure": 1.3490370623860137e-14,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "seconds": 0.4215292930002761
+        },
+        {
+          "case": "focused_wall_10",
+          "energy_m5_per_s2": 1.743644863583041e-16,
+          "dissipation_m5_per_s3": 3.9394561156930444e-16,
+          "body_power_m5_per_s3": 4.1240214137140837e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 2.940044613870993e-32,
+          "work_residual_m5_per_s3": 1.0199724985474801e-30,
+          "max_cell_momentum_residual_m4_per_s2": 6.188613801458838e-28,
+          "max_face_momentum_residual_m4_per_s2": 1.931131495981037e-27,
+          "max_integral_flux_m3_per_s": 8.239494382852424e-25,
+          "max_divergence_per_s": 9.224390406560345e-16,
+          "advection_max_outgoing_courant": 0.00801538953800429,
+          "advection_old_energy_m5_per_s2": 1.735787820570197e-16,
+          "advection_energy_m5_per_s2": 1.7344325948109368e-16,
+          "advection_donor_dissipation_m5_per_s3": 2.706657514952463e-18,
+          "advection_divergence_work_m5_per_s3": 1.879273177504917e-34,
+          "advection_euler_damping_m5_per_s2": 1.8970017841131186e-22,
+          "advection_work_residual_m5_per_s3": 3.0949227638634057e-31,
+          "advection_momentum_change_m4_per_s": [
+            7.990798895059305e-29,
+            -8.062077562301076e-29,
+            -2.0858707225488182e-28
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 2.524354896707238e-29,
+          "stokes_euler_damping_m5_per_s2": 1.5996128947589365e-21,
+          "combined_work_residual_m5_per_s3": 3.4512664603419266e-31,
+          "max_outgoing_courant": 0.00801538953800429,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.7476907608094522e-13,
+            5.454637291991352e-14,
+            1.1951520427162817e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.7679227286556817e-13,
+            -5.424424983278803e-14,
+            -1.225480497694381e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            5.301145283085199e-28,
+            -6.310887241768094e-28,
+            -2.524354896707238e-29
+          ],
+          "relative_work_error": 5.228600971502655e-16,
+          "relative_momentum_error": 6.310887241768094e-18,
+          "relative_advection_momentum_error": 2.128599404294993e-18,
+          "relative_volume_flux": 1.247233267365112e-16,
+          "relative_pressure_work": 1.3410898045299263e-17,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.04878936734613948,
+          "wall_trace_exactly_zero": true,
+          "n": 10,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.544885144921102,
+          "forced": true,
+          "pressure_rms_over_scale": 2.387907469448785,
+          "grid_counts_xyz": [
+            10,
+            10,
+            10
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.5e-07,
+          "cut_cell_count": 180,
+          "min_liquid_fraction": 0.001560486270234168,
+          "normalized_area_closure": 3.327459671621905e-15,
+          "normalized_moment_closure": 5.829051567977348e-14,
+          "embedded_wall_area_m2": 0.00011180339887498949,
+          "seconds": 1.8746125390002817
+        },
+        {
+          "case": "focused_wall_14",
+          "energy_m5_per_s2": 1.5980365387211339e-16,
+          "dissipation_m5_per_s3": 4.248415333763635e-16,
+          "body_power_m5_per_s3": 4.3521438699057456e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": -6.0497170766888155e-34,
+          "work_residual_m5_per_s3": 2.449782889260564e-31,
+          "max_cell_momentum_residual_m4_per_s2": 3.2303854068800433e-28,
+          "max_face_momentum_residual_m4_per_s2": 1.3868174713785388e-27,
+          "max_integral_flux_m3_per_s": 6.656218991637645e-25,
+          "max_divergence_per_s": 2.1698999920628374e-15,
+          "advection_max_outgoing_courant": 0.011388890651316324,
+          "advection_old_energy_m5_per_s2": 1.5937127415516654e-16,
+          "advection_energy_m5_per_s2": 1.5928563764475954e-16,
+          "advection_donor_dissipation_m5_per_s3": 1.7098201488985438e-18,
+          "advection_divergence_work_m5_per_s3": 1.4737167903217404e-33,
+          "advection_euler_damping_m5_per_s2": 1.4550296207014634e-22,
+          "advection_work_residual_m5_per_s3": 9.91183649707546e-32,
+          "advection_momentum_change_m4_per_s": [
+            4.553861353503619e-31,
+            -3.2351000833839033e-29,
+            -4.5179138710916314e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 1.262177448353619e-29,
+          "stokes_euler_damping_m5_per_s2": 6.2645335672106655e-22,
+          "combined_work_residual_m5_per_s3": 3.4512664603419266e-31,
+          "max_outgoing_courant": 0.011388890651316324,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.769735650701544e-13,
+            5.463137944231477e-14,
+            1.2233907802310493e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.767922725225308e-13,
+            -5.424425030649178e-14,
+            -1.2254805164296573e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -1.262177448353619e-28,
+            -6.752649348691861e-28,
+            -2.271919407036514e-28
+          ],
+          "relative_work_error": 3.7214945543310805e-16,
+          "relative_momentum_error": 8.83524213847533e-18,
+          "relative_advection_momentum_error": 1.2385260656715712e-18,
+          "relative_volume_flux": 1.2690436936726626e-16,
+          "relative_pressure_work": 9.179302780549799e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.041707393969414364,
+          "wall_trace_exactly_zero": true,
+          "n": 14,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.4331985940194658,
+          "forced": true,
+          "pressure_rms_over_scale": 1.6827699779776228,
+          "grid_counts_xyz": [
+            14,
+            14,
+            14
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.500000000000001e-07,
+          "cut_cell_count": 336,
+          "min_liquid_fraction": 0.008237552591940514,
+          "normalized_area_closure": 5.105335245006051e-15,
+          "normalized_moment_closure": 9.320691695889563e-14,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "seconds": 7.041459572999884
+        },
+        {
+          "case": "tiny_cycle",
+          "max_outgoing_courant": 1000.0,
+          "old_energy_m5_per_s2": 1.2817419500511172e-19,
+          "energy_m5_per_s2": 1.2796939597679303e-25,
+          "donor_dissipation_m5_per_s3": 2.0466850130675546e-21,
+          "divergence_work_m5_per_s3": 0.0,
+          "euler_damping_m5_per_s2": 1.279182306767952e-19,
+          "work_residual_m5_per_s3": 1.1322361587120273e-34,
+          "momentum_change_m4_per_s": [
+            -1.7391781767057308e-35,
+            8.695890883528654e-36,
+            -4.347945441764327e-36
+          ],
+          "bound_violation_m_per_s": 0.0,
+          "max_integrated_momentum_residual_m4_per_s": 2.407412430484045e-35,
+          "dt_s": 0.1250003577917991,
+          "relative_work_error": 1.1041998347496646e-16,
+          "relative_momentum_error": 5.088323872356982e-17,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.999999001597818,
+          "grid_counts_xyz": [
+            8,
+            8,
+            8
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 3.750012500000001e-07,
+          "cut_cell_count": 96,
+          "min_liquid_fraction": 9.999838041223774e-11,
+          "normalized_area_closure": 3.404443356950048e-15,
+          "normalized_moment_closure": 3.7312391569369225e-14,
+          "embedded_wall_area_m2": 0.00011180339887498949,
+          "seconds": 0.22485424400019838
+        },
+        {
+          "case": "rotated_cube",
+          "energy_m5_per_s2": 2.1408013252310842e-16,
+          "dissipation_m5_per_s3": 1.4799888399731253e-15,
+          "body_power_m5_per_s3": 0.0,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 1.4215969409914714e-32,
+          "work_residual_m5_per_s3": 2.9582283945787943e-30,
+          "max_cell_momentum_residual_m4_per_s2": 3.534096855390133e-28,
+          "max_face_momentum_residual_m4_per_s2": 1.0326189249343045e-27,
+          "max_integral_flux_m3_per_s": 5.169878828456423e-25,
+          "max_divergence_per_s": 8.706075947120593e-16,
+          "advection_max_outgoing_courant": 0.01749241733895081,
+          "advection_old_energy_m5_per_s2": 3.9462878472810714e-16,
+          "advection_energy_m5_per_s2": 3.935629396420363e-16,
+          "advection_donor_dissipation_m5_per_s3": 1.0634778952734146e-17,
+          "advection_divergence_work_m5_per_s3": 1.9126245221483287e-34,
+          "advection_euler_damping_m5_per_s2": 2.3671907973785617e-21,
+          "advection_work_residual_m5_per_s3": -3.957799341138009e-31,
+          "advection_momentum_change_m4_per_s": [
+            5.273725818466958e-30,
+            -7.167540881031537e-30,
+            2.2277616852716035e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 3.7865323450608567e-29,
+          "stokes_euler_damping_m5_per_s2": 3.148392312161565e-17,
+          "combined_work_residual_m5_per_s3": 2.5780139113782032e-30,
+          "max_outgoing_courant": 0.03872636081145939,
+          "wall_momentum_impulse_m4_per_s": [
+            6.641695413702532e-14,
+            9.462678495875864e-14,
+            -2.1429542680885057e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -5.427363027920561e-28,
+            8.835242138475332e-29,
+            2.7767903863779616e-28
+          ],
+          "relative_work_error": 7.446314180842314e-16,
+          "relative_momentum_error": 1.5146129380243424e-17,
+          "relative_advection_momentum_error": 4.233224832642254e-18,
+          "relative_volume_flux": 1.796532892888607e-16,
+          "relative_pressure_work": 6.57561502504068e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.45751516156986327,
+          "wall_trace_exactly_zero": true,
+          "forced": false,
+          "grid_counts_xyz": [
+            14,
+            12,
+            12
+          ],
+          "axis_refinement_count": 14,
+          "liquid_volume_m3": 9.73e-07,
+          "cut_cell_count": 284,
+          "min_liquid_fraction": 7.46091729098285e-05,
+          "normalized_area_closure": 2.824520538499954e-14,
+          "normalized_moment_closure": 7.595890921677014e-13,
+          "embedded_wall_area_m2": 5.400000000000002e-05,
+          "seconds": 4.096626693999951
+        },
+        {
+          "case": "subcell_cube",
+          "energy_m5_per_s2": 5.946881651279943e-16,
+          "dissipation_m5_per_s3": 3.712877020182402e-15,
+          "body_power_m5_per_s3": 0.0,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": -8.995256696289919e-32,
+          "work_residual_m5_per_s3": 7.888609052210118e-31,
+          "max_cell_momentum_residual_m4_per_s2": 5.553580772755923e-28,
+          "max_face_momentum_residual_m4_per_s2": 2.0242170827971163e-27,
+          "max_integral_flux_m3_per_s": 1.2310773960261857e-24,
+          "max_divergence_per_s": 6.30311626765407e-16,
+          "advection_max_outgoing_courant": 0.008583134613084771,
+          "advection_old_energy_m5_per_s2": 1.0408839173170588e-15,
+          "advection_energy_m5_per_s2": 1.036120097369206e-15,
+          "advection_donor_dissipation_m5_per_s3": 4.750997310809461e-17,
+          "advection_divergence_work_m5_per_s3": -2.950825694003149e-33,
+          "advection_euler_damping_m5_per_s2": 1.2822637043333272e-20,
+          "advection_work_residual_m5_per_s3": 4.531093851368943e-31,
+          "advection_momentum_change_m4_per_s": [
+            9.800364152206664e-29,
+            -2.4128820715261046e-28,
+            2.097383931756365e-28
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 1.0097419586828951e-28,
+          "stokes_euler_damping_m5_per_s2": 7.014423022297154e-17,
+          "combined_work_residual_m5_per_s3": 1.4877692434791244e-30,
+          "max_outgoing_courant": 0.017342701650243167,
+          "wall_momentum_impulse_m4_per_s": [
+            1.4562358531887678e-13,
+            7.469154338903415e-15,
+            -8.362217901817634e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            8.077935669463161e-28,
+            -6.941975965944904e-29,
+            -5.048709793414476e-28
+          ],
+          "relative_work_error": 2.5815608697553184e-16,
+          "relative_momentum_error": 2.01948391736579e-17,
+          "relative_advection_momentum_error": 1.802596472236588e-17,
+          "relative_volume_flux": 1.2310773960261857e-16,
+          "relative_pressure_work": 9.10554328593333e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.4286700416499478,
+          "wall_trace_exactly_zero": true,
+          "forced": false,
+          "grid_counts_xyz": [
+            8,
+            8,
+            8
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 9.999920000000004e-07,
+          "cut_cell_count": 1,
+          "min_liquid_fraction": 0.995904,
+          "normalized_area_closure": 4.8288307535432335e-17,
+          "normalized_moment_closure": 9.655121974330951e-16,
+          "embedded_wall_area_m2": 2.400000000000018e-07,
+          "seconds": 0.29418759400005
+        },
+        {
+          "case": "periodic_wall",
+          "energy_m5_per_s2": 8.620230292108961e-16,
+          "dissipation_m5_per_s3": 3.711061158191409e-15,
+          "body_power_m5_per_s3": 0.0,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 6.310784237074865e-32,
+          "work_residual_m5_per_s3": 0.0,
+          "max_cell_momentum_residual_m4_per_s2": 1.3126645462877636e-27,
+          "max_face_momentum_residual_m4_per_s2": 7.0524164926758455e-28,
+          "max_integral_flux_m3_per_s": 7.587201077543274e-25,
+          "max_divergence_per_s": 1.6388354327493467e-16,
+          "advection_max_outgoing_courant": 0.007164847224679322,
+          "advection_old_energy_m5_per_s2": 1.2865913258367775e-15,
+          "advection_energy_m5_per_s2": 1.278988225903432e-15,
+          "advection_donor_dissipation_m5_per_s3": 7.578405318373171e-17,
+          "advection_divergence_work_m5_per_s3": -1.5568843906717057e-33,
+          "advection_euler_damping_m5_per_s2": 2.4694614972410072e-20,
+          "advection_work_residual_m5_per_s3": -1.124904491873765e-31,
+          "advection_momentum_change_m4_per_s": [
+            2.491814384366871e-28,
+            1.7640901993004876e-28,
+            -2.871453695004483e-28
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 2.0194839173657902e-28,
+          "stokes_euler_damping_m5_per_s2": 4.58590808733949e-17,
+          "combined_work_residual_m5_per_s3": 8.519687475917605e-31,
+          "max_outgoing_courant": 0.01893996972429658,
+          "wall_momentum_impulse_m4_per_s": [
+            3.1352803295460523e-13,
+            -2.485758656010669e-13,
+            -1.3691208632689963e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            1.1612032524853294e-27,
+            3.0292258760486853e-28,
+            -4.543838814073028e-28
+          ],
+          "relative_work_error": 2.533226687883872e-16,
+          "relative_momentum_error": 1.413638742156053e-17,
+          "relative_advection_momentum_error": 1.740424372143857e-17,
+          "relative_volume_flux": 1.7319094075329017e-16,
+          "relative_pressure_work": 4.905041803363968e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.3299946829268021,
+          "wall_trace_exactly_zero": true,
+          "forced": false,
+          "grid_counts_xyz": [
+            6,
+            6,
+            6
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.500000000000003e-07,
+          "cut_cell_count": 54,
+          "min_liquid_fraction": 0.08999999999999934,
+          "normalized_area_closure": 1.831178664125929e-15,
+          "normalized_moment_closure": 1.3852477774010059e-14,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "seconds": 0.136492891999751
+        },
+        {
+          "case": "temporal_4",
+          "energy_m5_per_s2": 5.4258839099814993e-17,
+          "dissipation_m5_per_s3": 1.3012042951807926e-16,
+          "body_power_m5_per_s3": 7.547013145731748e-17,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 1.995234551249343e-33,
+          "work_residual_m5_per_s3": 1.8488927466117464e-31,
+          "max_cell_momentum_residual_m4_per_s2": 4.417621069237666e-28,
+          "max_face_momentum_residual_m4_per_s2": 2.2876966251409342e-28,
+          "max_integral_flux_m3_per_s": 6.54312789226516e-25,
+          "max_divergence_per_s": 1.4133156247292741e-16,
+          "advection_max_outgoing_courant": 0.0031246457157680877,
+          "advection_old_energy_m5_per_s2": 5.998640318434968e-17,
+          "advection_energy_m5_per_s2": 5.993056601663906e-17,
+          "advection_donor_dissipation_m5_per_s3": 5.57717571080834e-19,
+          "advection_divergence_work_m5_per_s3": 2.108041100437699e-34,
+          "advection_euler_damping_m5_per_s2": 6.54106025288019e-23,
+          "advection_work_residual_m5_per_s3": -3.426334189448775e-32,
+          "advection_momentum_change_m4_per_s": [
+            8.882237236530811e-29,
+            -2.299194426908926e-29,
+            -3.157629551370927e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 5.048709793414476e-29,
+          "stokes_euler_damping_m5_per_s2": 2.066971107479065e-19,
+          "combined_work_residual_m5_per_s3": 1.4791141972893971e-31,
+          "max_outgoing_courant": 0.0031246457157680877,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.6819132676047558e-13,
+            6.208805050582045e-14,
+            1.10096321691715e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            2.370148312474056e-13,
+            -7.272202855318747e-14,
+            -1.64292827218027e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            5.048709793414476e-29,
+            -2.524354896707238e-29,
+            -7.573064690121713e-29
+          ],
+          "relative_work_error": 2.4657491010817845e-16,
+          "relative_momentum_error": 2.2719194070365136e-18,
+          "relative_advection_momentum_error": 2.82120305311926e-18,
+          "relative_volume_flux": 6.54312789226516e-17,
+          "relative_pressure_work": 3.3261446683469352e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.0954810387102688,
+          "wall_trace_exactly_zero": true,
+          "steps": 4,
+          "dt_s": 0.1,
+          "forced": true,
+          "relative_temporal_velocity_error": 0.021099829191953738,
+          "temporal_pressure_rms_over_scale": 0.06881326641984646,
+          "grid_counts_xyz": [
+            6,
+            6,
+            6
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.500000000000003e-07,
+          "cut_cell_count": 54,
+          "min_liquid_fraction": 0.08999999999999934,
+          "normalized_area_closure": 1.831178664125929e-15,
+          "normalized_moment_closure": 1.3852477774010059e-14,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "seconds": 0.2722676040002625
+        },
+        {
+          "case": "temporal_8",
+          "energy_m5_per_s2": 5.453446415614343e-17,
+          "dissipation_m5_per_s3": 1.3159921388010451e-16,
+          "body_power_m5_per_s3": 7.64508357394251e-17,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 1.1132795652526988e-34,
+          "work_residual_m5_per_s3": 1.1093356479670479e-31,
+          "max_cell_momentum_residual_m4_per_s2": 4.922492048579114e-28,
+          "max_face_momentum_residual_m4_per_s2": 3.534096855390133e-28,
+          "max_integral_flux_m3_per_s": 3.8531753143339277e-25,
+          "max_divergence_per_s": 8.322858678961281e-17,
+          "advection_max_outgoing_courant": 0.00154130551207123,
+          "advection_old_energy_m5_per_s2": 5.736900327066057e-17,
+          "advection_energy_m5_per_s2": 5.734280976657463e-17,
+          "advection_donor_dissipation_m5_per_s3": 5.235715428303813e-19,
+          "advection_divergence_work_m5_per_s3": -1.2523778839802414e-34,
+          "advection_euler_damping_m5_per_s2": 1.4926944426927623e-23,
+          "advection_work_residual_m5_per_s3": 7.903048292591737e-32,
+          "advection_momentum_change_m4_per_s": [
+            -1.0385216113243597e-30,
+            -3.6044961550563594e-29,
+            5.652911331861424e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 5.048709793414476e-29,
+          "stokes_euler_damping_m5_per_s2": 5.092670339722056e-20,
+          "combined_work_residual_m5_per_s3": -4.930380657631324e-32,
+          "max_outgoing_courant": 0.00154130551207123,
+          "wall_momentum_impulse_m4_per_s": [
+            -8.758039414716221e-14,
+            3.184562098197123e-14,
+            5.7331552160829e-14
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.185074156237028e-13,
+            -3.636101427659373e-14,
+            -8.21464136090135e-14
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -2.524354896707238e-29,
+            1.8932661725304283e-29,
+            6.310887241768094e-29
+          ],
+          "relative_work_error": 2.2172661386214821e-16,
+          "relative_momentum_error": 2.5874637691249183e-18,
+          "relative_advection_momentum_error": 1.808249711578393e-18,
+          "relative_volume_flux": 6.77334905884486e-17,
+          "relative_pressure_work": 1.205704453840642e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.04940889597025244,
+          "wall_trace_exactly_zero": true,
+          "steps": 8,
+          "dt_s": 0.05,
+          "forced": true,
+          "relative_temporal_velocity_error": 0.010667406121591097,
+          "temporal_pressure_rms_over_scale": 0.03487034721079407,
+          "grid_counts_xyz": [
+            6,
+            6,
+            6
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.500000000000003e-07,
+          "cut_cell_count": 54,
+          "min_liquid_fraction": 0.08999999999999934,
+          "normalized_area_closure": 1.831178664125929e-15,
+          "normalized_moment_closure": 1.3852477774010059e-14,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "seconds": 0.283371920999798
+        },
+        {
+          "case": "temporal_16",
+          "energy_m5_per_s2": 5.469184048589929e-17,
+          "dissipation_m5_per_s3": 1.3242055346624603e-16,
+          "body_power_m5_per_s3": 7.697771727372188e-17,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": -4.31603741422744e-34,
+          "work_residual_m5_per_s3": 9.244463733058732e-32,
+          "max_cell_momentum_residual_m4_per_s2": 1.274799222837155e-27,
+          "max_face_momentum_residual_m4_per_s2": 2.7767903863779616e-28,
+          "max_integral_flux_m3_per_s": 2.520315928872506e-25,
+          "max_divergence_per_s": 5.4438824063646115e-17,
+          "advection_max_outgoing_courant": 0.0007652868534048735,
+          "advection_old_energy_m5_per_s2": 5.610324237760406e-17,
+          "advection_energy_m5_per_s2": 5.609055732414776e-17,
+          "advection_donor_dissipation_m5_per_s3": 5.07259506703561e-19,
+          "advection_divergence_work_m5_per_s3": -6.021866797431861e-35,
+          "advection_euler_damping_m5_per_s2": 3.565788710099697e-24,
+          "advection_work_residual_m5_per_s3": -2.4426813561627584e-31,
+          "advection_momentum_change_m4_per_s": [
+            -5.120827443888271e-29,
+            5.588220398272395e-29,
+            -5.419200936816248e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 5.048709793414476e-29,
+          "stokes_euler_damping_m5_per_s2": 1.2645933435365144e-20,
+          "combined_work_residual_m5_per_s3": -1.6023737137301802e-31,
+          "max_outgoing_courant": 0.0007652868534048735,
+          "wall_momentum_impulse_m4_per_s": [
+            -4.4724056742346176e-14,
+            1.6138461228408453e-14,
+            2.927503300564931e-14
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            5.92537078118514e-14,
+            -1.8180507138296866e-14,
+            -4.107320680450675e-14
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -4.417621069237666e-29,
+            2.082592789783471e-28,
+            -7.573064690121713e-29
+          ],
+          "relative_work_error": 3.7600609273130016e-16,
+          "relative_momentum_error": 2.4612460242895564e-18,
+          "relative_advection_momentum_error": 2.1350658005996574e-18,
+          "relative_volume_flux": 6.518894085256771e-17,
+          "relative_pressure_work": 2.290008715535372e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.025157224999676542,
+          "wall_trace_exactly_zero": true,
+          "steps": 16,
+          "dt_s": 0.025,
+          "forced": true,
+          "relative_temporal_velocity_error": 0.005093462063332965,
+          "temporal_pressure_rms_over_scale": 0.01667055643617485,
+          "grid_counts_xyz": [
+            6,
+            6,
+            6
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.500000000000003e-07,
+          "cut_cell_count": 54,
+          "min_liquid_fraction": 0.08999999999999934,
+          "normalized_area_closure": 1.831178664125929e-15,
+          "normalized_moment_closure": 1.3852477774010059e-14,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "seconds": 0.3097376119999353
+        }
+      ],
+      "gates": {
+        "all_cases_completed": true,
+        "relative_work_error": true,
+        "relative_momentum_error": true,
+        "relative_bound_violation": true,
+        "volume_and_walls": true,
+        "unforced_energy": true,
+        "transport_wave_relative_rms_error": true,
+        "abc_relative_velocity_error": true,
+        "abc_relative_pressure_error": true,
+        "uniform_wall_relative_velocity_error": false,
+        "uniform_wall_pressure_rms_over_scale": false,
+        "focused_wall_relative_velocity_error": false,
+        "focused_wall_pressure_rms_over_scale": false,
+        "relative_temporal_velocity_error": true,
+        "temporal_pressure_rms_over_scale": true,
+        "tiny_capacity_large_courant": true
+      },
+      "overall_pass": false
+    }
+  },
+  "previous_interrupted_study": {
+    "directory": "results/momentum_refined_bb4264a",
+    "manifest": {
+      "protocol": {
+        "source_id": "DESIGN-CUTCELL-MOMENTUM-008",
+        "length_m": 0.01,
+        "kinematic_viscosity_m2_per_s": 1e-06,
+        "density_kg_per_m3": 1170.0,
+        "speed_m_per_s": 0.0001,
+        "seed": 113,
+        "transport_wave": {
+          "counts": [
+            8,
+            16,
+            24
+          ],
+          "duration_s": 5.0,
+          "outgoing_courant": 0.25
+        },
+        "abc": {
+          "counts": [
+            6,
+            10,
+            14
+          ],
+          "duration_s": 1.0,
+          "dt_s": 0.025
+        },
+        "sloped_wall": {
+          "intercept_m": 0.002,
+          "slope_dz_dy": 0.5,
+          "counts": [
+            24,
+            36,
+            48
+          ],
+          "focus_width_m": 0.0036,
+          "quadrature_order": 12,
+          "streamfunction_scale": 4096.0,
+          "duration_s": 2.0,
+          "dt_s": 0.05
+        },
+        "temporal": {
+          "n": 6,
+          "duration_s": 0.4,
+          "decay_time_s": 1.0,
+          "steps": [
+            4,
+            8,
+            16
+          ],
+          "reference_steps": 128
+        },
+        "rotated_cube": {
+          "width_m": 0.003,
+          "center_m": [
+            0.005,
+            0.005,
+            0.005
+          ],
+          "angles_rad_xyz": [
+            0.3,
+            0.2,
+            0.1
+          ],
+          "counts_xyz": [
+            8,
+            8,
+            8
+          ],
+          "max_axis_refinements": 48
+        },
+        "subcell_cube": {
+          "width_m": 0.0002,
+          "center_m": [
+            0.0051,
+            0.0052,
+            0.0049
+          ],
+          "counts_xyz": [
+            8,
+            8,
+            8
+          ]
+        },
+        "tiny_cycle": {
+          "n": 8,
+          "relative_gap": 1e-05,
+          "target_outgoing_courant": 1000.0
+        },
+        "unforced": {
+          "steps": 4,
+          "dt_s": 0.1
+        },
+        "gates": {
+          "finest_transport_relative_rms_error": 0.08,
+          "finest_abc_relative_velocity_error": 0.08,
+          "finest_abc_relative_pressure_error": 0.25,
+          "finest_wall_relative_velocity_error": 0.05,
+          "finest_wall_pressure_rms_over_scale": 0.25,
+          "minimum_spatial_rate": 0.7,
+          "minimum_temporal_rate": 0.7,
+          "maximum_relative_momentum_error": 1e-09,
+          "maximum_relative_work_error": 1e-08,
+          "maximum_relative_volume_flux": 1e-10,
+          "maximum_relative_bound_violation": 1e-10,
+          "maximum_relative_energy_increase": 1e-12
+        },
+        "limits": "Stationary, closed or periodic cut-cell split momentum operator. Fully implicit first-order donor transport uses the previous constrained face flux, followed by monolithic linear Stokes. First order in space/time with measured artificial damping. No fully implicit nonlinear solve, free-surface stress, moving interface, growth calibration, solute coupling, AI or automatic replacement of the canonical MAC runtime. Small-cell stability does not establish accuracy at large Courant number.",
+        "linear_solver": "schur",
+        "protocol_note": "Revision 2 retains all original acceptance tolerances and the original 3D polynomial reference. The first 6/10/14 wall study in results/momentum_initial_bb4264a failed velocity/pressure refinement; a linear-only diagnostic reproduces the large wall error. Resolve that field on 24/36/48 uniform/aggressively focused grids. The optional Schur backend solves the same saddle equations under the unchanged 3e-12 residual check; direct/Schur equivalence is tested, and the old direct backend remains default. Add a coupled tiny-cell case at Courant 1000. Do not claim coarse wall grids validated."
+      },
+      "sources": {
+        "src/simulation/momentum.py": "887cc8823c44571c91637e3b18909ba13c9ae74a0ed75f18e95ff038dec1c4b3",
+        "src/simulation/stokes.py": "8a0e59ab0b1d8f5379e0a50afd85c6a615292f0a82e8820797bfd037a5ec98f8",
+        "src/simulation/viscosity.py": "b4ac716d35a09a6aa8ac2871f1c150115ff5d6711ca590693aedbc9cf68edd46",
+        "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+        "src/simulation/cutcell.py": "b83d97d63f064f34af3ad502d10b726d69b526471b356a7cc98d587bfb7aed3f",
+        "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+        "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+        "src/simulation/linear.py": "be1539b48fc2aecedb5f00a0f2e38b3ab324e449e66e753b61a2d9cb904c59f5",
+        "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+        "scripts/check_momentum.py": "b601720e5ece8de8111ef89a7e4f472e4d5fb356759a44d2357af30f43532be6",
+        "scripts/check_stokes.py": "adb4f2f6bf1e80c3f870fa7954f73b8ed1511501dd292a5b2b6644037dc1252f",
+        "scripts/check_cutcell.py": "e20617a85af0c52528dcb3121eb1da3a874d4bbd30dabdef347f4ea5ad7a751e",
+        "scripts/check_viscosity.py": "b85785ee7910b683afbba759812295f93bdc0e2bc033efd276a97b3f24a7a806",
+        "configs/momentum_verification.json": "f9c6fa6e1caa0c07ba9bee763f764f915ff8913d3dbe5962576e5dd035b1fe53",
+        "tests/test_momentum.py": "c5e432621f1497aea6335a1f44a03ba2cc1b7d4c1a0758d980909ba65968303c"
+      },
+      "git_commit": "bb4264a80591401c4e160f72d401b5d4252fe1ee",
+      "environment": {
+        "python": "3.14.8",
+        "numpy": "2.5.0",
+        "scipy": "1.18.0",
+        "threads": {
+          "OPENBLAS_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1"
+        }
+      }
+    },
+    "partial_report": {
+      "status": "interrupted_after_completed_cases",
+      "overall_pass": false,
+      "completed_cases": [
+        {
+          "case": "transport_wave_8",
+          "max_outgoing_courant": 0.19999999999999996,
+          "old_energy_m5_per_s2": 2.601839421990859e-15,
+          "energy_m5_per_s2": 2.2811372050855913e-15,
+          "donor_dissipation_m5_per_s3": 1.0690073896842265e-16,
+          "divergence_work_m5_per_s3": 0.0,
+          "euler_damping_m5_per_s2": 5.345036948421135e-17,
+          "work_residual_m5_per_s3": 7.395570986446986e-32,
+          "momentum_change_m4_per_s": [
+            0.0,
+            6.310887241768095e-30,
+            -1.2101126286090321e-27
+          ],
+          "bound_violation_m_per_s": 0.0,
+          "max_integrated_momentum_residual_m4_per_s": 3.7865323450608567e-29,
+          "relative_work_error": 7.106098596957311e-17,
+          "relative_momentum_error": 1.210112628609032e-17,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.12325980388900204,
+          "n": 8,
+          "steps": 2,
+          "dt_s": 2.5,
+          "relative_rms_error": 0.13137113733805794,
+          "grid_counts_xyz": [
+            8,
+            8,
+            8
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000004e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 7.335520501646285e-16,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 0.034608555999966484
+        },
+        {
+          "case": "transport_wave_16",
+          "max_outgoing_courant": 0.19999999999999996,
+          "old_energy_m5_per_s2": 2.770168770604114e-15,
+          "energy_m5_per_s2": 2.6725206793317995e-15,
+          "donor_dissipation_m5_per_s3": 6.50987275148768e-17,
+          "divergence_work_m5_per_s3": 0.0,
+          "euler_damping_m5_per_s2": 1.62746818787192e-17,
+          "work_residual_m5_per_s3": 4.930380657631324e-31,
+          "momentum_change_m4_per_s": [
+            0.0,
+            -1.6157843491189374e-27,
+            -4.039953910863107e-28
+          ],
+          "bound_violation_m_per_s": 0.0,
+          "max_integrated_momentum_residual_m4_per_s": 3.1554436208840472e-30,
+          "relative_work_error": 3.346135955076408e-16,
+          "relative_momentum_error": 1.615784349118937e-17,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.035249870805170946,
+          "n": 16,
+          "steps": 4,
+          "dt_s": 1.25,
+          "relative_rms_error": 0.07041349669245434,
+          "grid_counts_xyz": [
+            16,
+            16,
+            16
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000004e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 3.667760250823143e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 0.22446892800007845
+        },
+        {
+          "case": "transport_wave_24",
+          "max_outgoing_courant": 0.24,
+          "old_energy_m5_per_s2": 2.867404673508921e-15,
+          "energy_m5_per_s2": 2.81040695564103e-15,
+          "donor_dissipation_m5_per_s3": 4.5965901506363144e-17,
+          "divergence_work_m5_per_s3": 0.0,
+          "euler_damping_m5_per_s2": 1.1031816361527158e-17,
+          "work_residual_m5_per_s3": -8.566536392634425e-31,
+          "momentum_change_m4_per_s": [
+            0.0,
+            2.2716728880036324e-27,
+            7.395570986446986e-32
+          ],
+          "bound_violation_m_per_s": 0.0,
+          "max_integrated_momentum_residual_m4_per_s": 1.5777218104420236e-30,
+          "relative_work_error": 3.03468625481985e-16,
+          "relative_momentum_error": 2.726549807476698e-17,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.019877807410469406,
+          "n": 24,
+          "steps": 5,
+          "dt_s": 1.0,
+          "relative_rms_error": 0.04936286910327756,
+          "grid_counts_xyz": [
+            24,
+            24,
+            24
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000006e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 5.570410880937647e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 0.7428485320001528
+        },
+        {
+          "case": "abc_6",
+          "energy_m5_per_s2": 6.418130827524925e-15,
+          "dissipation_m5_per_s3": 4.625835983657266e-15,
+          "body_power_m5_per_s3": 0.0,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 9.089243719773764e-34,
+          "work_residual_m5_per_s3": 2.129924444096732e-29,
+          "max_cell_momentum_residual_m4_per_s2": 5.427363027920561e-27,
+          "max_face_momentum_residual_m4_per_s2": 1.0827115924158387e-27,
+          "max_integral_flux_m3_per_s": 6.72084247699335e-25,
+          "max_divergence_per_s": 1.451701975030563e-16,
+          "advection_max_outgoing_courant": 0.004058159419569479,
+          "advection_old_energy_m5_per_s2": 6.539620899934668e-15,
+          "advection_energy_m5_per_s2": 6.534299908766867e-15,
+          "advection_donor_dissipation_m5_per_s3": 2.1268269626241114e-16,
+          "advection_divergence_work_m5_per_s3": 1.0669112673425886e-32,
+          "advection_euler_damping_m5_per_s2": 3.923761240698704e-21,
+          "advection_work_residual_m5_per_s3": 5.283590817247149e-31,
+          "advection_momentum_change_m4_per_s": [
+            -3.842492165524972e-28,
+            1.1297474238896415e-27,
+            -1.5533164261867486e-28
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 4.0389678347315804e-28,
+          "stokes_euler_damping_m5_per_s2": 5.231816505110895e-19,
+          "combined_work_residual_m5_per_s3": 2.2089014270560307e-29,
+          "max_outgoing_courant": 0.005870061775837683,
+          "wall_momentum_impulse_m4_per_s": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            3.549874073494553e-29,
+            4.259848888193464e-29,
+            -1.4988357199199224e-29
+          ],
+          "relative_work_error": 3.014099738763548e-16,
+          "relative_momentum_error": 3.367844419614804e-17,
+          "relative_advection_momentum_error": 3.210614580442941e-17,
+          "relative_volume_flux": 3.412120026781239e-16,
+          "relative_pressure_work": 5.950064031071738e-20,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.018577540543819104,
+          "wall_trace_exactly_zero": true,
+          "n": 6,
+          "steps": 40,
+          "dt_s": 0.025,
+          "relative_velocity_error": 0.023019579585606662,
+          "forced": false,
+          "relative_pressure_error": 0.3907985579402912,
+          "grid_counts_xyz": [
+            6,
+            6,
+            6
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000006e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 1.8568036269792156e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 0.24311738300002617
+        },
+        {
+          "case": "abc_10",
+          "energy_m5_per_s2": 6.611809767820832e-15,
+          "dissipation_m5_per_s3": 5.054166679136905e-15,
+          "body_power_m5_per_s3": 0.0,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 1.4069497781979983e-33,
+          "work_residual_m5_per_s3": 6.863089875422803e-29,
+          "max_cell_momentum_residual_m4_per_s2": 2.8335883715538744e-27,
+          "max_face_momentum_residual_m4_per_s2": 1.1461162876729775e-27,
+          "max_integral_flux_m3_per_s": 3.4896682092080855e-25,
+          "max_divergence_per_s": 3.4896682092080855e-16,
+          "advection_max_outgoing_courant": 0.007023012180919847,
+          "advection_old_energy_m5_per_s2": 6.742288421424638e-15,
+          "advection_energy_m5_per_s2": 6.738771599150746e-15,
+          "advection_donor_dissipation_m5_per_s3": 1.405154430459556e-16,
+          "advection_divergence_work_m5_per_s3": -7.559061859574513e-33,
+          "advection_euler_damping_m5_per_s2": 3.936197743779311e-21,
+          "advection_work_residual_m5_per_s3": 1.520858942006136e-30,
+          "advection_momentum_change_m4_per_s": [
+            8.011868568650901e-29,
+            -3.8252358332232626e-28,
+            -5.595365748829349e-28
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 1.0097419586828951e-28,
+          "stokes_euler_damping_m5_per_s2": 6.076643514925084e-19,
+          "combined_work_residual_m5_per_s3": 7.021002751444825e-29,
+          "max_outgoing_courant": 0.010304541667141138,
+          "wall_momentum_impulse_m4_per_s": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -3.285605670245514e-28,
+            -1.5624376304033665e-28,
+            -8.377702813447145e-28
+          ],
+          "relative_work_error": 3.85748481883147e-16,
+          "relative_momentum_error": 2.349720813813936e-17,
+          "relative_advection_momentum_error": 1.792982229954207e-17,
+          "relative_volume_flux": 8.788794008375919e-17,
+          "relative_pressure_work": 3.788103855693055e-20,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.019352280034356073,
+          "wall_trace_exactly_zero": true,
+          "n": 10,
+          "steps": 40,
+          "dt_s": 0.025,
+          "relative_velocity_error": 0.007991023303018178,
+          "forced": false,
+          "relative_pressure_error": 0.19657613570570992,
+          "grid_counts_xyz": [
+            10,
+            10,
+            10
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1.0000000000000004e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 1.790898559972238e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 1.368391646999953
+        },
+        {
+          "case": "abc_14",
+          "energy_m5_per_s2": 6.683932278351497e-15,
+          "dissipation_m5_per_s3": 5.191106801477728e-15,
+          "body_power_m5_per_s3": 0.0,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": -2.2665303942454277e-33,
+          "work_residual_m5_per_s3": 5.443140246024981e-29,
+          "max_cell_momentum_residual_m4_per_s2": 1.0128974023037792e-27,
+          "max_face_momentum_residual_m4_per_s2": 1.1657885064969265e-27,
+          "max_integral_flux_m3_per_s": 2.803043677303717e-25,
+          "max_divergence_per_s": 7.6915518505214e-16,
+          "advection_max_outgoing_courant": 0.009946908304188765,
+          "advection_old_energy_m5_per_s2": 6.8169353064372375e-15,
+          "advection_energy_m5_per_s2": 6.814343981631779e-15,
+          "advection_donor_dissipation_m5_per_s3": 1.0349564696442175e-16,
+          "advection_divergence_work_m5_per_s3": 4.510026805656577e-33,
+          "advection_euler_damping_m5_per_s2": 3.9336313488488574e-21,
+          "advection_work_residual_m5_per_s3": 2.8366524759829847e-29,
+          "advection_momentum_change_m4_per_s": [
+            -1.310988216864169e-28,
+            -3.2851742619379714e-29,
+            -3.5240820196793193e-28
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 5.679798517591285e-29,
+          "stokes_euler_damping_m5_per_s2": 6.340332433391886e-19,
+          "combined_work_residual_m5_per_s3": 5.048483140375051e-29,
+          "max_outgoing_courant": 0.014632345933819098,
+          "wall_momentum_impulse_m4_per_s": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -1.3095091026668796e-28,
+            5.662542185289575e-29,
+            1.4471899825312343e-27
+          ],
+          "relative_work_error": 2.8728608324785566e-16,
+          "relative_momentum_error": 3.9812823810372933e-17,
+          "relative_advection_momentum_error": 9.029807285177107e-18,
+          "relative_volume_flux": 5.169878828456423e-17,
+          "relative_pressure_work": 3.630311371807233e-20,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": -0.01951067776162485,
+          "wall_trace_exactly_zero": true,
+          "n": 14,
+          "steps": 40,
+          "dt_s": 0.025,
+          "relative_velocity_error": 0.004175842551049411,
+          "forced": false,
+          "relative_pressure_error": 0.14765863386793726,
+          "grid_counts_xyz": [
+            14,
+            14,
+            14
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 1e-06,
+          "cut_cell_count": 0,
+          "min_liquid_fraction": 1.0,
+          "normalized_area_closure": 0.0,
+          "normalized_moment_closure": 3.4399579539946744e-15,
+          "embedded_wall_area_m2": 0.0,
+          "seconds": 6.142608439000014
+        },
+        {
+          "case": "uniform_wall_24",
+          "energy_m5_per_s2": 1.0496349139454453e-16,
+          "dissipation_m5_per_s3": 3.254308262628984e-16,
+          "body_power_m5_per_s3": 3.263571637273223e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 7.875629779521105e-35,
+          "work_residual_m5_per_s3": 3.8171931497755015e-31,
+          "max_cell_momentum_residual_m4_per_s2": 8.47285916013943e-29,
+          "max_face_momentum_residual_m4_per_s2": 1.8641769266504035e-28,
+          "max_integral_flux_m3_per_s": 3.110005232743317e-26,
+          "max_divergence_per_s": 3.862302750551591e-15,
+          "advection_max_outgoing_courant": 0.010688867120429107,
+          "advection_old_energy_m5_per_s2": 1.049419250452094e-16,
+          "advection_energy_m5_per_s2": 1.0491725215520034e-16,
+          "advection_donor_dissipation_m5_per_s3": 4.91994825396884e-19,
+          "advection_divergence_work_m5_per_s3": -3.119500782756971e-35,
+          "advection_euler_damping_m5_per_s2": 7.314873922753159e-23,
+          "advection_work_residual_m5_per_s3": 8.663565248959804e-32,
+          "advection_momentum_change_m4_per_s": [
+            -9.764697933266733e-31,
+            1.523690912025616e-31,
+            -8.769179508185638e-30
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 2.7610131682735413e-30,
+          "stokes_euler_damping_m5_per_s2": 7.763387702975792e-23,
+          "combined_work_residual_m5_per_s3": 6.902532920683853e-31,
+          "max_outgoing_courant": 0.010688867120429107,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.768000895789118e-13,
+            5.424950402364789e-14,
+            1.2254962569367412e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.7679227258552398e-13,
+            -5.4244249908294916e-14,
+            -1.2254804997211613e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -3.7865323450608567e-28,
+            2.8398992587956425e-28,
+            -6.058451752097371e-28
+          ],
+          "relative_work_error": 6.8364956021193375e-16,
+          "relative_momentum_error": 1.1359597035182568e-17,
+          "relative_advection_momentum_error": 5.444658057628542e-19,
+          "relative_volume_flux": 4.927540758372528e-18,
+          "relative_pressure_work": 6.588809593239373e-19,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.0061185556094349725,
+          "wall_trace_exactly_zero": true,
+          "n": 24,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.04918964228763967,
+          "forced": true,
+          "pressure_rms_over_scale": 0.17387413466402254,
+          "grid_counts_xyz": [
+            24,
+            24,
+            24
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.500000000000003e-07,
+          "cut_cell_count": 864,
+          "min_liquid_fraction": 0.039999999999992146,
+          "normalized_area_closure": 1.478963732506092e-14,
+          "normalized_moment_closure": 4.823974476202273e-13,
+          "embedded_wall_area_m2": 0.00011180339887498949,
+          "seconds": 31.222790769000312
+        },
+        {
+          "case": "uniform_wall_36",
+          "energy_m5_per_s2": 1.0277061861725949e-16,
+          "dissipation_m5_per_s3": 3.174718862031981e-16,
+          "body_power_m5_per_s3": 3.1797664101743957e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 7.4932979885640744e-34,
+          "work_residual_m5_per_s3": 4.080082587184359e-30,
+          "max_cell_momentum_residual_m4_per_s2": 4.883407226287719e-29,
+          "max_face_momentum_residual_m4_per_s2": 1.8503718608090358e-28,
+          "max_integral_flux_m3_per_s": 2.50416005753358e-26,
+          "max_divergence_per_s": 1.168340916442867e-15,
+          "advection_max_outgoing_courant": 0.015981937014555025,
+          "advection_old_energy_m5_per_s2": 1.0276172317975322e-16,
+          "advection_energy_m5_per_s2": 1.0274545341467595e-16,
+          "advection_donor_dissipation_m5_per_s3": 3.2396800253162373e-19,
+          "advection_divergence_work_m5_per_s3": -1.627780039545242e-35,
+          "advection_euler_damping_m5_per_s2": 7.136495068217618e-23,
+          "advection_work_residual_m5_per_s3": -2.53420510233146e-31,
+          "advection_momentum_change_m4_per_s": [
+            -4.971279709996807e-30,
+            -4.373508921329962e-30,
+            6.90733204755245e-30
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 9.860761315262648e-31,
+          "stokes_euler_damping_m5_per_s2": 7.253812874989228e-23,
+          "combined_work_residual_m5_per_s3": 4.092215945833999e-30,
+          "max_outgoing_courant": 0.015981937014555025,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.7679367627640915e-13,
+            5.424514671117558e-14,
+            1.2254833379675404e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.7679227238616142e-13,
+            -5.424424997938531e-14,
+            -1.2254804964518158e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -5.553580772755923e-28,
+            -5.932234007262009e-28,
+            -2.524354896707238e-28
+          ],
+          "relative_work_error": 3.116232370610831e-15,
+          "relative_momentum_error": 2.297162956003586e-17,
+          "relative_advection_momentum_error": 2.992375600376265e-19,
+          "relative_volume_flux": 3.6350710512584224e-18,
+          "relative_pressure_work": 5.896265732893e-19,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.0027403110477020043,
+          "wall_trace_exactly_zero": true,
+          "n": 36,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.02212731711046766,
+          "forced": true,
+          "pressure_rms_over_scale": 0.08092486974286933,
+          "grid_counts_xyz": [
+            36,
+            36,
+            36
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.5e-07,
+          "cut_cell_count": 1944,
+          "min_liquid_fraction": 0.08999999999999818,
+          "normalized_area_closure": 1.3013884356075981e-14,
+          "normalized_moment_closure": 5.570270054927374e-13,
+          "embedded_wall_area_m2": 0.00011180339887498945,
+          "seconds": 171.672680615
+        },
+        {
+          "case": "uniform_wall_48",
+          "energy_m5_per_s2": 1.0204037529282963e-16,
+          "dissipation_m5_per_s3": 3.146142823180861e-16,
+          "body_power_m5_per_s3": 3.1495352930940915e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 1.2072112668126456e-33,
+          "work_residual_m5_per_s3": 2.629327708326064e-30,
+          "max_cell_momentum_residual_m4_per_s2": 4.6104066566708284e-29,
+          "max_face_momentum_residual_m4_per_s2": 2.544076419337763e-28,
+          "max_integral_flux_m3_per_s": 1.63578197306629e-26,
+          "max_divergence_per_s": 1.8090439996534707e-15,
+          "advection_max_outgoing_courant": 0.02145916141352265,
+          "advection_old_energy_m5_per_s2": 1.0203564683745133e-16,
+          "advection_energy_m5_per_s2": 1.020234841692536e-16,
+          "advection_donor_dissipation_m5_per_s3": 2.4183834024467384e-19,
+          "advection_divergence_work_m5_per_s3": -1.862877358313688e-35,
+          "advection_euler_damping_m5_per_s2": 7.075118548722025e-23,
+          "advection_work_residual_m5_per_s3": -1.638903330087464e-32,
+          "advection_momentum_change_m4_per_s": [
+            -1.3187422833845808e-29,
+            -6.888454290707816e-32,
+            1.5155468754823005e-31
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 5.423418723394456e-31,
+          "stokes_euler_damping_m5_per_s2": 7.12259902889644e-23,
+          "combined_work_residual_m5_per_s3": 3.106139814307734e-30,
+          "max_outgoing_courant": 0.02145916141352265,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.7679269639007333e-13,
+            5.4244515167012474e-14,
+            1.2254813357287394e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.7679227235888513e-13,
+            -5.424424992217409e-14,
+            -1.2254804974898747e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            3.0292258760486853e-28,
+            -2.1015254515087754e-27,
+            -1.3883951931889808e-27
+          ],
+          "relative_work_error": 3.5324782778743974e-15,
+          "relative_momentum_error": 2.928251680180395e-17,
+          "relative_advection_momentum_error": 2.3176961934342877e-19,
+          "relative_volume_flux": 2.1406529524077376e-18,
+          "relative_pressure_work": 1.4658138492764347e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.0015241608130247553,
+          "wall_trace_exactly_zero": true,
+          "n": 48,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.012449053971188048,
+          "forced": true,
+          "pressure_rms_over_scale": 0.04647644170525567,
+          "grid_counts_xyz": [
+            48,
+            48,
+            48
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.500000000000003e-07,
+          "cut_cell_count": 3456,
+          "min_liquid_fraction": 0.15999999999998787,
+          "normalized_area_closure": 2.3909944251692335e-14,
+          "normalized_moment_closure": 1.6913115427667115e-12,
+          "embedded_wall_area_m2": 0.00011180339887498949,
+          "seconds": 559.708239137
+        },
+        {
+          "case": "focused_wall_24",
+          "energy_m5_per_s2": 1.2960098861937994e-16,
+          "dissipation_m5_per_s3": 3.9210858923632913e-16,
+          "body_power_m5_per_s3": 3.9572679177652926e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": -1.532637337924781e-32,
+          "work_residual_m5_per_s3": 5.577493118945435e-31,
+          "max_cell_momentum_residual_m4_per_s2": 1.3546220856842062e-28,
+          "max_face_momentum_residual_m4_per_s2": 3.214608188775623e-28,
+          "max_integral_flux_m3_per_s": 4.957833017133015e-25,
+          "max_divergence_per_s": 3.4714440153640545e-15,
+          "advection_max_outgoing_courant": 0.01743822703759052,
+          "advection_old_energy_m5_per_s2": 1.2945822040106037e-16,
+          "advection_energy_m5_per_s2": 1.2942025274091836e-16,
+          "advection_donor_dissipation_m5_per_s3": 7.573967925429348e-19,
+          "advection_divergence_work_m5_per_s3": -3.4366465997170436e-34,
+          "advection_euler_damping_m5_per_s2": 9.782051489932073e-23,
+          "advection_work_residual_m5_per_s3": 7.074355899023374e-31,
+          "advection_momentum_change_m4_per_s": [
+            8.064974657466249e-29,
+            -3.373716935108575e-30,
+            -1.0517619659180104e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 3.1554436208840472e-30,
+          "stokes_euler_damping_m5_per_s2": 1.742485484579628e-22,
+          "combined_work_residual_m5_per_s3": 1.2818989709841442e-30,
+          "max_outgoing_courant": 0.01743822703759052,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.7687482153717272e-13,
+            5.4305317835860615e-14,
+            1.2258607519181365e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.7679227192949716e-13,
+            -5.424424930067102e-14,
+            -1.2254804985307111e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            -7.573064690121713e-29,
+            -1.8301573001127474e-28,
+            -9.087677628146056e-28
+          ],
+          "relative_work_error": 7.062972558959178e-16,
+          "relative_momentum_error": 1.0602290566170397e-17,
+          "relative_advection_momentum_error": 8.280782706130321e-19,
+          "relative_volume_flux": 5.287008895663639e-17,
+          "relative_pressure_work": 6.536580508599121e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.02588139013676738,
+          "wall_trace_exactly_zero": true,
+          "n": 24,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.2556019246007463,
+          "forced": true,
+          "pressure_rms_over_scale": 0.9166472342985893,
+          "grid_counts_xyz": [
+            24,
+            24,
+            24
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.5e-07,
+          "cut_cell_count": 984,
+          "min_liquid_fraction": 0.008348905025586498,
+          "normalized_area_closure": 1.052337926423651e-14,
+          "normalized_moment_closure": 3.2560104685925196e-13,
+          "embedded_wall_area_m2": 0.00011180339887498952,
+          "seconds": 41.66283561199998
+        },
+        {
+          "case": "focused_wall_36",
+          "energy_m5_per_s2": 1.1799337776509378e-16,
+          "dissipation_m5_per_s3": 3.681348980297617e-16,
+          "body_power_m5_per_s3": 3.7010621229405973e-16,
+          "boundary_power_m5_per_s3": -0.0,
+          "pressure_work_m5_per_s3": 2.1297733042331066e-34,
+          "work_residual_m5_per_s3": 1.6948183510607676e-31,
+          "max_cell_momentum_residual_m4_per_s2": 1.5358135748521574e-28,
+          "max_face_momentum_residual_m4_per_s2": 3.4354892422375064e-28,
+          "max_integral_flux_m3_per_s": 1.723629523471702e-25,
+          "max_divergence_per_s": 1.5209497959954889e-15,
+          "advection_max_outgoing_courant": 0.026809486434865012,
+          "advection_old_energy_m5_per_s2": 1.1791932326035613e-16,
+          "advection_energy_m5_per_s2": 1.1789492352655774e-16,
+          "advection_donor_dissipation_m5_per_s3": 4.862859937582321e-19,
+          "advection_divergence_work_m5_per_s3": 1.4749546000045308e-34,
+          "advection_euler_damping_m5_per_s2": 8.543411050058423e-23,
+          "advection_work_residual_m5_per_s3": 4.535114043687558e-31,
+          "advection_momentum_change_m4_per_s": [
+            4.8489657825360275e-29,
+            -3.296644660581657e-29,
+            -1.8929749320500686e-29
+          ],
+          "advection_bound_violation_m_per_s": 0.0,
+          "advection_max_integrated_momentum_residual_m4_per_s": 1.1832913578315177e-30,
+          "stokes_euler_damping_m5_per_s2": 1.1147467885003475e-22,
+          "combined_work_residual_m5_per_s3": 1.4791141972893971e-31,
+          "max_outgoing_courant": 0.026809486434865012,
+          "wall_momentum_impulse_m4_per_s": [
+            -1.7681311714734838e-13,
+            5.425737763037375e-14,
+            1.2256027038099735e-13
+          ],
+          "body_momentum_impulse_m4_per_s": [
+            1.7679227224861492e-13,
+            -5.424425029359599e-14,
+            -1.2254804984688038e-13
+          ],
+          "combined_momentum_residual_m4_per_s": [
+            5.806016262426647e-28,
+            -5.36425415550288e-28,
+            -4.291403324402304e-28
+          ],
+          "relative_work_error": 7.990530472021784e-16,
+          "relative_momentum_error": 2.423380700838948e-17,
+          "relative_advection_momentum_error": 7.383751362537602e-19,
+          "relative_volume_flux": 2.988583762211699e-17,
+          "relative_pressure_work": 1.9479754539618268e-18,
+          "relative_bound_violation": 0.0,
+          "relative_energy_increase": 0.017901973072464772,
+          "wall_trace_exactly_zero": true,
+          "n": 36,
+          "steps": 40,
+          "dt_s": 0.05,
+          "relative_velocity_error": 0.17165710445656773,
+          "forced": true,
+          "pressure_rms_over_scale": 0.5975473499195815,
+          "grid_counts_xyz": [
+            36,
+            36,
+            36
+          ],
+          "axis_refinement_count": 0,
+          "liquid_volume_m3": 5.5e-07,
+          "cut_cell_count": 2232,
+          "min_liquid_fraction": 0.0030864197530766106,
+          "normalized_area_closure": 1.9238452669185493e-14,
+          "normalized_moment_closure": 9.370863489769936e-13,
+          "embedded_wall_area_m2": 0.00011180339887498949,
+          "seconds": 191.33198970500052
+        }
+      ],
+      "protocol": {
+        "source_id": "DESIGN-CUTCELL-MOMENTUM-008",
+        "length_m": 0.01,
+        "kinematic_viscosity_m2_per_s": 1e-06,
+        "density_kg_per_m3": 1170.0,
+        "speed_m_per_s": 0.0001,
+        "seed": 113,
+        "transport_wave": {
+          "counts": [
+            8,
+            16,
+            24
+          ],
+          "duration_s": 5.0,
+          "outgoing_courant": 0.25
+        },
+        "abc": {
+          "counts": [
+            6,
+            10,
+            14
+          ],
+          "duration_s": 1.0,
+          "dt_s": 0.025
+        },
+        "sloped_wall": {
+          "intercept_m": 0.002,
+          "slope_dz_dy": 0.5,
+          "counts": [
+            24,
+            36,
+            48
+          ],
+          "focus_width_m": 0.0036,
+          "quadrature_order": 12,
+          "streamfunction_scale": 4096.0,
+          "duration_s": 2.0,
+          "dt_s": 0.05
+        },
+        "temporal": {
+          "n": 6,
+          "duration_s": 0.4,
+          "decay_time_s": 1.0,
+          "steps": [
+            4,
+            8,
+            16
+          ],
+          "reference_steps": 128
+        },
+        "rotated_cube": {
+          "width_m": 0.003,
+          "center_m": [
+            0.005,
+            0.005,
+            0.005
+          ],
+          "angles_rad_xyz": [
+            0.3,
+            0.2,
+            0.1
+          ],
+          "counts_xyz": [
+            8,
+            8,
+            8
+          ],
+          "max_axis_refinements": 48
+        },
+        "subcell_cube": {
+          "width_m": 0.0002,
+          "center_m": [
+            0.0051,
+            0.0052,
+            0.0049
+          ],
+          "counts_xyz": [
+            8,
+            8,
+            8
+          ]
+        },
+        "tiny_cycle": {
+          "n": 8,
+          "relative_gap": 1e-05,
+          "target_outgoing_courant": 1000.0
+        },
+        "unforced": {
+          "steps": 4,
+          "dt_s": 0.1
+        },
+        "gates": {
+          "finest_transport_relative_rms_error": 0.08,
+          "finest_abc_relative_velocity_error": 0.08,
+          "finest_abc_relative_pressure_error": 0.25,
+          "finest_wall_relative_velocity_error": 0.05,
+          "finest_wall_pressure_rms_over_scale": 0.25,
+          "minimum_spatial_rate": 0.7,
+          "minimum_temporal_rate": 0.7,
+          "maximum_relative_momentum_error": 1e-09,
+          "maximum_relative_work_error": 1e-08,
+          "maximum_relative_volume_flux": 1e-10,
+          "maximum_relative_bound_violation": 1e-10,
+          "maximum_relative_energy_increase": 1e-12
+        },
+        "limits": "Stationary, closed or periodic cut-cell split momentum operator. Fully implicit first-order donor transport uses the previous constrained face flux, followed by monolithic linear Stokes. First order in space/time with measured artificial damping. No fully implicit nonlinear solve, free-surface stress, moving interface, growth calibration, solute coupling, AI or automatic replacement of the canonical MAC runtime. Small-cell stability does not establish accuracy at large Courant number.",
+        "linear_solver": "schur",
+        "protocol_note": "Revision 2 retains all original acceptance tolerances and the original 3D polynomial reference. The first 6/10/14 wall study in results/momentum_initial_bb4264a failed velocity/pressure refinement; a linear-only diagnostic reproduces the large wall error. Resolve that field on 24/36/48 uniform/aggressively focused grids. The optional Schur backend solves the same saddle equations under the unchanged 3e-12 residual check; direct/Schur equivalence is tested, and the old direct backend remains default. Add a coupled tiny-cell case at Courant 1000. Do not claim coarse wall grids validated."
+      },
+      "reason": "Uniform refinement passed. Completed aggressive focused cases at 24/36 still fail wall accuracy and leave large outer cells. Stop the remaining expensive 48 case; introduce explicit background-width control and report actual mesh sizes without changing tolerances or reference physics."
+    }
+  },
+  "additional_evidence": {
+    "directory": "results/momentum_refined_bb4264a",
+    "sources_and_outputs": {
+      "solver_equivalence.py": "8c0cc8a9a19467c7c6981df69a21621f58b759ee51c482c9f0cc908b38f13564",
+      "solver_equivalence.json": "f6ef09014e9a22b3665879e66925de7f065b85e0f1a1d52117c67e38af412a22",
+      "linear_wall_diagnostic.py": "ff45907a1b5cc154519d0d932594aef6d5c704a1c0ff15abeedc1f90bf48ef69",
+      "linear_wall_diagnostic.json": "353c0117948911a05e0343f6572535fdfa47f835dd36a89939953cdf243b4516"
+    },
+    "solver_equivalence": {
+      "results": [
+        {
+          "case": "periodic",
+          "direct_seconds": 0.009329100000286417,
+          "schur_seconds": 0.0036099339999964286,
+          "max_velocity_difference_m_per_s": 5.421010862427522e-20,
+          "max_pressure_difference_pa": 3.1848438816761693e-19,
+          "relative_volume_pressure_rms_difference": 2.093024239107905e-15,
+          "liquid_regions": 1,
+          "pass": true
+        },
+        {
+          "case": "sloped",
+          "direct_seconds": 0.005451473999983136,
+          "schur_seconds": 0.006503350000002683,
+          "max_velocity_difference_m_per_s": 2.9815559743351372e-18,
+          "max_pressure_difference_pa": 3.10623922417097e-17,
+          "relative_volume_pressure_rms_difference": 1.1951314514694004e-13,
+          "liquid_regions": 1,
+          "pass": true
+        },
+        {
+          "case": "focused",
+          "direct_seconds": 0.007667698999739514,
+          "schur_seconds": 0.0052313999999569205,
+          "max_velocity_difference_m_per_s": 1.7377727945869226e-17,
+          "max_pressure_difference_pa": 3.987424539858564e-16,
+          "relative_volume_pressure_rms_difference": 9.410895574898273e-14,
+          "liquid_regions": 1,
+          "pass": true
+        },
+        {
+          "case": "tiny",
+          "direct_seconds": 0.035892157000034786,
+          "schur_seconds": 0.0140783450001436,
+          "max_velocity_difference_m_per_s": 1.605872038218901e-16,
+          "max_pressure_difference_pa": 8.618499062204923e-12,
+          "relative_volume_pressure_rms_difference": 1.3416288544158678e-13,
+          "liquid_regions": 1,
+          "pass": true
+        },
+        {
+          "case": "rotated",
+          "direct_seconds": 2.498097229999985,
+          "schur_seconds": 0.26623779999999897,
+          "max_velocity_difference_m_per_s": 7.455372243495538e-18,
+          "max_pressure_difference_pa": 3.762452589067822e-16,
+          "relative_volume_pressure_rms_difference": 2.135430838503276e-13,
+          "liquid_regions": 1,
+          "pass": true
+        },
+        {
+          "case": "disconnected",
+          "direct_seconds": 0.14810983000006672,
+          "schur_seconds": 0.03546666700003698,
+          "max_velocity_difference_m_per_s": 1.0638733817514012e-18,
+          "max_pressure_difference_pa": 3.791997098268052e-17,
+          "relative_volume_pressure_rms_difference": 5.462803765394081e-14,
+          "liquid_regions": 2,
+          "pass": true
+        }
+      ],
+      "overall_pass": true
+    },
+    "linear_only_wall_diagnostic": [
+      {
+        "focused": false,
+        "n": 10,
+        "relative_velocity_error": 0.26231709020843363,
+        "pressure_rms_over_scale": 0.7363703662438378
+      },
+      {
+        "focused": true,
+        "n": 10,
+        "relative_velocity_error": 0.6159199411747469,
+        "pressure_rms_over_scale": 2.407944631194323
+      }
+    ]
+  },
+  "verification": {
+    "final_current_and_archived_source_hashes_match": true,
+    "previous_archived_source_hashes_match": true,
+    "all_20_field_archives_finite": true,
+    "acceptance_tolerances_unchanged": true,
+    "refinement_figure_visually_inspected": true,
+    "full_suite": {
+      "tests": 214,
+      "result": "PASS",
+      "seconds": 87.997
+    },
+    "focused_ruff": "PASS",
+    "formatting": "PASS",
+    "whitespace": "PASS"
+  }
+}

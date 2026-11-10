@@ -1,82 +1,134 @@
-# Simulation readiness for AI development
+# Readiness for the first growth model
 
-The intended model predicts growth and quality under candidate temperature,
-rotation and circulation actions. Training trajectories need a verified response
-to those actions, and observations must represent quantities available to future
-sensors/cameras. A passing passive-fluid test does not supply growth/quality
-labels or a calibrated actuator response.
+The simulation is intended to generate synthetic examples for model development,
+pretraining and controlled experiments. A first XGBoost prototype can learn the
+simulator's growth behavior before every physical extension is complete. Its
+performance on synthetic holdouts describes that simulated world. Physical KDP
+predictions and control recommendations need separate experimental evidence.
 
-Current work covers physical-reference/source audits and fixed-domain numerical
-flow verification, including pressure/viscosity coupling; model training remains
-deferred. The existing package layout and placeholder
-commands are preserved. See [PHYSICAL_DATA.md](PHYSICAL_DATA.md).
+The current priority is a bounded data-readiness milestone, followed by the first
+growth-only baseline/model. Further CFD expansion is conditional on an identified
+modeling need. The existing dataset-generation entry point now records controlled episodes and
+causal growth labels. The training entry point remains a placeholder; there is no
+model, fitted baseline or ML dependency. See [SYNTHETIC_DATA.md](SYNTHETIC_DATA.md)
+for commands, schema, provenance and a complete code review map.
 
-## Real-data preparation and the first XGBoost baseline
+## Alignment with the original plan
 
-Real-data ingestion and an offline supervised baseline can proceed alongside
-the remaining simulation work. They do not require a complete CFD growth model
-when the training targets are measured experimental outcomes. The original
-`Pitch_KDP.pptx`, slides 7-9, puts real/synthetic data before model development
-and describes HPC as an extension. The roadmap retains camera-based monitoring,
-human oversight and an XGBoost predictive layer; a tabular growth baseline is
-one component of that system, not the complete vision/control demonstration.
+[Pitch_KDP.pptx](../Pitch_KDP.pptx), slides 7–9, calls for real and synthetic data,
+separate real-data evaluation and literature-supported limits. Its explicit
+synthetic examples are images of defects/lighting/reflections for vision. Slide 8
+presents detailed Navier–Stokes/HPC as an extension. The later roadmap adds
+XGBoost growth prediction from tabular trajectories; XGBoost is not named in the
+deck. These are related but different datasets and model tasks.
 
-1. Define experiment/source identifiers, timestamps, physical units and
-   concentration basis, measurement uncertainty, available sensor/geometry
-   features, action histories and an explicit prediction horizon. Preserve
-   missing values and distinguish measured quantities from estimates.
-2. Import and audit the first real dataset. The published records in
-   `configs/benchmarks/` contain aggregate measurements, not raw trajectories.
-   The ignored `data/transitions*` files are obsolete planar synthetic data;
-   neither supplies a validated current training dataset.
-3. Split whole experiments before constructing temporal windows. Train a simple
-   reference predictor and an XGBoost growth regressor using only features
-   available at prediction time; report held-out experimental errors. Predict
-   the quantity actually measured, such as facet-normal advance; do not infer
-   true mass gain from an uncalibrated single camera view.
-4. Add quality/anomaly targets only when corresponding independent labels
-   exist. Keep real evaluation separate from synthetic training data. Learning
-   action effects requires suitable action variation and timing; predictive
-   accuracy alone does not establish a beneficial control schedule.
+A fluid solver can improve transport assumptions when coupled to growth. It does
+not generate optical-defect annotations or calibrated quality targets. Camera
+image synthesis and annotation are not prerequisites for a first tabular growth
+prototype with explicitly declared observation assumptions.
 
-`scripts/train_xgboost.py`, `scripts/generate_dataset.py` and the environment
-adapter remain placeholders. No model has been trained or validated by the
-flow/solute/pressure checks. The sequence below applies to simulation-generated
-growth-control training; it does not block the real-data work above.
+## Simulator fidelity depends on the intended result
 
-## Current position
-
-| Dependency | Current evidence or remaining work |
+| Intended result | Required preparation |
 |---|---|
-| Convex crystal geometry and local facet sampling | Implemented and tested in the illustrative 3D growth engine. |
-| SI contract and reference properties | Explicit concentration bases and a sourced constant-property point at 30 C; broader property curves remain to obtain. |
-| Fixed-domain momentum and passive solute | Uniform and unequal/focused Cartesian grids have independent numerical references. |
-| Sloped crystal momentum boundary | Actual geometry/shared pressure and embedded no-slip viscosity are verified. A monolithic linear Stokes step now joins pressure to the same face means, with conserved volume and a compatible energy budget; see [CUTCELL_STOKES.md](CUTCELL_STOKES.md). Nonlinear momentum fluxes and advective small-cell handling remain required; the full runtime still rejects partial momentum cells. |
-| Flow coupled to crystal growth | Pending. Reconcile interfacial solute flux, solution/solid densities, solvent accounting and rising-level volume closure. |
-| KDP kinetic calibration | Published reference records exist; face laws, applicable ranges, uncertainty and independent experimental validation remain required. |
-| Temperature/buoyancy and physical forcing | Source thermal properties and density derivatives; define physical ports/rotation geometry, setpoints and histories. |
-| Quality target | Independent measurable quality limits and labels remain required. The synthetic defect counter is not optical quality. |
-| Actuator dynamics | Define delays, slew/ramp limits and command timing before controller comparisons. |
-| AI observation/action adapter | Placeholder only. Specify timestamped units, history windows, measurement confidence and missing values; keep exact simulator labels separate from observations. |
-| Training/validation protocol | Define fixed-recipe/PID baselines, equal starting conditions/budgets, whole-experiment splits and numerical acceptance ranges before generating training data. |
+| Synthetic growth software prototype | A reproducible bounded simulator, known units/assumptions, causal input/target definitions, audited episodes and independent scenario splits. Full CFD is optional. |
+| Real KDP growth prediction | A response model calibrated for the intended range and evaluated on held-out experiments. A reduced or empirical model can be sufficient; choose CFD if the target or discrepancies justify it. |
+| Quantitative local flow/mass-transfer prediction | Verified and appropriately resolved flow/solute coupling, actual forcing/boundaries and relevant experimental comparisons. Moving-growth labels additionally need interfacial uptake/motion and volume closure. |
+| Visible-defect/segmentation model | Rendered or measured images with spatial annotations and separate real-image evaluation. A scalar synthetic defect count cannot label optical quality. |
+| Physical growth/quality controller | Valid action-response and quality targets, equipment/process limits, actuator timing and independent closed-loop assessment beyond regression accuracy. |
 
-## Next implementation order
+More synthetic samples cannot independently correct a wrong growth law or an
+unsupported action effect. [NIST's calibration guidance](https://www.nist.gov/publications/calibration-and-uncertainty-analysis-predictions-computational-models)
+distinguishes uncertainty in measurements/inputs from inadequacy of the model,
+and discusses calibrating simulations with limited physical experiments. For
+this project, physical validation is a separate gate from software prototyping.
 
-1. Build conservative nonlinear momentum transport on the shared volume/face
-   representation and fluxes from [linear Stokes coupling](CUTCELL_STOKES.md).
-   Verify momentum/energy, advective small-cell handling and combined spatial/time
-   accuracy before enabling the full oblique cut-cell runtime. Keep the measured
-   resolution limits, including failed coarse focused grids, explicit.
-2. Couple conservative interfacial uptake and boundary motion using an explicit
-   density/partial-volume closure; repeat coupled growth/flow/scalar refinement.
-3. Add sourced physical properties, defined forcing and applicable kinetics,
-   then compare with independent published or experimental measurements.
-4. Define quality/process limits and actuator/observation timing; implement the
-   shared simulation-to-controller contract and deterministic episode recording.
-5. Generate bounded, versioned trajectories and compare fixed-recipe, PID and
-   action-conditioned XGBoost control over held-out whole experiments.
+## What we have now
 
-Each completed numerical gate applies to its measured regime. New seed shapes,
-orientations, growth speeds, forcing ranges and grid focus bands require their
-own resolution checks. The current work prepares the flow foundation; it does
-not yet satisfy the roadmap's gate for growth-control training.
+The existing illustrative 3D growth engine already has geometry, conservation,
+reproducibility and numerical-convergence checks in declared regimes. Its length,
+time, mass and growth coefficients have not been converted into a calibrated
+physical KDP growth model merely by adding SI reference files.
+
+The new fixed-domain cut-cell momentum operators pass 214 tests and 20 declared
+numerical cases; see [CUTCELL_MOMENTUM.md](CUTCELL_MOMENTUM.md). They remain
+separate from the growing-crystal engine and currently do not change its growth
+labels. This checkpoint includes the numerical work alongside the data pipeline.
+Its original coarse mesh failures, resolved focused mesh budgets and scope limits
+remain explicit.
+
+## Implemented data milestone and final gate
+
+The recorder now supports temperature and aggregate agitation commands, exact
+sample/decision clocks, isolated noisy/delayed sensor proxies, causal lagged
+features, raw truth separation and per-step invariants. It records every resolved
+configuration, actual source contents, final fields and failed attempts. Whole
+base/family groups receive their split before samples exist. The audit reconstructs
+features, labels and splits from raw records rather than trusting a saved green
+report. Serial/parallel reproducibility and tamper/failure paths are tested.
+
+The initial target is volume gain over 10 model time units; the model units are
+explicit and quality remains unavailable. The pilot contains six initial
+concentration groups and six paired control recipes, with fixed kinetics,
+geometry and 30-unit duration. It measures a limited synthetic interpolation
+problem, not generalization to new physical laws or real KDP. A single camera
+cannot supply all the idealized geometric proxies in these first tabular inputs.
+The original vision dataset remains a separate future task.
+
+The data-generation gate is complete for the declared regime: 36 32^3 focused
+episodes, 108 audited samples, 60 completed resolution/action cases, exact
+full-sized serial/parallel replay and a changed-worker CLI resume. All 227 tests
+pass. The finest spatial label/facet errors are 0.758%/1.266%; the pilot timestep
+and finer timestep comparisons meet the original 2% gate. Coarser numerical
+failures and the corrected vertex-order audit attempt remain recorded.
+
+See [SYNTHETIC_DATA_CHECKPOINT.json](SYNTHETIC_DATA_CHECKPOINT.json) for the exact
+configuration, source hashes, original tolerances, per-comparison results,
+action sensitivity, replay and cost. The growing engine still uses illustrative
+units/laws. Several small early temperature/high-agitation effects do not exceed
+the summed resolution-change estimates across all horizons; those estimates
+cannot justify an action ranking. There is no validated quality/cost tradeoff.
+
+The user authorized committing and pushing the simulation/data checkpoint on
+2026-11-10. We are ready to begin a separate synthetic growth-model phase using
+this bounded data contract. No further CFD feature is required for that task.
+This checkpoint adds no ML code, fitted baseline or ML dependency. Adequate
+training-set size and real performance remain to be assessed in subsequent phases.
+
+Persistence and recent-volume-rate baseline definitions and error metrics are
+recorded for the subsequent model phase, without fitting or computing predictions
+now. A small pilot establishes data plumbing, not the eventual sample count.
+Further synthetic groups/repeats can use the generator after reviewing the
+accepted regime. Different ranges/geometry/horizons require renewed sensitivity
+checks; learning curves and training decisions belong to the later ML work.
+
+## What can wait, and when to resume it
+
+The next higher-fidelity physics task is canonical closed/periodic flow/scalar
+integration, followed by passive-solute conservation/refinement and synchronized
+clocks. The shear-free rigid lid needs its own boundary stencil and verification.
+Physical uptake/moving geometry and density/partial-volume closure follow if
+that CFD route is used to generate growth data. Current runtime guards remain.
+
+Resume that work when a required output depends on resolved flow, a data
+comparison identifies missing transport behavior, or a calibrated reduced model
+cannot represent the intended control range. Specify the output/decision, expected
+benefit and validation experiment first. Thermal/buoyancy curves, physical
+stirrer/port geometry, turbulence and further solver optimization are conditional
+extensions rather than automatic prerequisites for every first ML experiment.
+
+## Real-data work and physical claims
+
+Collect suitable measured growth trajectories and conditions in parallel. COD is
+a structural reference, not growth history. Published KDP fit summaries and
+aggregate tables support bounded reference checks; they are not raw independent
+experiments and cannot be expanded into measured trajectories. No reviewed raw
+KDP growth time series is currently imported; see [PHYSICAL_DATA.md](PHYSICAL_DATA.md).
+
+For physical predictions, fit the relevant response on calibration experiments
+and evaluate on whole held-out real experiments, with uncertainty and operating
+limits. Keep real test data out of simulator calibration and model selection.
+Synthetic-only holdouts cannot establish transfer to real crystals. A real-data
+baseline can proceed when suitable observations exist, without waiting for full
+CFD. Quality, camera monitoring, actuator behavior and physical control require
+their own labels/checks. See [REAL_DATA_VALIDATION.md](REAL_DATA_VALIDATION.md).

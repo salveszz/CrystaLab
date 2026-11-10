@@ -618,3 +618,50 @@ the declared scale is 1.9792%/3.0236%. All 198 regression tests pass. Exact sour
 hashes, full metrics, original failed evidence and environment are retained in
 `docs/CUTCELL_STOKES_CHECKPOINT.json`. The result verifies a fixed linear
 operator at its declared resolution, not full nonlinear cut-cell growth flow.
+
+## IMPLICIT-CUTCELL-TRANSPORT-2023
+
+May, S.; Laakmann, F., *Accuracy analysis for explicit-implicit finite volume
+schemes on cut cell meshes*, [primary manuscript](https://arxiv.org/pdf/2310.16101),
+accessed 2026-11-09. Introduction and section 2 discuss the small-cell explicit
+stability restriction and implicit treatments; stability does not establish
+accuracy. The project uses fully implicit first-order upwind transport everywhere,
+not the paper's mixed MUSCL-Trap method, and makes no second-order claim. Its
+own finite-volume momentum/energy identities and independent tests are documented
+in `docs/CUTCELL_MOMENTUM.md`.
+
+## PRESSURE-SCHUR-2019
+
+Bootland, N.; Bentley, A.; Kees, C.; Wathen, A. (2019), *Preconditioners for
+Two-Phase Incompressible Navier–Stokes Flow*, SIAM Journal on Scientific
+Computing 41(4), B843–B869,
+[primary PDF](https://strathprints.strath.ac.uk/68686/7/Bootland_etal_SIAM_2019_Preconditioners_for_two_phase_incompressible_Navier_Stokes.pdf),
+section 2.2, equation 26, accessed 2026-11-09. The constant-property
+Cahouet–Chabard inverse combines pressure mass and Laplacian inverse terms.
+The optional project Schur backend adapts that form to its scaled unknowns and
+volume-mean pressure quotient. The actual Schur matvec and original saddle
+residual use the unchanged project equations. No variable-density/two-phase
+method, penalty or preconditioner-as-physics approximation is adopted.
+
+## CUTCELL-MOMENTUM-NUMERICAL-20261109
+
+`configs/momentum_verification.json` defines mathematical transport/nonlinear
+verification inputs, not measured KDP data. The first 6/10/14 wall study in
+`results/momentum_initial_bb4264a/` fails the high-curvature wall accuracy gate;
+its conservation, energy, bounds, wave, ABC, time and tiny-cell gates pass.
+Retain that failure and all original tolerances. The refined study uses the
+same 3D curl reference on 24/36/48 wall grids, with a tested optional Schur solve
+and an added complete coupled tiny-cell stress case at outgoing Courant 1000.
+The donor scheme is first order and introduces separately measured numerical
+dissipation. Canonical runtime integration, passive-solute/growth coupling,
+physical calibration and AI readiness remain separate work.
+
+The accepted `results/momentum_background_resolved_bb4264a/` study passes all
+20 cases with the original tolerances/reference. Focused outer intervals are
+explicitly subdivided to the background width L/n; nominal 12/18/24 gives actual
+17^3/27^3/34^3 grids, so this is not equal-cell-budget evidence. Finest uniform/
+focused velocity errors are 4.9190%/3.3665%, scaled pressure 17.387%/12.813%.
+Both Courant-1000 cases retain ~1e-10 capacities and pass momentum/energy/bounds.
+All 214 tests pass. Source-matched records and failed/interrupted history are
+in `docs/CUTCELL_MOMENTUM_CHECKPOINT.json`; current regime limits and source
+changes are explained in `docs/CUTCELL_MOMENTUM.md`.

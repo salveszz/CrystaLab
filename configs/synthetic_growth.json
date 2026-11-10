@@ -1,0 +1,254 @@
+{
+  "description": "Bounded illustrative growth-only pilot; model units, uncalibrated controls/kinetics, quality unavailable. Independent concentration groups, paired recipes, no ML.",
+  "simulation": {
+    "width": 10.0,
+    "depth": 8.0,
+    "height": 8.0,
+    "nx": 32,
+    "ny": 32,
+    "nz": 32,
+    "temperature": 25.0,
+    "concentration": 1.35,
+    "temperature_gradient": 0,
+    "seed_normals": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        -1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        -1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        -1,
+        1
+      ],
+      [
+        1,
+        0,
+        -1
+      ],
+      [
+        -1,
+        0,
+        -1
+      ],
+      [
+        0,
+        1,
+        -1
+      ],
+      [
+        0,
+        -1,
+        -1
+      ]
+    ],
+    "seed_offsets": [
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7
+    ],
+    "face_growth": [
+      0.025,
+      0.025,
+      0.025,
+      0.025,
+      0.015,
+      0.015,
+      0.015,
+      0.015,
+      0.015,
+      0.015,
+      0.015,
+      0.015
+    ],
+    "rotation": 0.5,
+    "circulation": 0.5,
+    "impurity": 0.0,
+    "defect_rate": 0.0,
+    "dt": 1.0,
+    "duration": 30,
+    "seed": 42,
+    "initial_liquid_height": 6.0,
+    "mixing_diffusivity": 0.02,
+    "grid_focus_width": 3.6,
+    "boundary_layer_cells": 2.4,
+    "concentration_noise": 0
+  },
+  "recording": {
+    "sample_interval": 2,
+    "decision_interval": 10,
+    "forecast_horizon": 10,
+    "history_samples": 2,
+    "sensor_delay": 2,
+    "relative_observation_noise": 0.002,
+    "temperature_observation_noise": 0.02,
+    "observation_seed": 103
+  },
+  "groups": [
+    {
+      "id": "c125",
+      "family_id": "c125",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.25,
+        "seed": 101
+      }
+    },
+    {
+      "id": "c135",
+      "family_id": "c135",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.35,
+        "seed": 102
+      }
+    },
+    {
+      "id": "c145",
+      "family_id": "c145",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.45,
+        "seed": 103
+      }
+    },
+    {
+      "id": "c130",
+      "family_id": "c130",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.3,
+        "seed": 104
+      }
+    },
+    {
+      "id": "c128",
+      "family_id": "c128",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.28,
+        "seed": 105
+      }
+    },
+    {
+      "id": "c140",
+      "family_id": "c140",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.4,
+        "seed": 106
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "baseline",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 25,
+          "agitation": 1
+        }
+      ]
+    },
+    {
+      "id": "cool",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 22,
+          "agitation": 1
+        }
+      ]
+    },
+    {
+      "id": "warm",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 28,
+          "agitation": 1
+        }
+      ]
+    },
+    {
+      "id": "low_agitation",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 25,
+          "agitation": 0
+        }
+      ]
+    },
+    {
+      "id": "high_agitation",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 25,
+          "agitation": 2
+        }
+      ]
+    },
+    {
+      "id": "staged",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 25,
+          "agitation": 1
+        },
+        {
+          "time": 10,
+          "temperature": 22,
+          "agitation": 1
+        },
+        {
+          "time": 20,
+          "temperature": 25,
+          "agitation": 2
+        }
+      ]
+    }
+  ]
+}

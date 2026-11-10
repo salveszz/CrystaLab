@@ -11,10 +11,13 @@
 # synthetic counts, not measured quality. Partial liquid volumes exclude solid,
 # a rising free surface conserves carrier volume, and displacement advects solute/heat.
 # The potential-flow remap is quasistatic; mixing/kinetics remain uncalibrated.
+# External episode recording can change bounded bath/agitation commands without
+# reinitializing fields, geometry or the simulation random-number stream.
 
 """Faceted 3D growth with liquid exclusion and open-tank displacement."""
 
 import math
+from dataclasses import replace
 from numbers import Real
 
 import numpy as np
@@ -42,6 +45,30 @@ class Simulation:
         self.tank = Tank(c, self.rng, crystal=self.crystal)
         self.time = 0.0
         self.history = [self.measurements()]
+
+    def set_controls(self, *, temperature=None, agitation=None):
+        """Update illustrative bath and aggregate stirring commands atomically.
+
+        Temperature remains a setpoint with the configured thermal relaxation.
+        Rotation/circulation enter the same law through their sum; represent an
+        aggregate command by an equal split rather than claiming separate effects.
+        """
+        if self.time >= self.config.duration:
+            raise ValueError("Cannot command a completed simulation")
+        updates = {}
+        if temperature is not None:
+            updates["temperature"] = temperature
+        if agitation is not None:
+            if (
+                isinstance(agitation, bool)
+                or not isinstance(agitation, Real)
+                or not math.isfinite(agitation)
+                or agitation < 0
+            ):
+                raise ValueError("Aggregate agitation must be finite and nonnegative")
+            updates.update(rotation=agitation / 2, circulation=agitation / 2)
+        updated = replace(self.config, **updates)
+        self.config = self.tank.config = updated
 
     @property
     def total_mass(self):

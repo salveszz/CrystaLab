@@ -5,8 +5,10 @@ their pressure projection. A subsequent standalone embedded viscosity study now
 passes; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md). Together these do **not**
 yet enable full sloped-crystal Navier–Stokes time stepping. The new
 [linear Stokes coupling](CUTCELL_STOKES.md) uses shared viscous face means and
-pressure with a compatible energy budget. Nonlinear momentum transport and
-advective small-cell verification remain required. `IncompressibleFlow` continues
+pressure with a compatible energy budget. The subsequent
+[split momentum operator](CUTCELL_MOMENTUM.md) adds conservative implicit
+advection and small-cell handling, with independent numerical acceptance in
+its declared regimes. Canonical flow/scalar integration remains required. `IncompressibleFlow` continues
 to reject partial momentum cells.
 
 The existing uniform/rectilinear runtime now delegates to the same

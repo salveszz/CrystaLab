@@ -76,9 +76,11 @@ operator acts on different unknowns and an A*d metric. Pressure/viscosity
 coupling is now implemented directly on these shared traces in
 [CUTCELL_STOKES.md](CUTCELL_STOKES.md), with a monolithic linear solve and
 combined conservation/work checks. This does not turn normal-face export into
-an energy-compatible interpolation or enable full nonlinear cut-cell flow. Nonlinear momentum fluxes and advective
-small-cell handling remain subsequent work. The canonical flow's partial-cell
-rejection remains active.
+an energy-compatible interpolation. The later
+[split momentum operator](CUTCELL_MOMENTUM.md) now verifies conservative
+nonlinear transport and implicit small-cell handling in its declared regimes.
+Canonical flow/scalar integration remains pending, and the runtime's partial-cell
+rejection stays active.
 
 The thin-layer numerical stress test retains a liquid fraction of 1e-7; its
 subnanometer thickness is not a physical continuum experiment. Geometric moment

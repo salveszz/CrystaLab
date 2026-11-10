@@ -1,0 +1,110 @@
+{
+  "source_id": "DESIGN-CUTCELL-MOMENTUM-008",
+  "length_m": 0.01,
+  "kinematic_viscosity_m2_per_s": 1e-06,
+  "density_kg_per_m3": 1170.0,
+  "speed_m_per_s": 0.0001,
+  "seed": 113,
+  "transport_wave": {
+    "counts": [
+      8,
+      16,
+      24
+    ],
+    "duration_s": 5.0,
+    "outgoing_courant": 0.25
+  },
+  "abc": {
+    "counts": [
+      6,
+      10,
+      14
+    ],
+    "duration_s": 1.0,
+    "dt_s": 0.025
+  },
+  "sloped_wall": {
+    "intercept_m": 0.002,
+    "slope_dz_dy": 0.5,
+    "counts": [
+      12,
+      18,
+      24
+    ],
+    "focus_width_m": 0.0036,
+    "quadrature_order": 12,
+    "streamfunction_scale": 4096.0,
+    "duration_s": 2.0,
+    "dt_s": 0.05,
+    "max_background_width_factor": 1.0
+  },
+  "temporal": {
+    "n": 6,
+    "duration_s": 0.4,
+    "decay_time_s": 1.0,
+    "steps": [
+      4,
+      8,
+      16
+    ],
+    "reference_steps": 128
+  },
+  "rotated_cube": {
+    "width_m": 0.003,
+    "center_m": [
+      0.005,
+      0.005,
+      0.005
+    ],
+    "angles_rad_xyz": [
+      0.3,
+      0.2,
+      0.1
+    ],
+    "counts_xyz": [
+      8,
+      8,
+      8
+    ],
+    "max_axis_refinements": 48
+  },
+  "subcell_cube": {
+    "width_m": 0.0002,
+    "center_m": [
+      0.0051,
+      0.0052,
+      0.0049
+    ],
+    "counts_xyz": [
+      8,
+      8,
+      8
+    ]
+  },
+  "tiny_cycle": {
+    "n": 8,
+    "relative_gap": 1e-05,
+    "target_outgoing_courant": 1000.0
+  },
+  "unforced": {
+    "steps": 4,
+    "dt_s": 0.1
+  },
+  "gates": {
+    "finest_transport_relative_rms_error": 0.08,
+    "finest_abc_relative_velocity_error": 0.08,
+    "finest_abc_relative_pressure_error": 0.25,
+    "finest_wall_relative_velocity_error": 0.05,
+    "finest_wall_pressure_rms_over_scale": 0.25,
+    "minimum_spatial_rate": 0.7,
+    "minimum_temporal_rate": 0.7,
+    "maximum_relative_momentum_error": 1e-09,
+    "maximum_relative_work_error": 1e-08,
+    "maximum_relative_volume_flux": 1e-10,
+    "maximum_relative_bound_violation": 1e-10,
+    "maximum_relative_energy_increase": 1e-12
+  },
+  "limits": "Stationary, closed or periodic cut-cell split momentum operator. Fully implicit first-order donor transport uses the previous constrained face flux, followed by monolithic linear Stokes. First order in space/time with measured artificial damping. No fully implicit nonlinear solve, free-surface stress, moving interface, growth calibration, solute coupling, AI or automatic replacement of the canonical MAC runtime. Small-cell stability does not establish accuracy at large Courant number.",
+  "linear_solver": "schur",
+  "protocol_note": "Revision 3 retains every original acceptance tolerance and the same 3D curl reference. Original 6/10/14 wall accuracy failed (results/momentum_initial_bb4264a). Uniform 24/36/48 passed, but aggressive focused 24/36 still failed; the remaining expensive 48 case was interrupted and partial evidence retained in results/momentum_refined_bb4264a. The new focused study subdivides outer intervals wider than L/n, retaining the same focus band, domain and crystal. Report nominal background count n and actual refined counts/edges. This uses extra cells and does not validate the earlier fixed-count meshes. Use the tested Schur backend and include the complete coupled Courant-1000 case."
+}

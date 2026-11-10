@@ -20,6 +20,23 @@ standalone source/access audit. Model training remains deferred. Published fit
 summaries and aggregate tables are not raw trajectories, and no inaccessible
 candidate file is represented as an imported experimental dataset.
 
+## Prototype readiness and physical claims
+
+The immediate sequence is the bounded data contract, action/label audit and
+pilot recorder in [AI_READINESS.md](AI_READINESS.md), followed by a first
+growth-only synthetic model. Full CFD is optional for that software prototype.
+A calibrated empirical or reduced growth model can also support physical
+prediction in a validated range; detailed flow is needed when the target or
+experimental discrepancies require it.
+
+The numerical flow kernels remain separate from the growth engine and do not
+yet change its generated growth labels. Preserve their accepted work, while
+deferring further CFD expansion from the immediate prototype milestone. The
+calibration/independent-real-validation steps below apply before physical
+growth/quality or control claims, not as a requirement to begin every
+synthetic software experiment. Synthetic-only accuracy measures the selected
+simulator and its assumptions.
+
 ## First published reference
 
 `configs/benchmarks/kdp_wu2016.json` records the two face-growth regression

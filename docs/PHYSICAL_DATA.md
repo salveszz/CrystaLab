@@ -65,15 +65,21 @@ dependency relationships, clock origin, SI units and concentration basis,
 camera scale, uncertainty definitions, missing values and logged command timing.
 Measured sensors and equipment commands must remain distinct. A single camera
 view does not independently measure 3D crystal mass or internal optical quality.
-There is no new observation adapter or training schema implementation in this
-step; those choices should follow the actual available measurements.
+The separate synthetic recorder now provides explicitly idealized sensor proxies;
+it does not implement a real-measurement adapter. That adapter must follow the
+actual available measurements; see [SYNTHETIC_DATA.md](SYNTHETIC_DATA.md).
 
 A standalone embedded tangential no-slip viscosity operator now passes its
 independent numerical checks; see [CUTCELL_VISCOSITY.md](CUTCELL_VISCOSITY.md).
 Pressure now couples to the same velocity representation in the
-[linear Stokes step](CUTCELL_STOKES.md), with a compatible energy budget. Next
-verify nonlinear cut-cell momentum and advective small-cell handling.
-Interfacial uptake/motion and physical density/partial-volume accounting follow.
+[linear Stokes step](CUTCELL_STOKES.md), with a compatible energy budget. The
+accepted [split momentum operators](CUTCELL_MOMENTUM.md) remain separate from
+the growth engine. Their flow/scalar adapter and subsequent uptake/motion/volume
+closure are conditional higher-fidelity work. The immediate priority is the
+bounded synthetic data pipeline and its pilot/resolution/action audit in
+[AI_READINESS.md](AI_READINESS.md); full CFD is not required for the first
+synthetic growth prototype. Real-data collection and physical calibration
+remain important for claims about measured KDP behavior.
 
 ## Files changed
 
