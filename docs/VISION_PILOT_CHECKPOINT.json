@@ -1,0 +1,418 @@
+{
+  "checked_at_utc": "2026-11-11T15:57:44.485369+00:00",
+  "scope": "Grouped synthetic perception experiment and seed comparison; not real KDP, temporal alert or physical controller validation",
+  "tests": {
+    "status": "pass",
+    "tests": 270,
+    "subtests": 136,
+    "seconds": 239.56,
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "log": "/tmp/crystalab-benchmark-regression.log",
+    "additional_execution": "New train-only preview CLI executed against both the smoke dataset and completed pilot"
+  },
+  "source_sha256": {
+    "src/models/vision_benchmark.py": "d043df113ab964848124c919df4d443e146ec2e16cb0d83c1425a871b1fe1983",
+    "src/models/segmentation_eval.py": "955ee9327d1c32690a599afb168021fc0d3d558b012fc634222d4ad953efa73f",
+    "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a",
+    "scripts/benchmark_vision.py": "71ad6faad0d905e15b7b3621314c470ba37b15879dfcbbad30a23c1977fe0b42",
+    "scripts/preview_optical_dataset.py": "e3b5b859e504ed7f1d0899b7b1cd8c060b12cd278498a1916455e45f85ebfa37",
+    "tests/test_vision_benchmark.py": "4cffa33497c93ddbfcfa084e47e9067eb1a205d26da382f8d33a6859d7ed6d39",
+    "configs/optical_seed_baseline.json": "e6485abb7960de46163dccb982360fdc923c12e931808dbaedacea59080d58ba",
+    "configs/optical_seed_roi.json": "823dd5a369b61b3186ea26373e01277f32a66cc0ac1d37863b3651d6dcbe399c",
+    "configs/optical_seed_calibration.json": "887118d562c7901c3a0ec53e3e7974b4da7d9169d84939df218e0f5d62463e6f"
+  },
+  "optical_dataset": {
+    "path": "data/synthetic_vision_pilot_v1",
+    "manifest_sha256": "6434179db8c54e16cba55378f67568999ebb050899ba3756ae4563e10f02e429",
+    "status": "complete",
+    "samples": 60,
+    "scenes": 20,
+    "samples_by_split": {
+      "train": 36,
+      "validation": 12,
+      "test": 12
+    },
+    "producer_source_sha256": {
+      "src/rendering/optical.py": "52c3984b135a6c6422f6c52124505f1c02bf91a05407089af83c0cdfda58231f",
+      "scripts/blender_optical_scene.py": "2424f7c78a6e50263244d8a52103d2ca8ff97126adf1d71a44e8d8c1138e4ce3",
+      "scripts/generate_vision_images.py": "1b443f72fb7d0030e2ce9a775d22923c04dbb071c8e1832b94830969ba9cea8d",
+      "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+      "configs/synthetic_growth.json": "87f5614e00bc0a0b0b8a1230ef042a4257a8536b43c110db954f8e04b971330c"
+    },
+    "current_auditor_sha256": "33c459ecf99355b5f9aacc173809a06512e0c2289295661c475f76b7cb4b835f",
+    "render_seconds": 2181.5084419819977,
+    "postprocess_environment": {
+      "python": "3.14.8",
+      "numpy": "2.5.0",
+      "opencv": "4.13.0"
+    },
+    "visual_review": {
+      "checked_at_utc": "2026-11-11T15:48:06.173844+00:00",
+      "reviewer": "Codex synthetic development QA",
+      "decision": "synthetic_development_QA_accepted",
+      "source_manifest_sha256": "6434179db8c54e16cba55378f67568999ebb050899ba3756ae4563e10f02e429",
+      "preview_manifest_sha256": "fb3077340a8e5c6cbc3e2cebec9a25fd9bfc58438347acec78b87d45f201922d",
+      "inspected_training_samples": [
+        "optical_pilot_000:0",
+        "optical_pilot_000:2",
+        "optical_pilot_001:0",
+        "optical_pilot_001:2",
+        "optical_pilot_002:0",
+        "optical_pilot_002:2",
+        "optical_pilot_003:0",
+        "optical_pilot_003:2",
+        "optical_pilot_004:0",
+        "optical_pilot_004:2",
+        "optical_pilot_005:0",
+        "optical_pilot_005:2",
+        "optical_pilot_006:0",
+        "optical_pilot_006:2",
+        "optical_pilot_007:0",
+        "optical_pilot_007:2",
+        "optical_pilot_008:0",
+        "optical_pilot_008:2",
+        "optical_pilot_009:0",
+        "optical_pilot_009:2",
+        "optical_pilot_010:0",
+        "optical_pilot_010:2",
+        "optical_pilot_011:0",
+        "optical_pilot_011:2"
+      ],
+      "reason": "Both processed RGB/mask contact sheets inspected: first/last frames of all twelve training scenes. Seed/secondary outlines are usable for a first synthetic experiment; small inclusion proxies and reflection/overlap limits remain explicit.",
+      "scope": "Synthetic development software and proxy-label QA only; not a human real-image annotation receipt or real optical validation",
+      "limitations": [
+        "Uncalibrated nested dielectric optics, lighting and geometry progression",
+        "Emission masks change the target shader and select one component, so do not establish exact RGB visibility",
+        "Tiny inclusion candidates and overlapping secondary objects limit annotation fidelity and learning",
+        "Twenty base scenes and no physical-time, quality or action-response truth"
+      ]
+    }
+  },
+  "training_dataset": {
+    "path": "data/yolo_optical_pilot_v1",
+    "manifest_sha256": "d6f2105bd2ab37e10ad52976a915c109c6097e1c24f326309d17de16b75f1cf4",
+    "audit": {
+      "status": "pass",
+      "images": 60,
+      "families": 20,
+      "images_by_split": {
+        "train": 36,
+        "validation": 12,
+        "test": 12
+      },
+      "images_by_evidence": {
+        "synthetic": 60
+      },
+      "objects_by_class": {
+        "seed": 60,
+        "secondary_crystal": 38,
+        "inclusion_candidate": 21
+      },
+      "manifest_sha256": "d6f2105bd2ab37e10ad52976a915c109c6097e1c24f326309d17de16b75f1cf4"
+    }
+  },
+  "model": {
+    "path": "results/vision_training_pilot_v1",
+    "manifest_sha256": "6ce66979f40c76bbd83e7b5394b70e0f67cf09e45a5b8b0d5e9eed77d2ef69f6",
+    "config": {
+      "schema": "crystalab_yolov8_seg_train_v1",
+      "purpose": "grouped_experiment",
+      "description": "Bounded synthetic-only scene-grouped pilot. Real labels and KDP validation remain open.",
+      "epochs": 30,
+      "imgsz": 256,
+      "batch": 4,
+      "threads": 2,
+      "seed": 20261111,
+      "device": "cpu",
+      "learning_rate": 0.001
+    },
+    "environment": {
+      "python": "3.14.8",
+      "packages": {
+        "ultralytics": "8.4.210",
+        "torch": "2.12.1",
+        "torchvision": "0.27.1"
+      },
+      "platform": "Linux-7.2.13-200.fc44.x86_64-x86_64-with-glibc2.43",
+      "processor": "",
+      "cpu_count": 16,
+      "training_threads": 2,
+      "cuda_available": false,
+      "supporting_packages": {
+        "numpy": "2.5.0",
+        "opencv-python": "4.13.0.92",
+        "pillow": "12.3.0",
+        "scipy": "1.18.0",
+        "matplotlib": "3.11.0",
+        "ultralytics-thop": "2.2.5",
+        "polars": "2.1.0"
+      }
+    },
+    "elapsed_seconds": 59.41310151300422,
+    "best_weights": "ultralytics/train/weights/best.pt",
+    "best_weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+    "upstream_metrics": {
+      "metrics/precision(B)": 0.5394268410887338,
+      "metrics/recall(B)": 0.6666666666666666,
+      "metrics/mAP50(B)": 0.6131746031746032,
+      "metrics/mAP50-95(B)": 0.42015782828282827,
+      "metrics/precision(M)": 0.5394268410887338,
+      "metrics/recall(M)": 0.6666666666666666,
+      "metrics/mAP50(M)": 0.6131746031746032,
+      "metrics/mAP50-95(M)": 0.44719047619047625,
+      "fitness": 0.8673483044733046
+    }
+  },
+  "development": {
+    "path": "results/vision_training_pilot_eval_v1",
+    "manifest_sha256": "716c90bed0cda24a3f172439a69fc1c66229b2a3ea3acd054cd8e1f4763ae591",
+    "images": 12,
+    "families": 4,
+    "confidence": 0.25,
+    "iou_gate": 0.5,
+    "per_class": {
+      "seed": {
+        "tp": 12,
+        "fp": 0,
+        "fn": 0,
+        "truth": 12,
+        "iou_sum": 10.866106117465165,
+        "dice_sum": 11.403290181980651,
+        "precision": 1.0,
+        "recall": 1.0,
+        "mean_iou_per_truth_with_misses_zero": 0.9055088431220971,
+        "mean_dice_per_truth_with_misses_zero": 0.950274181831721
+      },
+      "secondary_crystal": {
+        "tp": 6,
+        "fp": 6,
+        "fn": 0,
+        "truth": 6,
+        "iou_sum": 4.699138909651122,
+        "dice_sum": 5.267030416751523,
+        "precision": 0.5,
+        "recall": 1.0,
+        "mean_iou_per_truth_with_misses_zero": 0.783189818275187,
+        "mean_dice_per_truth_with_misses_zero": 0.8778384027919205
+      },
+      "inclusion_candidate": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 6,
+        "truth": 6,
+        "iou_sum": 0.0,
+        "dice_sum": 0.0,
+        "precision": null,
+        "recall": 0.0,
+        "mean_iou_per_truth_with_misses_zero": 0.0,
+        "mean_dice_per_truth_with_misses_zero": 0.0
+      }
+    },
+    "latency": {
+      "first_predict_seconds": 1.354168560996186,
+      "subsequent_median_seconds": 0.018326045996218454,
+      "all_predict_p95_seconds": 0.6199916499463133,
+      "scope": "Model predict call on CPU including first-call setup; excludes data read, audit and artifact writing"
+    },
+    "visually_inspected_validation_images": 12,
+    "review_contact_sheet": "results/vision_training_pilot_eval_review_v1/validation_overlays.png",
+    "failure_finding": "Two synthetic bubbles in scene 013 account for six secondary false-positive instances across three frames; six inclusion candidates missed"
+  },
+  "baseline_calibration": {
+    "path": "results/vision_seed_pilot_calibration_v1",
+    "manifest_sha256": "a2a4baf68ccf0b2d11fa1eda49fb4a451db08afb15d237b0b8d17b57e8439514",
+    "training_images": 36,
+    "selected_candidate": {
+      "settings": {
+        "seed_point": [
+          128,
+          128
+        ],
+        "polarity": "dark",
+        "threshold": 176,
+        "minimum_area_px": 32,
+        "maximum_area_fraction": 0.8,
+        "morphology_size": 3,
+        "minimum_contrast": 5.0,
+        "minimum_focus": 0.0,
+        "minimum_iou": 0.1,
+        "ambiguity_margin": 0.05,
+        "maximum_gap_s": 2.0,
+        "roi": [
+          48,
+          48,
+          160,
+          160
+        ]
+      },
+      "report": {
+        "images": 36,
+        "truth_images": 36,
+        "valid_on_truth": 9,
+        "valid_coverage_on_truth": 0.25,
+        "false_valid_on_negative": 0,
+        "mean_iou_all_truth": 0.09514622377965691,
+        "mean_dice_all_truth": 0.1281617546237478,
+        "area_error_valid_count": 9,
+        "area_mae_px_valid": 2220.6666666666665,
+        "area_bias_px_valid": -2220.6666666666665
+      }
+    },
+    "candidate_count": 20,
+    "source_sha256": {
+      "src/models/vision_benchmark.py": "d043df113ab964848124c919df4d443e146ec2e16cb0d83c1425a871b1fe1983",
+      "src/vision/baseline.py": "567bedbc626959339e30af9b2d83000c43ffc6a0ef5a765144d864af8f41f359",
+      "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a"
+    }
+  },
+  "seed_comparison": {
+    "path": "results/vision_seed_pilot_benchmark_v1",
+    "manifest_sha256": "7f00addbaa507d3abe31211569d95e3a0a342296e49f8cc94c75e9d25d07dfa6",
+    "report": {
+      "baseline": {
+        "images": 12,
+        "truth_images": 12,
+        "valid_on_truth": 0,
+        "valid_coverage_on_truth": 0.0,
+        "false_valid_on_negative": 0,
+        "mean_iou_all_truth": 0.0,
+        "mean_dice_all_truth": 0.0,
+        "area_error_valid_count": 0,
+        "area_mae_px_valid": null,
+        "area_bias_px_valid": null
+      },
+      "learned": {
+        "images": 12,
+        "truth_images": 12,
+        "valid_on_truth": 12,
+        "valid_coverage_on_truth": 1.0,
+        "false_valid_on_negative": 0,
+        "mean_iou_all_truth": 0.9055088431220971,
+        "mean_dice_all_truth": 0.950274181831721,
+        "area_error_valid_count": 12,
+        "area_mae_px_valid": 199.0,
+        "area_bias_px_valid": -6.0
+      }
+    },
+    "per_family": {
+      "synthetic:optical_pilot_012": {
+        "baseline": {
+          "images": 3,
+          "truth_images": 3,
+          "valid_on_truth": 0,
+          "valid_coverage_on_truth": 0.0,
+          "false_valid_on_negative": 0,
+          "mean_iou_all_truth": 0.0,
+          "mean_dice_all_truth": 0.0,
+          "area_error_valid_count": 0,
+          "area_mae_px_valid": null,
+          "area_bias_px_valid": null
+        },
+        "learned": {
+          "images": 3,
+          "truth_images": 3,
+          "valid_on_truth": 3,
+          "valid_coverage_on_truth": 1.0,
+          "false_valid_on_negative": 0,
+          "mean_iou_all_truth": 0.8746161888950869,
+          "mean_dice_all_truth": 0.9331123338865158,
+          "area_error_valid_count": 3,
+          "area_mae_px_valid": 372.3333333333333,
+          "area_bias_px_valid": 372.3333333333333
+        }
+      },
+      "synthetic:optical_pilot_013": {
+        "baseline": {
+          "images": 3,
+          "truth_images": 3,
+          "valid_on_truth": 0,
+          "valid_coverage_on_truth": 0.0,
+          "false_valid_on_negative": 0,
+          "mean_iou_all_truth": 0.0,
+          "mean_dice_all_truth": 0.0,
+          "area_error_valid_count": 0,
+          "area_mae_px_valid": null,
+          "area_bias_px_valid": null
+        },
+        "learned": {
+          "images": 3,
+          "truth_images": 3,
+          "valid_on_truth": 3,
+          "valid_coverage_on_truth": 1.0,
+          "false_valid_on_negative": 0,
+          "mean_iou_all_truth": 0.9142182430433762,
+          "mean_dice_all_truth": 0.9551770225067422,
+          "area_error_valid_count": 3,
+          "area_mae_px_valid": 82.66666666666667,
+          "area_bias_px_valid": -82.66666666666667
+        }
+      },
+      "synthetic:optical_pilot_014": {
+        "baseline": {
+          "images": 3,
+          "truth_images": 3,
+          "valid_on_truth": 0,
+          "valid_coverage_on_truth": 0.0,
+          "false_valid_on_negative": 0,
+          "mean_iou_all_truth": 0.0,
+          "mean_dice_all_truth": 0.0,
+          "area_error_valid_count": 0,
+          "area_mae_px_valid": null,
+          "area_bias_px_valid": null
+        },
+        "learned": {
+          "images": 3,
+          "truth_images": 3,
+          "valid_on_truth": 3,
+          "valid_coverage_on_truth": 1.0,
+          "false_valid_on_negative": 0,
+          "mean_iou_all_truth": 0.9321561776302163,
+          "mean_dice_all_truth": 0.9648785804250242,
+          "area_error_valid_count": 3,
+          "area_mae_px_valid": 39.333333333333336,
+          "area_bias_px_valid": -12.0
+        }
+      },
+      "synthetic:optical_pilot_015": {
+        "baseline": {
+          "images": 3,
+          "truth_images": 3,
+          "valid_on_truth": 0,
+          "valid_coverage_on_truth": 0.0,
+          "false_valid_on_negative": 0,
+          "mean_iou_all_truth": 0.0,
+          "mean_dice_all_truth": 0.0,
+          "area_error_valid_count": 0,
+          "area_mae_px_valid": null,
+          "area_bias_px_valid": null
+        },
+        "learned": {
+          "images": 3,
+          "truth_images": 3,
+          "valid_on_truth": 3,
+          "valid_coverage_on_truth": 1.0,
+          "false_valid_on_negative": 0,
+          "mean_iou_all_truth": 0.9010447629197089,
+          "mean_dice_all_truth": 0.9479287905086015,
+          "area_error_valid_count": 3,
+          "area_mae_px_valid": 301.6666666666667,
+          "area_bias_px_valid": -301.6666666666667
+        }
+      }
+    },
+    "truth_images_with_fixed_point_inside": 12
+  },
+  "reserved_test_scored": false,
+  "real_review_receipts": 0,
+  "temporal_event_evaluation": false,
+  "physical_control_evaluation": false,
+  "remaining": [
+    "Human review of actual real image/event targets and frozen acceptance budgets",
+    "Learned timestamped video observation, identity and uncertainty",
+    "Bubble discrimination, inclusion visibility/scale and grouped learning curves",
+    "Real-only/mixed experiments and independent relevant real KDP evaluation",
+    "Temporal event alerts and real first-hour coverage",
+    "PID, bounded adaptation, operator demo and physical action-response evidence",
+    "HPC/GPU and justified Qiskit impurity-cluster study"
+  ]
+}

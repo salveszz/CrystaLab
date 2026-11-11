@@ -13,7 +13,13 @@ import numpy as np
 from scipy.optimize import linear_sum_assignment
 
 from models.segmentation import local_yolo
-from vision.training_data import CLASSES, audit_segmentation, safe_path, save_json
+from vision.training_data import (
+    CLASSES,
+    audit_segmentation,
+    polygon_masks,
+    safe_path,
+    save_json,
+)
 from vision.video import file_sha256
 
 
@@ -47,19 +53,6 @@ def match_instances(truth, predictions, threshold=0.5):
             if scores[i, j] > 0
         ]
     return matches
-
-
-def _truth_masks(path, shape):
-    height, width = shape
-    truth = []
-    for line in path.read_text().splitlines():
-        values = line.split()
-        points = np.asarray([float(v) for v in values[1:]]).reshape(-1, 2)
-        points = np.rint(points * [width, height]).astype(np.int32)
-        mask = np.zeros(shape, np.uint8)
-        cv2.fillPoly(mask, [points], 255)
-        truth.append(dict(class_id=int(values[0]), mask=mask))
-    return truth
 
 
 def evaluate_development(
@@ -138,7 +131,7 @@ def evaluate_development(
         (output / "overlays").mkdir()
         for index, row in enumerate(rows):
             image = cv2.imread(str(dataset / row["image_path"]))
-            truth = _truth_masks(dataset / row["label_path"], image.shape[:2])
+            truth = polygon_masks(dataset / row["label_path"], image.shape[:2])
             started = time.perf_counter()
             result = model.predict(
                 image,

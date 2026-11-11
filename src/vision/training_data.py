@@ -48,6 +48,20 @@ def polygon_line(class_id, points, width, height):
     return str(class_id) + " " + " ".join(f"{p:.9f}" for p in normalized.ravel())
 
 
+def polygon_masks(path, shape):
+    """Rasterize audited YOLO polygons with nearest-pixel coordinates for diagnostics."""
+    height, width = shape
+    truth = []
+    for line in Path(path).read_text().splitlines():
+        values = line.split()
+        points = np.asarray([float(v) for v in values[1:]]).reshape(-1, 2)
+        points = np.rint(points * [width, height]).astype(np.int32)
+        mask = np.zeros(shape, np.uint8)
+        cv2.fillPoly(mask, [points], 255)
+        truth.append(dict(class_id=int(values[0]), mask=mask))
+    return truth
+
+
 def mask_polygon(mask, minimum_iou=0.95):
     """YOLO external polygons fill holes; measure and bound that representation loss."""
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)

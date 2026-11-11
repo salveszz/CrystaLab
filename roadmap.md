@@ -8,8 +8,9 @@ temperature PID plus an adaptive supervisor, and traceable actions with an
 operator involved. The intended actions are temperature-ramp changes, rotation
 and circulation. The demonstration must identify its material and evidence level.
 
-**The next milestone is a reviewed image-data pilot and a reproducible first
-vision experiment.** Continue from the existing video/annotation/rendering tools.
+**The next milestone is a reviewed real-image/event pilot and learned observation
+of timestamped video.** Continue from the existing video/annotation/rendering tools
+and the completed grouped synthetic experiment.
 Preserve the simulation and growth dataset as supporting assets. New CFD work or
 an XGBoost benchmark does not close the perception/control requirements.
 
@@ -26,8 +27,8 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 | Video observation | File/camera adapters, explicit clocks, OpenCV seed tracking, masks, measurements and validity-event export. | Reviewed real accuracy, defect events and live equipment verification. Validity events are not defect detections. |
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies and a separate ADP movie. | Reviewed pixel/event labels and representative independent KDP evaluation data. Source fits are not segmentation masks. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews and guarded review/export code. | Zero actual review receipts. A reviewer must inspect and correct labels before accepted real training export. |
-| Optical synthetic images | Local Blender/OpenCV implementation and an 18-frame, six-scene revised smoke batch. Earlier noisy renders are retained as rejected. | A declared training cohort, checked label coverage and temporal-event ground truth. Refracted masks remain annotation proxies. |
-| Learned perception, controllers and UI | Local YOLOv8-seg training/evaluation and synthetic first-fit weights now exist. `src/controllers/` and `src/dashboard/` remain package placeholders. | Broader grouped/real evaluation, tracking/events, PID, adaptation, action adapters and operator demonstration. |
+| Optical synthetic images | Audited 18-frame smoke and 60-image/20-scene pilot, with development visual inspection and retained earlier failures. | Relevant real/image diversity and temporal-event ground truth. Refracted masks remain annotation proxies. |
+| Learned perception, controllers and UI | Local YOLOv8-seg training/evaluation, a 30-epoch grouped pilot and synthetic seed baseline comparison. Bubble errors and missed inclusions remain. Controllers/dashboard remain package placeholders. | Learned video observation, real evaluation, tracking/events, PID, adaptation, action adapters and operator demonstration. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
@@ -35,8 +36,10 @@ The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 test
 [optical/annotation checkpoint](docs/OPTICAL_CHECKPOINT.json) records the 254-test
 run, a targeted follow-up after an environment-metadata addition, and fresh optical
 and real-source audits. Training work has a separate verification gate and
-[experiment report](docs/VISION_TRAINING.md). The declared 20-scene/60-image
-synthetic pilot is generating; human real-label review remains open.
+[experiment report](docs/VISION_TRAINING.md). The
+[20-scene/60-image pilot](docs/VISION_PILOT.md) is complete and trained. Its
+[checkpoint](docs/VISION_PILOT_CHECKPOINT.json) records the 270-test result,
+source/model identities and failures. Human real-label review remains open.
 
 ## Pitch requirements and completion evidence
 
@@ -86,6 +89,8 @@ alongside each other; human review remains necessary for accepted real labels.
    current object-presence frames do not yet constitute an evaluated event dataset.
    Choose a small measured batch first, then scale according to failures and
    learning curves rather than generating thousands of similar images.
+   The first 20-scene/60-image pilot and its 24-frame development inspection are
+   complete; explicit temporal event evaluation remains open.
 6. **Write the capture and process-data checklist.** Establish available camera,
    thermostat, temperature logs, rotation/pump access and a reviewer. Plan fixed
    observation poses, scale, synchronized clocks, run origin and measured/applied
@@ -112,6 +117,7 @@ proceed as a labeled software experiment while real review is pending.
   overfit diagnostic. Neither closes real-data performance or temporal alerts.
 - Run a tiny overfit check to verify export/label/training plumbing. Follow it with
   a bounded grouped experiment. A successful fit is distinct from generalization.
+  The first grouped synthetic fit is complete; final tests remain unscored.
 - Compare the seed results with the existing OpenCV baseline on the same reviewed
   inputs. Report mask IoU/Dice and projected measurement errors, visibility
   failures, per-class coverage, per-run results and inference latency.

@@ -2,9 +2,10 @@
 
 The local image-to-model pipeline now works: audited images and polygon labels
 can train YOLOv8n-seg, save weights and produce inspectable prediction masks.
-The first experiments use synthetic images only. Real-image outlines still need
-review, and the initial small fit misses secondary objects and produces false
-positives. This is a development checkpoint, not an evaluated KDP detector.
+The first experiments use synthetic images only. The latest
+[grouped pilot](VISION_PILOT.md) detects seeds/secondary objects in its small
+validation set, with bubble false positives and missed inclusions. Real-image
+outlines still need review. This is a development checkpoint, not an evaluated KDP detector.
 
 ## Inputs and safeguards
 
@@ -127,16 +128,17 @@ prior runs remain separate evidence. The
 136-subtest pass, exact model hashes and development errors. The follow-up
 three-epoch run completed in 7.97 seconds and reproduced the first fit's metrics.
 
-## Next experiment and unfinished gates
+## Grouped pilot and unfinished gates
 
 [The bounded optical pilot](../configs/synthetic_vision_pilot.json) declares
-20 base scenes, three frames each, with 12/4/4 scene families by split. Generation
-is separate from training and must finish its audit and development visual review
-before export. [The pilot training configuration](../configs/vision_training_pilot.json)
-declares a 30-epoch synthetic-only experiment. This cohort remains a pilot; use
-family learning curves and error coverage before larger generation.
+20 base scenes, three frames each, with 12/4/4 scene families by split. Generation,
+audit, development review and the
+[30-epoch experiment](../configs/vision_training_pilot.json) are now complete.
+The [pilot report](VISION_PILOT.md) records actual data/model identities, seed
+baseline comparison and bubble/inclusion errors. Use family learning curves and
+error coverage before larger generation.
 
-Real-only/mixed training, the OpenCV accuracy comparison, relevant real holdout
+Real-only/mixed training, the real OpenCV accuracy comparison, relevant real holdout
 performance, face-specific interpretation, temporal alerts and first-hour claims
 remain open. The real review path is in [annotations](ANNOTATIONS.md); the full
 perception/control/HPC/Qiskit sequence remains in the [roadmap](../roadmap.md).

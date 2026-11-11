@@ -17,6 +17,9 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Optical/annotation checkpoint](OPTICAL_CHECKPOINT.json) | Source-matched optical/annotation verification, 254-test run, revised smoke audit and zero accepted real labels. |
 | [Vision training](VISION_TRAINING.md) | Audited YOLO polygon adapter, pinned local training/evaluation, synthetic first fits and retained detection failures. |
 | [Training checkpoint](VISION_TRAINING_CHECKPOINT.json) | 264-test result, actual model hashes, synthetic development errors and remaining real/control gates. |
+| [Seed benchmark](VISION_BENCHMARK.md) | Identical-image OpenCV/YOLO comparison, training-only threshold calibration, invalid-measurement denominators and smoke failures. |
+| [Grouped synthetic pilot](VISION_PILOT.md) | Completed 60-image dataset, 30-epoch model, four-family development evaluation, bubble/inclusion failures and remaining gates. |
+| [Grouped pilot checkpoint](VISION_PILOT_CHECKPOINT.json) | 270-test verification, dataset/model/source hashes, actual per-class and per-family results, and unscored final test. |
 | [Vision checkpoint](VISION_CHECKPOINT.json) | Source hashes, 244-test result, fixture/development replay checks and remaining gates. |
 | [Dataset v1 card](SYNTHETIC_DATASET_V1.md) | The active 360-episode / 1,080-sample dataset, splits, missingness and use limits. |
 | [Dataset v1 report](SYNTHETIC_DATASET_V1.json) | Actual hashes, groups, audit results and measured runtime. |
@@ -26,8 +29,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 
 The file/camera adapter, OpenCV seed baseline and local YOLOv8-seg training path
 are implemented. Synthetic first fits establish software behavior and expose
-remaining errors. The bounded optical pilot is generating; real labels, baseline
-accuracy comparison, temporal alerts and physical control remain open.
+remaining errors. The bounded optical pilot and synthetic baseline comparison
+are complete; real labels/accuracy comparison, temporal alerts and physical control remain open.
 Growth baselines and XGBoost remain a supporting
 experiment using the frozen tabular splits, illustrative units and fixed law.
 

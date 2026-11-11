@@ -13,8 +13,8 @@ real defect accuracy; no automatic controller is implemented.
 
 | Task | Current evidence | Next gate |
 |---|---|---|
-| Video baseline and image-data pipeline | File/camera adapter, tested seed baseline, real-image index, six editable annotation proposals and an audited 18-frame Blender optical smoke batch. | Human pixel/event review, clock/measurement checks and a declared training cohort; smoke completion does not prove training coverage. |
-| YOLOv8-seg and visible-event alerts | Audited image/label adapter, pinned local training/evaluation, a three-epoch synthetic smoke fit and two-image overfit diagnostic. Secondary/inclusion errors remain substantial; temporal alerts are absent. | Broader grouped pilot, reviewed real labels, baseline comparison, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
+| Video baseline and image-data pipeline | File/camera adapter, tested seed baseline, real-image index, six editable annotation proposals and audited 18-frame smoke / 60-image grouped optical datasets. | Human pixel/event review, clock/measurement checks and relevant real coverage. |
+| YOLOv8-seg and visible-event alerts | Pinned training/evaluation, overfit/software checks, a 30-epoch grouped synthetic pilot and same-image OpenCV comparison. Bubble false positives and missed inclusions remain; temporal alerts are absent. | Learned video observation, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
 | PID/adaptive software loop | Bounded scripted simulation commands; no feedback controller. | Sensor/command interfaces, PID and bounded supervisor, fixed-recipe comparison and traceable action logs. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
@@ -22,9 +22,9 @@ real defect accuracy; no automatic controller is implemented.
 
 ## Immediate vision work
 
-Follow Batch 1 of the [roadmap](../roadmap.md). First checkpoint the current
-annotation/rendering additions and show the six existing outline proposals for
-review. A reviewed outline is an image boundary that a person has checked and
+Follow the [roadmap](../roadmap.md). The annotation/rendering additions are
+checkpointed. Next show the six existing outline proposals for review.
+A reviewed outline is an image boundary that a person has checked and
 corrected; it is distinct from the computer's initial suggestion. An event label
 records what became visible and when, such as a secondary crystal appearing.
 
@@ -34,12 +34,12 @@ classes, clocks, evaluation rules and performance budgets after pilot review.
 Preserve all real validation/test groups. Alpha-LGA and ADP development results
 do not establish KDP performance.
 
-Alongside review, finish the declared 20-scene synthetic pilot, audit and inspect
-development examples, then use the implemented
-[YOLOv8-seg training/evaluation path](VISION_TRAINING.md). The initial synthetic
-software and overfit checks are complete. Unreviewed proposals remain excluded
-from accepted real training. Compare with the OpenCV baseline on reviewed data,
-then evaluate temporal decisions and keep real/synthetic results separate.
+The [20-scene grouped pilot](VISION_PILOT.md), its audit/development inspection,
+30-epoch fit and synthetic OpenCV comparison are complete. Use the implemented
+[training/evaluation path](VISION_TRAINING.md) to investigate the recorded bubble
+and inclusion errors. Connect learned perception to timestamped video and evaluate
+temporal decisions. Unreviewed proposals remain excluded from accepted real
+training; the real baseline/model comparison needs actual reviewed masks.
 
 Use the [Vision MVP contract](VISION_MVP.md) for classes, evaluation, first-hour
 claims and control integration. Numeric performance budgets are set after the

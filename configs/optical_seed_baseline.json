@@ -1,0 +1,19 @@
+{
+  "schema": "crystalab_seed_benchmark_v1",
+  "mode": "single_frame_fixed_seed_point",
+  "description": "Untuned Otsu baseline with a fixed image-center seed point for the declared 256x256 optical view. No seed-point initialization from labels; per-frame reinitialization is explicit.",
+  "image_shape": [256, 256],
+  "baseline": {
+    "seed_point": [128, 128],
+    "polarity": "dark",
+    "threshold": null,
+    "minimum_area_px": 32,
+    "maximum_area_fraction": 0.8,
+    "morphology_size": 3,
+    "minimum_contrast": 5.0,
+    "minimum_focus": 0.0,
+    "minimum_iou": 0.1,
+    "ambiguity_margin": 0.05,
+    "maximum_gap_s": 2.0
+  }
+}

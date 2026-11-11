@@ -10,10 +10,10 @@ and automatic control remain unevaluated.
 
 The completed growth dataset contains **360 episodes and 1,080 audited samples**.
 Video ingestion, the seed baseline, editable real-image proposals and the first
-Blender optical smoke batch are implemented and checked. A bounded synthetic
-cohort is generating, while real-image review remains open. The first small
-vision fit has substantial secondary-object errors; see the
-[training report](docs/VISION_TRAINING.md). Broader perception evaluation,
+Blender optical pipeline are implemented and checked. A 60-image, 20-scene
+[synthetic pilot](docs/VISION_PILOT.md) is complete and trained. Seed/secondary
+detection works within its small validation set; bubble false positives and
+missed inclusions remain. Real-image review, broader perception evaluation,
 temporal alerts, PID/adaptation and an operator demo follow. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.

@@ -71,6 +71,19 @@ Visual RGB/mask review is a separate gate; these checks cannot establish realist
 optics or real-domain transfer. The six-scene smoke batch is not enough to claim
 a trained, generalizable vision model.
 
+Generate inspectable first/last training-frame overlays from a completed batch:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/preview_optical_dataset.py \
+  --source data/synthetic_vision_smoke_v2 \
+  --output results/optical_smoke_formal_preview_v1
+```
+
+The output directory must be unused. Panels mark seeds green, secondary crystals
+yellow and inclusion candidates blue. The command selects training scenes only
+and records source hashes. Generating a preview does not create visual acceptance
+or a real-image review receipt. An actual inspection must precede acceptance.
+
 ## Visual failure history and next gate
 
 The first 18-sample render (`synthetic_vision_smoke_v1`) completed its software
@@ -84,3 +97,17 @@ excluded. Before model fitting, inspect revised RGB and overlays, preserve any
 failed cases and choose a declared synthetic training cohort. Report synthetic
 holdout performance separately from independently reviewed real data. The real
 [annotation workflow](ANNOTATIONS.md) remains a distinct gate.
+
+## Completed bounded training pilot
+
+The [20-scene pilot](../configs/synthetic_vision_pilot.json) is now complete:
+60 images split 36/12/12, with 119 eligible masks. Generation took 2,181.51 seconds
+on four CPU rendering threads. First/last processed frames from every training
+scene were inspected, 24 images in total, before export. No final-test scenes
+were inspected for tuning. The source archive retains the actual producer code
+and postprocessing environment; current auditing reconstructs its labels.
+
+The [grouped experiment report](VISION_PILOT.md) records its 30-epoch fit,
+OpenCV comparison and bubble/inclusion failures. This pilot is useful software
+evidence and retains the optical-proxy limits above; it does not establish real
+visibility, physical growth time, quality or defect response to control.

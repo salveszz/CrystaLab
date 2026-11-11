@@ -1,0 +1,6 @@
+{
+  "schema": "crystalab_seed_calibration_v1",
+  "description": "Bounded training-only threshold/polarity calibration. Fixed seed point and ROI come from the development camera view, not ground-truth centroid initialization.",
+  "polarities": ["dark", "bright"],
+  "thresholds": [null, 96, 112, 128, 144, 160, 176, 192, 208, 224]
+}
