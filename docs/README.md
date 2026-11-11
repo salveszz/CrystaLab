@@ -4,19 +4,22 @@ Start with the [project README](../README.md) for the local dataset location and
 commands, then use the [roadmap](../roadmap.md) for current priorities. Historical
 milestone notes are preserved separately in [development history](DEVELOPMENT_HISTORY.md).
 
-## Current dataset and next work
+## Product plan and datasets
 
 | Document | Purpose |
 |---|---|
+| [Roadmap](../roadmap.md) | Pitch-led milestones: camera, image data, perception, alerts, PID/adaptation and demonstration, plus HPC/Qiskit extensions. |
+| [Vision MVP](VISION_MVP.md) | Capture/annotation contract, observable targets, real/synthetic splits, evaluation and control interfaces. |
 | [Dataset v1 card](SYNTHETIC_DATASET_V1.md) | The active 360-episode / 1,080-sample dataset, splits, missingness and use limits. |
 | [Dataset v1 report](SYNTHETIC_DATASET_V1.json) | Actual hashes, groups, audit results and measured runtime. |
 | [Data pipeline contract](SYNTHETIC_DATA.md) | Generation/audit commands, exact labels, observations, units and provenance. |
-| [AI readiness](AI_READINESS.md) | Why the first growth benchmark can start and what later tasks need. |
+| [AI readiness](AI_READINESS.md) | Separate readiness gates for vision, synthetic growth prediction and physical control. |
 | [Data directory guide](../data/README.md) | Local generated files, original inputs and the Git ignore policy. |
 
 No model fitting, vision system or physical controller is implemented. The next
-model task is a comparison of growth baselines and XGBoost using the frozen
-scenario splits. The dataset uses illustrative units and one fixed growth law.
+work is a video baseline and real/synthetic image-data path. YOLOv8-seg and event
+alerts follow the image-data gate. Growth baselines and XGBoost remain a supporting
+experiment using the frozen tabular splits, illustrative units and fixed law.
 
 ## Physics and verification
 

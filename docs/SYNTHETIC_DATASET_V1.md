@@ -145,5 +145,6 @@ status. Its bytes and the dataset's manifest/samples are preserved unchanged.
 The current [roadmap](../roadmap.md) replaces the archived development checklist.
 
 This cleanup changes no simulation equations or model code and adds no ML
-dependency. Growth baselines and XGBoost are the next separate phase; real KDP,
-quality and physical control require their own experimental assessment.
+dependency. Growth baselines and XGBoost remain a separate supporting experiment.
+The current [roadmap](../roadmap.md) prioritizes the camera/image-data path; real
+KDP, quality and physical control require their own experimental assessment.

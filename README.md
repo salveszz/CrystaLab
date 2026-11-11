@@ -1,14 +1,16 @@
 # CrystaLab
 
-CrystaLab is a Python project for illustrative 3D crystal-growth simulation and
-synthetic data preparation. The growth engine tracks faceted geometry, liquid
-transport, local solute uptake and mass/carrier-volume conservation. Separate
-verified flow operators provide a foundation for later physical extensions.
+CrystaLab aims to observe crystal growth through a camera, detect visible changes
+and support PID/adaptive control with operator involvement, as proposed in the
+[original pitch](Pitch_KDP.pptx). The implemented foundation is an illustrative 3D
+growth simulator, verified numerical flow components and an audited growth-data
+pipeline. No trained model, vision system or automatic controller is implemented.
 
-The current milestone is complete: **360 episodes and 1,080 audited growth
-samples**. No model training, vision system or automatic controller is implemented.
-The next step is the first synthetic growth-prediction benchmark; see the
-[roadmap](roadmap.md).
+The completed growth dataset contains **360 episodes and 1,080 audited samples**.
+The next milestone is video ingestion, a vision baseline and real/synthetic image
+data, followed by YOLOv8-seg, event alerts and controller integration. See the
+[roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
+growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
 
 ## Where is the dataset?
 
@@ -75,7 +77,8 @@ Synthetic holdout performance will describe this simulator. Real KDP prediction,
 vision and physical control require their own measurements and validation.
 
 - [Documentation index](docs/README.md): methods, evidence and source references.
-- [AI readiness](docs/AI_READINESS.md): completed gates and the first model task.
+- [Vision MVP](docs/VISION_MVP.md): image data, perception, alerts and control gates.
+- [AI readiness](docs/AI_READINESS.md): separate vision, growth and control readiness.
 - [Physical data](docs/PHYSICAL_DATA.md): structural reference and measurement limits.
 - [Development history](docs/DEVELOPMENT_HISTORY.md): superseded plans and milestones.
 

@@ -78,11 +78,12 @@ Pressure now couples to the same velocity representation in the
 [linear Stokes step](CUTCELL_STOKES.md), with a compatible energy budget. The
 accepted [split momentum operators](CUTCELL_MOMENTUM.md) remain separate from
 the growth engine. Their flow/scalar adapter and subsequent uptake/motion/volume
-closure are conditional higher-fidelity work. The immediate priority is the
-bounded synthetic data pipeline and its pilot/resolution/action audit in
-[AI_READINESS.md](AI_READINESS.md); full CFD is not required for the first
-synthetic growth prototype. Real-data collection and physical calibration
-remain important for claims about measured KDP behavior.
+closure are conditional higher-fidelity work. The tabular synthetic pipeline and
+its bounded numerical acceptance are complete. The immediate priority is the
+camera/image-data path in the [Vision MVP contract](VISION_MVP.md) and
+[roadmap](../roadmap.md); [AI readiness](AI_READINESS.md) separates its gates from
+the supporting growth experiment. Real-data collection starts alongside that
+work. Physical calibration remains required for measured KDP growth claims.
 
 ## Files changed
 

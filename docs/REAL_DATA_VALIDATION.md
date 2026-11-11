@@ -22,12 +22,14 @@ candidate file is represented as an imported experimental dataset.
 
 ## Prototype readiness and physical claims
 
-The immediate sequence is the bounded data contract, action/label audit and
-pilot recorder in [AI_READINESS.md](AI_READINESS.md), followed by a first
-growth-only synthetic model. Full CFD is optional for that software prototype.
-A calibrated empirical or reduced growth model can also support physical
-prediction in a validated range; detailed flow is needed when the target or
-experimental discrepancies require it.
+The [roadmap](../roadmap.md) prioritizes the camera/image-data path, visible-event
+alerts and PID/adaptive integration. The [Vision MVP contract](VISION_MVP.md)
+defines their separate real-video and physical-control evidence. The bounded
+tabular data pipeline is complete; a first growth-only model remains a supporting
+experiment under [AI readiness](AI_READINESS.md). Full CFD is optional for that
+software prototype. A calibrated empirical or reduced growth model can support
+physical prediction in a validated range; detailed flow is needed when the target
+or experimental discrepancies require it.
 
 The numerical flow kernels remain separate from the growth engine and do not
 yet change its generated growth labels. Preserve their accepted work, while

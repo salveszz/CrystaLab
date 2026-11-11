@@ -197,7 +197,8 @@ The recorder/controls live in `src/environment/kdp_env.py` and
 `audit_dataset.py` and `check_dataset.py`; no one-time cleanup script is added.
 This documentation cleanup changes no simulation or ML code.
 
-The next [model phase](AI_READINESS.md) compares zero-growth and recent-rate
-baselines, then XGBoost, using the frozen groups and separate startup metrics.
-Learning curves should determine further data needs. Synthetic test performance
-alone cannot establish real KDP growth, camera/quality or physical control.
+The supporting [growth-model experiment](AI_READINESS.md) compares constant,
+zero-growth and recent-rate baselines, then XGBoost, using frozen groups and
+separate startup metrics. Learning curves should determine further data needs.
+The [roadmap](../roadmap.md) now prioritizes video and real/synthetic image data.
+Synthetic tabular scores cannot establish camera/quality or physical performance.
