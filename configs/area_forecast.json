@@ -1,0 +1,9 @@
+{
+  "schema": "crystalab_projected_area_forecast_v1",
+  "horizon_source_s": 0.25,
+  "maximum_gap_source_s": 0.5,
+  "maximum_age_source_s": 0.5,
+  "ridge": 0.0001,
+  "coefficient_min": 0.0,
+  "coefficient_max": 3.0
+}

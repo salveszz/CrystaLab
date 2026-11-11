@@ -10,8 +10,10 @@ and circulation. The demonstration must identify its material and evidence level
 
 **The next milestone is a reviewed real-image/event pilot and an explicit adaptive
 forecast/state policy.** Candidate decisions, temperature PID, event-rule shadow
-proposals and a bounded fixture-to-PID pause are implemented. Define the observable
-forecast/objective and compare adaptation with the current baselines. Real review and equipment
+proposals and a bounded fixture-to-PID pause are implemented. A first projected-area
+forecast diagnostic exposes current-mask bias and fails to beat future-area
+persistence on four shared development windows. Resolve the measurement/trajectory
+gate, define the adaptive objective and compare it with the current baselines. Real review and equipment
 characterization can progress alongside this software work.
 Preserve the simulation and growth dataset as supporting assets. New CFD work or
 an XGBoost benchmark does not close the perception/control requirements.
@@ -30,6 +32,7 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies and a separate ADP movie. | Reviewed pixel/event labels and representative independent KDP evaluation data. Source fits are not segmentation masks. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews and guarded review/export code. | Zero actual review receipts. A reviewer must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke and 60-image/20-scene pilot, development visual inspection and independently exported construction-event labels for one three-frame scene. | Relevant real/image diversity and longer temporal coverage. Refracted masks remain annotation proxies. |
+| Observable forecast | Sixteen optical development replays, 32 within-clip windows, training-only rate calibration, startup-aware baseline metrics and real shadow forecasts. Calibrated future area is worse than persistence on four shared validation windows. | Boundary/measurement review, longer comparable-view/action-labelled trajectories, frozen budgets and adaptive forecast/state policy. No action-response model exists. |
 | Learned perception, controllers and UI | Local training/evaluation, grouped pilot, candidate analysis, explicit process records, PID, thermal tests, event-rule shadow proposals and scripted fixture-to-PID integration. Bubble/inclusion errors remain. Dashboard is a placeholder. | Real evaluation, equipment timing, face measurements, adaptive forecast/policy and operator demonstration. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
@@ -55,6 +58,9 @@ independent sensor/command/plant/metric audit. This is software evidence only.
 The [event-supervision checkpoint](docs/EVENT_SUPERVISION_CHECKPOINT.json) adds
 actual optical/real shadow proposals and an audited three-variant software
 comparison. Its scripted pause delays recipe phase; no quality benefit is modeled.
+The [area-forecast checkpoint](docs/AREA_FORECAST_CHECKPOINT.json) adds the causal
+cohort/model/replay experiment, its measurement-bias finding and independent metric
+reconstruction. Final test families remain unscored.
 
 ## Pitch requirements and completion evidence
 
@@ -201,6 +207,12 @@ any missing KDP material, first-hour, event or negative-time coverage.
    actions. Compare its forecast with persistence using causal histories and whole
    held-out runs. Prediction before visible onset requires its own future-event
    labels; reactive alerts alone do not establish it.
+   **First forecast diagnostic implemented:** [projected area](docs/AREA_FORECAST.md)
+   uses original optical proxies and learned causal inputs across frozen families.
+   Its calibrated rate does not beat future-area persistence; do not promote it
+   as validated adaptive control. Review measurement bias and collect longer
+   trajectories, including action responses when action-conditioned forecasting
+   is intended. The changing adaptive state/policy remains unfinished.
 4. Compare fixed recipe, PID-only, rule-supervised and adaptive variants. Existing
    growth data may support a bounded forecast study, but its idealized 3D inputs
    need a validated adapter before use with camera measurements. Scripted anomalies

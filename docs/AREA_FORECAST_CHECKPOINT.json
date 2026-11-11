@@ -1,0 +1,684 @@
+{
+  "schema": "crystalab_area_forecast_checkpoint_v1",
+  "date": "2026-11-11",
+  "parent_revision": "9d0dd6336721e024df447d86bd3d9aef20d927e2",
+  "design_id": "DESIGN-AREA-FORECAST-003",
+  "scope": "Causal one-step projected-area development diagnostic and unreviewed real shadow forecasts; no adaptive control or physical/action-response claim",
+  "source_sha256": {
+    "src/models/area_forecast.py": "f2946c9e289d5347ebf63088f30b8df02bdcb1585917094db7a44c6ce585cfa5",
+    "src/models/area_forecast_run.py": "0774978925e15b1bba7e481bc778bb2e301d26433f334d841ab3fcb4fa855724",
+    "src/vision/area_forecast_data.py": "0eb26a88684e0dfdc7a1466d4a8d3cc719cee2927609cc0be3f76578e04c7897",
+    "scripts/prepare_area_forecasts.py": "8fab0d6f8190a483061688918b4a02522ba5dd0fd2d0d477ea62d263cd606c04",
+    "scripts/train_area_forecast.py": "cdb695df2b3dcaa0eb3b95a97828180cbc38a937d7bc4bc2d7323c32456cf81a",
+    "scripts/forecast_area.py": "5979f1fc7a405fbe28cf2bf46eb9ce510ef0fd13636faf83451fc390934650c6",
+    "tests/test_area_forecast.py": "be51e0c31831cb346711a4145ef4dd850e60e159273b2491dff1d8c436956dc5",
+    "tests/test_area_forecast_pipeline.py": "39191a57a151a8d87181d4c57c9e02fa70d4c18586ccae3388aabe2f755c3648"
+  },
+  "config": {
+    "path": "configs/area_forecast.json",
+    "sha256": "29f9f5e506a9153447c7d835ddfe3807a7a2d09cf89940f8a3f0276d9d040e44",
+    "value": {
+      "schema": "crystalab_projected_area_forecast_v1",
+      "horizon_source_s": 0.25,
+      "maximum_gap_source_s": 0.5,
+      "maximum_age_source_s": 0.5,
+      "ridge": 0.0001,
+      "coefficient_min": 0.0,
+      "coefficient_max": 3.0
+    }
+  },
+  "regression": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "tests_passed": 346,
+    "subtests_passed": 214,
+    "elapsed_seconds": 100.07,
+    "log_sha256": "50b99cb1065a9da9b150885c09c0c484551de01fea4b4e1bc18f4f9d4a2f360b",
+    "python": "3.14.8",
+    "lint": "ruff check: all checks passed",
+    "format": "ruff format --check: 8 files already formatted"
+  },
+  "cohort": {
+    "path": "results/area_forecast_cohort_v1",
+    "manifest_sha256": "fc10e512ae01db6250a5d903d3ba4abb0481600e02ee74dec7daeadae37316fc",
+    "source_optical_manifest_sha256": "6434179db8c54e16cba55378f67568999ebb050899ba3756ae4563e10f02e429",
+    "producer_source_sha256": {
+      "src/vision/area_forecast_data.py": "94e93ee00de470a8ee33160fb38985032b9a7a5ea4b4afd477a341ccfd7fc467",
+      "src/models/area_forecast.py": "f2946c9e289d5347ebf63088f30b8df02bdcb1585917094db7a44c6ce585cfa5",
+      "scripts/prepare_area_forecasts.py": "8fab0d6f8190a483061688918b4a02522ba5dd0fd2d0d477ea62d263cd606c04"
+    },
+    "source_snapshot_note": "Original producer snapshot preserved. The current consumer adds horizon/coverage checks without changing saved inputs or labels.",
+    "model_weights_sha256": [
+      "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb"
+    ],
+    "frames": 48,
+    "windows": 32,
+    "cases": [
+      {
+        "scene_id": "optical_pilot_000",
+        "family_id": "optical_pilot_000",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "e945cfdc4d586b92be377f4178ca365417a236590b9d217088169b53d22d09f0"
+      },
+      {
+        "scene_id": "optical_pilot_001",
+        "family_id": "optical_pilot_001",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "a5df5ee7c1d15e3942c759a2a90cafbde3ed455447745f12a8732465fc9ef20d"
+      },
+      {
+        "scene_id": "optical_pilot_002",
+        "family_id": "optical_pilot_002",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "fe7cc2a95c35c887b55e2a982b59fc93cdba6891a87db82dc510168cda5b3616"
+      },
+      {
+        "scene_id": "optical_pilot_003",
+        "family_id": "optical_pilot_003",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "72def50af4a53f80dd0dd5ca2f4b287a694540729e0152467758542f055f3a3b"
+      },
+      {
+        "scene_id": "optical_pilot_004",
+        "family_id": "optical_pilot_004",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "a2293ece464fc093e33136f6377bf30d27a7751c979e714813a05fb5d0a81931"
+      },
+      {
+        "scene_id": "optical_pilot_005",
+        "family_id": "optical_pilot_005",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "acb38bb41797e59c2b9678cf7912fd6560664cb39ef22d8d6dce30a24219d29d"
+      },
+      {
+        "scene_id": "optical_pilot_006",
+        "family_id": "optical_pilot_006",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "b5568b637404e6cf10aacd8f8ee95eb6164078ce00275b367b660d8e1ac0aaa3"
+      },
+      {
+        "scene_id": "optical_pilot_007",
+        "family_id": "optical_pilot_007",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "191c8ba820ed1a782e52af02ca5b4afd6087ee344ff3ef63b9bfd60d20349468"
+      },
+      {
+        "scene_id": "optical_pilot_008",
+        "family_id": "optical_pilot_008",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "7298c1d371de47162ca1c941ba2d5a9d4a9e101da81fbdb14340d0b4d5d7af82"
+      },
+      {
+        "scene_id": "optical_pilot_009",
+        "family_id": "optical_pilot_009",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "2ae3beff7eccff036c311c89b34aff4018fd1f4cdf8a11e7704ec8a0b774ec2f"
+      },
+      {
+        "scene_id": "optical_pilot_010",
+        "family_id": "optical_pilot_010",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "9b771bce6ed5d8926702dc4f4f598f66208668f51fd0d2cec78dac303abf1d04"
+      },
+      {
+        "scene_id": "optical_pilot_011",
+        "family_id": "optical_pilot_011",
+        "split": "train",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "8f2298ece93154890ddb0cf1834419680637ebee58e65e89080c1dc244916c85"
+      },
+      {
+        "scene_id": "optical_pilot_012",
+        "family_id": "optical_pilot_012",
+        "split": "validation",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "6c71f585f325e903a146e2fc6be298d4c97f531de87d198763bc95b0c07c59aa"
+      },
+      {
+        "scene_id": "optical_pilot_013",
+        "family_id": "optical_pilot_013",
+        "split": "validation",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "2a926419e6e878b551258cca8b764163dc2006f9d9fa8d60ebe0cc78cf722085"
+      },
+      {
+        "scene_id": "optical_pilot_014",
+        "family_id": "optical_pilot_014",
+        "split": "validation",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "935ebb008abf29c2279fb20bd189cb03ded9aee5ebf4975b8330a4fd691a9f59"
+      },
+      {
+        "scene_id": "optical_pilot_015",
+        "family_id": "optical_pilot_015",
+        "split": "validation",
+        "frames": 3,
+        "samples": 2,
+        "rate_ready": 1,
+        "replay_manifest_sha256": "af5f9c0e19b50826d9f1b6db4e39b638aea7ac605b3c67de1e6ba65cc120ec34"
+      }
+    ],
+    "audit_path": "results/area_forecast_cohort_v1_audit.json",
+    "audit_sha256": "2254d51eaf93a087c7a1302f88c6fb966d16550ced6f7c365c2e0bc775d963c7",
+    "audit": {
+      "status": "pass",
+      "samples": 32,
+      "families": 16,
+      "families_by_split": {
+        "train": 12,
+        "validation": 4
+      },
+      "rate_ready_by_split": {
+        "train": 12,
+        "validation": 4
+      },
+      "final_test_scored": false,
+      "manifest_sha256": "fc10e512ae01db6250a5d903d3ba4abb0481600e02ee74dec7daeadae37316fc"
+    }
+  },
+  "fit": {
+    "path": "results/area_forecast_fit_v3",
+    "manifest_sha256": "c628b73b8fd0cf6b81e46596db2bfab2dd6b1e0cb3e73d3301e2d49dc5758402",
+    "model_sha256": "890aaa74929aa1a15df71c12ead7deac0efabb5f7ed2d4fd7f5243abf168b78b",
+    "scores_sha256": "84986b939ded0d98ee75647ecde525ac2a320400e9d5f6fc674306c7ad72b3b4",
+    "metrics_sha256": "0201138668d3cdbc138e5d192be0c8e24bd51ebb89489913dab04a8c10cdc551",
+    "source_sha256": {
+      "src/models/area_forecast_run.py": "0774978925e15b1bba7e481bc778bb2e301d26433f334d841ab3fcb4fa855724",
+      "src/models/area_forecast.py": "f2946c9e289d5347ebf63088f30b8df02bdcb1585917094db7a44c6ce585cfa5",
+      "src/vision/area_forecast_data.py": "0eb26a88684e0dfdc7a1466d4a8d3cc719cee2927609cc0be3f76578e04c7897",
+      "scripts/train_area_forecast.py": "cdb695df2b3dcaa0eb3b95a97828180cbc38a937d7bc4bc2d7323c32456cf81a"
+    },
+    "environment": {
+      "python": "3.14.8",
+      "numpy": "2.5.0",
+      "opencv": "4.13.0.92",
+      "matplotlib": "3.11.0"
+    },
+    "calibration": {
+      "coefficient": 0.8937394842970473,
+      "unbounded_coefficient": 0.8937394842970473,
+      "coefficient_clipped": false,
+      "mean_fraction": 0.06917926518824993,
+      "fit_samples": 12,
+      "rate_signal_sum_squares": 0.06860481035234743,
+      "training_sample_ids": [
+        "optical_pilot_000:1->optical_pilot_000:2",
+        "optical_pilot_001:1->optical_pilot_001:2",
+        "optical_pilot_002:1->optical_pilot_002:2",
+        "optical_pilot_003:1->optical_pilot_003:2",
+        "optical_pilot_004:1->optical_pilot_004:2",
+        "optical_pilot_005:1->optical_pilot_005:2",
+        "optical_pilot_006:1->optical_pilot_006:2",
+        "optical_pilot_007:1->optical_pilot_007:2",
+        "optical_pilot_008:1->optical_pilot_008:2",
+        "optical_pilot_009:1->optical_pilot_009:2",
+        "optical_pilot_010:1->optical_pilot_010:2",
+        "optical_pilot_011:1->optical_pilot_011:2"
+      ],
+      "training_family_ids": [
+        "optical_pilot_000",
+        "optical_pilot_001",
+        "optical_pilot_002",
+        "optical_pilot_003",
+        "optical_pilot_004",
+        "optical_pilot_005",
+        "optical_pilot_006",
+        "optical_pilot_007",
+        "optical_pilot_008",
+        "optical_pilot_009",
+        "optical_pilot_010",
+        "optical_pilot_011"
+      ],
+      "feature_whitelist": [
+        "current_area_px2",
+        "recent_rate_px2_per_source_s",
+        "history_duration_source_s",
+        "horizon_source_s",
+        "frame_pixels"
+      ],
+      "target": "next visible optical-proxy area and gain; not volume or action-conditioned response"
+    },
+    "elapsed_seconds": 0.40809124799852725,
+    "metrics": {
+      "train": {
+        "persistence": {
+          "labelled_windows": 24,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available": {
+            "samples": 24,
+            "families": 12,
+            "future_area_mae_px2": 72.08333333333333,
+            "future_area_rmse_px2": 88.98127143768326,
+            "gain_mae_px2": 255.375,
+            "relative_gain_mae": 0.07410484620204143,
+            "future_area_signed_error_px2": -35.5,
+            "family_macro_area_mae_px2": 72.08333333333333
+          },
+          "common_history_support": {
+            "samples": 12,
+            "families": 12,
+            "future_area_mae_px2": 62.916666666666664,
+            "future_area_rmse_px2": 79.18385778258933,
+            "gain_mae_px2": 246.66666666666666,
+            "relative_gain_mae": 0.06917926518824993,
+            "future_area_signed_error_px2": -20.583333333333332,
+            "family_macro_area_mae_px2": 62.916666666666664
+          },
+          "clipped_predictions": 0
+        },
+        "recent_rate": {
+          "labelled_windows": 24,
+          "prediction_coverage": 0.5,
+          "unavailable_reasons": {
+            "insufficient_history": 12
+          },
+          "all_available": {
+            "samples": 12,
+            "families": 12,
+            "future_area_mae_px2": 255.91666666666666,
+            "future_area_rmse_px2": 268.29476948560387,
+            "gain_mae_px2": 47.0,
+            "relative_gain_mae": 0.01166871331226752,
+            "future_area_signed_error_px2": 255.91666666666666,
+            "family_macro_area_mae_px2": 255.91666666666666
+          },
+          "common_history_support": {
+            "samples": 12,
+            "families": 12,
+            "future_area_mae_px2": 255.91666666666666,
+            "future_area_rmse_px2": 268.29476948560387,
+            "gain_mae_px2": 47.0,
+            "relative_gain_mae": 0.01166871331226752,
+            "future_area_signed_error_px2": 255.91666666666666,
+            "family_macro_area_mae_px2": 255.91666666666666
+          },
+          "clipped_predictions": 0
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 24,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available": {
+            "samples": 24,
+            "families": 12,
+            "future_area_mae_px2": 220.64807073793546,
+            "future_area_rmse_px2": 232.3121238756806,
+            "gain_mae_px2": 22.845368928176736,
+            "relative_gain_mae": 0.006770315900768966,
+            "future_area_signed_error_px2": 218.92980748485175,
+            "family_macro_area_mae_px2": 220.64807073793546
+          },
+          "common_history_support": {
+            "samples": 12,
+            "families": 12,
+            "future_area_mae_px2": 243.410507563794,
+            "future_area_rmse_px2": 251.50301518197935,
+            "gain_mae_px2": 21.100385748689785,
+            "relative_gain_mae": 0.0035853249797881026,
+            "future_area_signed_error_px2": 243.410507563794,
+            "family_macro_area_mae_px2": 243.410507563794
+          },
+          "clipped_predictions": 0
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 24,
+          "prediction_coverage": 0.5,
+          "unavailable_reasons": {
+            "insufficient_history": 12
+          },
+          "all_available": {
+            "samples": 12,
+            "families": 12,
+            "future_area_mae_px2": 226.53563407480019,
+            "future_area_rmse_px2": 239.64491619232163,
+            "gain_mae_px2": 44.12205201433304,
+            "relative_gain_mae": 0.012260229004740808,
+            "future_area_signed_error_px2": 226.53563407480019,
+            "family_macro_area_mae_px2": 226.53563407480019
+          },
+          "common_history_support": {
+            "samples": 12,
+            "families": 12,
+            "future_area_mae_px2": 226.53563407480019,
+            "future_area_rmse_px2": 239.64491619232163,
+            "gain_mae_px2": 44.12205201433304,
+            "relative_gain_mae": 0.012260229004740808,
+            "future_area_signed_error_px2": 226.53563407480019,
+            "family_macro_area_mae_px2": 226.53563407480019
+          },
+          "clipped_predictions": 0
+        }
+      },
+      "validation": {
+        "persistence": {
+          "labelled_windows": 8,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available": {
+            "samples": 8,
+            "families": 4,
+            "future_area_mae_px2": 211.125,
+            "future_area_rmse_px2": 256.1788925731392,
+            "gain_mae_px2": 288.125,
+            "relative_gain_mae": 0.0731434281768099,
+            "future_area_signed_error_px2": -8.125,
+            "family_macro_area_mae_px2": 211.125
+          },
+          "common_history_support": {
+            "samples": 4,
+            "families": 4,
+            "future_area_mae_px2": 232.75,
+            "future_area_rmse_px2": 278.74316135109035,
+            "gain_mae_px2": 303.5,
+            "relative_gain_mae": 0.07457852178771757,
+            "future_area_signed_error_px2": -13.75,
+            "family_macro_area_mae_px2": 232.75
+          },
+          "clipped_predictions": 0
+        },
+        "recent_rate": {
+          "labelled_windows": 8,
+          "prediction_coverage": 0.5,
+          "unavailable_reasons": {
+            "insufficient_history": 4
+          },
+          "all_available": {
+            "samples": 4,
+            "families": 4,
+            "future_area_mae_px2": 303.0,
+            "future_area_rmse_px2": 418.9468940092527,
+            "gain_mae_px2": 43.25,
+            "relative_gain_mae": 0.008384678635013274,
+            "future_area_signed_error_px2": 278.5,
+            "family_macro_area_mae_px2": 303.0
+          },
+          "common_history_support": {
+            "samples": 4,
+            "families": 4,
+            "future_area_mae_px2": 303.0,
+            "future_area_rmse_px2": 418.9468940092527,
+            "gain_mae_px2": 43.25,
+            "relative_gain_mae": 0.008384678635013274,
+            "future_area_signed_error_px2": 278.5,
+            "family_macro_area_mae_px2": 303.0
+          },
+          "clipped_predictions": 0
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 8,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available": {
+            "samples": 8,
+            "families": 4,
+            "future_area_mae_px2": 283.5261346255132,
+            "future_area_rmse_px2": 388.3553148659076,
+            "gain_mae_px2": 19.64735191809467,
+            "relative_gain_mae": 0.005076406671514556,
+            "future_area_signed_error_px2": 283.5261346255132,
+            "family_macro_area_mae_px2": 283.5261346255132
+          },
+          "common_history_support": {
+            "samples": 4,
+            "families": 4,
+            "future_area_mae_px2": 288.0099547511462,
+            "future_area_rmse_px2": 407.03084201480686,
+            "gain_mae_px2": 17.8492558365989,
+            "relative_gain_mae": 0.005399256599467633,
+            "future_area_signed_error_px2": 288.0099547511462,
+            "family_macro_area_mae_px2": 288.0099547511462
+          },
+          "clipped_predictions": 0
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 8,
+          "prediction_coverage": 0.5,
+          "unavailable_reasons": {
+            "insufficient_history": 4
+          },
+          "all_available": {
+            "samples": 4,
+            "families": 4,
+            "future_area_mae_px2": 286.2905339057106,
+            "future_area_rmse_px2": 396.0179958425189,
+            "gain_mae_px2": 55.81530598187419,
+            "relative_gain_mae": 0.014369784079306717,
+            "future_area_signed_error_px2": 247.44536428581205,
+            "family_macro_area_mae_px2": 286.2905339057106
+          },
+          "common_history_support": {
+            "samples": 4,
+            "families": 4,
+            "future_area_mae_px2": 286.2905339057106,
+            "future_area_rmse_px2": 396.0179958425189,
+            "gain_mae_px2": 55.81530598187419,
+            "relative_gain_mae": 0.014369784079306717,
+            "future_area_signed_error_px2": 247.44536428581205,
+            "family_macro_area_mae_px2": 286.2905339057106
+          },
+          "clipped_predictions": 0
+        }
+      }
+    },
+    "selection": "Report only; no automatic promotion. Persistence has the lowest future-area MAE on shared validation support."
+  },
+  "validation_current_state_bias": {
+    "windows": 4,
+    "mean_error_px2": 289.75,
+    "per_family": {
+      "optical_pilot_012": 722.0,
+      "optical_pilot_013": 121.0,
+      "optical_pilot_014": 293.0,
+      "optical_pilot_015": 23.0
+    },
+    "decomposition": "future_area_error = current_state_error + predicted_gain_error"
+  },
+  "replays": [
+    {
+      "path": "results/optical_pilot13_area_forecast_v2",
+      "manifest_sha256": "0b45e79c18da9c21bd547f592a2f88055857b75b824bcea72d278f8fcf60b09c",
+      "source_replay_manifest_sha256": "2a926419e6e878b551258cca8b764163dc2006f9d9fa8d60ebe0cc78cf722085",
+      "model_sha256": "890aaa74929aa1a15df71c12ead7deac0efabb5f7ed2d4fd7f5243abf168b78b",
+      "source_info": {
+        "evidence_kind": "synthetic",
+        "material": "illustrative_optical_geometry",
+        "source_id": "crystalab_optical_images_v1",
+        "scene_id": "optical_pilot_013",
+        "family_id": "optical_pilot_013",
+        "split": "validation",
+        "source_dataset": "/home/salves/dev/CrystaLab/data/synthetic_vision_pilot_v1",
+        "source_manifest_sha256": "6434179db8c54e16cba55378f67568999ebb050899ba3756ae4563e10f02e429",
+        "frame_map_sha256": "c1efe3fb994a3665cca457cf11dff804b055b7349a5ba66b23a62cfeed0ee5ba",
+        "derivative": "PNG frames MJPG encoded at original dimensions; no source frame duplication",
+        "timing": "Display FPS only. Synthetic geometry steps are not physical seconds.",
+        "optical_quality": null,
+        "physical_defect_response": null
+      },
+      "clock_id": "source_video:6030da9927749113bb048d42691259fbe7536ce7790343f97521692305a4cf2f",
+      "source_experiment_clock": {
+        "origin_s": null,
+        "seconds_per_video_second": null
+      },
+      "processed_frames": 3,
+      "predictions_by_method": {
+        "persistence": 3,
+        "train_mean_fraction": 3,
+        "recent_rate": 2,
+        "calibrated_recent_rate": 2
+      },
+      "unavailable_reasons": {
+        "insufficient_history": 1
+      },
+      "real_accuracy": null,
+      "physical_horizon_s": null,
+      "numerical_actuator_commands": 0,
+      "operator_reviews_created": 0
+    },
+    {
+      "path": "results/leeds_pilot12_area_forecast_v2",
+      "manifest_sha256": "a7879d021d9e26c3fd4055791daf8fa84c4bbb7510e2093e4ea44d8f17d88733",
+      "source_replay_manifest_sha256": "f97377d777cbd7413f8d501efae86f48723d945719930d70439eb9d99ffe58a6",
+      "model_sha256": "890aaa74929aa1a15df71c12ead7deac0efabb5f7ed2d4fd7f5243abf168b78b",
+      "source_info": {
+        "evidence_kind": "real",
+        "material": "alpha_L_glutamic_acid",
+        "source_id": "LGA-LEEDS-2026",
+        "experiment_id": "12",
+        "split": "train",
+        "source_url": "https://archive.researchdata.leeds.ac.uk/1537/",
+        "citation": "Ilett, Hazlehurst, Jiang, Ma, Hogg and Roberts (2026), Reconstruction of 3D crystal growth from transmission optical microscopy images - Supporting data, University of Leeds.",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_archive_sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+        "source_index_sha256": "815d86ae34c107c8bac9863b937e212b9c776d38e665ccd7a563e944c6478421",
+        "derivative": "JPEG sequence resized and MJPG encoded; original source retained",
+        "frame_map_sha256": "e83a490e238e966ac2da5f43fb2e016f2ad3cda3437cb47a781e1c73815ed24f",
+        "timing": "Display FPS only. Nominal acquisition cadence is in frame_map; actual capture times are unverified."
+      },
+      "clock_id": "source_video:082917c054c951c992b87869eb3f9b66087e25fe1acfacacae3f8a162ba40cce",
+      "source_experiment_clock": {
+        "origin_s": null,
+        "seconds_per_video_second": null
+      },
+      "processed_frames": 30,
+      "predictions_by_method": {
+        "persistence": 19,
+        "train_mean_fraction": 19,
+        "recent_rate": 17,
+        "calibrated_recent_rate": 17
+      },
+      "unavailable_reasons": {
+        "insufficient_history": 2,
+        "inspection_required": 11
+      },
+      "real_accuracy": null,
+      "physical_horizon_s": null,
+      "numerical_actuator_commands": 0,
+      "operator_reviews_created": 0
+    }
+  ],
+  "independent_execution_audit": {
+    "path": "results/area_forecast_audit_v1.json",
+    "sha256": "986c2c38cffe294a692cc3fa67123ae7987a1878c2f7c890c1033f1237dff76d",
+    "report": {
+      "status": "pass",
+      "cohort_manifest_sha256": "fc10e512ae01db6250a5d903d3ba4abb0481600e02ee74dec7daeadae37316fc",
+      "fit_manifest_sha256": "c628b73b8fd0cf6b81e46596db2bfab2dd6b1e0cb3e73d3301e2d49dc5758402",
+      "model_sha256": "890aaa74929aa1a15df71c12ead7deac0efabb5f7ed2d4fd7f5243abf168b78b",
+      "training_windows": 12,
+      "training_families": 12,
+      "coefficient": 0.8937394842970476,
+      "training_mean_relative_gain": 0.06917926518824993,
+      "replays": [
+        {
+          "path": "results/optical_pilot13_area_forecast_v2",
+          "manifest_sha256": "0b45e79c18da9c21bd547f592a2f88055857b75b824bcea72d278f8fcf60b09c",
+          "frames": 3,
+          "predictions_by_method": {
+            "persistence": 3,
+            "train_mean_fraction": 3,
+            "recent_rate": 2,
+            "calibrated_recent_rate": 2
+          },
+          "unavailable_reasons": {
+            "insufficient_history": 1
+          },
+          "real_accuracy": null,
+          "numerical_commands": 0
+        },
+        {
+          "path": "results/leeds_pilot12_area_forecast_v2",
+          "manifest_sha256": "a7879d021d9e26c3fd4055791daf8fa84c4bbb7510e2093e4ea44d8f17d88733",
+          "frames": 30,
+          "predictions_by_method": {
+            "persistence": 19,
+            "train_mean_fraction": 19,
+            "recent_rate": 17,
+            "calibrated_recent_rate": 17
+          },
+          "unavailable_reasons": {
+            "insufficient_history": 2,
+            "inspection_required": 11
+          },
+          "real_accuracy": null,
+          "numerical_commands": 0
+        }
+      ],
+      "checks": [
+        "All cohort/model/forecast artifact identities reconstruct",
+        "Training-only ridge coefficient and mean relative gain reconstruct; validation families are disjoint",
+        "All forecast values, common-support error metrics and state-bias decomposition reconstruct independently",
+        "Source frame references, clocks and nullable experiment time remain intact",
+        "Inspection frames have no automatic predictions and no forecast authorizes actuation"
+      ]
+    }
+  },
+  "visual_inspection": {
+    "path": "results/area_forecast_fit_v3/comparison.png",
+    "sha256": "4a5a493fdca203f35a4fa40ea19b72ec98ff23e20e34eba39c8f650ea9c5f4eb"
+  },
+  "physical_hardware_contacted": false,
+  "operator_reviews_created": 0,
+  "physical_forecast_horizon_available": false,
+  "action_conditioned_model": false,
+  "adaptive_policy_implemented": false,
+  "final_vision_test_scored": false,
+  "limitations": [
+    "Only one history-ready forecast window per validation family; four families, already used during segmentation development",
+    "All scenes share the illustrative outward-offset law; no temperature/action response labels",
+    "Original emission proxies are not exact empirical visibility; measured-area bias remains",
+    "Gain and future-area metrics differ; calibration does not beat future-area persistence or the mean prior on gain",
+    "Real masks and growth-clock mapping remain unreviewed; real forecast accuracy is null",
+    "Invalid/inspection views reset history and no forecast authorizes actuation"
+  ],
+  "remaining": [
+    "Reviewed real masks/events/negative coverage and current-area bias investigation",
+    "Longer comparable-view trajectories; action responses if action-conditioned forecasts are intended",
+    "Frozen forecast/measurement budgets and independent final evaluation",
+    "Explicit changing adaptive state/policy, objective and bounded-action comparison",
+    "Operator review/override UI, equipment timing/limits/response characterization",
+    "Relevant KDP first-hour and physical action-benefit evidence",
+    "CPU/GPU transport benchmark and chemically justified Qiskit impurity study"
+  ]
+}

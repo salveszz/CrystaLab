@@ -712,3 +712,20 @@ common-recipe tracking cost, proposal/evidence hashes and independent control
 audit. It extends DESIGN-CONTROL-THERMAL-001 without adding physical parameters
 or an adaptive forecast claim. The [checkpoint](docs/EVENT_SUPERVISION_CHECKPOINT.json)
 records the verified source revision and explicit open pitch requirements.
+
+## DESIGN-AREA-FORECAST-003
+
+`configs/area_forecast.json` defines a 0.25-source-video-second projected-area
+forecast horizon, causal two-observation histories, development gap/age settings
+and a bounded one-coefficient ridge fit. One horizon equals one illustrative
+optical geometry step at the exported 4 FPS, not a physical growth interval.
+Only the existing optical pilot's training families fit the coefficient/prior;
+the development comparison preserves startup coverage and separate current/future
+emission-proxy masks. No 3D truth or action-response parameters enter inputs.
+
+The actual [forecast report](docs/AREA_FORECAST.md) records that rate calibration
+does not beat future-area persistence on the four shared validation windows.
+Those families were already used during segmentation development. Real shadow
+outputs remain unreviewed, unscored and unable to authorize actuation. The
+[checkpoint](docs/AREA_FORECAST_CHECKPOINT.json) binds all model/data identities,
+the independent audit and explicit remaining measurement/adaptation gates.

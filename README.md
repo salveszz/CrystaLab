@@ -30,6 +30,11 @@ review proposals and connects a declared vision fixture through PID to simulated
 actuation. Real-video shadow runs create no numerical commands; scripted fixture
 decisions do not claim human review or physical action benefit.
 
+A [projected-area forecast diagnostic](docs/AREA_FORECAST.md) now uses causal
+learned observations and separate original proxy labels. Its calibrated rate
+does not beat persistence on four shared development windows; measurement bias,
+longer trajectories and adaptive-policy validation remain open.
+
 Real observations are now local: **2,123 alpha-LGA microscope images from nine
 runs, three phase-specific KDP movies and one separately identified ADP movie**.
 The image index preserves 79 source manual shape fits; reviewed segmentation and

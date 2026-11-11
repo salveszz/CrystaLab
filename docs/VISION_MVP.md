@@ -158,6 +158,10 @@ causal input windows and enough negative/event coverage. Predicting an event
 before visibility is a separate claim from detecting its first visible evidence.
 A learned predictor can supply the forecast when its data supports evaluation.
 Action-conditioned prediction requires supported action histories and responses.
+The first [projected-area diagnostic](AREA_FORECAST.md) now has causal optical
+histories and separate proxy labels. Its rate calibration fails to improve on
+future-area persistence over four shared development windows; current-area bias
+and longer trajectory coverage remain gates before promotion.
 Do not insert the current tabular model's idealized 3D inputs into a camera path
 without an independently validated measurement adapter.
 

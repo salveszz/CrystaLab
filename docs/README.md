@@ -20,6 +20,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Temperature checkpoint](TEMPERATURE_CONTROL_CHECKPOINT.json) | Actual thermal scenario results, source/artifact identities, independent trajectory audit and regression verification. |
 | [Event supervision](EVENT_SUPERVISION.md) | Origin-aware review proposals, actual synthetic/real shadow runs and bounded scripted fixture-to-PID integration. |
 | [Event supervision checkpoint](EVENT_SUPERVISION_CHECKPOINT.json) | Rule/clock/action source identities, independent shadow/control audits, comparison costs and regression evidence. |
+| [Area forecast](AREA_FORECAST.md) | Causal projected-area histories, training-only gain calibration, grouped development baselines, startup coverage and measurement-bias limits. |
+| [Area forecast checkpoint](AREA_FORECAST_CHECKPOINT.json) | Actual cohort/model/replay identities, independent parameter/metric audit, negative baseline finding and regression evidence. |
 | [Real vision data](REAL_VISION_DATA.md) | Acquired microscope images/videos, actual labels, frozen image splits, licenses, audits and development replay. |
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
 | [Optical synthetic images](OPTICAL_SYNTHETIC.md) | Pinned Blender/Cycles renderer, scene splits, geometric/optical mask semantics and visual failure history. |

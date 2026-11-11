@@ -142,7 +142,10 @@ Specify an observable short-horizon forecast, its causal history, objective,
 changing adaptive state/policy and permitted actions. Compare it with persistence
 and the implemented rule baseline using appropriately grouped evidence. A fixed
 candidate-to-pause rule is not the adaptive-agent deliverable. Continue reviewed
-real mask/event coverage, measurement/clock calibration and capture planning.
+real mask/event coverage. The first [area-forecast diagnostic](AREA_FORECAST.md)
+preserves a negative future-area baseline comparison and unreviewed real shadow
+predictions; measurement bias and longer trajectories need attention before promotion.
+Continue measurement/clock calibration and capture planning.
 Add an operator view with actual review/override input, supported projected
 growth/face measurements and equipment acknowledgment/fallback characterization.
 Real first-hour, physical action benefit, HPC and Qiskit remain open in the
