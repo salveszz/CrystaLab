@@ -1,7 +1,7 @@
-# FILE PURPOSE: Observe a file or explicitly selected camera with the seed baseline.
+# FILE PURPOSE: Observe a file/selected camera with a baseline or verified local segmentation model.
 # Export source timestamps, masks, validity events and overlays without training,
 # quality inference or actuator commands. Existing output directories are refused.
-"""Run the inspectable OpenCV seed-observation baseline."""
+"""Run timestamped baseline or local learned seed observation."""
 
 import argparse
 import json
@@ -11,6 +11,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from vision.baseline import BaselineConfig
 from vision.replay import replay
+from vision.learned import LearnedObservationConfig
 
 
 def main():
@@ -22,6 +23,12 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--source-info", type=Path)
+    parser.add_argument(
+        "--model-run", type=Path, help="Verified local YOLOv8-seg training run"
+    )
+    parser.add_argument(
+        "--frame-map", type=Path, help="Hashed derivative-to-original frame map"
+    )
     parser.add_argument("--clock", choices=("container", "nominal_fps", "arrival"))
     parser.add_argument("--fps", type=float)
     parser.add_argument("--max-frames", type=int)
@@ -30,9 +37,21 @@ def main():
     parser.add_argument("--experiment-seconds-per-video-second", type=float)
     args = parser.parse_args()
     camera = args.camera is not None
+    settings = json.loads(args.config.read_text())
+    observer_factory = None
+    if args.model_run is None:
+        config = BaselineConfig(**settings)
+    else:
+        from models.observation import YOLOObserver
+
+        config = LearnedObservationConfig(**settings)
+
+        def observer_factory(output):
+            return YOLOObserver(config, args.model_run, output / "settings")
+
     result = replay(
         args.camera if camera else args.video,
-        BaselineConfig(**json.loads(args.config.read_text())),
+        config,
         args.output,
         run_id=args.run_id,
         camera=camera,
@@ -45,6 +64,8 @@ def main():
         else json.loads(args.source_info.read_text()),
         experiment_origin_s=args.experiment_origin_s,
         experiment_seconds_per_video_second=args.experiment_seconds_per_video_second,
+        observer_factory=observer_factory,
+        frame_map=args.frame_map,
     )
     print(
         json.dumps(
@@ -55,6 +76,8 @@ def main():
                     "processed_frames",
                     "valid_observations",
                     "invalid_observations",
+                    "inspection_observations",
+                    "raw_candidate_instances",
                 )
             },
             indent=2,

@@ -11,10 +11,11 @@ and automatic control remain unevaluated.
 The completed growth dataset contains **360 episodes and 1,080 audited samples**.
 Video ingestion, the seed baseline, editable real-image proposals and the first
 Blender optical pipeline are implemented and checked. A 60-image, 20-scene
-[synthetic pilot](docs/VISION_PILOT.md) is complete and trained. Seed/secondary
-detection works within its small validation set; bubble false positives and
-missed inclusions remain. Real-image review, broader perception evaluation,
-temporal alerts, PID/adaptation and an operator demo follow. See the
+[synthetic pilot](docs/VISION_PILOT.md) is complete and trained.
+[Learned video observation](docs/LEARNED_VIDEO.md) now preserves seed role,
+original-frame mapping and inspection requests on synthetic/real development
+replays. Bubble false positives, missed inclusions and real mask accuracy remain
+open, followed by temporal alerts, PID/adaptation and the operator demo. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
 

@@ -5,6 +5,10 @@ tracking, projected pixel measurements, invalid-state events and auditable repla
 outputs. This is the first software batch in the [roadmap](../roadmap.md), not a
 trained crystal/defect detector. It issues no actuator commands.
 
+The same CLI now also accepts a verified model via `--model-run`; see
+[learned video observation](LEARNED_VIDEO.md) for that configuration, seed-role
+uncertainty and source-frame mapping. This document describes the baseline mode.
+
 ## Install and smoke replay
 
 Install the optional OpenCV dependency in the project environment:
@@ -34,8 +38,9 @@ Both commands refuse existing output directories. The 24-frame fixture has a
 known seed, a larger unrelated object and a four-frame seed-visibility gap. The
 baseline recovers 20 valid observations and records four invalid observations.
 Fixture masks are pixel-geometry ground truth; they do not represent vessel
-optics or a measured crystal-growth/defect process. Blender imagery remains a
-separate unfinished roadmap deliverable.
+optics or a measured crystal-growth/defect process. The separate
+[Blender optical pipeline](OPTICAL_SYNTHETIC.md) and [grouped model pilot](VISION_PILOT.md)
+are now implemented; their evidence does not turn this analytic fixture into real data.
 
 ## Observation configuration
 
@@ -130,9 +135,9 @@ The full first-batch checkpoint passed 244 tests and 130 subtests. See the
 [versioned verification record](VISION_CHECKPOINT.json), including source hashes,
 fixture/development counts and the explicitly unfinished model/control gates.
 
-Next: inspect real microscope sequences, retain experiment groups and source
-measurement semantics, add reviewed visible masks/events and compare this baseline
-on development runs. Synthetic optical images, YOLOv8-seg, event-class detection,
+Real microscope import, synthetic optical images, YOLOv8-seg fitting and learned
+seed replay are implemented in their linked reports. Next: review actual visible
+masks/events and compare methods on real development data. Event-class evaluation,
 predictive supervision and physical validation remain open.
 
 The clock implementation follows the backend-dependent contract documented by

@@ -12,12 +12,11 @@ import cv2
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 
-from models.segmentation import local_yolo
+from models.segmentation import local_yolo, load_run_metadata
 from vision.training_data import (
     CLASSES,
     audit_segmentation,
     polygon_masks,
-    safe_path,
     save_json,
 )
 from vision.video import file_sha256
@@ -67,18 +66,7 @@ def evaluate_development(
         Path(dataset).resolve(),
         Path(output).resolve(),
     )
-    model_manifest = json.loads((run / "manifest.json").read_text())
-    if (
-        model_manifest.get("schema") != "crystalab_yolov8_seg_run_v1"
-        or model_manifest["status"] != "complete"
-    ):
-        raise ValueError("A completed local training run is required")
-    weights = safe_path(run, model_manifest["best_weights"])
-    if file_sha256(weights) != model_manifest["best_weights_sha256"]:
-        raise ValueError("Trained weight identity changed")
-    for path, digest in model_manifest["source_sha256"].items():
-        if file_sha256(safe_path(run / "source_snapshot", path)) != digest:
-            raise ValueError("Training source snapshot changed")
+    model_manifest, weights = load_run_metadata(run)
     audit = audit_segmentation(dataset)
     source = json.loads((dataset / "manifest.json").read_text())
     rows = [r for r in source["records"] if r["split"] == split]

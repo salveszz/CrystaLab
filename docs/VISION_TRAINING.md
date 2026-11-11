@@ -146,6 +146,11 @@ Additional [source triage](REAL_VISION_SOURCE_CANDIDATES.json) records a KDP
 surface-inspection lead and a calcium-carbonate microscopy deposit separately.
 Neither is counted as acquired, relevant KDP growth-event training truth.
 
+The trained model now runs through [timestamped learned observation](LEARNED_VIDEO.md).
+That replay retains raw labels/masks, seeded identity across visual class changes
+and inspection requests for compatible competing outlines. Real replay estimates
+remain unreviewed; they are not accepted training labels or accuracy evidence.
+
 Official implementation references checked on 2026-11-11:
 [YOLOv8 model documentation](https://docs.ultralytics.com/models/yolov8/),
 [segmentation task](https://docs.ultralytics.com/tasks/segment/) and

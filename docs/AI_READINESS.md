@@ -13,8 +13,8 @@ real defect accuracy; no automatic controller is implemented.
 
 | Task | Current evidence | Next gate |
 |---|---|---|
-| Video baseline and image-data pipeline | File/camera adapter, tested seed baseline, real-image index, six editable annotation proposals and audited 18-frame smoke / 60-image grouped optical datasets. | Human pixel/event review, clock/measurement checks and relevant real coverage. |
-| YOLOv8-seg and visible-event alerts | Pinned training/evaluation, overfit/software checks, a 30-epoch grouped synthetic pilot and same-image OpenCV comparison. Bubble false positives and missed inclusions remain; temporal alerts are absent. | Learned video observation, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
+| Video baseline and image-data pipeline | File/camera adapter, baseline/learned replay, original-frame mapping, real-image index, six editable proposals and audited 18-frame smoke / 60-image grouped optical datasets. | Human pixel/event review, clock/measurement checks and relevant real coverage. |
+| YOLOv8-seg and visible-event alerts | Pinned training/evaluation, grouped synthetic fit, seed comparison and learned seed-role replay with explicit alternative masks/inspection requests. Bubble errors and missed inclusions remain; temporal defect alerts are absent. | Non-seed identities/event evidence, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
 | PID/adaptive software loop | Bounded scripted simulation commands; no feedback controller. | Sensor/command interfaces, PID and bounded supervisor, fixed-recipe comparison and traceable action logs. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
@@ -37,8 +37,10 @@ do not establish KDP performance.
 The [20-scene grouped pilot](VISION_PILOT.md), its audit/development inspection,
 30-epoch fit and synthetic OpenCV comparison are complete. Use the implemented
 [training/evaluation path](VISION_TRAINING.md) to investigate the recorded bubble
-and inclusion errors. Connect learned perception to timestamped video and evaluate
-temporal decisions. Unreviewed proposals remain excluded from accepted real
+and inclusion errors. [Learned timestamped observation](LEARNED_VIDEO.md) now
+exports estimates on 30 real development frames, with 11 inspection flags and no
+accuracy claim. Add non-seed identities and evaluate temporal decisions.
+Unreviewed proposals remain excluded from accepted real
 training; the real baseline/model comparison needs actual reviewed masks.
 
 Use the [Vision MVP contract](VISION_MVP.md) for classes, evaluation, first-hour

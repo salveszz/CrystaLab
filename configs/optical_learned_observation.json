@@ -1,0 +1,21 @@
+{
+  "schema": "crystalab_learned_observation_v1",
+  "seed_point": [
+    128,
+    128
+  ],
+  "confidence": 0.25,
+  "threads": 2,
+  "minimum_area_px": 32,
+  "maximum_area_fraction": 0.8,
+  "minimum_contrast": 5.0,
+  "minimum_focus": 0.0,
+  "minimum_iou": 0.1,
+  "ambiguity_margin": 0.05,
+  "maximum_gap_s": 2.0,
+  "seed_candidate_class_ids": [
+    0,
+    1
+  ],
+  "compatible_seed_iou": 0.9
+}

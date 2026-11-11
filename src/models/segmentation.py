@@ -13,10 +13,28 @@ import platform
 import shutil
 import time
 
-from vision.training_data import audit_segmentation, save_json
+from vision.training_data import audit_segmentation, safe_path, save_json
 from vision.video import file_sha256
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def load_run_metadata(run):
+    """Verify a completed training run and its exact weight/source artifacts before loading."""
+    run = Path(run).resolve()
+    manifest = json.loads((run / "manifest.json").read_text())
+    if (
+        manifest.get("schema") != "crystalab_yolov8_seg_run_v1"
+        or manifest["status"] != "complete"
+    ):
+        raise ValueError("A completed local training run is required")
+    weights = safe_path(run, manifest["best_weights"])
+    if file_sha256(weights) != manifest["best_weights_sha256"]:
+        raise ValueError("Trained weight identity changed")
+    for relative, digest in manifest["source_sha256"].items():
+        if file_sha256(safe_path(run / "source_snapshot", relative)) != digest:
+            raise ValueError("Training source snapshot changed")
+    return manifest, weights
 
 
 def training_options(config):

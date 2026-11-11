@@ -1,0 +1,312 @@
+{
+  "checked_at_utc": "2026-11-11T18:25:09.452460+00:00",
+  "scope": "Learned timestamped observation, seed role and inspection behavior. No real segmentation/event accuracy or physical control validation.",
+  "tests": {
+    "status": "pass",
+    "tests": 284,
+    "subtests": 147,
+    "seconds": 97.66,
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "log": "/tmp/crystalab-learned-replay-regression.log"
+  },
+  "source_sha256": {
+    "src/vision/learned.py": "b249cc84fbe54e3c7782ed5f90cbc39f8b457cf91606a5296a8cc676be66fdfb",
+    "src/vision/replay.py": "1104c7969aa0ed05320847552b5e720750a7a6027cc3d2eb8971f5edb43645cb",
+    "src/vision/optical_sequence.py": "f82c7e92fae87413d5f2e1c0eda3c842c66dd5fbc477b87c616f80bfd58f426f",
+    "src/models/observation.py": "eab69255d246b1a28ad03fa650856702121aecf7657d8db18cb243d176ae5acc",
+    "src/models/segmentation.py": "f49c37c3e11ceab15c2833501c89b2dca50b009d07a5b5cdd76e42032523f8ff",
+    "src/models/segmentation_eval.py": "cb320e32f0ec41de403bbe67522b91ac1bcb8121526471c5fc6eb5adc9dba585",
+    "src/rendering/observation.py": "7b7201fccfc7802b37b4810461197df920aeaea833bcea26a5654181840b3f70",
+    "scripts/observe_video.py": "9bb80a43f2faf4463a9ada98f0992eb1590d8040090117d49dcf3da7515f7a4b",
+    "scripts/export_optical_sequence.py": "591ec784b3eec2c6ee942688a0f8e19d24d0f010933933836b911cb38cf4d879",
+    "tests/test_learned_observation.py": "978820f1fe5b1238b8deb268e2412ec84437de3bf583344b76ac9b76e13ffb6d",
+    "tests/test_optical_sequence.py": "cd5adb8d67c12c7dcd274d235dc64896bb01fdbf95c02f6e5fe4c3202456b75f",
+    "configs/optical_learned_observation.json": "1c660d72e06937edff21546afbf459102bfcb4b6046b78a451c0a52dcf679ae6",
+    "configs/leeds_pilot12_learned.json": "6ad8002b014c123eab713f9b0f3d8ffb7efe8c3c2a83865b96e33818b56bcc30"
+  },
+  "replays": [
+    {
+      "path": "results/optical_pilot13_learned_v3",
+      "manifest_sha256": "9f7d933f5ce832c7f11ecd221e97477bf2e8b7479f957c558e3f4be8d1aa85ca",
+      "status": "complete",
+      "source_info": {
+        "evidence_kind": "synthetic",
+        "material": "illustrative_optical_geometry",
+        "source_id": "crystalab_optical_images_v1",
+        "scene_id": "optical_pilot_013",
+        "family_id": "optical_pilot_013",
+        "split": "validation",
+        "source_dataset": "/home/salves/dev/CrystaLab/data/synthetic_vision_pilot_v1",
+        "source_manifest_sha256": "6434179db8c54e16cba55378f67568999ebb050899ba3756ae4563e10f02e429",
+        "frame_map_sha256": "c1efe3fb994a3665cca457cf11dff804b055b7349a5ba66b23a62cfeed0ee5ba",
+        "derivative": "PNG frames MJPG encoded at original dimensions; no source frame duplication",
+        "timing": "Display FPS only. Synthetic geometry steps are not physical seconds.",
+        "optical_quality": null,
+        "physical_defect_response": null
+      },
+      "input": {
+        "kind": "file",
+        "source": "/home/salves/dev/CrystaLab/results/optical_pilot13_sequence_v1/sequence.avi",
+        "sha256": "6030da9927749113bb048d42691259fbe7536ce7790343f97521692305a4cf2f",
+        "clock": "container",
+        "reported_fps": 4.0,
+        "nominal_fps": 4.0,
+        "reported_frame_count": 3,
+        "backend": "FFMPEG",
+        "opencv_version": "4.13.0"
+      },
+      "config": {
+        "seed_point": [
+          128,
+          128
+        ],
+        "schema": "crystalab_learned_observation_v1",
+        "roi": null,
+        "confidence": 0.25,
+        "seed_candidate_class_ids": [
+          0,
+          1
+        ],
+        "compatible_seed_iou": 0.9,
+        "threads": 2,
+        "minimum_area_px": 32,
+        "maximum_area_fraction": 0.8,
+        "minimum_contrast": 5.0,
+        "minimum_focus": 0.0,
+        "minimum_iou": 0.1,
+        "ambiguity_margin": 0.05,
+        "maximum_gap_s": 2.0
+      },
+      "source_sha256": {
+        "src/vision/replay.py": "1104c7969aa0ed05320847552b5e720750a7a6027cc3d2eb8971f5edb43645cb",
+        "src/vision/video.py": "1d72d3e06fcac17f3599b959e8d37bcd7bb1fe2c1251db1d9ac9b4491436593c",
+        "src/vision/baseline.py": "567bedbc626959339e30af9b2d83000c43ffc6a0ef5a765144d864af8f41f359",
+        "src/rendering/observation.py": "7b7201fccfc7802b37b4810461197df920aeaea833bcea26a5654181840b3f70",
+        "src/models/observation.py": "eab69255d246b1a28ad03fa650856702121aecf7657d8db18cb243d176ae5acc",
+        "src/models/segmentation.py": "f49c37c3e11ceab15c2833501c89b2dca50b009d07a5b5cdd76e42032523f8ff",
+        "src/vision/learned.py": "b249cc84fbe54e3c7782ed5f90cbc39f8b457cf91606a5296a8cc676be66fdfb",
+        "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a"
+      },
+      "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+      "training_manifest_sha256": "6ce66979f40c76bbd83e7b5394b70e0f67cf09e45a5b8b0d5e9eed77d2ef69f6",
+      "processed_frames": 3,
+      "seed_estimates": 3,
+      "invalid_observations": 0,
+      "inspection_observations": 0,
+      "raw_candidate_instances": 11,
+      "roles": {
+        "seed_component": 3,
+        "unassigned_crystal_candidate": 8
+      },
+      "inspection_reasons": {},
+      "events": [
+        {
+          "evidence_path": "evidence/frame_00000000.png",
+          "frame_index": 0,
+          "kind": "seed_acquired",
+          "reason": null,
+          "run_id": "optical_pilot13_learned_hypotheses_v3",
+          "video_time_s": 0.0
+        }
+      ],
+      "source_frame_map": {
+        "original_path": "/home/salves/dev/CrystaLab/results/optical_pilot13_sequence_v1/frame_map.jsonl",
+        "sha256": "c1efe3fb994a3665cca457cf11dff804b055b7349a5ba66b23a62cfeed0ee5ba"
+      },
+      "observer_setup_seconds": 0.7221923519973643,
+      "observation_latency": {
+        "first_seconds": 0.6392453930020565,
+        "subsequent_median_seconds": 0.014120793999609305,
+        "all_p95_seconds": 0.5767745452023518,
+        "scope": "Tracker measure call after decoding; excludes model setup, overlay and disk output"
+      },
+      "elapsed_seconds": 1.4115212640026584,
+      "inspected_frames": [
+        2
+      ],
+      "experiment_time_available": false,
+      "accuracy_on_real_data": null
+    },
+    {
+      "path": "results/leeds_pilot12_learned_v3",
+      "manifest_sha256": "b31eec8238a4502ec0b17dc61b975ac38daf62b59bdbf01eb70c4887d891aea5",
+      "status": "complete",
+      "source_info": {
+        "evidence_kind": "real",
+        "material": "alpha_L_glutamic_acid",
+        "source_id": "LGA-LEEDS-2026",
+        "experiment_id": "12",
+        "split": "train",
+        "source_url": "https://archive.researchdata.leeds.ac.uk/1537/",
+        "citation": "Ilett, Hazlehurst, Jiang, Ma, Hogg and Roberts (2026), Reconstruction of 3D crystal growth from transmission optical microscopy images - Supporting data, University of Leeds.",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_archive_sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+        "source_index_sha256": "815d86ae34c107c8bac9863b937e212b9c776d38e665ccd7a563e944c6478421",
+        "derivative": "JPEG sequence resized and MJPG encoded; original source retained",
+        "frame_map_sha256": "e83a490e238e966ac2da5f43fb2e016f2ad3cda3437cb47a781e1c73815ed24f",
+        "timing": "Display FPS only. Nominal acquisition cadence is in frame_map; actual capture times are unverified."
+      },
+      "input": {
+        "kind": "file",
+        "source": "/home/salves/dev/CrystaLab/results/leeds_pilot12_v1/sequence.avi",
+        "sha256": "082917c054c951c992b87869eb3f9b66087e25fe1acfacacae3f8a162ba40cce",
+        "clock": "container",
+        "reported_fps": 4.0,
+        "nominal_fps": 4.0,
+        "reported_frame_count": 30,
+        "backend": "FFMPEG",
+        "opencv_version": "4.13.0"
+      },
+      "config": {
+        "seed_point": [
+          495,
+          345
+        ],
+        "schema": "crystalab_learned_observation_v1",
+        "roi": [
+          350,
+          200,
+          370,
+          340
+        ],
+        "confidence": 0.25,
+        "seed_candidate_class_ids": [
+          0,
+          1
+        ],
+        "compatible_seed_iou": 0.9,
+        "threads": 2,
+        "minimum_area_px": 200,
+        "maximum_area_fraction": 0.8,
+        "minimum_contrast": 5.0,
+        "minimum_focus": 0.0,
+        "minimum_iou": 0.1,
+        "ambiguity_margin": 0.05,
+        "maximum_gap_s": 2.0
+      },
+      "source_sha256": {
+        "src/vision/replay.py": "1104c7969aa0ed05320847552b5e720750a7a6027cc3d2eb8971f5edb43645cb",
+        "src/vision/video.py": "1d72d3e06fcac17f3599b959e8d37bcd7bb1fe2c1251db1d9ac9b4491436593c",
+        "src/vision/baseline.py": "567bedbc626959339e30af9b2d83000c43ffc6a0ef5a765144d864af8f41f359",
+        "src/rendering/observation.py": "7b7201fccfc7802b37b4810461197df920aeaea833bcea26a5654181840b3f70",
+        "src/models/observation.py": "eab69255d246b1a28ad03fa650856702121aecf7657d8db18cb243d176ae5acc",
+        "src/models/segmentation.py": "f49c37c3e11ceab15c2833501c89b2dca50b009d07a5b5cdd76e42032523f8ff",
+        "src/vision/learned.py": "b249cc84fbe54e3c7782ed5f90cbc39f8b457cf91606a5296a8cc676be66fdfb",
+        "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a"
+      },
+      "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+      "training_manifest_sha256": "6ce66979f40c76bbd83e7b5394b70e0f67cf09e45a5b8b0d5e9eed77d2ef69f6",
+      "processed_frames": 30,
+      "seed_estimates": 30,
+      "invalid_observations": 0,
+      "inspection_observations": 11,
+      "raw_candidate_instances": 40,
+      "roles": {
+        "seed_component": 30,
+        "compatible_seed_hypothesis": 10
+      },
+      "inspection_reasons": {
+        "compatible_cross_class_seed_hypotheses": 10,
+        "raw_seed_class_transition": 1
+      },
+      "events": [
+        {
+          "evidence_path": "evidence/frame_00000000.png",
+          "frame_index": 0,
+          "kind": "seed_acquired",
+          "reason": null,
+          "run_id": "leeds12_learned_hypotheses_v3",
+          "video_time_s": 0.0
+        },
+        {
+          "evidence_path": "evidence/frame_00000015.png",
+          "frame_index": 15,
+          "kind": "inspection_required",
+          "reason": "compatible_cross_class_seed_hypotheses",
+          "run_id": "leeds12_learned_hypotheses_v3",
+          "video_time_s": 3.75
+        },
+        {
+          "evidence_path": "evidence/frame_00000025.png",
+          "frame_index": 25,
+          "kind": "inspection_required",
+          "reason": "raw_seed_class_transition",
+          "run_id": "leeds12_learned_hypotheses_v3",
+          "video_time_s": 6.25
+        },
+        {
+          "evidence_path": "evidence/frame_00000026.png",
+          "frame_index": 26,
+          "kind": "seed_acquired",
+          "reason": null,
+          "run_id": "leeds12_learned_hypotheses_v3",
+          "video_time_s": 6.5
+        }
+      ],
+      "source_frame_map": {
+        "original_path": "/home/salves/dev/CrystaLab/results/leeds_pilot12_v1/frame_map.jsonl",
+        "sha256": "e83a490e238e966ac2da5f43fb2e016f2ad3cda3437cb47a781e1c73815ed24f"
+      },
+      "observer_setup_seconds": 0.7145739080006024,
+      "observation_latency": {
+        "first_seconds": 0.6488882749981713,
+        "subsequent_median_seconds": 0.02126625100208912,
+        "all_p95_seconds": 0.026482468549511383,
+        "scope": "Tracker measure call after decoding; excludes model setup, overlay and disk output"
+      },
+      "elapsed_seconds": 2.1631955210032174,
+      "inspected_frames": [
+        15,
+        29
+      ],
+      "experiment_time_available": false,
+      "accuracy_on_real_data": null
+    }
+  ],
+  "independent_execution_checks": [
+    "All output and source-snapshot hashes match",
+    "Output videos decode to exactly the processed frame count",
+    "Mask pixel counts and bounds reconstruct measurement records",
+    "Selected components reconstruct from retained raw instance masks",
+    "Compatible hypotheses reconstruct component areas, IoUs and reported area ranges",
+    "Initial seed masks contain the declared point and subsequent overlap scores reconstruct",
+    "Source frame references match copied maps; experiment/acquisition time remains null",
+    "Real source sample hashes/archive members/nominal times match the pinned original index",
+    "Original real archive and index identities remain intact"
+  ],
+  "synthetic_source_proxy_seed_iou": {
+    "images": 3,
+    "mean_iou": 0.9005575632757964,
+    "truth": "Original optical emission proxy; not exact real visibility"
+  },
+  "retained_failure_runs": [
+    {
+      "path": "results/leeds_pilot12_learned_v1",
+      "policy": "Class-0-only seed selection",
+      "seed_estimates": 15,
+      "invalid_observations": 15
+    },
+    {
+      "path": "results/leeds_pilot12_learned_v2",
+      "policy": "Both crystal classes without compatible-hypothesis handling",
+      "seed_estimates": 15,
+      "invalid_reasons": {
+        "ambiguous_seed_identity": 8,
+        "identity_requires_reinitialization": 7
+      }
+    }
+  ],
+  "real_review_receipts": 0,
+  "physical_camera_opened": false,
+  "actuator_commands_issued": false,
+  "final_test_scored": false,
+  "remaining": [
+    "Actual real polygon/event review and numerical acceptance budgets",
+    "Non-seed identities and temporal candidate/event evaluation including bubbles",
+    "Relevant real KDP measurement/first-hour evidence and mixed training",
+    "Face/asymmetry measurement and inclusion detection",
+    "PID, bounded adaptation, operator demo and physical action response",
+    "HPC/GPU benchmark and justified Qiskit impurity study"
+  ]
+}

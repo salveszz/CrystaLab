@@ -9,6 +9,7 @@ import json
 import math
 from pathlib import Path
 import platform
+import shutil
 import time
 
 import cv2
@@ -42,6 +43,8 @@ def replay(
     sample_every=1,
     experiment_origin_s=None,
     experiment_seconds_per_video_second=None,
+    observer_factory=None,
+    frame_map=None,
 ):
     """Export masks, JSONL and a convenience constant-FPS overlay; never overwrite.
 
@@ -79,7 +82,28 @@ def replay(
         "experiment_clock_provenance"
     ):
         raise ValueError("Experiment-clock mapping requires its source evidence")
-    tracker = SeedTracker(config)
+    mapped_frames = None
+    map_path = None
+    if frame_map is not None:
+        if camera:
+            raise ValueError(
+                "An archived frame map cannot be attached to a live camera"
+            )
+        map_path = Path(frame_map).resolve()
+        if file_sha256(map_path) != source_info.get("frame_map_sha256"):
+            raise ValueError("Source frame-map identity does not match source metadata")
+        mapped_frames = [json.loads(line) for line in map_path.read_text().splitlines()]
+        if not mapped_frames or any(
+            type(row.get("output_frame_index")) is not int
+            or row["output_frame_index"] != i
+            or type(row.get("display_time_s")) not in {int, float}
+            or not math.isfinite(row.get("display_time_s", float("nan")))
+            or row["display_time_s"] < 0
+            for i, row in enumerate(mapped_frames)
+        ):
+            raise ValueError(
+                "Source frame map needs contiguous indices and finite display timestamps"
+            )
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     (output / "masks").mkdir()
@@ -107,9 +131,48 @@ def replay(
     )
     write_json(output / "manifest.json", manifest)
     writer = None
-    processed = valid = decoded = 0
+    processed = valid = decoded = instance_count = inspection_count = 0
+    observe_times = []
     previous_status, last_overlay = None, None
     try:
+        setup = time.perf_counter()
+        tracker = (
+            SeedTracker(config)
+            if observer_factory is None
+            else observer_factory(output)
+        )
+        manifest["observer_setup_seconds"] = time.perf_counter() - setup
+        manifest["observer"] = getattr(
+            tracker, "info", dict(method="opencv_threshold_seed_overlap_v1")
+        )
+        if observer_factory is not None:
+            manifest["scope"] = (
+                "Experimental learned projected observation; candidate classes/scores unvalidated for real events/quality/control"
+            )
+            (output / "instances").mkdir()
+        root = Path(__file__).resolve().parents[2]
+        sources = [
+            Path(__file__),
+            root / "src/vision/video.py",
+            root / "src/vision/baseline.py",
+            root / "src/rendering/observation.py",
+            *getattr(tracker, "source_files", []),
+        ]
+        source_hashes = {}
+        for source_path in sources:
+            relative = source_path.relative_to(root)
+            target = output / "source_snapshot" / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source_path, target)
+            source_hashes[str(relative)] = file_sha256(target)
+            if file_sha256(source_path) != source_hashes[str(relative)]:
+                raise ValueError("Observer source changed during snapshot")
+        manifest["source_sha256"] = source_hashes
+        if map_path is not None:
+            shutil.copyfile(map_path, output / "frame_map.jsonl")
+            manifest["source_frame_map"] = dict(
+                original_path=str(map_path), sha256=file_sha256(map_path)
+            )
         with (
             VideoReader(source, camera=camera, clock=clock, fps=fps) as reader,
             (output / "measurements.jsonl").open("x") as measurements,
@@ -119,8 +182,27 @@ def replay(
             write_json(output / "manifest.json", manifest)
             for frame in reader:
                 decoded += 1
+                source_frame = None
+                if mapped_frames is not None:
+                    if frame.index >= len(mapped_frames):
+                        raise ValueError(
+                            "Video contains frames absent from source frame map"
+                        )
+                    source_frame = mapped_frames[frame.index]
+                    if not math.isclose(
+                        source_frame["display_time_s"],
+                        frame.video_time_s,
+                        abs_tol=0.001,
+                        rel_tol=0,
+                    ):
+                        raise ValueError(
+                            "Video clock differs from declared derivative display timing"
+                        )
                 if frame.index % sample_every == 0:
+                    observe_started = time.perf_counter()
                     record, mask = tracker.measure(frame.image, frame.video_time_s)
+                    observe_seconds = time.perf_counter() - observe_started
+                    observe_times.append(observe_seconds)
                     record.update(
                         run_id=run_id,
                         frame_index=frame.index,
@@ -128,17 +210,57 @@ def replay(
                         timestamp_basis=frame.timestamp_basis,
                         experiment_time_s=None,
                         mask_path=None,
+                        observe_wall_seconds=observe_seconds,
                     )
                     if experiment_origin_s is not None:
                         record["experiment_time_s"] = (
                             experiment_origin_s
                             + frame.video_time_s * experiment_seconds_per_video_second
                         )
+                    if source_frame is not None:
+                        record["source_frame"] = source_frame
+                    instances = getattr(tracker, "instances", [])
+                    if observer_factory is not None:
+                        record["objects"] = []
+                        for index, instance in enumerate(instances):
+                            instance_mask = instance["mask"]
+                            path = f"instances/frame_{frame.index:08d}_{index:03d}.png"
+                            if not cv2.imwrite(str(output / path), instance_mask):
+                                raise OSError(
+                                    "Could not save raw candidate instance mask"
+                                )
+                            metadata = {
+                                k: v for k, v in instance.items() if k != "mask"
+                            }
+                            alternatives = {
+                                item["instance_index"]
+                                for item in record.get("seed_alternatives", [])
+                            }
+                            metadata.update(
+                                instance_index=index,
+                                mask_path=path,
+                                projected_area_px=int(np.count_nonzero(instance_mask)),
+                                assigned_role="seed_component"
+                                if index == record.get("seed_instance_index")
+                                else (
+                                    "compatible_seed_hypothesis"
+                                    if index in alternatives
+                                    else (
+                                        "unassigned_crystal_candidate"
+                                        if instance["class_id"] in {0, 1}
+                                        else "unverified_inclusion_candidate"
+                                    )
+                                ),
+                            )
+                            record["objects"].append(metadata)
+                            instance_count += 1
                     if mask is not None:
                         record["mask_path"] = f"masks/frame_{frame.index:08d}.png"
                         if not cv2.imwrite(str(output / record["mask_path"]), mask):
                             raise OSError("Could not save observation mask")
-                    overlay = observation_overlay(frame.image, record, mask)
+                    overlay = observation_overlay(
+                        frame.image, record, mask, instances=instances
+                    )
                     if writer is None:
                         height, width = overlay.shape[:2]
                         if width % 2 or height % 2:
@@ -156,7 +278,14 @@ def replay(
                             raise OSError("MJPG overlay writer is unavailable")
                         manifest["overlay_display_fps"] = display_fps
                     writer.write(overlay)
-                    status = (record["status"], record["reason"])
+                    needs_inspection = record.get(
+                        "requires_inspection", not record["valid"]
+                    )
+                    status = (
+                        record["status"],
+                        record["reason"],
+                        record.get("inspection_reason"),
+                    )
                     if status != previous_status:
                         evidence = f"evidence/frame_{frame.index:08d}.png"
                         if not cv2.imwrite(str(output / evidence), overlay):
@@ -167,10 +296,11 @@ def replay(
                                 run_id=run_id,
                                 frame_index=frame.index,
                                 video_time_s=frame.video_time_s,
-                                kind="seed_acquired"
-                                if record["valid"]
-                                else "inspection_required",
-                                reason=record["reason"],
+                                kind="inspection_required"
+                                if needs_inspection
+                                else "seed_acquired",
+                                reason=record.get("inspection_reason")
+                                or record["reason"],
                                 evidence_path=evidence,
                             ),
                         )
@@ -178,6 +308,7 @@ def replay(
                     write_row(measurements, record)
                     processed += 1
                     valid += int(record["valid"])
+                    inspection_count += int(needs_inspection)
                 if max_frames is not None and decoded >= max_frames:
                     break
             if processed == 0:
@@ -187,6 +318,21 @@ def replay(
             )
             if not camera and file_sha256(source) != manifest["input"]["sha256"]:
                 raise ValueError("Input changed during observation")
+            if mapped_frames is not None:
+                if not manifest["stopped_by_frame_limit"] and decoded != len(
+                    mapped_frames
+                ):
+                    raise ValueError(
+                        "Source frame map contains unmatched extra video frames"
+                    )
+                if (
+                    file_sha256(map_path) != source_info["frame_map_sha256"]
+                    or file_sha256(output / "frame_map.jsonl")
+                    != source_info["frame_map_sha256"]
+                ):
+                    raise ValueError("Source frame map changed during replay")
+            if hasattr(tracker, "verify"):
+                tracker.verify()
         writer.release()
         writer = None
         if not cv2.imwrite(str(output / "final_observation.png"), last_overlay):
@@ -198,6 +344,16 @@ def replay(
             valid_observations=valid,
             invalid_observations=processed - valid,
             elapsed_seconds=time.perf_counter() - started,
+            raw_candidate_instances=instance_count,
+            inspection_observations=inspection_count,
+            observation_latency=dict(
+                first_seconds=observe_times[0],
+                subsequent_median_seconds=float(np.median(observe_times[1:]))
+                if len(observe_times) > 1
+                else None,
+                all_p95_seconds=float(np.percentile(observe_times, 95)),
+                scope="Tracker measure call after decoding; excludes model setup, overlay and disk output",
+            ),
         )
         manifest["files"] = {
             str(p.relative_to(output)): file_sha256(p)

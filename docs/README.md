@@ -11,6 +11,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Roadmap](../roadmap.md) | Pitch requirements, actual status, immediate pilot batch and ordered perception/control/demo work, including HPC/Qiskit deliverables. |
 | [Vision MVP](VISION_MVP.md) | Capture/annotation contract, observable targets, real/synthetic splits, evaluation and control interfaces. |
 | [Video baseline](VISION_BASELINE.md) | Implemented file/camera observation, explicit clocks, projected seed tracking, validity events and reproducible fixture replay. |
+| [Learned video observation](LEARNED_VIDEO.md) | Verified model replay, seed role across raw labels, alternative outlines/inspection requests and hashed original-frame mapping. |
+| [Learned replay checkpoint](LEARNED_VIDEO_CHECKPOINT.json) | 284-test result, actual synthetic/real development replays, strict-prototype failures and remaining real/event/control gates. |
 | [Real vision data](REAL_VISION_DATA.md) | Acquired microscope images/videos, actual labels, frozen image splits, licenses, audits and development replay. |
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
 | [Optical synthetic images](OPTICAL_SYNTHETIC.md) | Pinned Blender/Cycles renderer, scene splits, geometric/optical mask semantics and visual failure history. |
@@ -27,10 +29,11 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [AI readiness](AI_READINESS.md) | Separate readiness gates for vision, synthetic growth prediction and physical control. |
 | [Data directory guide](../data/README.md) | Local generated files, original inputs and the Git ignore policy. |
 
-The file/camera adapter, OpenCV seed baseline and local YOLOv8-seg training path
+The file/camera adapter, OpenCV seed baseline, learned replay and local YOLOv8-seg training path
 are implemented. Synthetic first fits establish software behavior and expose
 remaining errors. The bounded optical pilot and synthetic baseline comparison
-are complete; real labels/accuracy comparison, temporal alerts and physical control remain open.
+are complete. Learned observation retains uncertainty and source frames;
+real labels/accuracy comparison, temporal alerts and physical control remain open.
 Growth baselines and XGBoost remain a supporting
 experiment using the frozen tabular splits, illustrative units and fixed law.
 
