@@ -4,14 +4,15 @@ The [pitch-led roadmap](../roadmap.md) prioritizes camera observations, real and
 synthetic images, YOLOv8-seg, event alerts and PID/adaptive control. The completed
 tabular growth dataset is ready for a bounded supporting experiment. It does not
 make the vision system or physical controller ready. Video/camera ingestion, the
-OpenCV seed baseline and real-image import are implemented. No trained model,
+OpenCV seed baseline, real-image import, annotation tooling and the Blender
+optical smoke batch are implemented. No trained model,
 evaluated defect detector or automatic controller is implemented.
 
 ## Readiness gates
 
 | Task | Current evidence | Next gate |
 |---|---|---|
-| Video baseline and image-data pipeline | File/camera adapter, tested seed baseline and development replay; 2,123 real alpha-LGA images indexed, plus KDP/ADP clips acquired. | Review pixel/event labels, acquisition clocks and measurement accuracy; add audited optical synthetic images. |
+| Video baseline and image-data pipeline | File/camera adapter, tested seed baseline, real-image index, six editable annotation proposals and an audited 18-frame Blender optical smoke batch. | Human pixel/event review, clock/measurement checks and a declared training cohort; smoke completion does not prove training coverage. |
 | YOLOv8-seg and visible-event alerts | Model task is defined in the pitch; no training or evaluated alerts. | Reviewed labels, whole-run/scene splits, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
 | PID/adaptive software loop | Bounded scripted simulation commands; no feedback controller. | Sensor/command interfaces, PID and bounded supervisor, fixed-recipe comparison and traceable action logs. |
@@ -20,15 +21,23 @@ evaluated defect detector or automatic controller is implemented.
 
 ## Immediate vision work
 
-1. Freeze a pilot capture/annotation contract: observable targets, original
-   timestamps, view/pose, run/source IDs, uncertainty and event-onset evidence.
-2. The [video baseline](VISION_BASELINE.md) is implemented. Establish mask/measurement
-   accuracy on reviewed development annotations before treating it as a detector.
-3. Build the Blender/OpenCV image path with inspected masks and recorded rendering
-   assumptions. [Real images/clips](REAL_VISION_DATA.md) are now acquired, with
-   source fits preserved. Reviewed pixel masks and visible-event labels remain open.
-4. Compare YOLOv8-seg and temporal event decisions against the baseline, separating
-   real and synthetic results and reserving whole real experiments for final test.
+Follow Batch 1 of the [roadmap](../roadmap.md). First checkpoint the current
+annotation/rendering additions and show the six existing outline proposals for
+review. A reviewed outline is an image boundary that a person has checked and
+corrected; it is distinct from the computer's initial suggestion. An event label
+records what became visible and when, such as a secondary crystal appearing.
+
+Then expand a small development pilot across the existing training families,
+including difficult views and contiguous candidate-event/negative periods. Freeze
+classes, clocks, evaluation rules and performance budgets after pilot review.
+Preserve all real validation/test groups. Alpha-LGA and ADP development results
+do not establish KDP performance.
+
+Alongside review, declare a bounded synthetic scene cohort and implement the
+YOLOv8-seg loader/training/evaluation path. A synthetic-only plumbing/overfit check
+can proceed while real review is pending; unreviewed proposals remain excluded
+from accepted real training. Compare with the OpenCV baseline on reviewed data,
+then evaluate temporal decisions and keep real/synthetic results separate.
 
 Use the [Vision MVP contract](VISION_MVP.md) for classes, evaluation, first-hour
 claims and control integration. Numeric performance budgets are set after the

@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-11",
+  "scope": "Optical renderer and explicit real annotation review workflow; no model accuracy or controller validation",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "status": "pass",
+    "tests": 254,
+    "subtests": 130,
+    "seconds": 240.64,
+    "log": "/tmp/crystalab-pilot-regression.log",
+    "note": "Full run before postprocessing environment metadata addition; subsequent 10-test targeted run covers current optical/annotation sources. New training adapter is outside this checkpoint."
+  },
+  "targeted_tests": {
+    "status": "pass",
+    "tests": 10,
+    "seconds": 1.41
+  },
+  "source_sha256": {
+    "src/rendering/optical.py": "33c459ecf99355b5f9aacc173809a06512e0c2289295661c475f76b7cb4b835f",
+    "src/vision/annotations.py": "bf4d77ddec4a01b609937704d2e2b5036d164cd44fb316e0413c3df224cca112",
+    "scripts/annotate_vision.py": "fc527f603b4ff033c3879d11a9f094e6eabef2445ce5c0b0faad715d34f735d3",
+    "scripts/blender_optical_scene.py": "2424f7c78a6e50263244d8a52103d2ca8ff97126adf1d71a44e8d8c1138e4ce3",
+    "scripts/generate_vision_images.py": "1b443f72fb7d0030e2ce9a775d22923c04dbb071c8e1832b94830969ba9cea8d",
+    "tests/test_annotations.py": "e4df6edb158d5331ba1ca9804c9caaea3717b7bdf849aeb25ba9c9d7650e68c8",
+    "tests/test_optical_scenes.py": "3366c7d99f42070d7ac9c8f646c9458932815bc323c13b46922d94437b8cc584",
+    "configs/blender_runtime.json": "ac7e4335d7096eda76a8e97facd491bceeda4bf7de4622592f677f8e27d2a65a",
+    "configs/synthetic_vision_smoke.json": "fb94da60ed8e2d15f73c349daa457c9df6016adaf7b3224a9d130fbe6f67b6c4"
+  },
+  "optical_smoke": {
+    "path": "data/synthetic_vision_smoke_v2",
+    "status": "pass",
+    "samples": 18,
+    "scenes": 6,
+    "samples_by_split": {
+      "train": 12,
+      "validation": 3,
+      "test": 3
+    },
+    "eligible_masks_by_class": {
+      "seed": 18,
+      "secondary_crystal": 10,
+      "inclusion_candidate": 4
+    },
+    "elapsed_seconds": 656.7216093550014,
+    "manifest_sha256": "40b15099fe4fca493f3b4c89d9859efd90bd136aa1d33eb7dce651d372c58db9",
+    "producer_source_sha256": {
+      "src/rendering/optical.py": "e2c0cf4ee3ce46ff620431e638d50bb956fba6834780a4a6c05d0b8f348da004",
+      "scripts/blender_optical_scene.py": "2424f7c78a6e50263244d8a52103d2ca8ff97126adf1d71a44e8d8c1138e4ce3",
+      "scripts/generate_vision_images.py": "1b443f72fb7d0030e2ce9a775d22923c04dbb071c8e1832b94830969ba9cea8d",
+      "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+      "configs/synthetic_growth.json": "87f5614e00bc0a0b0b8a1230ef042a4257a8536b43c110db954f8e04b971330c"
+    },
+    "visual_review": {
+      "date": "2026-11-11",
+      "reviewer": "Codex synthetic visual QA",
+      "decision": "software_smoke_accepted",
+      "reason": "Six development RGB/mask overlays were inspected after denoising and main-component selection; no real-domain accuracy is established.",
+      "scope": "Synthetic generator software/label-proxy check only; not a real human annotation receipt",
+      "inspected_training_samples": [
+        "optical_000:0",
+        "optical_000:2",
+        "optical_001:0",
+        "optical_002:2",
+        "optical_003:0",
+        "optical_003:2"
+      ],
+      "limitations": [
+        "Illustrative nested dielectric materials and uncalibrated IOR/lighting",
+        "Optical emission masks change the target shader and exclude disconnected reflection components",
+        "Only six base scenes; not sufficient training or event coverage",
+        "No reviewed real pixel/event labels or physical quality targets"
+      ]
+    },
+    "scope": "Software smoke; optical masks are proxies and six scenes are insufficient generalization evidence"
+  },
+  "rejected_smoke": {
+    "path": "data/synthetic_vision_smoke_v1",
+    "samples": 18,
+    "reason": "Noisy RGB and reflected mask components"
+  },
+  "real_annotation_pilot": {
+    "path": "data/annotations_leeds12_v1",
+    "proposals": 6,
+    "review_receipts": 0,
+    "accepted_training_labels": 0
+  },
+  "real_source_audit": {
+    "status": "pass",
+    "images": 2123,
+    "runs": 9,
+    "index_sha256": "815d86ae34c107c8bac9863b937e212b9c776d38e665ccd7a563e944c6478421"
+  },
+  "remaining": [
+    "Reviewed real pixel/event labels and acceptance budgets",
+    "Bounded training cohort and YOLOv8-seg experiment",
+    "Temporal events and relevant real holdout evaluation",
+    "PID/adaptive supervisor, operator demo and physical evidence",
+    "HPC GPU and justified impurity-cluster Qiskit study"
+  ]
+}

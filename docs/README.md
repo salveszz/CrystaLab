@@ -8,10 +8,13 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 
 | Document | Purpose |
 |---|---|
-| [Roadmap](../roadmap.md) | Pitch-led milestones: camera, image data, perception, alerts, PID/adaptation and demonstration, plus HPC/Qiskit extensions. |
+| [Roadmap](../roadmap.md) | Pitch requirements, actual status, immediate pilot batch and ordered perception/control/demo work, including HPC/Qiskit deliverables. |
 | [Vision MVP](VISION_MVP.md) | Capture/annotation contract, observable targets, real/synthetic splits, evaluation and control interfaces. |
 | [Video baseline](VISION_BASELINE.md) | Implemented file/camera observation, explicit clocks, projected seed tracking, validity events and reproducible fixture replay. |
 | [Real vision data](REAL_VISION_DATA.md) | Acquired microscope images/videos, actual labels, frozen image splits, licenses, audits and development replay. |
+| [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
+| [Optical synthetic images](OPTICAL_SYNTHETIC.md) | Pinned Blender/Cycles renderer, scene splits, geometric/optical mask semantics and visual failure history. |
+| [Optical/annotation checkpoint](OPTICAL_CHECKPOINT.json) | Source-matched optical/annotation verification, 254-test run, revised smoke audit and zero accepted real labels. |
 | [Vision checkpoint](VISION_CHECKPOINT.json) | Source hashes, 244-test result, fixture/development replay checks and remaining gates. |
 | [Dataset v1 card](SYNTHETIC_DATASET_V1.md) | The active 360-episode / 1,080-sample dataset, splits, missingness and use limits. |
 | [Dataset v1 report](SYNTHETIC_DATASET_V1.json) | Actual hashes, groups, audit results and measured runtime. |
@@ -20,8 +23,9 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Data directory guide](../data/README.md) | Local generated files, original inputs and the Git ignore policy. |
 
 The file/camera adapter and OpenCV seed baseline are implemented; no model fitting,
-evaluated defect detector or physical controller is implemented. Real image
-annotation and optical synthetic data are next. YOLOv8-seg and event alerts
+evaluated defect detector or physical controller is implemented. Annotation
+tooling and the first Blender optical smoke batch are present; real reviews and
+a bounded optical training cohort are next. YOLOv8-seg and event alerts
 follow the image-data gate. Growth baselines and XGBoost remain a supporting
 experiment using the frozen tabular splits, illustrative units and fixed law.
 

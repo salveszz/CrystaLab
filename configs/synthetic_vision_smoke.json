@@ -1,0 +1,20 @@
+{
+  "schema": "crystalab_optical_images_v1",
+  "description": "Small Blender/Cycles software and label-construction check. Illustrative geometry, optics and temporal events; not calibrated KDP growth or a sufficient training corpus.",
+  "geometry_config": "configs/synthetic_growth.json",
+  "resolution": 256,
+  "samples": 64,
+  "threads": 4,
+  "frames_per_scene": 3,
+  "minimum_label_pixels": 12,
+  "optical_mask_threshold": 32,
+  "classes": ["seed", "secondary_crystal", "inclusion_candidate"],
+  "scenes": [
+    {"id": "optical_000", "family_id": "optical_000", "split": "train", "seed": 202611110, "secondary_count": 1, "inclusion_count": 1, "bubble_count": 1},
+    {"id": "optical_001", "family_id": "optical_001", "split": "train", "seed": 202611111, "secondary_count": 0, "inclusion_count": 0, "bubble_count": 2},
+    {"id": "optical_002", "family_id": "optical_002", "split": "train", "seed": 202611112, "secondary_count": 2, "inclusion_count": 0, "bubble_count": 1},
+    {"id": "optical_003", "family_id": "optical_003", "split": "train", "seed": 202611113, "secondary_count": 0, "inclusion_count": 1, "bubble_count": 0},
+    {"id": "optical_004", "family_id": "optical_004", "split": "validation", "seed": 202611114, "secondary_count": 1, "inclusion_count": 1, "bubble_count": 2},
+    {"id": "optical_005", "family_id": "optical_005", "split": "test", "seed": 202611115, "secondary_count": 1, "inclusion_count": 0, "bubble_count": 1}
+  ]
+}

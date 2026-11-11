@@ -1,0 +1,11 @@
+{
+  "version": "4.5.16",
+  "distribution": "Blender 4.5 LTS Linux x64 portable",
+  "url": "https://download.blender.org/release/Blender4.5/blender-4.5.16-linux-x64.tar.xz",
+  "sha256_url": "https://download.blender.org/release/Blender4.5/blender-4.5.16.sha256",
+  "sha256": "23432b064977908beb1ab4b7f32f024e7331105c875c187dce002aff84b10c11",
+  "build_hash": "3f6797307da5",
+  "license": "Blender GPL; generated project scenes/images retain their own provenance",
+  "renderer": "Cycles CPU",
+  "scope": "Pinned development renderer, not a validated KDP optical model"
+}

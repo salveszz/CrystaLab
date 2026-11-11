@@ -1,7 +1,8 @@
 # Vision and control MVP contract
 
-Status: first implementation/data batch on 2026-11-11. The file/camera adapter,
-OpenCV seed baseline and real-image importer exist. No trained model, evaluated
+Status: pilot tooling on 2026-11-11. The file/camera adapter, OpenCV seed baseline,
+real-image importer, annotation workflow and optical renderer exist. Real review
+and a training cohort remain open. No trained model, evaluated
 defect detector or controller is implemented. See [Video baseline](VISION_BASELINE.md)
 and [Real vision data](REAL_VISION_DATA.md) for actual evidence.
 The [roadmap](../roadmap.md) defines the sequence. This document turns the
@@ -166,21 +167,27 @@ can test a software loop with logged commands, but cannot establish defect
 prevention. Real replay supports shadow evaluation; physical action benefit
 requires separate experiments and supported limits.
 
-## First implementation batch
+## Current implementation sequence
 
-1. Freeze the pilot schema, annotation examples and split rules; inventory real
-   clips and identify missing capture dependencies.
-2. Implement file-video ingestion, frame validity and run metadata in the existing
-   `src/vision/` package, with a small CLI using real or fixture clips.
-3. Add the seed-measurement/tracking baseline and overlay/event export in
-   `src/vision/` and `src/rendering/`; preserve original timestamps.
-4. Build the audited Blender/OpenCV image-generation path and label review;
-   then add the first YOLOv8-seg training/evaluation entry point.
+The adapters, baseline and importer are implemented. The annotation workflow and
+Blender/OpenCV renderer are local additions with a smoke dataset, not a completed
+real-training/evaluation dataset. Follow the current batches in the
+[roadmap](../roadmap.md):
 
-Later batches fill `src/controllers/` and `src/dashboard/`. Use `src/models/` for
-learned-model wrappers. Preserve the simulator/data contracts and introduce
-optional vision/training dependencies reproducibly. The first deliverable is an
-inspectable video baseline and image-data path.
+1. Checkpoint those additions, review the six proposed real outlines, expand a
+   bounded pilot and freeze annotation/evaluation rules. Declare a synthetic
+   cohort and identify missing physical capture dependencies.
+2. Add YOLOv8-seg training/evaluation in `src/models/`, starting with a plumbing
+   check. Compare with the baseline on reviewed real data when available.
+3. Add identity tracking, supported face/edge measurements and temporal event
+   decisions with evidence and held-out evaluation.
+4. Fill `src/controllers/` with temperature PID, rule supervision and bounded
+   adaptation. Integrate an operator view in `src/dashboard/` and traceable
+   simulated/shadow actions before physical use.
+
+Preserve the simulator/data contracts and introduce optional training dependencies
+reproducibly. Synthetic-only fitting can test the pipeline while real review is
+pending. It does not close real accuracy, first-hour or physical-control gates.
 
 ## Implementation references
 

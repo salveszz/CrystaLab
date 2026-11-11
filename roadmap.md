@@ -1,220 +1,235 @@
 # CrystaLab roadmap — 2026-11-11
 
-## Objective and pitch alignment
+## Goal and order of work
 
-Build the system proposed in [Pitch_KDP.pptx](Pitch_KDP.pptx): observe a growing
-crystal through a camera, identify visible changes, decide how to respond and
-record the resulting action, with an operator involved when evidence is uncertain.
-Temperature ramps, rotation and circulation are the intended process controls.
-The primary product milestone is a vision-led demonstrator.
+Deliver the system in [Pitch_KDP.pptx](Pitch_KDP.pptx), especially slides 5–9:
+camera observations, YOLOv8-seg perception, visible-event interpretation,
+temperature PID plus an adaptive supervisor, and traceable actions with an
+operator involved. The intended actions are temperature-ramp changes, rotation
+and circulation. The demonstration must identify its material and evidence level.
 
-The pitch's core sequence is camera -> perception -> PID/adaptive decision ->
-action. Real plus synthetic **images** support perception. Detailed HPC/CFD and
-the Qiskit impurity-cluster study are separate extensions. The existing tabular
-growth dataset supports a later prediction experiment; its completion does not
-complete the image-data or defect-detection milestones.
+**The next milestone is a reviewed image-data pilot and a reproducible first
+vision experiment.** Continue from the existing video/annotation/rendering tools.
+Preserve the simulation and growth dataset as supporting assets. New CFD work or
+an XGBoost benchmark does not close the perception/control requirements.
 
-This plan replaces the earlier immediate priority of training XGBoost. It keeps
-the completed simulation/data work and its declared limits. The implementation
-contract and evidence gates are in [Vision MVP](docs/VISION_MVP.md).
+The [Vision MVP contract](docs/VISION_MVP.md) defines measurements, evaluation,
+controller interfaces and interpretation limits. This roadmap defines execution
+order. HPC and Qiskit remain explicit pitch deliverables with bounded experiments.
 
-## Current position
+## Current evidence
 
-- [x] Illustrative 3D faceted growth, liquid transport, conservative local uptake,
-  moving-boundary displacement and numerical verification.
-- [x] Separate fixed-domain flow/solute, pressure, viscosity and momentum work.
-  These operators do not generate the current growth labels.
-- [x] Bounded scripted controls, causal delayed/noisy sensor proxies, exact growth
-  labels, grouped splits, source snapshots and independent dataset auditing.
-- [x] Accepted 32^3 focused growth-data grid/timestep protocol under the declared
-  2% refinement gate, with coarser failures and limits retained.
-- [x] Local working dataset: 360 episodes / 1,080 samples, 60 concentration groups,
-  six recipes and 648/216/216 frozen train/validation/test rows.
-- [x] Review: 227 tests pass across the full run and the nine sandbox-affected
-  multiprocessing reruns; the working dataset passes a fresh reconstruction audit.
-- [x] First implementation checkpoint: 244 tests / 130 subtests pass in a fresh
-  full run; growth data and real-image reconstruction audits pass. Evidence:
-  [vision checkpoint](docs/VISION_CHECKPOINT.json).
-- [x] File-video/camera adapters, explicit clocks, OpenCV seed baseline, masks,
-  validity events and inspectable fixture/real-pilot replays.
-- [x] Acquire/index 2,123 real alpha-LGA microscope images across nine runs;
-  preserve 79 manual shape fits and frozen whole-run/family image splits.
-- [x] Acquire three phase-specific KDP microscopy movies and a separate ADP movie,
-  with original methods/captions, licenses and source checksum verification.
-- [ ] Reviewed pixel/event labels, optical synthetic image data, trained perception,
-  defect alerts/UI, PID/adaptive control, physical integration and Qiskit.
-
-The growth dataset has 720 fully observed rows and 360 startup rows with missing
-sensor/history inputs. It uses illustrative units, one fixed growth law and no
-quality targets. Keep its [card](docs/SYNTHETIC_DATASET_V1.md),
-[report](docs/SYNTHETIC_DATASET_V1.json) and raw local files intact.
-
-## Milestone 0 — camera and evidence contract
-
-- [ ] Inventory available real footage/capture equipment, material, independent
-  growth runs, temperature logs and possible actuator access. Unknown access
-  remains an explicit dependency; no purchase or hardware capability is assumed.
-  The public-data portion is now inventoried in [Real vision data](docs/REAL_VISION_DATA.md);
-  user-owned equipment and actuator access remain unconfirmed.
-- [ ] Define timestamp origin, camera view/pose, scale, lighting, observation
-  interval and the measurements actually visible through the vessel.
-- [ ] Prioritize seed silhouette and visible secondary crystals; check pilot
-  footage before freezing the detectable classes. Include projected asymmetry
-  and visible-inclusion annotation rules, plus uncertain/unobservable cases.
-- [ ] Define run IDs, source provenance, annotation format, split ownership and
-  an event-onset labeling procedure. Reserve whole independent real runs for test.
-- [ ] Review pilot visibility and freeze numeric error, false-alert, detection-delay
-  and latency budgets before selecting models on validation or scoring final test.
-
-**Exit:** reviewed capture/annotation/evaluation protocol and an inventory of
-usable pilot clips. If real clips are unavailable, synthetic implementation can
-start, while real-data and early-defect claims remain blocked by that dependency.
-
-## Milestone 1 — video baseline and real/synthetic image data
-
-- [x] Implement recorded-video ingestion and a camera adapter with explicit
-  timestamps, frame validity and run metadata. Physical calibration remains open.
-- [x] Add an OpenCV seed-measurement baseline and temporal tracking; export an
-  overlay with projected area/dimensions and their measurement validity. Fixture
-  checks and a 30-frame development replay pass; real mask accuracy is unevaluated.
-- [x] Import the pinned real microscope image archive with an independent
-  reconstruction audit and source-family splits. Source shape fits stay distinct
-  from missing segmentation/event labels.
-- [ ] Label a real pilot including negative periods and optical distractors;
-  establish whether candidate objects are observable and consistently labelable.
-- [ ] Build the pitch's Blender/OpenCV image generator with masks and temporal
-  events. Reuse existing crystal geometry where useful; add vessel optics,
-  lighting, reflections, bubbles, occlusion and camera variation as declared
-  rendering assumptions. Inspect rendered masks against visible image boundaries.
-- [ ] Separate synthetic scenes/trajectories before frame sampling; keep all
-  real frames and derivatives from a run in one split. Audit sources and labels.
-
-**Exit:** reproducible image-data manifest, real annotation examples, synthetic
-examples with checked labels, and an inspectable baseline replay. Synthetic-only
-results establish software behavior until independent real clips are available.
-
-## Milestone 2 — YOLOv8-seg and event alerts
-
-- [ ] Fine-tune a small YOLOv8-seg model using the agreed classes and compare with
-  the OpenCV baseline. Compare real-only, synthetic-only and mixed training when
-  the available independent real runs support those comparisons.
-- [ ] Track the seed and candidate secondary objects over time. Derive projected
-  growth/asymmetry from valid comparable views; distinguish pose changes from growth.
-- [ ] Implement persistent-event rules for visible secondary-crystal candidates,
-  supported projected asymmetry and visible inclusions. Uncertain images produce
-  an inspection request; an inclusion alert preserves its evidence and location.
-- [ ] Evaluate mask/measurement errors, event precision/recall, false alerts per
-  observed hour, time from annotated visible onset to alert and end-to-end latency.
-- [ ] Freeze model, preprocessing, thresholds and persistence settings before
-  final real-run evaluation; publish synthetic and real results separately.
-
-**Exit:** video -> masks/tracks -> measurements -> timestamped evidence alerts on
-held-out real runs within the Milestone 0 budgets. Without enough real events or
-negative observation time, report the missing coverage and withhold that claim.
-The pitch's first-hour claim requires real, timestamped first-hour observations.
-
-## Milestone 3 — PID, bounded adaptation and action logging
-
-- [ ] Define independent measured process signals and equipment commands. Bath
-  temperature feedback requires a temperature sensor; camera measurements supply
-  the supported visible-state signals. Record actuator units, limits and delays.
-- [ ] Implement temperature PID with saturation, anti-windup, timing and explicit
-  missing-feedback handling. Add an inspectable event-rule supervisor as a baseline.
-- [ ] Implement a bounded adaptive supervisor using observation history and a
-  declared short-horizon forecast to select permitted ramp adjustments and,
-  when supported, rotation/circulation proposals. Compare its forecast with
-  persistence on whole held-out runs. State exactly what adapts; fixed event
-  rules alone do not complete the adaptive/predictive-control deliverable.
-- [ ] Compare the fixed recipe, PID-only, rule-supervised and adaptive variants on
-  declared simulation/bench cases. Scripted visual events test decision plumbing;
-  they do not establish that an action fixes a physical defect.
-- [ ] Connect perception, alerts, decisions and action acknowledgments in the
-  local demonstrator. Log the evidence, proposal, approval state, applied command
-  and measured response. Include operator override and uncertain-state behavior.
-- [ ] Exercise real video in shadow mode. Advance to limited physical actuation
-  only with characterized hardware, approved operating limits and independent
-  assessment of the intended action response.
-
-**Exit:** an auditable closed software loop plus real-video shadow replay. State
-separately whether the actuator is simulated, on a bench or attached to a KDP run.
-Report forecast and adaptive-controller performance separately. Reactive alerts
-do not establish prediction before a defect becomes visible. Physical quality/
-growth benefits require their own experimental comparison.
-
-## Milestone 4 — integrated pitch demonstrator
-
-- [ ] Deliver video/camera view, masks/tracks, projected measurements, process
-  readings, event evidence, controller state and operator action controls.
-- [ ] Show normal growth, an annotated visible event and an uncertain/invalid-view
-  case. Preserve the original timing; label any accelerated playback explicitly.
-- [ ] Demonstrate the pitch's three responses at the evidence level supported:
-  secondary-crystal candidate -> ramp review/pause proposal; projected asymmetry
-  -> rotation/circulation review; visible inclusion -> operator alert and marking.
-- [ ] Package the evaluation report, representative failures, reproducible run
-  commands and a demonstrator video. Distinguish synthetic, real replay and any
-  live physical results throughout.
-
-**Exit:** a reviewable demonstration of seeing, interpreting and responding, with
-measured performance and visible operator involvement. Do not infer optical
-quality, energy savings or reduced scrap from software completion.
-
-## Pitch extensions — bounded deliverables
-
-**HPC:** profile an existing verified flow/transport case and data-generation run;
-report hardware, source identity, accuracy, memory and wall time. Establish a CPU
-reference, then benchmark a selected GPU implementation against the same case if
-hardware is available. GPU Navier-Stokes/heat/mass and risk maps remain an explicit
-extension gate until implemented and validated; existing CPU flow kernels do not
-complete it. Choose new physics/coupling only for a specified output or discrepancy.
-
-**Qiskit:** define one chemically justified small reference/impurity cluster, with
-charge, spin, geometry, basis and active space. Compare VQE with a classical
-reference on the same Hamiltonian and report convergence/resources. Fe/Cr/Al are
-pitch candidates, not preselected validated chemistry. A generic molecule can
-test the tooling but cannot complete the KDP-impurity extension. Connecting cluster
-energies to an impurity tolerance threshold needs separate evidence. This study
-does not issue online control commands.
-
-Both extensions remain part of the pitch deliverables. Scope their first
-experiments after the camera/data contract; their progress does not substitute
-for the core perception/control gates.
-
-## Supporting growth model
-
-Keep the audited v1 dataset and its frozen groups. When a short growth-forecasting
-experiment supports the demonstrator, use the protocol in
-[AI readiness](docs/AI_READINESS.md): causal loader, constant/persistence/recent-rate
-baselines, small XGBoost comparison and group learning curves. It must use only
-the saved input whitelist and report startup separately. No further bulk growth
-generation or CFD expansion is required before starting vision work.
-
-## Scheduling
-
-The pitch's four-week outline remains a target software cadence:
-
-| Target window | Focus | Required evidence |
+| Component | Actual position | Remaining work |
 |---|---|---|
-| Weeks 1–2 | Milestones 0–1; scope extension experiments | Usable pilot footage, frozen evaluation contract, audited image data and baseline replay. |
-| Week 3 | Milestone 2 and initial Milestone 3 | Perception/alerts on independent footage; PID/adaptive integration in software. |
-| Week 4 | Milestone 4 and bounded extension reports | Integrated video, measured results, recorded limitations and extension status. |
+| Simulation and numerical methods | Illustrative faceted growth and verified flow/transport components. Separate fixed-domain flow kernels are not coupled into current growth labels. | Physical calibration and any coupling needed by a specified experiment. |
+| Tabular growth data | 360 episodes / 1,080 audited samples, frozen grouped splits and no quality labels. | Optional supporting forecast benchmark. These are not camera-training examples. |
+| Video observation | File/camera adapters, explicit clocks, OpenCV seed tracking, masks, measurements and validity-event export. | Reviewed real accuracy, defect events and live equipment verification. Validity events are not defect detections. |
+| Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies and a separate ADP movie. | Reviewed pixel/event labels and representative independent KDP evaluation data. Source fits are not segmentation masks. |
+| Annotation tooling | Six editable seed proposals from training run 12, previews and guarded review/export code. | Zero actual review receipts. A reviewer must inspect and correct labels before accepted real training export. |
+| Optical synthetic images | Local Blender/OpenCV implementation and an 18-frame, six-scene revised smoke batch. Earlier noisy renders are retained as rejected. | A declared training cohort, checked label coverage and temporal-event ground truth. Refracted masks remain annotation proxies. |
+| Learned perception, controllers and UI | No trained model. `src/models/`, `src/controllers/` and `src/dashboard/` contain package placeholders. | Training/evaluation, tracking/events, PID, adaptation, action adapters and operator demonstration. |
+| HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
-This is a planning target, not a claim that four calendar weeks suffice for real
-growth campaigns, rare defect coverage, GPU development, cluster chemistry or
-physical closed-loop validation. Pilot evidence sets the actual dates. If a gate
-slips, report the narrower delivered result and revise dates without weakening
-labels, tests or acceptance budgets.
+The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
+130 subtests at its source revision. The new
+[optical/annotation checkpoint](docs/OPTICAL_CHECKPOINT.json) records the 254-test
+run, a targeted follow-up after an environment-metadata addition, and fresh optical
+and real-source audits. Training work has a separate verification gate.
 
-## Working rules
+## Pitch requirements and completion evidence
+
+| Pitch promise | Required deliverable |
+|---|---|
+| Camera through solution; shape and faces | Measured seed silhouette and supported visible edges/faces, with visibility/pose limits. The initial silhouette pilot does not complete face-specific interpretation. |
+| Parasitic nucleation | Track a newly visible secondary-crystal candidate, retain onset evidence and propose a ramp review/pause. First visibility does not establish microscopic nucleation time. |
+| Asymmetric face growth | Compare valid views/poses over time, define a measurable asymmetry criterion and propose rotation/circulation review. Pose changes must not masquerade as growth. |
+| Visible inclusion | Localize supported visible evidence, mark the region and alert the operator. Optical quality remains a separate measurement. |
+| PID plus adaptive agent | Temperature feedback PID and a bounded supervisor that updates its state/policy using observation history and a declared forecast. Compare with simpler baselines. |
+| Real plus synthetic images | Audited image/label provenance, grouped splits, mixed-training experiment when labels support it, and separately reported real evaluation. |
+| Detection in the first hour | Relevant real growth runs with trustworthy run origin, observed first-hour coverage, independently labeled visible onset, misses and alert delays. |
+| HPC and Qiskit | A comparable CPU/GPU transport benchmark and a chemically justified impurity-cluster VQE/classical comparison. |
+| Better yield, energy use and quality | Independent physical outcome comparisons. A software demonstration alone leaves these impact claims unverified. |
+
+## Batch 1 — close the pilot data gate
+
+This is the immediate work. Data review and training infrastructure can progress
+alongside each other; human review remains necessary for accepted real labels.
+
+1. **Checkpoint the existing tools — verified.** Audit the revised optical dataset and real
+   source index, inspect development RGB/mask overlays, and verify the current
+   annotation/rendering changes with appropriate regression tests. Save source
+   hashes, results and failures. Do not rewrite historical checkpoint evidence.
+2. **Show and review the six existing seed proposals.** Explain the original image
+   and proposed outline in plain language before choosing a reviewer. Correct
+   visible boundaries, record uncertain cases and save actual review receipts.
+   Use this to settle annotation rules before preparing a larger bundle. The
+   agent must not invent human reviews.
+3. **Expand a bounded development pilot.** Start with roughly 30–50 selected images
+   across the existing training families 12, 14 and 20, including difficult views.
+   Keep the 20-series replicates together. This count is an annotation workload,
+   not a claim of sufficient training data. Inspect KDP development clips for
+   supported targets and annotate contiguous windows around any candidate event,
+   including negative observation periods and distractors. Sparse stills alone
+   cannot label onset, persistence or false-alert hours.
+4. **Freeze the task and evaluation protocol.** Define visible boundaries,
+   identities, truncation/uncertainty, event-onset intervals, comparable poses and
+   clock evidence. Start with seed silhouette and secondary candidates when
+   labelable. Record missing face/asymmetry/inclusion coverage explicitly. Set
+   numeric measurement, event-recall, false-alert, delay and latency budgets after
+   pilot review and before validation selection/final testing.
+5. **Declare the first synthetic training cohort.** Freeze new base-scene IDs and
+   splits before rendering. Vary illumination, reflections, bubbles, occlusion,
+   camera/seed pose and target presence. Retain geometric masks, optical proxies
+   and RGB for inspection. Add explicit object/onset metadata for temporal tests;
+   current object-presence frames do not yet constitute an evaluated event dataset.
+   Choose a small measured batch first, then scale according to failures and
+   learning curves rather than generating thousands of similar images.
+6. **Write the capture and process-data checklist.** Establish available camera,
+   thermostat, temperature logs, rotation/pump access and a reviewer. Plan fixed
+   observation poses, scale, synchronized clocks, run origin and measured/applied
+   command logging. User-owned equipment access is currently unconfirmed.
+
+Preserve the frozen Leeds validation/test runs. No visual tuning, annotation-rule
+selection or render matching on final test images. Evaluation labels need a
+separately frozen review protocol and must remain outside training/model selection.
+Alpha-LGA and ADP support development; neither substitutes for KDP evidence. The
+public KDP clips have specific phase/optical conditions and do not establish a
+representative KDP tank-control dataset. Preserve source permissions and attribution.
+
+**Exit:** reviewed pilot examples, a class/coverage register, frozen splits and
+metrics, checked synthetic examples, source-matched software verification and a
+list of missing capture/equipment dependencies. A synthetic-only first fit may
+proceed as a labeled software experiment while real review is pending.
+
+## Batch 2 — first YOLOv8-seg experiment
+
+- Implement a causal image/label loader and training/evaluation entry points using
+  `src/models/`, with explicit YOLOv8-seg weights, optional pinned dependencies,
+  preprocessing, seeds, hardware identity and weight/configuration hashes.
+- Run a tiny overfit check to verify export/label/training plumbing. Follow it with
+  a bounded grouped experiment. A successful fit is distinct from generalization.
+- Compare the seed results with the existing OpenCV baseline on the same reviewed
+  inputs. Report mask IoU/Dice and projected measurement errors, visibility
+  failures, per-class coverage, per-run results and inference latency.
+- Compare synthetic-only, real-only and mixed training when reviewed independent
+  data supports each comparison. Report real and synthetic scores separately.
+  Real classes without reviewed examples remain unevaluated.
+- Freeze the selected model and preprocessing before final held-out evaluation.
+  Record image/label counts and independent scene/run counts in the model card.
+
+**Exit:** a reproducible model artifact, honest baseline comparison, error examples
+and one inspectable video replay. Synthetic performance or an alpha-LGA score
+alone cannot close the KDP detection requirement.
+
+## Batch 3 — tracking, faces and temporal alerts
+
+- Extend identities from the seed to secondary candidates. Specify reinitialization,
+  missing observations, uncertainty and the association policy.
+- Measure projected growth from comparable views. Add visible-face/edge annotations
+  or a justified measurement method before claiming face-specific asymmetry.
+- Implement persistent secondary-candidate alerts, supported asymmetry decisions
+  and localized inclusion alerts. Glare, bubbles and poor views must be represented
+  in evaluation; uncertainty requests operator inspection.
+- Save evidence frames, track/event IDs, onset intervals and decision timestamps.
+  Evaluate per-class precision/recall, delay from visible onset, duplicates/misses,
+  false alerts per observed negative hour and end-to-end latency.
+- Freeze thresholds and persistence settings on development/validation data before
+  final test. Keep unsupported classes open rather than relabeling synthetic cases
+  as real detections.
+
+**Exit:** video, masks/tracks, supported measurements and timestamped alerts within
+the pilot budgets on the relevant independent real observations. Separately report
+any missing KDP material, first-hour, event or negative-time coverage.
+
+## Batch 4 — temperature PID and adaptive supervision
+
+1. Define separate observations and commands for temperature, rotation and flow,
+   with units, clocks, bounds, actuator delays and feedback/acknowledgment fields.
+   The simulator's aggregate agitation input does not represent two calibrated
+   physical actuators. Establish literature-based candidate operating limits and
+   their experimental applicability before physical use.
+2. Implement temperature PID with saturation, anti-windup and missing/stale-feedback
+   behavior. Compare fixed recipe with PID on a declared simulated/bench plant.
+3. Add event-rule supervision as the baseline, then a bounded adaptive supervisor.
+   Declare the forecast target, horizon, objective, updated state/policy and allowed
+   actions. Compare its forecast with persistence using causal histories and whole
+   held-out runs. Prediction before visible onset requires its own future-event
+   labels; reactive alerts alone do not establish it.
+4. Compare fixed recipe, PID-only, rule-supervised and adaptive variants. Existing
+   growth data may support a bounded forecast study, but its idealized 3D inputs
+   need a validated adapter before use with camera measurements. Scripted anomalies
+   can exercise software decisions without proving defect prevention.
+5. Connect perception through an actuator adapter. Log evidence, proposal, approval/
+   override, dispatched command, acknowledgment and measured response separately.
+   Exercise invalid frames, uncertain alerts, stale feedback and saturated commands.
+
+**Exit:** auditable software closed loop and real-video shadow operation with a
+simulated actuator clearly identified. Physical actuation requires characterized
+equipment, approved operating limits and supported action-response evidence.
+Real action benefit requires independent physical comparisons.
+
+## Batch 5 — operator demonstrator and physical evidence
+
+Build a minimal operator view alongside the control integration: video/masks,
+process readings, event evidence, controller state, recommendations and override.
+Show normal growth, each supported pitch event and an invalid/uncertain view.
+Demonstrate ramp review/pause, rotation/circulation review and inclusion marking
+at the available evidence level. Preserve original clocks and label accelerated
+playback. Package the model/evaluation report, failures, commands and demo video.
+
+A complete software demo still needs independent physical KDP runs to establish
+first-hour detection and effects on growth/quality. Start capture planning in
+Batch 1 because real runs and defect coverage may outlast software development.
+Do not equate model training, synthetic events or shadow recommendations with
+verified physical control or improved yield/energy use.
+
+## HPC and Qiskit — included, bounded extension track
+
+Scope these experiments during Batch 1. Execute them alongside later core batches
+when their inputs and hardware are available, and include their status in the
+final demonstration package.
+
+**HPC:** choose one existing verified flow/transport reference case and a declared
+risk-map output. Record hardware, source identity, accuracy, memory and wall time.
+Compare a selected GPU implementation with the same CPU case. The pitch also
+requires Navier–Stokes plus heat/mass transfer: identify which couplings are
+implemented and validated, and keep the remainder open. A CPU timing or a visual
+risk map alone does not close this deliverable. GPU access remains unconfirmed.
+
+**Qiskit:** define one chemically justified small KDP reference/impurity cluster,
+including geometry, charge, spin, basis and active space. Compare VQE with a
+classical solution of the same Hamiltonian and report convergence/resources.
+Fe/Cr/Al are pitch candidates requiring chemical justification. A generic molecule
+can test the tools but cannot close this extension. Deriving an impurity tolerance
+threshold from cluster energies requires separate evidence. Keep this study
+outside the online control loop.
+
+## Four-week target and dependencies
+
+| Target window from restart | Deliverable |
+|---|---|
+| Weeks 1–2 | Batch 1, training infrastructure and first bounded fit; capture planning and extension experiment definitions. |
+| Week 3 | Evaluated perception/temporal alerts to available coverage; PID and initial adaptive integration. |
+| Week 4 | Integrated operator demo, comparisons, recorded failures and bounded HPC/Qiskit reports where prerequisites permit. |
+
+This preserves the pitch's software cadence. Dates for independent growth runs,
+rare-event coverage, GPU work and chemistry validation depend on actual access
+and evidence. If a prerequisite is missing, deliver the supported subset and keep
+the unfulfilled pitch requirement visible. Do not weaken evaluation to fit a date.
+
+## Preserved supporting work and working rules
+
+Retain the [growth dataset](docs/SYNTHETIC_DATASET_V1.md), its frozen groups and
+[numerical evidence](docs/SYNTHETIC_DATA_CHECKPOINT.json). Schedule the constant,
+persistence/recent-rate and small XGBoost comparison only when it supports the
+declared forecast. Follow the causal inputs and grouped evaluation in
+[AI readiness](docs/AI_READINESS.md). Additional bulk tabular generation and CFD
+expansion need a specific demonstrated need.
 
 Preserve the existing package structure and explain changed files. Every new or
-changed code file starts with a purpose summary. Prefer small inspectable stages
-and reproducible environments. The current implementation goal authorizes local
-commits. **Never push without the user's explicit approval.** Earlier task-specific
-permission notes are historical; future work follows the current authorization.
-
-The [development history](docs/DEVELOPMENT_HISTORY.md) and numerical checkpoints
-retain earlier work. Current priorities are defined here; method documents and
-dataset cards describe their own bounded components. The first implementation and
-real-data acquisition are now present; [Video baseline](docs/VISION_BASELINE.md) and
-[Real vision data](docs/REAL_VISION_DATA.md) record their scope. Model fitting,
-optical synthetic generation, deployment and hardware actuation have not started.
+changed code file starts with a purpose summary. Work in small reproducible batches,
+retain failed evidence and keep raw data out of Git. The active implementation
+goal authorizes **local commits**. **Never push without the user's explicit
+approval.** Current session instructions take precedence over older authorization
+notes. Historical results remain in
+[development history](docs/DEVELOPMENT_HISTORY.md) and their original checkpoints.

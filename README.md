@@ -8,9 +8,10 @@ pipeline and an OpenCV video-observation baseline. No trained model, evaluated
 defect detector or automatic controller is implemented.
 
 The completed growth dataset contains **360 episodes and 1,080 audited samples**.
-Video ingestion and the seed baseline are implemented; the next work is real
-image annotation and synthetic optical data, followed by YOLOv8-seg,
-event alerts and controller integration. See the
+Video ingestion, the seed baseline, editable real-image proposals and the first
+Blender optical smoke batch are implemented. The next batch checks those tools,
+reviews a small real-image pilot and declares a synthetic training cohort.
+YOLOv8-seg, temporal alerts, PID/adaptation and an operator demo follow. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
 
@@ -19,6 +20,9 @@ runs, three phase-specific KDP movies and one separately identified ADP movie**.
 The image index preserves 79 source manual shape fits; reviewed segmentation and
 event labels are still missing. See [real vision data](docs/REAL_VISION_DATA.md)
 for source licenses, frozen groups, local paths and import/replay commands.
+The [annotation workflow](docs/ANNOTATIONS.md) exports only explicitly reviewed
+labels. [Optical synthetic data](docs/OPTICAL_SYNTHETIC.md) keeps geometric masks,
+refracted proxies and uncalibrated optics distinct.
 
 ## Where is the dataset?
 
