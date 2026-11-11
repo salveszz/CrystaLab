@@ -13,6 +13,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Video baseline](VISION_BASELINE.md) | Implemented file/camera observation, explicit clocks, projected seed tracking, validity events and reproducible fixture replay. |
 | [Learned video observation](LEARNED_VIDEO.md) | Verified model replay, seed role across raw labels, alternative outlines/inspection requests and hashed original-frame mapping. |
 | [Learned replay checkpoint](LEARNED_VIDEO_CHECKPOINT.json) | 284-test result, actual synthetic/real development replays, strict-prototype failures and remaining real/event/control gates. |
+| [Temporal candidates](TEMPORAL_CANDIDATES.md) | Causal non-seed identities, startup/new/unknown inspection events, independent event matching and clock/negative-coverage limits. |
+| [Temporal checkpoint](TEMPORAL_CANDIDATES_CHECKPOINT.json) | 300-test verification, audited replay artifacts, actual optical/fixture event errors and unscored real events. |
 | [Real vision data](REAL_VISION_DATA.md) | Acquired microscope images/videos, actual labels, frozen image splits, licenses, audits and development replay. |
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
 | [Optical synthetic images](OPTICAL_SYNTHETIC.md) | Pinned Blender/Cycles renderer, scene splits, geometric/optical mask semantics and visual failure history. |
@@ -33,7 +35,9 @@ The file/camera adapter, OpenCV seed baseline, learned replay and local YOLOv8-s
 are implemented. Synthetic first fits establish software behavior and expose
 remaining errors. The bounded optical pilot and synthetic baseline comparison
 are complete. Learned observation retains uncertainty and source frames;
-real labels/accuracy comparison, temporal alerts and physical control remain open.
+candidate analysis/evaluation now preserves non-seed identities and visible-event
+evidence. Real labels/accuracy, streaming candidate integration and physical
+control remain open.
 Growth baselines and XGBoost remain a supporting
 experiment using the frozen tabular splits, illustrative units and fixed law.
 

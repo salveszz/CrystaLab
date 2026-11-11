@@ -39,9 +39,12 @@ def observation_overlay(image, record, mask=None, *, instances=()):
     lines = [
         f"frame={record['frame_index']} video={record['video_time_s']:.3f}s "
         f"({record['timestamp_basis']})",
-        "YOLOv8-seg / projected seed / unvalidated"
-        if record["method"].startswith("yolov8")
-        else "BASELINE / projected silhouette / unvalidated",
+        record.get(
+            "display_method",
+            "YOLOv8-seg / projected seed / unvalidated"
+            if record["method"].startswith("yolov8")
+            else "BASELINE / projected silhouette / unvalidated",
+        ),
     ]
     if record["valid"]:
         lines.append(

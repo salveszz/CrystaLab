@@ -13,8 +13,10 @@ An explicit seed point initializes the known seed. Subsequent observations use
 mask overlap and a bounded source-video-clock gap. A larger unrelated object
 cannot replace it. Clipped, weak, missing, split or competing distinct candidates
 produce invalid measurements; a long gap requires a new explicit initialization.
-Only the seed has a persistent role in this batch. Other candidates have per-frame
-indices, not established object tracks or parasitic-nucleation identities.
+This observer batch gives the seed a persistent role and retains other raw objects
+by per-frame index. The subsequent [temporal analysis](TEMPORAL_CANDIDATES.md)
+adds causal candidate identities and inspection events to saved replays. These
+remain experimental visible candidates rather than confirmed parasitic nucleation.
 
 Raw model classes `seed` and `secondary_crystal` are visual predictions, while
 seed identity comes from the supplied point and history. The real pilot exposed

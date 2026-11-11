@@ -1,0 +1,502 @@
+{
+  "schema": "crystalab_temporal_candidates_checkpoint_v1",
+  "date": "2026-11-11",
+  "scope": "Causal candidate inspection on saved learned observations and independent visible-episode evaluation; no real accuracy or physical actuation",
+  "parent_revision": "deeb8d979b9fe76d0ec2996e5c0b26a426246498",
+  "source_sha256": {
+    "src/vision/candidates.py": "dd32026d2a897943b6fd0f5c05ddef9a03cdffa7360d032f0e758019fe3c48aa",
+    "src/vision/candidate_replay.py": "aa1288f2776ccf0485f5eb0fd72f64cfb54030797237f5bbb299350aee11d616",
+    "src/vision/event_evaluation.py": "bcd05bdc2cb68223c3fea5954ea071625e602320269c67bb1187fa56cdf597f5",
+    "src/rendering/observation.py": "35741b8c6b6f25c1ec28f3372796fc053bd417b6e5b188cbb81065fd9f3de243",
+    "scripts/analyze_candidates.py": "102fdd49e36fb1c6e7b46183005968a34187618c792cb99d99d02f292955eab9",
+    "scripts/evaluate_candidate_events.py": "229548ef1a5d7021d4c466b859296f7977fc8332859d613d616e9d12484a1ea7",
+    "scripts/prepare_optical_events.py": "fc9a010bda7dc0272d2f7da1930c3e3293398b87b15c8698c08501c84cfa21c0",
+    "scripts/review_candidate_events.py": "6470f22acdcff696dd65b2a588bf8c4e4ed4a7e5822ad216c47d850898ec4648",
+    "scripts/make_candidate_fixture.py": "d1491f76d09b9b54690c974a0e4fd268c7930ab6f065b48b99b3b813c211d5b8",
+    "tests/test_candidates.py": "9f22fc3a27f958539d8dd9a8aa03767f9ac08419128c94461ff8ba5810b28d2a",
+    "tests/test_event_evaluation.py": "7873f044e75f16dc7a7edf74fd664444029bf40e59b29ff7f71f38b627645b0e",
+    "configs/candidate_policy.json": "f7993d09bacbdf0a341d8ff1fa076975f34c4c29827592efc173ab6d6ffd29a4"
+  },
+  "regression": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "tests_passed": 300,
+    "subtests_passed": 152,
+    "elapsed_seconds": 96.86,
+    "log_sha256": "368da62193d307dd518481ddad8023b662a68910022838a1aaf588e733c78cff",
+    "python": "3.14.8",
+    "lint": "ruff check: all checks passed",
+    "format": "ruff format --check: 11 files already formatted"
+  },
+  "analyses": [
+    {
+      "path": "results/optical_pilot13_candidates_v2",
+      "manifest_sha256": "3e0aedebd9c29c48b43fdef8b63205bfffe3c4ef4033f98887e2c62d18ad30b4",
+      "source_replay_manifest_sha256": "9f7d933f5ce832c7f11ecd221e97477bf2e8b7479f957c558e3f4be8d1aa85ca",
+      "source_sha256": {
+        "src/vision/candidate_replay.py": "aa1288f2776ccf0485f5eb0fd72f64cfb54030797237f5bbb299350aee11d616",
+        "src/vision/candidates.py": "dd32026d2a897943b6fd0f5c05ddef9a03cdffa7360d032f0e758019fe3c48aa",
+        "src/vision/video.py": "1d72d3e06fcac17f3599b959e8d37bcd7bb1fe2c1251db1d9ac9b4491436593c",
+        "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a"
+      },
+      "config": {
+        "schema": "crystalab_candidate_policy_v1",
+        "minimum_confirmations": 2,
+        "minimum_duration_s": 0.0,
+        "maximum_gap_s": 1.0,
+        "minimum_iou": 0.2,
+        "duplicate_iou": 0.9,
+        "minimum_area_px": 12,
+        "maximum_seed_overlap_fraction": 0.25,
+        "minimum_inclusion_seed_fraction": 0.5,
+        "maximum_tracks": 128,
+        "fixed_view_assumed": true
+      },
+      "source_info": {
+        "evidence_kind": "synthetic",
+        "material": "illustrative_optical_geometry",
+        "source_id": "crystalab_optical_images_v1",
+        "scene_id": "optical_pilot_013",
+        "family_id": "optical_pilot_013",
+        "split": "validation",
+        "source_dataset": "/home/salves/dev/CrystaLab/data/synthetic_vision_pilot_v1",
+        "source_manifest_sha256": "6434179db8c54e16cba55378f67568999ebb050899ba3756ae4563e10f02e429",
+        "frame_map_sha256": "c1efe3fb994a3665cca457cf11dff804b055b7349a5ba66b23a62cfeed0ee5ba",
+        "derivative": "PNG frames MJPG encoded at original dimensions; no source frame duplication",
+        "timing": "Display FPS only. Synthetic geometry steps are not physical seconds.",
+        "optical_quality": null,
+        "physical_defect_response": null
+      },
+      "clock": "source_video_time_s",
+      "processed_frames": 3,
+      "persistent_candidate_events": 3,
+      "event_kinds": {
+        "startup_candidate": 2,
+        "new_visible_candidate": 1
+      },
+      "candidate_types": {
+        "crystal_candidate": 3
+      },
+      "issues": {},
+      "usable_source_seconds": {
+        "crystal_candidate": 0.5,
+        "inclusion_candidate": 0.5
+      },
+      "elapsed_seconds": 0.018861428994568996
+    },
+    {
+      "path": "results/leeds_pilot12_candidates_v2",
+      "manifest_sha256": "f3317f4bacecf2117f94350970799054ebec839cda2da03e5ef047eacd77b761",
+      "source_replay_manifest_sha256": "b31eec8238a4502ec0b17dc61b975ac38daf62b59bdbf01eb70c4887d891aea5",
+      "source_sha256": {
+        "src/vision/candidate_replay.py": "aa1288f2776ccf0485f5eb0fd72f64cfb54030797237f5bbb299350aee11d616",
+        "src/vision/candidates.py": "dd32026d2a897943b6fd0f5c05ddef9a03cdffa7360d032f0e758019fe3c48aa",
+        "src/vision/video.py": "1d72d3e06fcac17f3599b959e8d37bcd7bb1fe2c1251db1d9ac9b4491436593c",
+        "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a"
+      },
+      "config": {
+        "schema": "crystalab_candidate_policy_v1",
+        "minimum_confirmations": 2,
+        "minimum_duration_s": 0.0,
+        "maximum_gap_s": 1.0,
+        "minimum_iou": 0.2,
+        "duplicate_iou": 0.9,
+        "minimum_area_px": 12,
+        "maximum_seed_overlap_fraction": 0.25,
+        "minimum_inclusion_seed_fraction": 0.5,
+        "maximum_tracks": 128,
+        "fixed_view_assumed": true
+      },
+      "source_info": {
+        "evidence_kind": "real",
+        "material": "alpha_L_glutamic_acid",
+        "source_id": "LGA-LEEDS-2026",
+        "experiment_id": "12",
+        "split": "train",
+        "source_url": "https://archive.researchdata.leeds.ac.uk/1537/",
+        "citation": "Ilett, Hazlehurst, Jiang, Ma, Hogg and Roberts (2026), Reconstruction of 3D crystal growth from transmission optical microscopy images - Supporting data, University of Leeds.",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_archive_sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+        "source_index_sha256": "815d86ae34c107c8bac9863b937e212b9c776d38e665ccd7a563e944c6478421",
+        "derivative": "JPEG sequence resized and MJPG encoded; original source retained",
+        "frame_map_sha256": "e83a490e238e966ac2da5f43fb2e016f2ad3cda3437cb47a781e1c73815ed24f",
+        "timing": "Display FPS only. Nominal acquisition cadence is in frame_map; actual capture times are unverified."
+      },
+      "clock": "source_video_time_s",
+      "processed_frames": 30,
+      "persistent_candidate_events": 0,
+      "event_kinds": {},
+      "candidate_types": {},
+      "issues": {
+        "seed_or_view_uncertain": 11
+      },
+      "usable_source_seconds": {
+        "crystal_candidate": 4.25,
+        "inclusion_candidate": 4.25
+      },
+      "elapsed_seconds": 0.19815991399809718
+    },
+    {
+      "path": "results/candidate_fixture_analysis_v2",
+      "manifest_sha256": "53b214b00ab00df397eddf1738c13ff823ff59e0d45149bc41a330e5f36ada23",
+      "source_replay_manifest_sha256": "7f35795c4d1b409442ed93a852741d129f29aaa58f334b7e87f9a4f1c5c53070",
+      "source_sha256": {
+        "src/vision/candidate_replay.py": "aa1288f2776ccf0485f5eb0fd72f64cfb54030797237f5bbb299350aee11d616",
+        "src/vision/candidates.py": "dd32026d2a897943b6fd0f5c05ddef9a03cdffa7360d032f0e758019fe3c48aa",
+        "src/vision/video.py": "1d72d3e06fcac17f3599b959e8d37bcd7bb1fe2c1251db1d9ac9b4491436593c",
+        "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a"
+      },
+      "config": {
+        "schema": "crystalab_candidate_policy_v1",
+        "minimum_confirmations": 2,
+        "minimum_duration_s": 0.0,
+        "maximum_gap_s": 1.0,
+        "minimum_iou": 0.2,
+        "duplicate_iou": 0.9,
+        "minimum_area_px": 12,
+        "maximum_seed_overlap_fraction": 0.25,
+        "minimum_inclusion_seed_fraction": 0.5,
+        "maximum_tracks": 128,
+        "fixed_view_assumed": true
+      },
+      "source_info": {
+        "evidence_kind": "fixture",
+        "material": "none",
+        "source_id": "candidate_policy_fixture_v1",
+        "split": "development",
+        "frame_map_sha256": "3c238a4b5dbb7ea69b9a2ddef614b0ff5c81c6dcc71e90e6b0db2f0b264d75cb",
+        "limitations": "Analytic RGB and supplied imperfect masks; no learned detector or physical defect/clock evidence"
+      },
+      "clock": "source_video_time_s",
+      "processed_frames": 48,
+      "persistent_candidate_events": 4,
+      "event_kinds": {
+        "startup_candidate": 1,
+        "new_visible_candidate": 2,
+        "candidate_after_unknown_interval": 1
+      },
+      "candidate_types": {
+        "crystal_candidate": 3,
+        "inclusion_candidate": 1
+      },
+      "issues": {
+        "seed_or_view_uncertain": 4
+      },
+      "usable_source_seconds": {
+        "crystal_candidate": 4.199999999999999,
+        "inclusion_candidate": 4.199999999999999
+      },
+      "elapsed_seconds": 0.1564173459992162
+    }
+  ],
+  "evaluations": [
+    {
+      "path": "results/optical_pilot13_event_eval_v3/report.json",
+      "sha256": "5fd53a58549c654cb83bbe6274a6b203cd54cafc4b33974078cada6653cb22c5",
+      "report": {
+        "schema": "crystalab_candidate_event_evaluation_v1",
+        "status": "complete",
+        "analysis_manifest_sha256": "3e0aedebd9c29c48b43fdef8b63205bfffe3c4ef4033f98887e2c62d18ad30b4",
+        "annotation_sha256": "b099ccc4d35759a5bd6d918f1519adb8631eda2bdb8c1f09dbbf7c73abd0fde8",
+        "annotation_evidence_kind": "synthetic",
+        "review_receipt": null,
+        "match_iou": 0.5,
+        "maximum_delay_source_s": 1.0,
+        "events": 3,
+        "truth_events": 2,
+        "analysis_source_window_s": [
+          0.0,
+          0.5
+        ],
+        "excluded_outside_window_event_ids": [],
+        "metric_scope": "Visible-episode matching in available clip; short follow-up is separately censored for matching-window recall",
+        "complete_followup": {
+          "crystal_candidate": {
+            "eligible": 0,
+            "matched": 0,
+            "censored_event_ids": [
+              "optical_pilot_013:secondary_0"
+            ]
+          },
+          "inclusion_candidate": {
+            "eligible": 0,
+            "matched": 0,
+            "censored_event_ids": [
+              "optical_pilot_013:inclusion_0"
+            ]
+          }
+        },
+        "per_kind": {
+          "crystal_candidate": {
+            "tp": 1,
+            "fp": 2,
+            "fn": 0,
+            "truth": 1,
+            "predictions": 3,
+            "precision": 0.3333333333333333,
+            "recall": 1.0
+          },
+          "inclusion_candidate": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "truth": 1,
+            "predictions": 0,
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "matches": [
+          {
+            "truth_event_id": "optical_pilot_013:secondary_0",
+            "prediction_event_id": "optical_pilot13_learned_hypotheses_v3:candidate_event:000003",
+            "candidate_type": "crystal_candidate",
+            "mask_iou": 0.7106382978723405,
+            "origin_correct": true,
+            "truth_origin": "appeared_after_clear_view",
+            "prediction_origin": "appeared_after_clear_view",
+            "alert_delay_after_first_visible_s": 0.25,
+            "alert_delay_interval_s": [
+              0.25,
+              0.5
+            ]
+          }
+        ],
+        "duplicate_alert_ids": [],
+        "missed_event_ids": [
+          "optical_pilot_013:inclusion_0"
+        ],
+        "unmatched_prediction_ids": [
+          "optical_pilot13_learned_hypotheses_v3:candidate_event:000001",
+          "optical_pilot13_learned_hypotheses_v3:candidate_event:000002"
+        ],
+        "origin_confusion": {
+          "appeared_after_clear_view -> appeared_after_clear_view": 1
+        },
+        "new_visibility_claims": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "negative_coverage": {
+          "crystal_candidate": {
+            "usable_annotated_negative_source_seconds": 0,
+            "false_events_in_negative_intervals": 0,
+            "physical_negative_seconds": null,
+            "false_alerts_per_observed_negative_hour": null
+          },
+          "inclusion_candidate": {
+            "usable_annotated_negative_source_seconds": 0,
+            "false_events_in_negative_intervals": 0,
+            "physical_negative_seconds": null,
+            "false_alerts_per_observed_negative_hour": null
+          }
+        },
+        "physical_clock_scored": false,
+        "first_hour_claim_evaluated": false,
+        "source_sha256": {
+          "src/vision/event_evaluation.py": "bcd05bdc2cb68223c3fea5954ea071625e602320269c67bb1187fa56cdf597f5"
+        },
+        "scope": "Visible candidate inspection events under declared source clock; no microscopic nucleation, quality or control benefit claim"
+      }
+    },
+    {
+      "path": "results/candidate_fixture_eval_v3/report.json",
+      "sha256": "122f9bf14272f0473b2424abd82b1478cbfe5a4711d9cb8c1334319acc155efe",
+      "report": {
+        "schema": "crystalab_candidate_event_evaluation_v1",
+        "status": "complete",
+        "analysis_manifest_sha256": "53b214b00ab00df397eddf1738c13ff823ff59e0d45149bc41a330e5f36ada23",
+        "annotation_sha256": "ff8b5a4e944fae0f923b8c3678d93343b15dbcc59c159de25ecd4737106f950f",
+        "annotation_evidence_kind": "fixture",
+        "review_receipt": null,
+        "match_iou": 0.5,
+        "maximum_delay_source_s": 1.0,
+        "events": 4,
+        "truth_events": 3,
+        "analysis_source_window_s": [
+          0.0,
+          4.7
+        ],
+        "excluded_outside_window_event_ids": [],
+        "metric_scope": "Visible-episode matching in available clip; short follow-up is separately censored for matching-window recall",
+        "complete_followup": {
+          "crystal_candidate": {
+            "eligible": 2,
+            "matched": 2,
+            "censored_event_ids": []
+          },
+          "inclusion_candidate": {
+            "eligible": 1,
+            "matched": 1,
+            "censored_event_ids": []
+          }
+        },
+        "per_kind": {
+          "crystal_candidate": {
+            "tp": 2,
+            "fp": 1,
+            "fn": 0,
+            "truth": 2,
+            "predictions": 3,
+            "precision": 0.6666666666666666,
+            "recall": 1.0
+          },
+          "inclusion_candidate": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "truth": 1,
+            "predictions": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        },
+        "matches": [
+          {
+            "truth_event_id": "new_crystal_A",
+            "prediction_event_id": "candidate_policy_fixture_v1:candidate_event:000002",
+            "candidate_type": "crystal_candidate",
+            "mask_iou": 1.0,
+            "origin_correct": true,
+            "truth_origin": "appeared_after_clear_view",
+            "prediction_origin": "appeared_after_clear_view",
+            "alert_delay_after_first_visible_s": 0.10000000000000009,
+            "alert_delay_interval_s": [
+              0.10000000000000009,
+              0.20000000000000007
+            ]
+          },
+          {
+            "truth_event_id": "crystal_C_after_unknown",
+            "prediction_event_id": "candidate_policy_fixture_v1:candidate_event:000003",
+            "candidate_type": "crystal_candidate",
+            "mask_iou": 1.0,
+            "origin_correct": true,
+            "truth_origin": "appeared_after_unknown_interval",
+            "prediction_origin": "appeared_after_unknown_interval",
+            "alert_delay_after_first_visible_s": 0.10000000000000009,
+            "alert_delay_interval_s": [
+              0.10000000000000009,
+              0.6000000000000001
+            ]
+          },
+          {
+            "truth_event_id": "new_inclusion_B",
+            "prediction_event_id": "candidate_policy_fixture_v1:candidate_event:000004",
+            "candidate_type": "inclusion_candidate",
+            "mask_iou": 1.0,
+            "origin_correct": true,
+            "truth_origin": "appeared_after_clear_view",
+            "prediction_origin": "appeared_after_clear_view",
+            "alert_delay_after_first_visible_s": 0.10000000000000053,
+            "alert_delay_interval_s": [
+              0.10000000000000053,
+              0.20000000000000018
+            ]
+          }
+        ],
+        "duplicate_alert_ids": [],
+        "missed_event_ids": [],
+        "unmatched_prediction_ids": [
+          "candidate_policy_fixture_v1:candidate_event:000001"
+        ],
+        "origin_confusion": {
+          "appeared_after_clear_view -> appeared_after_clear_view": 2,
+          "appeared_after_unknown_interval -> appeared_after_unknown_interval": 1
+        },
+        "new_visibility_claims": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "negative_coverage": {
+          "crystal_candidate": {
+            "usable_annotated_negative_source_seconds": 0.9,
+            "false_events_in_negative_intervals": 1,
+            "physical_negative_seconds": null,
+            "false_alerts_per_observed_negative_hour": null
+          },
+          "inclusion_candidate": {
+            "usable_annotated_negative_source_seconds": 2.2,
+            "false_events_in_negative_intervals": 0,
+            "physical_negative_seconds": null,
+            "false_alerts_per_observed_negative_hour": null
+          }
+        },
+        "physical_clock_scored": false,
+        "first_hour_claim_evaluated": false,
+        "source_sha256": {
+          "src/vision/event_evaluation.py": "bcd05bdc2cb68223c3fea5954ea071625e602320269c67bb1187fa56cdf597f5"
+        },
+        "scope": "Visible candidate inspection events under declared source clock; no microscopic nucleation, quality or control benefit claim"
+      }
+    }
+  ],
+  "independent_artifact_audit": [
+    {
+      "path": "results/optical_pilot13_candidates_v2",
+      "manifest_sha256": "3e0aedebd9c29c48b43fdef8b63205bfffe3c4ef4033f98887e2c62d18ad30b4",
+      "frames": 3,
+      "events": 3,
+      "files_verified": 21,
+      "usable_source_seconds": {
+        "crystal_candidate": 0.5,
+        "inclusion_candidate": 0.5
+      }
+    },
+    {
+      "path": "results/leeds_pilot12_candidates_v2",
+      "manifest_sha256": "f3317f4bacecf2117f94350970799054ebec839cda2da03e5ef047eacd77b761",
+      "frames": 30,
+      "events": 0,
+      "files_verified": 8,
+      "usable_source_seconds": {
+        "crystal_candidate": 4.25,
+        "inclusion_candidate": 4.25
+      }
+    },
+    {
+      "path": "results/candidate_fixture_analysis_v2",
+      "manifest_sha256": "53b214b00ab00df397eddf1738c13ff823ff59e0d45149bc41a330e5f36ada23",
+      "frames": 48,
+      "events": 4,
+      "files_verified": 139,
+      "usable_source_seconds": {
+        "crystal_candidate": 4.199999999999999,
+        "inclusion_candidate": 4.199999999999999
+      }
+    }
+  ],
+  "independent_checks": [
+    "All analysis/parent artifact hashes match; saved producer source hashes match current sources",
+    "Candidate masks reconstruct declared area/bounds and one original raw component",
+    "Raw classes/source instances reconstruct retained aliases",
+    "Per-frame source clocks and original source-frame references match the parent",
+    "Event first masks match their first tracked detections",
+    "Confirmation streaks reconstruct consecutive usable assigned observations and duration gates",
+    "Usable intervals reconstruct adjacent usable clock intervals and aggregate totals",
+    "Overlay videos decode to the processed frame count"
+  ],
+  "visual_inspection": [
+    "results/optical_pilot13_candidates_v1/evidence/frame_00000002.png",
+    "results/candidate_fixture_analysis_v1/evidence/frame_00000029.png"
+  ],
+  "visual_inspection_scope": "Earlier v1 overlays inspected; v2 adds final source-artifact recheck and preserves the same numerical candidate decisions",
+  "real_review_receipts": 0,
+  "real_event_accuracy": null,
+  "physical_first_hour_coverage": null,
+  "physical_false_alerts_per_hour": null,
+  "physical_camera_opened": false,
+  "actuator_commands_issued": false,
+  "final_test_scored": false,
+  "remaining": [
+    "Reviewed real masks/events/negative time and frozen numeric budgets",
+    "Streaming candidate integration and measured end-to-end latency",
+    "Bubble/inclusion error investigation and relevant real/mixed training",
+    "Comparable-view growth and face/asymmetry measurements",
+    "Temperature PID, bounded adaptive forecast/supervision and operator demonstration",
+    "Representative KDP first-hour/calibration/equipment/action-response evidence",
+    "HPC/GPU benchmark and chemically justified Qiskit impurity study"
+  ]
+}

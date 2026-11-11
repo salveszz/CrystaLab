@@ -1,0 +1,13 @@
+{
+  "schema": "crystalab_candidate_policy_v1",
+  "minimum_confirmations": 2,
+  "minimum_duration_s": 0.0,
+  "maximum_gap_s": 1.0,
+  "minimum_iou": 0.2,
+  "duplicate_iou": 0.9,
+  "minimum_area_px": 12,
+  "maximum_seed_overlap_fraction": 0.25,
+  "minimum_inclusion_seed_fraction": 0.5,
+  "maximum_tracks": 128,
+  "fixed_view_assumed": true
+}
