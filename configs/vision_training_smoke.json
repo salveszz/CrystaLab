@@ -1,0 +1,12 @@
+{
+  "schema": "crystalab_yolov8_seg_train_v1",
+  "purpose": "plumbing_check",
+  "description": "Three CPU epochs on audited synthetic smoke images; this checks training artifacts, not generalization or real accuracy.",
+  "epochs": 3,
+  "imgsz": 256,
+  "batch": 4,
+  "threads": 2,
+  "seed": 20261111,
+  "device": "cpu",
+  "learning_rate": 0.001
+}

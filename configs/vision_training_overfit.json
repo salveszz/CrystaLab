@@ -1,0 +1,13 @@
+{
+  "schema": "crystalab_yolov8_seg_train_v1",
+  "purpose": "overfit_check",
+  "description": "Memorization diagnostic on two synthetic training images. Validation reuses those same images and is not holdout performance.",
+  "epochs": 60,
+  "imgsz": 256,
+  "batch": 2,
+  "threads": 2,
+  "seed": 20261111,
+  "device": "cpu",
+  "learning_rate": 0.001,
+  "overfit_samples": 2
+}

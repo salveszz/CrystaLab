@@ -1,0 +1,11 @@
+{
+  "architecture": "YOLOv8n-seg",
+  "initialization": "COCO pretrained",
+  "url": "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolov8n-seg.pt",
+  "local_path": "data/pretrained/yolov8n-seg.pt",
+  "sha256": "a7cd8f929e1903d78a12a48efecab430209f18dc46cb96c3599a5980c63c423c",
+  "ultralytics": "8.4.210",
+  "torch": "2.12.1",
+  "torchvision": "0.27.1",
+  "license": "AGPL-3.0; see upstream terms"
+}

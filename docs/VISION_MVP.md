@@ -2,8 +2,9 @@
 
 Status: pilot tooling on 2026-11-11. The file/camera adapter, OpenCV seed baseline,
 real-image importer, annotation workflow and optical renderer exist. Real review
-and a training cohort remain open. No trained model, evaluated
-defect detector or controller is implemented. See [Video baseline](VISION_BASELINE.md)
+remains open and the bounded cohort is generating. Local YOLOv8-seg training and
+synthetic development diagnostics now exist; real defect evaluation and control
+remain open. See [Training](VISION_TRAINING.md), [Video baseline](VISION_BASELINE.md)
 and [Real vision data](REAL_VISION_DATA.md) for actual evidence.
 The [roadmap](../roadmap.md) defines the sequence. This document turns the
 [pitch](../Pitch_KDP.pptx), especially slides 5–9, into reviewable deliverables.
@@ -177,8 +178,9 @@ real-training/evaluation dataset. Follow the current batches in the
 1. Checkpoint those additions, review the six proposed real outlines, expand a
    bounded pilot and freeze annotation/evaluation rules. Declare a synthetic
    cohort and identify missing physical capture dependencies.
-2. Add YOLOv8-seg training/evaluation in `src/models/`, starting with a plumbing
-   check. Compare with the baseline on reviewed real data when available.
+2. The YOLOv8-seg training/evaluation entry points and first synthetic software
+   checks in `src/models/` are implemented. Complete the broader grouped pilot
+   and compare with the baseline on reviewed real data when available.
 3. Add identity tracking, supported face/edge measurements and temporal event
    decisions with evidence and held-out evaluation.
 4. Fill `src/controllers/` with temperature PID, rule supervision and bounded

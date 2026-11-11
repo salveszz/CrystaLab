@@ -4,14 +4,17 @@ CrystaLab aims to observe crystal growth through a camera, detect visible change
 and support PID/adaptive control with operator involvement, as proposed in the
 [original pitch](Pitch_KDP.pptx). The implemented foundation is an illustrative 3D
 growth simulator, verified numerical flow components, an audited growth-data
-pipeline and an OpenCV video-observation baseline. No trained model, evaluated
-defect detector or automatic controller is implemented.
+pipeline, an OpenCV video-observation baseline and a local YOLOv8-seg training
+pipeline. Initial synthetic-only fits save working weights; real defect accuracy
+and automatic control remain unevaluated.
 
 The completed growth dataset contains **360 episodes and 1,080 audited samples**.
 Video ingestion, the seed baseline, editable real-image proposals and the first
-Blender optical smoke batch are implemented. The next batch checks those tools,
-reviews a small real-image pilot and declares a synthetic training cohort.
-YOLOv8-seg, temporal alerts, PID/adaptation and an operator demo follow. See the
+Blender optical smoke batch are implemented and checked. A bounded synthetic
+cohort is generating, while real-image review remains open. The first small
+vision fit has substantial secondary-object errors; see the
+[training report](docs/VISION_TRAINING.md). Broader perception evaluation,
+temporal alerts, PID/adaptation and an operator demo follow. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
 

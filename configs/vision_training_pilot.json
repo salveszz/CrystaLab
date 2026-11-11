@@ -1,0 +1,12 @@
+{
+  "schema": "crystalab_yolov8_seg_train_v1",
+  "purpose": "grouped_experiment",
+  "description": "Bounded synthetic-only scene-grouped pilot. Real labels and KDP validation remain open.",
+  "epochs": 30,
+  "imgsz": 256,
+  "batch": 4,
+  "threads": 2,
+  "seed": 20261111,
+  "device": "cpu",
+  "learning_rate": 0.001
+}

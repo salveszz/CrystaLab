@@ -5,15 +5,16 @@ synthetic images, YOLOv8-seg, event alerts and PID/adaptive control. The complet
 tabular growth dataset is ready for a bounded supporting experiment. It does not
 make the vision system or physical controller ready. Video/camera ingestion, the
 OpenCV seed baseline, real-image import, annotation tooling and the Blender
-optical smoke batch are implemented. No trained model,
-evaluated defect detector or automatic controller is implemented.
+optical smoke batch are implemented. YOLOv8-seg training and development
+evaluation now run locally on synthetic labels. The small fits do not establish
+real defect accuracy; no automatic controller is implemented.
 
 ## Readiness gates
 
 | Task | Current evidence | Next gate |
 |---|---|---|
 | Video baseline and image-data pipeline | File/camera adapter, tested seed baseline, real-image index, six editable annotation proposals and an audited 18-frame Blender optical smoke batch. | Human pixel/event review, clock/measurement checks and a declared training cohort; smoke completion does not prove training coverage. |
-| YOLOv8-seg and visible-event alerts | Model task is defined in the pitch; no training or evaluated alerts. | Reviewed labels, whole-run/scene splits, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
+| YOLOv8-seg and visible-event alerts | Audited image/label adapter, pinned local training/evaluation, a three-epoch synthetic smoke fit and two-image overfit diagnostic. Secondary/inclusion errors remain substantial; temporal alerts are absent. | Broader grouped pilot, reviewed real labels, baseline comparison, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
 | PID/adaptive software loop | Bounded scripted simulation commands; no feedback controller. | Sensor/command interfaces, PID and bounded supervisor, fixed-recipe comparison and traceable action logs. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
@@ -33,9 +34,10 @@ classes, clocks, evaluation rules and performance budgets after pilot review.
 Preserve all real validation/test groups. Alpha-LGA and ADP development results
 do not establish KDP performance.
 
-Alongside review, declare a bounded synthetic scene cohort and implement the
-YOLOv8-seg loader/training/evaluation path. A synthetic-only plumbing/overfit check
-can proceed while real review is pending; unreviewed proposals remain excluded
+Alongside review, finish the declared 20-scene synthetic pilot, audit and inspect
+development examples, then use the implemented
+[YOLOv8-seg training/evaluation path](VISION_TRAINING.md). The initial synthetic
+software and overfit checks are complete. Unreviewed proposals remain excluded
 from accepted real training. Compare with the OpenCV baseline on reviewed data,
 then evaluate temporal decisions and keep real/synthetic results separate.
 

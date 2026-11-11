@@ -1,0 +1,198 @@
+{
+  "schema": "crystalab_optical_images_v1",
+  "description": "Bounded synthetic-only training pilot: twenty independent base scenes, three illustrative geometry steps each. No real-domain or physical-time claim.",
+  "geometry_config": "configs/synthetic_growth.json",
+  "resolution": 256,
+  "samples": 64,
+  "threads": 4,
+  "frames_per_scene": 3,
+  "minimum_label_pixels": 12,
+  "optical_mask_threshold": 32,
+  "classes": [
+    "seed",
+    "secondary_crystal",
+    "inclusion_candidate"
+  ],
+  "scenes": [
+    {
+      "id": "optical_pilot_000",
+      "family_id": "optical_pilot_000",
+      "split": "train",
+      "seed": 202611120,
+      "secondary_count": 0,
+      "inclusion_count": 0,
+      "bubble_count": 1
+    },
+    {
+      "id": "optical_pilot_001",
+      "family_id": "optical_pilot_001",
+      "split": "train",
+      "seed": 202611121,
+      "secondary_count": 1,
+      "inclusion_count": 1,
+      "bubble_count": 2
+    },
+    {
+      "id": "optical_pilot_002",
+      "family_id": "optical_pilot_002",
+      "split": "train",
+      "seed": 202611122,
+      "secondary_count": 2,
+      "inclusion_count": 0,
+      "bubble_count": 0
+    },
+    {
+      "id": "optical_pilot_003",
+      "family_id": "optical_pilot_003",
+      "split": "train",
+      "seed": 202611123,
+      "secondary_count": 0,
+      "inclusion_count": 1,
+      "bubble_count": 1
+    },
+    {
+      "id": "optical_pilot_004",
+      "family_id": "optical_pilot_004",
+      "split": "train",
+      "seed": 202611124,
+      "secondary_count": 1,
+      "inclusion_count": 0,
+      "bubble_count": 2
+    },
+    {
+      "id": "optical_pilot_005",
+      "family_id": "optical_pilot_005",
+      "split": "train",
+      "seed": 202611125,
+      "secondary_count": 2,
+      "inclusion_count": 1,
+      "bubble_count": 0
+    },
+    {
+      "id": "optical_pilot_006",
+      "family_id": "optical_pilot_006",
+      "split": "train",
+      "seed": 202611126,
+      "secondary_count": 0,
+      "inclusion_count": 0,
+      "bubble_count": 1
+    },
+    {
+      "id": "optical_pilot_007",
+      "family_id": "optical_pilot_007",
+      "split": "train",
+      "seed": 202611127,
+      "secondary_count": 1,
+      "inclusion_count": 1,
+      "bubble_count": 2
+    },
+    {
+      "id": "optical_pilot_008",
+      "family_id": "optical_pilot_008",
+      "split": "train",
+      "seed": 202611128,
+      "secondary_count": 2,
+      "inclusion_count": 0,
+      "bubble_count": 0
+    },
+    {
+      "id": "optical_pilot_009",
+      "family_id": "optical_pilot_009",
+      "split": "train",
+      "seed": 202611129,
+      "secondary_count": 0,
+      "inclusion_count": 1,
+      "bubble_count": 1
+    },
+    {
+      "id": "optical_pilot_010",
+      "family_id": "optical_pilot_010",
+      "split": "train",
+      "seed": 202611130,
+      "secondary_count": 1,
+      "inclusion_count": 0,
+      "bubble_count": 2
+    },
+    {
+      "id": "optical_pilot_011",
+      "family_id": "optical_pilot_011",
+      "split": "train",
+      "seed": 202611131,
+      "secondary_count": 2,
+      "inclusion_count": 1,
+      "bubble_count": 0
+    },
+    {
+      "id": "optical_pilot_012",
+      "family_id": "optical_pilot_012",
+      "split": "validation",
+      "seed": 202611132,
+      "secondary_count": 0,
+      "inclusion_count": 0,
+      "bubble_count": 1
+    },
+    {
+      "id": "optical_pilot_013",
+      "family_id": "optical_pilot_013",
+      "split": "validation",
+      "seed": 202611133,
+      "secondary_count": 1,
+      "inclusion_count": 1,
+      "bubble_count": 2
+    },
+    {
+      "id": "optical_pilot_014",
+      "family_id": "optical_pilot_014",
+      "split": "validation",
+      "seed": 202611134,
+      "secondary_count": 2,
+      "inclusion_count": 0,
+      "bubble_count": 0
+    },
+    {
+      "id": "optical_pilot_015",
+      "family_id": "optical_pilot_015",
+      "split": "validation",
+      "seed": 202611135,
+      "secondary_count": 0,
+      "inclusion_count": 1,
+      "bubble_count": 1
+    },
+    {
+      "id": "optical_pilot_016",
+      "family_id": "optical_pilot_016",
+      "split": "test",
+      "seed": 202611136,
+      "secondary_count": 1,
+      "inclusion_count": 0,
+      "bubble_count": 2
+    },
+    {
+      "id": "optical_pilot_017",
+      "family_id": "optical_pilot_017",
+      "split": "test",
+      "seed": 202611137,
+      "secondary_count": 2,
+      "inclusion_count": 1,
+      "bubble_count": 0
+    },
+    {
+      "id": "optical_pilot_018",
+      "family_id": "optical_pilot_018",
+      "split": "test",
+      "seed": 202611138,
+      "secondary_count": 0,
+      "inclusion_count": 0,
+      "bubble_count": 1
+    },
+    {
+      "id": "optical_pilot_019",
+      "family_id": "optical_pilot_019",
+      "split": "test",
+      "seed": 202611139,
+      "secondary_count": 1,
+      "inclusion_count": 1,
+      "bubble_count": 2
+    }
+  ]
+}

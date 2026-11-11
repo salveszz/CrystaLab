@@ -27,14 +27,16 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies and a separate ADP movie. | Reviewed pixel/event labels and representative independent KDP evaluation data. Source fits are not segmentation masks. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews and guarded review/export code. | Zero actual review receipts. A reviewer must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Local Blender/OpenCV implementation and an 18-frame, six-scene revised smoke batch. Earlier noisy renders are retained as rejected. | A declared training cohort, checked label coverage and temporal-event ground truth. Refracted masks remain annotation proxies. |
-| Learned perception, controllers and UI | No trained model. `src/models/`, `src/controllers/` and `src/dashboard/` contain package placeholders. | Training/evaluation, tracking/events, PID, adaptation, action adapters and operator demonstration. |
+| Learned perception, controllers and UI | Local YOLOv8-seg training/evaluation and synthetic first-fit weights now exist. `src/controllers/` and `src/dashboard/` remain package placeholders. | Broader grouped/real evaluation, tracking/events, PID, adaptation, action adapters and operator demonstration. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
 130 subtests at its source revision. The new
 [optical/annotation checkpoint](docs/OPTICAL_CHECKPOINT.json) records the 254-test
 run, a targeted follow-up after an environment-metadata addition, and fresh optical
-and real-source audits. Training work has a separate verification gate.
+and real-source audits. Training work has a separate verification gate and
+[experiment report](docs/VISION_TRAINING.md). The declared 20-scene/60-image
+synthetic pilot is generating; human real-label review remains open.
 
 ## Pitch requirements and completion evidence
 
@@ -106,6 +108,8 @@ proceed as a labeled software experiment while real review is pending.
 - Implement a causal image/label loader and training/evaluation entry points using
   `src/models/`, with explicit YOLOv8-seg weights, optional pinned dependencies,
   preprocessing, seeds, hardware identity and weight/configuration hashes.
+  Implemented, with a three-epoch synthetic smoke fit and separate two-image
+  overfit diagnostic. Neither closes real-data performance or temporal alerts.
 - Run a tiny overfit check to verify export/label/training plumbing. Follow it with
   a bounded grouped experiment. A successful fit is distinct from generalization.
 - Compare the seed results with the existing OpenCV baseline on the same reviewed

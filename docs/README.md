@@ -15,6 +15,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
 | [Optical synthetic images](OPTICAL_SYNTHETIC.md) | Pinned Blender/Cycles renderer, scene splits, geometric/optical mask semantics and visual failure history. |
 | [Optical/annotation checkpoint](OPTICAL_CHECKPOINT.json) | Source-matched optical/annotation verification, 254-test run, revised smoke audit and zero accepted real labels. |
+| [Vision training](VISION_TRAINING.md) | Audited YOLO polygon adapter, pinned local training/evaluation, synthetic first fits and retained detection failures. |
+| [Training checkpoint](VISION_TRAINING_CHECKPOINT.json) | 264-test result, actual model hashes, synthetic development errors and remaining real/control gates. |
 | [Vision checkpoint](VISION_CHECKPOINT.json) | Source hashes, 244-test result, fixture/development replay checks and remaining gates. |
 | [Dataset v1 card](SYNTHETIC_DATASET_V1.md) | The active 360-episode / 1,080-sample dataset, splits, missingness and use limits. |
 | [Dataset v1 report](SYNTHETIC_DATASET_V1.json) | Actual hashes, groups, audit results and measured runtime. |
@@ -22,11 +24,11 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [AI readiness](AI_READINESS.md) | Separate readiness gates for vision, synthetic growth prediction and physical control. |
 | [Data directory guide](../data/README.md) | Local generated files, original inputs and the Git ignore policy. |
 
-The file/camera adapter and OpenCV seed baseline are implemented; no model fitting,
-evaluated defect detector or physical controller is implemented. Annotation
-tooling and the first Blender optical smoke batch are present; real reviews and
-a bounded optical training cohort are next. YOLOv8-seg and event alerts
-follow the image-data gate. Growth baselines and XGBoost remain a supporting
+The file/camera adapter, OpenCV seed baseline and local YOLOv8-seg training path
+are implemented. Synthetic first fits establish software behavior and expose
+remaining errors. The bounded optical pilot is generating; real labels, baseline
+accuracy comparison, temporal alerts and physical control remain open.
+Growth baselines and XGBoost remain a supporting
 experiment using the frozen tabular splits, illustrative units and fixed law.
 
 ## Physics and verification

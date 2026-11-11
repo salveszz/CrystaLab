@@ -1,2 +1,2 @@
-# FILE PURPOSE: Reserve the package for predictive models; no model code exists yet.
-# Importing this package has no initialization side effects.
+# FILE PURPOSE: Group learned-model entry points while keeping package imports lightweight.
+# Segmentation training and development evaluation load optional runtimes explicitly.

@@ -1,0 +1,195 @@
+{
+  "checked_at_utc": "2026-11-11T15:32:24.654445+00:00",
+  "scope": "Local YOLOv8-seg image training/development software checkpoint. No real defect/control validation.",
+  "tests": {
+    "status": "pass",
+    "tests": 264,
+    "subtests": 136,
+    "seconds": 238.63,
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-training-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "log": "/tmp/crystalab-training-regression.log"
+  },
+  "source_sha256": {
+    "src/models/__init__.py": "75003bb3c1e54fd50e09cb2db26c8063ba7d1f696912349b6bff3a633c2f7b66",
+    "src/models/segmentation.py": "40467cf9f80b61fdfe9c33c945c7a1d098a0984435796b7066908061aef316a9",
+    "src/models/segmentation_eval.py": "27830134b391280b0250f6a9cb47fe970d56517251464105db384d131b4dfa3c",
+    "src/vision/training_data.py": "6dc6ebaccde7e247a5abc82575f102b6152facf5e1b532ee6932c0b0af1fbd39",
+    "scripts/prepare_segmentation.py": "002b5596516af6505cd0978ccb456996d8bbab10f3beaf02687b13c8e30aaa1c",
+    "scripts/train_vision.py": "ce5d910d2b108169817994617da581ce59d2adc28c587cdef020cd2de2e89132",
+    "scripts/evaluate_vision.py": "a70995a862f384537d63517bf03c4e64332e8c0d4bb12d29c2f3596ac7e86778",
+    "scripts/fetch_vision_weights.py": "b9b30c5a337108fe72b3b03fced059473ae361d74d8bfac73b4d721ae51c22f0",
+    "tests/test_training_data.py": "299e36dc4d7fa316d30e39b2a3e9f5a41bd6a990636958ba86650432342800c4",
+    "tests/test_segmentation_eval.py": "bb7a78b840f1f3cd0c4ae1d61468a3610b846c0c821d54959748e5e0513fa409",
+    "pyproject.toml": "ce9af0710f218531b46398224875f3ef523f62617b214c3e282cec06e6162651",
+    "configs/yolov8n_seg_runtime.json": "4db2738202dd6d2812c7618cae1c8668eb1988ee1e5d2de3977584ae7b60cf21",
+    "configs/vision_training_smoke.json": "4ba5757ee63df6df781bdd86675c191e12a4b52f58a4e0e3eeee489028aa554e",
+    "configs/vision_training_overfit.json": "fcf38d1e7af813c4c874f04b863dda9f5688932a126d74361857bd7e0e4eda2d",
+    "configs/vision_training_pilot.json": "777c9cf313a68150a21c5d1ab253d002126228bb7c96c3aa639a46dc7b4a76fb",
+    "configs/synthetic_vision_pilot.json": "c025ffd345e064b7f9cd4c7c14533c20d09f8bbc9931921c0871498232c5f9eb"
+  },
+  "dataset": {
+    "path": "data/yolo_optical_smoke_v1",
+    "manifest_sha256": "40f3b0d3f575116768ab28ec136c22e9e2f93a0dab4e7e557e660583a398e093",
+    "images_by_split": {
+      "train": 12,
+      "validation": 3,
+      "test": 3
+    },
+    "images_by_evidence": {
+      "synthetic": 18
+    },
+    "objects_by_class": {
+      "seed": 18,
+      "secondary_crystal": 10,
+      "inclusion_candidate": 4
+    },
+    "source_reconstruction_audit": "pass"
+  },
+  "initialization": {
+    "architecture": "YOLOv8n-seg",
+    "initialization": "COCO pretrained",
+    "url": "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolov8n-seg.pt",
+    "local_path": "data/pretrained/yolov8n-seg.pt",
+    "sha256": "a7cd8f929e1903d78a12a48efecab430209f18dc46cb96c3599a5980c63c423c",
+    "ultralytics": "8.4.210",
+    "torch": "2.12.1",
+    "torchvision": "0.27.1",
+    "license": "AGPL-3.0; see upstream terms"
+  },
+  "smoke_run": {
+    "path": "results/vision_training_smoke_v2",
+    "manifest_sha256": "9fe81dd4cbe5e174de9bcc90e092423a5da472b02bfcab6f5ca10a0ea371c2d1",
+    "status": "complete",
+    "epochs": 3,
+    "elapsed_seconds": 7.971345650003059,
+    "best_weights_sha256": "92c5dc786b4814c3ea39c0499d5ee7caf44ea38948e3e023155294a97ad2ce0c",
+    "environment": {
+      "python": "3.14.8",
+      "packages": {
+        "ultralytics": "8.4.210",
+        "torch": "2.12.1",
+        "torchvision": "0.27.1"
+      },
+      "platform": "Linux-7.2.13-200.fc44.x86_64-x86_64-with-glibc2.43",
+      "processor": "",
+      "cpu_count": 16,
+      "training_threads": 2,
+      "cuda_available": false,
+      "supporting_packages": {
+        "numpy": "2.5.0",
+        "opencv-python": "4.13.0.92",
+        "pillow": "12.3.0",
+        "scipy": "1.18.0",
+        "matplotlib": "3.11.0",
+        "ultralytics-thop": "2.2.5",
+        "polars": "2.1.0"
+      }
+    },
+    "upstream_metrics": {
+      "metrics/precision(B)": 0.7042776836407002,
+      "metrics/recall(B)": 0.4922541426894907,
+      "metrics/mAP50(B)": 0.3919696969696969,
+      "metrics/mAP50-95(B)": 0.19141774891774893,
+      "metrics/precision(M)": 0.7042776836407002,
+      "metrics/recall(M)": 0.4922541426894907,
+      "metrics/mAP50(M)": 0.3552380952380952,
+      "metrics/mAP50-95(M)": 0.18296825396825395,
+      "fitness": 0.3743860028860029
+    },
+    "previous_smoke_path": "results/vision_training_smoke_v1",
+    "previous_smoke_metrics_identical": true
+  },
+  "development_diagnostic": {
+    "path": "results/vision_training_smoke_eval_v2",
+    "manifest_sha256": "28502742a5af75f3de9878532a37eda5ece01e6c6ec0fc5f70b08b500445763a",
+    "images": 3,
+    "families": 1,
+    "split": "validation",
+    "confidence": 0.25,
+    "iou_gate": 0.5,
+    "per_class": {
+      "seed": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "truth": 3,
+        "iou_sum": 1.6431037969584377,
+        "dice_sum": 1.8040515818284684,
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "mean_iou_per_truth_with_misses_zero": 0.5477012656528125,
+        "mean_dice_per_truth_with_misses_zero": 0.6013505272761561
+      },
+      "secondary_crystal": {
+        "tp": 0,
+        "fp": 9,
+        "fn": 2,
+        "truth": 2,
+        "iou_sum": 0.0,
+        "dice_sum": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "mean_iou_per_truth_with_misses_zero": 0.0,
+        "mean_dice_per_truth_with_misses_zero": 0.0
+      },
+      "inclusion_candidate": {
+        "tp": 0,
+        "fp": 2,
+        "fn": 1,
+        "truth": 1,
+        "iou_sum": 0.0,
+        "dice_sum": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "mean_iou_per_truth_with_misses_zero": 0.0,
+        "mean_dice_per_truth_with_misses_zero": 0.0
+      }
+    },
+    "latency": {
+      "first_predict_seconds": 1.3890264390065568,
+      "subsequent_median_seconds": 0.022539995501574595,
+      "all_predict_p95_seconds": 1.2524753389057877,
+      "scope": "Model predict call on CPU including first-call setup; excludes data read, audit and artifact writing"
+    },
+    "inspected_overlay": "overlays/000000.png",
+    "finding": "Secondary false positives around a bubble/glare region and image border; seed and other target misses retained."
+  },
+  "overfit_diagnostic": {
+    "path": "results/vision_training_overfit_v1",
+    "manifest_sha256": "cc77bb806dee92de11f10d5eaf393a6292f41f6854b3a16c0e057f4f19053985",
+    "epochs": 60,
+    "images": 2,
+    "elapsed_seconds": 31.677643108996563,
+    "best_weights_sha256": "20ecea04490d214639fd4a699a3e9e079e1dc071fd6339a8f580bca0e23ab655",
+    "metrics": {
+      "metrics/precision(B)": 0.8917578657763747,
+      "metrics/recall(B)": 1.0,
+      "metrics/mAP50(B)": 0.995,
+      "metrics/mAP50-95(B)": 0.94525,
+      "metrics/precision(M)": 0.8917578657763747,
+      "metrics/recall(M)": 1.0,
+      "metrics/mAP50(M)": 0.995,
+      "metrics/mAP50-95(M)": 0.796,
+      "fitness": 1.74125
+    },
+    "scope": "overfit diagnostic: same training images reused for validation; no holdout accuracy"
+  },
+  "reserved_test_scored": false,
+  "accepted_real_review_receipts": 0,
+  "bounded_cohort": {
+    "path": "data/synthetic_vision_pilot_v1",
+    "protocol": "configs/synthetic_vision_pilot.json",
+    "planned_scenes": 20,
+    "planned_images": 60,
+    "status": "rendering_at_checkpoint_not_accepted_training_data"
+  },
+  "remaining": [
+    "Completed and visually checked broader synthetic pilot",
+    "Actual real polygon/event review and numerical acceptance budgets",
+    "Real-only/mixed experiments and OpenCV accuracy comparison",
+    "Independent real KDP measurements, events and first-hour evidence",
+    "Tracking/face interpretation and temporal alerts",
+    "Temperature PID, bounded adaptation, operator demo and physical action response",
+    "HPC GPU benchmark and justified Qiskit impurity cluster"
+  ]
+}
