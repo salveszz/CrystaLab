@@ -1,0 +1,159 @@
+{
+  "schema": "crystalab_published_masks_checkpoint_v1",
+  "date": "2026-11-11",
+  "parent_revision": "85fff2972ec2143028cff30cb5221f7f9aa02f30",
+  "scope": "Public real auxiliary protein-crystal image/mask acquisition and source reconstruction; no KDP class mapping, new training, real defect score or control action",
+  "source_sha256": {
+    "src/vision/published_masks.py": "7a3ef831422833984c813c9a75b9894c6299baa855a16951c7efe23e255d1812",
+    "scripts/import_published_masks.py": "84d18d5561cd38b6c12da3b18d1a46c23a6c96bf94bb94209836feaf22eea01f",
+    "tests/test_published_masks.py": "3f55569a255daf01932dc94109903123f6d4476d0a717846b9df27083afbbfdc",
+    "configs/chimp_vision_import.json": "9ab63d4eca9a133c3a59854e72c6edcd3ddaa04ff5e3290ce3cba2baf3402382",
+    "configs/vision_sources.json": "f57fb33759c7796087d00dccba03233d876ae479f5dad0ea2411d798614e2cfc",
+    "docs/CHIMP_ZENODO_METADATA_20261111.json": "59eef6ad3e10c077eb554cd80be0179e7999d8f93cf0ff9ce0e6da55c712696c"
+  },
+  "source": {
+    "doi": "10.5281/zenodo.11110373",
+    "url": "https://zenodo.org/records/11110373",
+    "license_id": "cc-by-4.0",
+    "archive_path": "/home/salves/dev/CrystaLab/data/external_vision/CHIMP-ZENODO-2024/chimp_detector_datasets.zip",
+    "archive_bytes": 206420425,
+    "archive_sha256": "0b7f117c85ec7cc24bbc29aa7ac4e430a5f0bacd26f9a08478daba72b3f65b4f",
+    "publisher_md5": "5592a7e8fbe47a28bdc84c0248535361",
+    "metadata_snapshot": "docs/CHIMP_ZENODO_METADATA_20261111.json",
+    "metadata_sha256": "59eef6ad3e10c077eb554cd80be0179e7999d8f93cf0ff9ce0e6da55c712696c",
+    "decoded_image_duplicates": [],
+    "cross_split_duplicates": []
+  },
+  "index": {
+    "path": "data/published_masks_chimp_v1",
+    "manifest_sha256": "266406359f70fb7fa5cbc63927b2da943938b91822aa05fd4735510bc85350c8",
+    "index_sha256": "0aba1168d4e51dd33ab21b45d782eece04d98476a86518dac05aba7e41395cba",
+    "producer_sha256": "7a3ef831422833984c813c9a75b9894c6299baa855a16951c7efe23e255d1812",
+    "source_snapshot_sha256": "7a3ef831422833984c813c9a75b9894c6299baa855a16951c7efe23e255d1812",
+    "summary": {
+      "images": 587,
+      "source_instance_masks": 4986,
+      "masks_by_source_class": {
+        "drop": 523,
+        "crystal": 4463
+      },
+      "images_by_source_dataset": {
+        "vmxi": 237,
+        "xchem": 350
+      },
+      "images_by_source_split": {
+        "train": 469,
+        "validation": 118
+      },
+      "source_split_by_dataset": {
+        "vmxi": {
+          "train": 189,
+          "validation": 48
+        },
+        "xchem": {
+          "train": 280,
+          "validation": 70
+        }
+      },
+      "images_without_selected_crystal": 280,
+      "empty_source_annotation_images": 73,
+      "duplicate_pixel_groups": [],
+      "cross_split_duplicate_groups": [],
+      "physical_run_grouping_verified": false,
+      "pitch_training_images": 0,
+      "local_human_review_receipts": 0
+    }
+  },
+  "reconstruction": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /usr/bin/time -v .venv/bin/python scripts/import_published_masks.py --output data/published_masks_chimp_v1 --audit",
+    "report_path": "results/chimp_source_audit_v1.json",
+    "report_sha256": "a7f9a9f0e87df3cfe7d3c620b5a0904748a04b1648f5fc3258e86ac69475cc67",
+    "status": "passed",
+    "elapsed_seconds": 10.82,
+    "maximum_resident_kib": 149572,
+    "resource_log_sha256": "b260e1b37ac08ceb4a046fc207e0efb122e6e4c65c5eccd42f5092d2d9cc548c",
+    "coverage": "All 587 original JPEGs, source split CSVs, 587 NPZ files and all 4986 boolean planes; exact source rows and summary reconstructed"
+  },
+  "inspection": {
+    "path": "results/chimp_source_preview_v1",
+    "manifest_sha256": "4369b6a83906e0f0d4f5f6fc897b25ea6ca7d7e6a44cc3ae84996bc9d7a00cb6",
+    "inspection_sha256": "fb9bee2658fb67856ec0b8ccf63a3a831731696df6e2b762f345d30539270c04",
+    "inspected_training_samples": [
+      "CHIMP-ZENODO-2024:vmxi:15951112",
+      "CHIMP-ZENODO-2024:vmxi:16150419",
+      "CHIMP-ZENODO-2024:vmxi:16772019",
+      "CHIMP-ZENODO-2024:xchem:96ks_03F_1",
+      "CHIMP-ZENODO-2024:xchem:96ks_01A_1",
+      "CHIMP-ZENODO-2024:xchem:96ks_01B_2"
+    ],
+    "validation_images_visually_inspected": 0,
+    "decision": "source_import_alignment_checked_pitch_training_not_accepted",
+    "findings": [
+      "All six panels show original images beside corresponding native source outlines; class coloring separates drop and crystal annotations.",
+      "XChem examples include small dispersed crystals and fields without selected crystals; remaining objects are not automatically exhaustive negatives.",
+      "VMXi includes dark drop interfaces, cropped objects and very thin edge-adjacent annotations. These selected source labels require task-specific review before any adaptation to KDP silhouette rules.",
+      "Appearance and target scale differ substantially from the current single large seeded-crystal optical pilot. No transfer score or training suitability is established."
+    ],
+    "preview_sha256": {
+      "vmxi_15951112.png": "e1e6eef1bbe1c3721427d73e03286086dd44a1ee6e92c0499946992cc2a498a5",
+      "vmxi_16150419.png": "c680bdee76c72d86d99258b55ddc724b675cfef465ef02d88488e8e89a4930ca",
+      "vmxi_16772019.png": "b6a9dc7675cfaa204fa482ff36048e30c4231ebc38ff8dfe1b0f16144cb91d74",
+      "xchem_96ks_01A_1.png": "83e752230139df07609b94d1623bde08a929206d030c5b244ff40a629c140093",
+      "xchem_96ks_01B_2.png": "117465536d38caf368d13cbd562a603628cf351c6c60f6309b7bbbf7982a204d",
+      "xchem_96ks_03F_1.png": "da04e93ce4f59a1fa816e6829dce9f98b63fdda3f8ef1f76add300f0d9bf6337"
+    }
+  },
+  "pitch_export_guard": {
+    "report_path": "results/chimp_pitch_export_guard_v1.json",
+    "report_sha256": "4735144302691c53e9472cc573b5344c52504ee1adca4df484356a74d6b4867d",
+    "status": "passed",
+    "output_created": false
+  },
+  "cached_source_audit": {
+    "path": "data/audits/vision_sources_chimp_20261111_v1.json",
+    "sha256": "b059a3a94731009f8ce29e0552dfaabc66cdddac030e05562df2bdaa085d95ed",
+    "assets_verified": 13,
+    "network_requested": false
+  },
+  "regression": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "tests_passed": 368,
+    "subtests_passed": 249,
+    "elapsed_seconds": 104.14,
+    "log_sha256": "bfe37af03d8d6ec998a1d0c533b4d4f062521ae1b07553b3b61984dfc23d31ff",
+    "python": "3.14.8",
+    "lint": "ruff check: all checks passed",
+    "format": "ruff format --check: 3 files already formatted"
+  },
+  "discrepancies": [
+    "VMXi archive CSVs contain 189 training and 48 validation images; paper describes 190/47. Preserve original downloaded membership.",
+    "Selected/mountable protein-crystal annotations do not imply exhaustive all-crystal negatives or KDP seed/secondary/inclusion labels.",
+    "No physical run/plate grouping or independent-run test set is established by this index."
+  ],
+  "acquisition_triage": {
+    "chimp": "Downloaded, licensed, indexed and reconstructed; auxiliary target semantics retained",
+    "opencrystaldata": {
+      "metadata_path": "data/audits/opencrystaldata_listing_20261111_v1.json",
+      "metadata_sha256": "e2c3ccd91fafaaab2e701283fe4fc9b8d2a2c672bf5772c1178c8a112bb1bde4",
+      "primary_paper": "https://doi.org/10.1016/j.dche.2024.100150",
+      "payloads_downloaded": false,
+      "finding": "Public listing checked: four CC BY-SA 4.0 image datasets with different classification/aggregate sizing/sphere annotation tasks; no KDP growth-mask task assumed"
+    }
+  },
+  "model_training_performed": false,
+  "local_human_reviews_created": 0,
+  "existing_leeds_review_receipts": 0,
+  "next_gate": [
+    "Declare a compatible auxiliary source-mask task, handling of unannotated regions and source/evaluation grouping before any auxiliary fit",
+    "Complete actual human review for the six Leeds silhouettes, then expand relevant training-family masks and contiguous event/negative coverage",
+    "Continue longer comparable-pose trajectories, adaptive forecast/state policy and full operator integration without promoting current unvalidated forecasts"
+  ],
+  "full_pitch_remaining": [
+    "Independent KDP/first-hour event and measurement evidence",
+    "Face/asymmetry and inclusion coverage",
+    "Mixed real/synthetic training and independent real evaluation",
+    "Adaptive policy and observed action-response validation",
+    "Full video/process/proposal/override operator demonstration and equipment characterization",
+    "GPU HPC, chemically justified Qiskit experiment and independent physical-benefit comparisons"
+  ]
+}

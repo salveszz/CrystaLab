@@ -1,7 +1,10 @@
 # Acquired real vision data
 
-The first real-data acquisition and image import are complete. **Segmentation
-masks and visible-event annotations are still missing.** No model has been fitted
+The first real-data acquisition and image import are complete. **Leeds/KDP segmentation
+masks and visible-event annotations are still missing.** A separate
+[published-mask acquisition](PUBLISHED_CRYSTAL_MASKS.md) adds 587 real protein-crystal
+images and 4,986 source crystal/drop masks, with their original selected-object
+semantics. They are not mapped to the pitch classes. No model has been fitted
 on reviewed real labels. [Synthetic-only model fits](VISION_PILOT.md) and
 [learned development replay](LEARNED_VIDEO.md) exist; their real accuracy remains
 unevaluated.
@@ -16,6 +19,7 @@ download/decode/import evidence; raw archives remain local and Git-ignored.
 | [University of Leeds, DOI 10.5518/1684](https://archive.researchdata.leeds.ac.uk/1537/) | 2,123 original microscope JPEGs from nine alpha-LGA runs; 79 source manual crystal-shape fit sidecars. CC BY 4.0. | Real other-material vision development and a source of shape-fit supervision after its geometry/units are checked. The fits are not reviewed pixel masks or defect labels. |
 | [Li, Zhang and Ren, KDP study](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/) | Supplementary PDF and three experimental KDP movies, all decoded; 881 total video frames. CC BY-NC 3.0. | Phase-specific microscopy development examples. Conditions include transition, dissolution and growth; these are not all defect-free tetragonal optical-crystal growth. |
 | [Cho et al., Nature Communications 2024](https://www.nature.com/articles/s41467-024-47503-1) | One decoded-format ADP crystallization movie and its caption. CC BY 4.0. | Other-material experimental video. The caption explicitly identifies ADP, despite the paper also studying KDP. |
+| [CHiMP Detector, Zenodo v1](https://zenodo.org/records/11110373) | 587 real protein-crystal microscope images, 4,463 selected crystal masks and 523 drop masks; source CSV membership preserved. CC BY 4.0. | Auxiliary source with published expert annotations. No exhaustive generic negatives, KDP role/event labels or physical run-group evaluation is established. See [source-mask guide](PUBLISHED_CRYSTAL_MASKS.md). |
 
 Leeds `videos.zip` contains five result/overlay videos; these are preserved as
 reference, not imported as raw microscope training sequences. Its `validation.zip`

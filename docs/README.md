@@ -23,6 +23,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Area forecast](AREA_FORECAST.md) | Causal projected-area histories, training-only gain calibration, grouped development baselines, startup coverage and measurement-bias limits. |
 | [Area forecast checkpoint](AREA_FORECAST_CHECKPOINT.json) | Actual cohort/model/replay identities, independent parameter/metric audit, negative baseline finding and regression evidence. |
 | [Real vision data](REAL_VISION_DATA.md) | Acquired microscope images/videos, actual labels, frozen image splits, licenses, audits and development replay. |
+| [Published crystal masks](PUBLISHED_CRYSTAL_MASKS.md) | Acquired CHiMP real image/mask index, streamed native masks, author membership and selected protein-crystal semantics. |
+| [Published-mask checkpoint](PUBLISHED_MASKS_CHECKPOINT.json) | Exact acquisition/import identities, full source reconstruction, regression and six training-image inspection records. |
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
 | [Local image review](ANNOTATION_REVIEW_UI.md) | Native-image polygon editor, uncertain drafts, explicit per-image review, preserved revisions and accepted-subset export. |
 | [Image review checkpoint](ANNOTATION_REVIEW_CHECKPOINT.json) | API/regression checks, 20 browser interactions and byte-identical real read-only preview with zero actual human reviews. |

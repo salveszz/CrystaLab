@@ -15,6 +15,13 @@ are in [Real vision data](../docs/REAL_VISION_DATA.md) and the
 [source registry](../configs/vision_sources.json). These raw acquisitions and
 generated indexes remain Git-ignored. A fresh clone must fetch/index them.
 
+`data/published_masks_chimp_v1/images.jsonl` separately indexes 587 real
+protein-crystal images and 4,986 published crystal/drop instance masks. Original
+JPEGs and NPZ masks stay in `data/external_vision/CHIMP-ZENODO-2024/`. These are
+selected protein-crystal annotations, not KDP seed/secondary/inclusion labels.
+See [published masks](../docs/PUBLISHED_CRYSTAL_MASKS.md) for the exact source
+license snapshot, resource-safe import, author membership and training gate.
+
 ## Synthetic growth data
 
 The active synthetic dataset is stored locally at:

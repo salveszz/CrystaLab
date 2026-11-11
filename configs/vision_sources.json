@@ -163,6 +163,35 @@
       "retrieval_note": "Direct publisher links returned 404/403 on 2026-11-11. Official PMC cloud media URLs and MD5 values were discovered through its current public metadata API; primary failures remain in the dated audit.",
       "attribution": "Article authors/RSC; retrieved through NIH NLM NCBI PubMed Central Article Datasets; no endorsement implied.",
       "license_url": "https://creativecommons.org/licenses/by-nc/3.0/"
+    },
+    {
+      "source_id": "CHIMP-ZENODO-2024",
+      "material": "protein_crystals_in_sitting_drops",
+      "url": "https://zenodo.org/records/11110373",
+      "doi": "10.5281/zenodo.11110373",
+      "citation": "King, Sanchez-Weatherby, Sandy, Fearon, Tomlinson, Levik, Marples, Barker, Dias and Basham (2024), CHiMP Detector Datasets, Zenodo, version v1, DOI 10.5281/zenodo.11110373.",
+      "license": "CC BY 4.0; preserve attribution, license link and derivative/change records",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "reason": "Real crystal/droplet pixel masks are supplied by expert annotators, but select interesting/mountable protein crystals. No KDP seed/secondary/inclusion mapping, exhaustive generic negatives, physical run clock or control response is established.",
+      "data_status": "published_expert_masks_indexed_pitch_task_unmapped",
+      "assets": [
+        {
+          "name": "chimp_detector_datasets.zip",
+          "kind": "zip",
+          "role": "published_real_protein_crystal_and_drop_masks",
+          "url": "https://zenodo.org/api/records/11110373/files/chimp_detector_datasets.zip/content",
+          "max_bytes": 210000000,
+          "sha256": "0b7f117c85ec7cc24bbc29aa7ac4e430a5f0bacd26f9a08478daba72b3f65b4f",
+          "md5": "5592a7e8fbe47a28bdc84c0248535361"
+        }
+      ],
+      "metadata_snapshot": {
+        "local_file": "data/external_vision/CHIMP-ZENODO-2024/zenodo_metadata_20261111.json",
+        "url": "https://zenodo.org/api/records/11110373",
+        "sha256": "59eef6ad3e10c077eb554cd80be0179e7999d8f93cf0ff9ce0e6da55c712696c",
+        "note": "Exact dated Zenodo API response includes volatile usage statistics. Preserve this local snapshot; future API responses may legitimately differ.",
+        "tracked_snapshot": "docs/CHIMP_ZENODO_METADATA_20261111.json"
+      }
     }
   ]
 }

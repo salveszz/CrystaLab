@@ -1,0 +1,40 @@
+{
+  "schema": "crystalab_chimp_import_v1",
+  "source_id": "CHIMP-ZENODO-2024",
+  "zenodo_record_id": 11110373,
+  "source_url": "https://zenodo.org/records/11110373",
+  "doi": "10.5281/zenodo.11110373",
+  "citation": "King, Sanchez-Weatherby, Sandy, Fearon, Tomlinson, Levik, Marples, Barker, Dias and Basham (2024), CHiMP Detector Datasets, Zenodo, version v1, DOI 10.5281/zenodo.11110373.",
+  "paper": "https://doi.org/10.1107/S2059798324009276",
+  "license_id": "cc-by-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "archive_name": "chimp_detector_datasets.zip",
+  "archive_sha256": "0b7f117c85ec7cc24bbc29aa7ac4e430a5f0bacd26f9a08478daba72b3f65b4f",
+  "publisher_md5": "5592a7e8fbe47a28bdc84c0248535361",
+  "metadata_sha256": "59eef6ad3e10c077eb554cd80be0179e7999d8f93cf0ff9ce0e6da55c712696c",
+  "metadata_snapshot_note": "Exact dated Zenodo API response includes volatile usage statistics. Preserve this local snapshot; future API responses may legitimately differ.",
+  "source_classes": [
+    "crystal",
+    "drop"
+  ],
+  "pitch_class_mapping": null,
+  "mask_scope": "Expert-selected interesting/mountable protein crystals and droplets, not an exhaustive all-crystal labeling protocol",
+  "grouping": "Preserve source CSV membership. Physical run/plate IDs and independent-run generalization are unverified.",
+  "maximum_instances": 512,
+  "maximum_pixels": 3000000,
+  "maximum_stack_bytes": 1100000000,
+  "datasets": {
+    "vmxi": {
+      "directory": "VMXi_Detector_Datset",
+      "training_csv": "vmxi_detector_training.csv",
+      "validation_csv": "vmxi_detector_validation.csv",
+      "expected_images": 237
+    },
+    "xchem": {
+      "directory": "XChem_Detector_Dataset",
+      "training_csv": "xchem_detector_training.csv",
+      "validation_csv": "xchem_detector_validation.csv",
+      "expected_images": 350
+    }
+  }
+}

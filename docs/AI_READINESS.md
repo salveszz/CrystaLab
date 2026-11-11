@@ -32,6 +32,10 @@ uncertain drafts and explicit individual reviews, with earlier receipts retained
 when corrections need a new version. Its real read-only preview changed no files;
 actual human review receipts remain zero. It does not complete the video/process
 operator display or adaptive/manual control interface.
+An [auxiliary published-mask index](PUBLISHED_CRYSTAL_MASKS.md) now preserves 587
+real protein-crystal images and 4,986 source crystal/drop masks. Its selected-object
+task, unannotated regions and physical grouping need an explicit compatible
+experiment; it is not automatically imported as KDP seed/secondary/inclusion truth.
 A reviewed outline is an image boundary that a person has checked and
 corrected; it is distinct from the computer's initial suggestion. An event label
 records what became visible and when, such as a secondary crystal appearing.

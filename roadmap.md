@@ -29,7 +29,7 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 | Simulation and numerical methods | Illustrative faceted growth and verified flow/transport components. Separate fixed-domain flow kernels are not coupled into current growth labels. | Physical calibration and any coupling needed by a specified experiment. |
 | Tabular growth data | 360 episodes / 1,080 audited samples, frozen grouped splits and no quality labels. | Optional supporting forecast benchmark. These are not camera-training examples. |
 | Video observation | Baseline/learned file/camera adapters, explicit clocks, seed role/uncertainty, raw masks, mapped source frames and candidate identities/inspection events during observation or on saved masks. | Reviewed real event accuracy and live equipment verification. Integrated decisions were tested on files; candidates are not confirmed defects. |
-| Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies and a separate ADP movie. | Reviewed pixel/event labels and representative independent KDP evaluation data. Source fits are not segmentation masks. |
+| Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies, a separate ADP movie and 587 protein-crystal images with 4,986 published crystal/drop masks. | Reviewed Leeds/KDP pixel/event labels and representative independent KDP evaluation data. Source fits are not masks; protein selected-object labels need a separate compatible task. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke and 60-image/20-scene pilot, development visual inspection and independently exported construction-event labels for one three-frame scene. | Relevant real/image diversity and longer temporal coverage. Refracted masks remain annotation proxies. |
 | Observable forecast | Sixteen optical development replays, 32 within-clip windows, training-only rate calibration, startup-aware baseline metrics and real shadow forecasts. Calibrated future area is worse than persistence on four shared validation windows. | Boundary/measurement review, longer comparable-view/action-labelled trajectories, frozen budgets and adaptive forecast/state policy. No action-response model exists. |
@@ -64,6 +64,9 @@ reconstruction. Final test families remain unscored.
 The [image-review checkpoint](docs/ANNOTATION_REVIEW_CHECKPOINT.json) adds the
 local still-image editor, explicit review/revision/export checks and 20 browser
 interactions. Real proposals were previewed read-only and remain unreviewed.
+The [published-mask checkpoint](docs/PUBLISHED_MASKS_CHECKPOINT.json) adds a
+source-reconstructed auxiliary real image/mask index. It preserves author splits
+and selected protein-crystal semantics without accepting them as KDP pitch labels.
 
 ## Pitch requirements and completion evidence
 
