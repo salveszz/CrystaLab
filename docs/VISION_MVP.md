@@ -6,7 +6,9 @@ remains open. The 60-image grouped synthetic cohort, 30-epoch YOLOv8-seg fit and
 development comparison are complete. Learned replay now preserves seed role,
 uncertainty and source-frame mapping. Saved-replay candidate tracking/evaluation
 now retains inspection evidence and also runs during single-pass observation.
-Equipment timing, real defect evaluation and control remain open. See
+Temperature PID and event-rule shadow/fixture integration are implemented;
+equipment timing, real defect evaluation and adaptive control remain open. See
+[Event supervision](EVENT_SUPERVISION.md),
 [Temporal candidates](TEMPORAL_CANDIDATES.md),
 [Learned video](LEARNED_VIDEO.md), [Grouped pilot](VISION_PILOT.md), [Training](VISION_TRAINING.md), [Video baseline](VISION_BASELINE.md)
 and [Real vision data](REAL_VISION_DATA.md) for actual evidence.
@@ -191,8 +193,9 @@ real-training/evaluation dataset. Follow the current batches in the
    independent real data. The small synthetic event check retains detector errors.
 4. Temperature PID, unit-bearing process records, delayed simulated actuation and
    audited fixed-recipe comparisons now exist in `src/controllers/`; see
-   [Temperature control](TEMPERATURE_CONTROL.md). Add vision/event integration,
-   rule supervision and bounded adaptation. Integrate an operator view in
+   [Temperature control](TEMPERATURE_CONTROL.md). Event-rule proposals and a
+   declared fixture-to-PID pause are implemented in [Event supervision](EVENT_SUPERVISION.md).
+   Add bounded adaptation and integrate an operator view in
    `src/dashboard/` and traceable shadow actions before physical use.
 
 Preserve the simulator/data contracts and introduce optional training dependencies

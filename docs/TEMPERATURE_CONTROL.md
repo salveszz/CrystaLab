@@ -152,8 +152,9 @@ operations. The observed control trajectories and rounded results are unchanged.
 
 ## Next pitch work
 
-Connect candidate inspection evidence to bounded rule supervision and real-video
-shadow proposals. Preserve the unknown physical clock of public display clips;
+Candidate inspection evidence now reaches bounded rule supervision and real-video
+shadow proposals; see [Event supervision](EVENT_SUPERVISION.md). Preserve the
+unknown physical clock of public display clips;
 do not synthesize real sensor response from replay. Then add the pitch's adaptive
 state/forecast policy and compare fixed recipe, PID-only, rule-supervised and
 adaptive variants on declared evidence. Continue real label review, relevant

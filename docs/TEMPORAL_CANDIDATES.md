@@ -173,6 +173,7 @@ coverage, investigate bubble/inclusion errors and freeze budgets before final
 evaluation. Add comparable-view growth/face measurements where labels support
 them. Verify physical capture/cadence before claiming live equipment performance.
 The [temperature PID baseline](TEMPERATURE_CONTROL.md) now runs on a declared
-simulated thermal plant. Event integration and bounded supervision remain next
-while real review and equipment characterization are pending.
+simulated thermal plant. [Event-rule integration](EVENT_SUPERVISION.md) now emits
+review proposals and exercises a declared fixture-to-PID pause. Adaptive policy,
+real review and equipment characterization remain open.
 The [roadmap](../roadmap.md) keeps physical, operator, HPC and Qiskit gates explicit.

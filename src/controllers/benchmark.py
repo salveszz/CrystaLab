@@ -142,9 +142,11 @@ def summarize(rows):
     )
 
 
-def run_scenario(config, scenario, method, output):
-    if method not in {"fixed_recipe", "pid"}:
+def run_scenario(config, scenario, method, output, *, target_provider=None):
+    if method not in {"fixed_recipe", "pid", "rule_supervised"}:
         raise ValueError("Unsupported control comparison method")
+    if (method == "rule_supervised") != (target_provider is not None):
+        raise ValueError("A supervised method needs its explicit target provider")
     output.mkdir()
     limits, pid_config = ActuatorLimits(**config["limits"]), PIDConfig(**config["pid"])
     run_id = scenario["id"] + ":" + method
@@ -222,8 +224,17 @@ def run_scenario(config, scenario, method, output):
                     [p["temperature_K"] for p in config["recipe"]],
                 )
             )
+            nominal_target = target
+            supervision = None
+            if target_provider is not None:
+                supervision = target_provider(now, nominal_target, observation)
+                target = finite(supervision["target_K"], "supervised target", minimum=0)
+                if not limits.minimum <= target <= limits.maximum:
+                    raise ValueError(
+                        "Supervised target is outside declared process limits"
+                    )
             manual = in_interval(scenario["manual_intervals"], now)
-            if method == "pid":
+            if method in {"pid", "rule_supervised"}:
                 decision = pid.update(
                     now,
                     target,
@@ -246,8 +257,10 @@ def run_scenario(config, scenario, method, output):
                 )
             last_output = decision["output_K"]
             evidence = (f"{run_id}:recipe:{index:06d}",) + (
-                (observation.sample_id,) if method == "pid" else ()
+                (observation.sample_id,) if method in {"pid", "rule_supervised"} else ()
             )
+            if supervision is not None:
+                evidence += tuple(supervision["evidence_ids"])
             proposal = CommandProposal(
                 command_id=f"{run_id}:command:{index:06d}",
                 run_id=run_id,
@@ -258,7 +271,9 @@ def run_scenario(config, scenario, method, output):
                 expires_at_s=now + scenario["actuator_delay_s"] + 2 * config["step_s"],
                 clock_id=clock_id,
                 evidence_ids=evidence,
-                source="temperature_pid_v1" if method == "pid" else "fixed_recipe_v1",
+                source="fixed_recipe_v1"
+                if method == "fixed_recipe"
+                else "temperature_pid_v1",
             )
             authorization = (
                 "simulation_policy"
@@ -297,6 +312,10 @@ def run_scenario(config, scenario, method, output):
                 evidence_kind="simulation",
                 physical_hardware_contacted=False,
             )
+            if supervision is not None:
+                row.update(
+                    nominal_recipe_setpoint_K=nominal_target, supervision=supervision
+                )
             write_row(records, row)
             rows.append(row)
     return dict(

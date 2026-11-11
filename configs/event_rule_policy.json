@@ -1,0 +1,7 @@
+{
+  "schema": "crystalab_event_rule_policy_v1",
+  "maximum_evidence_age_s": 1.0,
+  "maximum_packet_gap_s": 1.0,
+  "proposal_lifetime_s": 2.0,
+  "maximum_proposals": 128
+}

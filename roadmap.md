@@ -8,10 +8,10 @@ temperature PID plus an adaptive supervisor, and traceable actions with an
 operator involved. The intended actions are temperature-ramp changes, rotation
 and circulation. The demonstration must identify its material and evidence level.
 
-**The next milestone is a reviewed real-image/event pilot and bounded event-rule
-supervision.** Candidate decisions run during observation, and the temperature PID
-software baseline is implemented. Connect evidence to traceable shadow proposals,
-then add the adaptive forecast/state policy. Real review and equipment
+**The next milestone is a reviewed real-image/event pilot and an explicit adaptive
+forecast/state policy.** Candidate decisions, temperature PID, event-rule shadow
+proposals and a bounded fixture-to-PID pause are implemented. Define the observable
+forecast/objective and compare adaptation with the current baselines. Real review and equipment
 characterization can progress alongside this software work.
 Preserve the simulation and growth dataset as supporting assets. New CFD work or
 an XGBoost benchmark does not close the perception/control requirements.
@@ -30,7 +30,7 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies and a separate ADP movie. | Reviewed pixel/event labels and representative independent KDP evaluation data. Source fits are not segmentation masks. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews and guarded review/export code. | Zero actual review receipts. A reviewer must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke and 60-image/20-scene pilot, development visual inspection and independently exported construction-event labels for one three-frame scene. | Relevant real/image diversity and longer temporal coverage. Refracted masks remain annotation proxies. |
-| Learned perception, controllers and UI | Local training/evaluation, grouped pilot, learned replay and integrated candidate analysis; explicit process records, temperature PID and audited delayed-actuator thermal tests. Bubble/inclusion errors remain. Dashboard is a placeholder. | Real evaluation, equipment timing, face measurements, vision/control integration, rule/adaptive supervision and operator demonstration. |
+| Learned perception, controllers and UI | Local training/evaluation, grouped pilot, candidate analysis, explicit process records, PID, thermal tests, event-rule shadow proposals and scripted fixture-to-PID integration. Bubble/inclusion errors remain. Dashboard is a placeholder. | Real evaluation, equipment timing, face measurements, adaptive forecast/policy and operator demonstration. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
@@ -52,6 +52,9 @@ single-pass delivery, identical saved-analysis decisions, processing timing and
 The [temperature checkpoint](docs/TEMPERATURE_CONTROL_CHECKPOINT.json) adds the
 first PID baseline, four declared thermal scenarios, 4,808 logged rows and an
 independent sensor/command/plant/metric audit. This is software evidence only.
+The [event-supervision checkpoint](docs/EVENT_SUPERVISION_CHECKPOINT.json) adds
+actual optical/real shadow proposals and an audited three-variant software
+comparison. Its scripted pause delays recipe phase; no quality benefit is modeled.
 
 ## Pitch requirements and completion evidence
 
@@ -189,6 +192,11 @@ any missing KDP material, first-hour, event or negative-time coverage.
    acceptance/application, fault/manual cases and independent trajectory audit.
    Its chosen limits and plant parameters are uncalibrated test assumptions.
 3. Add event-rule supervision as the baseline, then a bounded adaptive supervisor.
+   **Rule baseline implemented:** [event supervision](docs/EVENT_SUPERVISION.md)
+   retains source-bound review/expiry/location evidence on actual development
+   clips. A declared fixture-clock map and scripted decision connect one bounded
+   pause through PID to delayed simulated actuation; real shadow inputs issue no
+   numerical commands or human review receipts.
    Declare the forecast target, horizon, objective, updated state/policy and allowed
    actions. Compare its forecast with persistence using causal histories and whole
    held-out runs. Prediction before visible onset requires its own future-event

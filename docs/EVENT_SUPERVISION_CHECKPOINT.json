@@ -1,0 +1,940 @@
+{
+  "schema": "crystalab_event_supervision_checkpoint_v1",
+  "date": "2026-11-11",
+  "parent_revision": "42b9a2ac4260658966d67ba2fb0d86c7a41e0a22",
+  "design_id": "DESIGN-EVENT-SHADOW-002",
+  "scope": "Origin-aware review proposals and scripted fixture-only rule/PID integration; no real label review, physical clock or defect-response claim",
+  "source_sha256": {
+    "src/controllers/__init__.py": "981d3e2975cc05ce7c58727ccb494d4a9e04884f0e7a5c80b93789b6ff7b2712",
+    "src/controllers/audit.py": "75282a29807aaf62ad2e012e7d5552f0bb3e54c7cc715c82cce580c19fe35f5c",
+    "src/controllers/benchmark.py": "c227865eb755d85af65686d67e3b599ee8e059f6cea43545dab14ac0c1de621c",
+    "src/controllers/contracts.py": "6907b655183c6180b95e46fe53c451b513920bc053d70b1c6efefa6116846078",
+    "src/controllers/pid.py": "d5692e53ebee66e86cb4593e071227ce7f01557d44d619c025484f9a3c5d43a0",
+    "src/controllers/shadow.py": "f2eb80ab4bad1eaa69afd6abd6cda489b0587bf7156961f74dcf9d71d732bc9d",
+    "src/controllers/supervised_demo.py": "91732012854dc7fa0d3126eda895177d870c350c2dcbafbd838127dedfa8a8a5",
+    "src/controllers/supervision.py": "aacae57c409fb1da3e83fe32e8aefa6d7d0963836e0a73b1767df013b7a05cb5",
+    "src/controllers/thermal.py": "2ccc31d64e1759530acf4d81f8f41092cffb114e0fb6b1e0c036923e27607ab1",
+    "scripts/run_supervisory_shadow.py": "69534e15ef7b020a041c47c1937c25321887ff2f486fb4b1164afe1a1d3da658",
+    "scripts/run_supervised_control.py": "ba9e8f18af80ecb77419544b4614f417df131ceec38bb6752413c65207e2942d",
+    "tests/test_supervision.py": "fc8aef7f728fc61863391144fe8a976cefacc92e305365c133787b0860b63110",
+    "tests/test_supervisory_integration.py": "9a02b33eafb0c77af9dd9c3b3820158c64818a5edc23554df19ec8f719d556dc"
+  },
+  "policy": {
+    "path": "configs/event_rule_policy.json",
+    "sha256": "94eb650df60058f1b3290a4dc4e22603e9c0b321aff70ceade6c1daa716e9b19",
+    "value": {
+      "schema": "crystalab_event_rule_policy_v1",
+      "maximum_evidence_age_s": 1.0,
+      "maximum_packet_gap_s": 1.0,
+      "proposal_lifetime_s": 2.0,
+      "maximum_proposals": 128
+    }
+  },
+  "demo_config": {
+    "path": "configs/supervised_control_fixture.json",
+    "sha256": "3effb6fc3f983f184806c28fca2fbb5badbfe49015fac86cf1573c33c0dcc3b7",
+    "value": {
+      "schema": "crystalab_rule_control_demo_v1",
+      "description": "Explicit SOFTWARE DEMONSTRATION: supplied imperfect vision masks and scripted authorization, not human review or calibrated physical action.",
+      "thermal": {
+        "schema": "crystalab_temperature_benchmark_v1",
+        "description": "Cooling-recipe software fixture for vision-rule integration; no measured KDP plant or defect response.",
+        "clock_id": "vision_thermal_fixture_elapsed_s",
+        "step_s": 1,
+        "duration_s": 600,
+        "limits": {
+          "channel": "bath_temperature",
+          "unit": "K",
+          "minimum": 294.15,
+          "maximum": 304.15,
+          "maximum_rate_per_s": 0.2,
+          "provenance": "SOFTWARE FIXTURE ONLY: chosen interface-test bounds, not approved KDP/equipment limits"
+        },
+        "pid": {
+          "kp": 1.5,
+          "ki_per_s": 0.05,
+          "kd_s": 2,
+          "derivative_filter_s": 3,
+          "anti_windup_time_s": 5,
+          "integral_min_K": -20,
+          "integral_max_K": 20,
+          "maximum_feedback_age_s": 4,
+          "maximum_update_gap_s": 5,
+          "initial_output_K": 300.15,
+          "fallback_output_K": 300.15
+        },
+        "recipe": [
+          {
+            "time_s": 0,
+            "temperature_K": 300.15
+          },
+          {
+            "time_s": 600,
+            "temperature_K": 298.15
+          }
+        ],
+        "scenarios": [
+          {
+            "id": "vision_pause_fixture",
+            "time_constant_s": 60,
+            "actuator_delay_s": 2,
+            "sensor_delay_s": 1,
+            "sensor_noise_std_K": 0.01,
+            "seed": 20261111,
+            "disturbances": [
+              {
+                "time_s": 0,
+                "offset_K": 0
+              }
+            ],
+            "missing_intervals": [],
+            "held_intervals": [],
+            "manual_intervals": []
+          }
+        ]
+      },
+      "clock_mapping": {
+        "expected_source_video_sha256": "09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+        "source_origin_s": 0,
+        "target_origin_s": 0,
+        "target_seconds_per_source_second": 100,
+        "target_clock_id": "vision_thermal_fixture_elapsed_s",
+        "provenance": "Chosen integration-test scaling: 1 display second = 100 thermal fixture seconds; no physical growth-time conversion.",
+        "scope": "software_demonstration_only"
+      },
+      "scripted_decision_delay_source_s": 0.2,
+      "pause_model_duration_s": 60,
+      "maximum_total_pause_model_s": 120
+    }
+  },
+  "regression": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "tests_passed": 334,
+    "subtests_passed": 197,
+    "elapsed_seconds": 99.45,
+    "log_sha256": "8833c5b663e6f2839027f3a63054747fd9b4bc6ba0a3b8c5686a5e7626c18805",
+    "python": "3.14.8",
+    "lint": "ruff check: all checks passed",
+    "format": "ruff format --check: 13 files already formatted"
+  },
+  "shadow_runs": [
+    {
+      "path": "results/candidate_fixture_shadow_v1",
+      "manifest_sha256": "08d8541a63f464e804d218be2baf0795bdba3ace57f173e02483e43c50261f82",
+      "candidate_manifest_sha256": "0ce89a81c41e64594551dd9c45f9851f384c7146fb6c6d7f84549b60365e18e9",
+      "policy_sha256": "94eb650df60058f1b3290a4dc4e22603e9c0b321aff70ceade6c1daa716e9b19",
+      "source_sha256": {
+        "src/controllers/shadow.py": "f2eb80ab4bad1eaa69afd6abd6cda489b0587bf7156961f74dcf9d71d732bc9d",
+        "src/controllers/supervision.py": "aacae57c409fb1da3e83fe32e8aefa6d7d0963836e0a73b1767df013b7a05cb5",
+        "src/controllers/contracts.py": "6907b655183c6180b95e46fe53c451b513920bc053d70b1c6efefa6116846078",
+        "src/controllers/benchmark.py": "c227865eb755d85af65686d67e3b599ee8e059f6cea43545dab14ac0c1de621c",
+        "src/vision/video.py": "1d72d3e06fcac17f3599b959e8d37bcd7bb1fe2c1251db1d9ac9b4491436593c",
+        "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a"
+      },
+      "source_info": {
+        "evidence_kind": "fixture",
+        "material": "none",
+        "source_id": "candidate_policy_fixture_v1",
+        "split": "development",
+        "frame_map_sha256": "3c238a4b5dbb7ea69b9a2ddef614b0ff5c81c6dcc71e90e6b0db2f0b264d75cb",
+        "limitations": "Analytic RGB and supplied imperfect masks; no learned detector or physical defect/clock evidence"
+      },
+      "source_input": {
+        "kind": "file",
+        "source": "/home/salves/dev/CrystaLab/results/candidate_stream_fixture_v1/sequence.avi",
+        "sha256": "09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+        "clock": "container",
+        "reported_fps": 10.0,
+        "nominal_fps": 10.0,
+        "reported_frame_count": 48,
+        "backend": "FFMPEG",
+        "opencv_version": "4.13.0"
+      },
+      "source_experiment_clock": {
+        "origin_s": null,
+        "seconds_per_video_second": null
+      },
+      "clock_id": "source_video:09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+      "clock_semantics": "Logical original source-video clock; receipt equals replay time, not measured processing latency or physical growth time",
+      "processed_frames": 48,
+      "proposals_by_kind": {
+        "candidate_inspection": 2,
+        "ramp_review": 1,
+        "view_inspection": 1,
+        "inclusion_alert": 1
+      },
+      "final_proposals": [
+        {
+          "proposal": {
+            "proposal_id": "candidate_policy_fixture_v1:proposal:000001",
+            "run_id": "candidate_policy_fixture_v1",
+            "clock_id": "source_video:09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+            "kind": "candidate_inspection",
+            "proposed_at_s": 0.1,
+            "expires_at_s": 2.1,
+            "evidence_kind": "fixture",
+            "packet_id": "candidate_policy_fixture_v1:frame:00000001",
+            "observed_at_s": 0.1,
+            "source_frame_index": 1,
+            "candidate_event_id": "candidate_policy_fixture_v1:candidate_event:000001",
+            "track_id": "candidate_policy_fixture_v1:candidate:000001",
+            "origin": "present_at_first_usable_frame",
+            "bbox_px": [
+              232,
+              152,
+              17,
+              17
+            ],
+            "first_detection_mask_path": "event_masks/event_000001_first.png",
+            "source_evidence_path": "evidence/frame_00000001.png",
+            "recommendation": "inspect_candidate_identity",
+            "reasons": [],
+            "requires_operator_review": true,
+            "operator_reviewed": false,
+            "physical_defect_confirmed": false,
+            "numerical_actuator_command": null
+          },
+          "proposal_sha256": "726014017cecf4f7c3ccb4b7c2c0e69ac4d581eb30ce81dfb39149a256094b69",
+          "status": "expired"
+        },
+        {
+          "proposal": {
+            "proposal_id": "candidate_policy_fixture_v1:proposal:000002",
+            "run_id": "candidate_policy_fixture_v1",
+            "clock_id": "source_video:09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+            "kind": "ramp_review",
+            "proposed_at_s": 1.1,
+            "expires_at_s": 3.1,
+            "evidence_kind": "fixture",
+            "packet_id": "candidate_policy_fixture_v1:frame:00000011",
+            "observed_at_s": 1.1,
+            "source_frame_index": 11,
+            "candidate_event_id": "candidate_policy_fixture_v1:candidate_event:000002",
+            "track_id": "candidate_policy_fixture_v1:candidate:000003",
+            "origin": "appeared_after_clear_view",
+            "bbox_px": [
+              145,
+              105,
+              20,
+              22
+            ],
+            "first_detection_mask_path": "event_masks/event_000002_first.png",
+            "source_evidence_path": "evidence/frame_00000011.png",
+            "recommendation": "review_ramp_pause",
+            "reasons": [],
+            "requires_operator_review": true,
+            "operator_reviewed": false,
+            "physical_defect_confirmed": false,
+            "numerical_actuator_command": null
+          },
+          "proposal_sha256": "c8480e82aa1d19be178b9611e29e5a80120d2bcba09f8592d56aa4c2ce4b5559",
+          "status": "expired"
+        },
+        {
+          "proposal": {
+            "proposal_id": "candidate_policy_fixture_v1:proposal:000003",
+            "run_id": "candidate_policy_fixture_v1",
+            "clock_id": "source_video:09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+            "kind": "view_inspection",
+            "proposed_at_s": 2.0,
+            "expires_at_s": 4.0,
+            "evidence_kind": "fixture",
+            "packet_id": "candidate_policy_fixture_v1:frame:00000020",
+            "observed_at_s": 2.0,
+            "source_frame_index": 20,
+            "candidate_event_id": null,
+            "track_id": null,
+            "origin": null,
+            "bbox_px": null,
+            "first_detection_mask_path": null,
+            "source_evidence_path": null,
+            "recommendation": "inspect_view",
+            "reasons": [
+              "seed_or_view_uncertain"
+            ],
+            "requires_operator_review": true,
+            "operator_reviewed": false,
+            "physical_defect_confirmed": false,
+            "numerical_actuator_command": null
+          },
+          "proposal_sha256": "f02ff737e0b6c8d23eb42b5f524e21f8ab138d64d4bd8226d346e008cff5ad62",
+          "status": "visibility_restored"
+        },
+        {
+          "proposal": {
+            "proposal_id": "candidate_policy_fixture_v1:proposal:000004",
+            "run_id": "candidate_policy_fixture_v1",
+            "clock_id": "source_video:09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+            "kind": "candidate_inspection",
+            "proposed_at_s": 2.5,
+            "expires_at_s": 4.5,
+            "evidence_kind": "fixture",
+            "packet_id": "candidate_policy_fixture_v1:frame:00000025",
+            "observed_at_s": 2.5,
+            "source_frame_index": 25,
+            "candidate_event_id": "candidate_policy_fixture_v1:candidate_event:000003",
+            "track_id": "candidate_policy_fixture_v1:candidate:000004",
+            "origin": "appeared_after_unknown_interval",
+            "bbox_px": [
+              135,
+              180,
+              16,
+              20
+            ],
+            "first_detection_mask_path": "event_masks/event_000003_first.png",
+            "source_evidence_path": "evidence/frame_00000025.png",
+            "recommendation": "inspect_candidate_identity",
+            "reasons": [],
+            "requires_operator_review": true,
+            "operator_reviewed": false,
+            "physical_defect_confirmed": false,
+            "numerical_actuator_command": null
+          },
+          "proposal_sha256": "33bf72a41a348014618aba5783cc9f5158731d3786702c020579c91e664f3e99",
+          "status": "expired"
+        },
+        {
+          "proposal": {
+            "proposal_id": "candidate_policy_fixture_v1:proposal:000005",
+            "run_id": "candidate_policy_fixture_v1",
+            "clock_id": "source_video:09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+            "kind": "inclusion_alert",
+            "proposed_at_s": 2.9000000000000004,
+            "expires_at_s": 4.9,
+            "evidence_kind": "fixture",
+            "packet_id": "candidate_policy_fixture_v1:frame:00000029",
+            "observed_at_s": 2.9000000000000004,
+            "source_frame_index": 29,
+            "candidate_event_id": "candidate_policy_fixture_v1:candidate_event:000004",
+            "track_id": "candidate_policy_fixture_v1:candidate:000005",
+            "origin": "appeared_after_clear_view",
+            "bbox_px": [
+              52,
+              72,
+              6,
+              6
+            ],
+            "first_detection_mask_path": "event_masks/event_000004_first.png",
+            "source_evidence_path": "evidence/frame_00000029.png",
+            "recommendation": "inspect_and_mark_inclusion",
+            "reasons": [],
+            "requires_operator_review": true,
+            "operator_reviewed": false,
+            "physical_defect_confirmed": false,
+            "numerical_actuator_command": null
+          },
+          "proposal_sha256": "9983d556fb26691f28690ddd1b0b1d4416b7d5808e724f42feca02a757460848",
+          "status": "pending_review"
+        }
+      ],
+      "numerical_actuator_commands": 0,
+      "operator_reviews_created": 0,
+      "model_weights_sha256": null
+    },
+    {
+      "path": "results/optical_pilot13_shadow_v1",
+      "manifest_sha256": "bc3626d348f21e3dd7a866a83fa80c81d2aa9afd97b8b6b6dea44fcb2629f5c6",
+      "candidate_manifest_sha256": "b2356ed3b30b79a5315a077018ee99e8181342df5264cddefe5492f71b9af94b",
+      "policy_sha256": "94eb650df60058f1b3290a4dc4e22603e9c0b321aff70ceade6c1daa716e9b19",
+      "source_sha256": {
+        "src/controllers/shadow.py": "f2eb80ab4bad1eaa69afd6abd6cda489b0587bf7156961f74dcf9d71d732bc9d",
+        "src/controllers/supervision.py": "aacae57c409fb1da3e83fe32e8aefa6d7d0963836e0a73b1767df013b7a05cb5",
+        "src/controllers/contracts.py": "6907b655183c6180b95e46fe53c451b513920bc053d70b1c6efefa6116846078",
+        "src/controllers/benchmark.py": "c227865eb755d85af65686d67e3b599ee8e059f6cea43545dab14ac0c1de621c",
+        "src/vision/video.py": "1d72d3e06fcac17f3599b959e8d37bcd7bb1fe2c1251db1d9ac9b4491436593c",
+        "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a"
+      },
+      "source_info": {
+        "evidence_kind": "synthetic",
+        "material": "illustrative_optical_geometry",
+        "source_id": "crystalab_optical_images_v1",
+        "scene_id": "optical_pilot_013",
+        "family_id": "optical_pilot_013",
+        "split": "validation",
+        "source_dataset": "/home/salves/dev/CrystaLab/data/synthetic_vision_pilot_v1",
+        "source_manifest_sha256": "6434179db8c54e16cba55378f67568999ebb050899ba3756ae4563e10f02e429",
+        "frame_map_sha256": "c1efe3fb994a3665cca457cf11dff804b055b7349a5ba66b23a62cfeed0ee5ba",
+        "derivative": "PNG frames MJPG encoded at original dimensions; no source frame duplication",
+        "timing": "Display FPS only. Synthetic geometry steps are not physical seconds.",
+        "optical_quality": null,
+        "physical_defect_response": null
+      },
+      "source_input": {
+        "kind": "file",
+        "source": "/home/salves/dev/CrystaLab/results/optical_pilot13_sequence_v1/sequence.avi",
+        "sha256": "6030da9927749113bb048d42691259fbe7536ce7790343f97521692305a4cf2f",
+        "clock": "container",
+        "reported_fps": 4.0,
+        "nominal_fps": 4.0,
+        "reported_frame_count": 3,
+        "backend": "FFMPEG",
+        "opencv_version": "4.13.0"
+      },
+      "source_experiment_clock": {
+        "origin_s": null,
+        "seconds_per_video_second": null
+      },
+      "clock_id": "source_video:6030da9927749113bb048d42691259fbe7536ce7790343f97521692305a4cf2f",
+      "clock_semantics": "Logical original source-video clock; receipt equals replay time, not measured processing latency or physical growth time",
+      "processed_frames": 3,
+      "proposals_by_kind": {
+        "candidate_inspection": 2,
+        "ramp_review": 1
+      },
+      "final_proposals": [
+        {
+          "proposal": {
+            "proposal_id": "optical_pilot13_stream_v1:proposal:000001",
+            "run_id": "optical_pilot13_stream_v1",
+            "clock_id": "source_video:6030da9927749113bb048d42691259fbe7536ce7790343f97521692305a4cf2f",
+            "kind": "candidate_inspection",
+            "proposed_at_s": 0.25,
+            "expires_at_s": 2.25,
+            "evidence_kind": "synthetic",
+            "packet_id": "optical_pilot13_stream_v1:frame:00000001",
+            "observed_at_s": 0.25,
+            "source_frame_index": 1,
+            "candidate_event_id": "optical_pilot13_stream_v1:candidate_event:000001",
+            "track_id": "optical_pilot13_stream_v1:candidate:000001",
+            "origin": "present_at_first_usable_frame",
+            "bbox_px": [
+              203,
+              118,
+              21,
+              27
+            ],
+            "first_detection_mask_path": "event_masks/event_000001_first.png",
+            "source_evidence_path": "evidence/frame_00000001.png",
+            "recommendation": "inspect_candidate_identity",
+            "reasons": [],
+            "requires_operator_review": true,
+            "operator_reviewed": false,
+            "physical_defect_confirmed": false,
+            "numerical_actuator_command": null
+          },
+          "proposal_sha256": "dd7af810e097037e9b3eac04b0bc772cbe7033add279b60f927c42fdc6394c58",
+          "status": "pending_review"
+        },
+        {
+          "proposal": {
+            "proposal_id": "optical_pilot13_stream_v1:proposal:000002",
+            "run_id": "optical_pilot13_stream_v1",
+            "clock_id": "source_video:6030da9927749113bb048d42691259fbe7536ce7790343f97521692305a4cf2f",
+            "kind": "candidate_inspection",
+            "proposed_at_s": 0.25,
+            "expires_at_s": 2.25,
+            "evidence_kind": "synthetic",
+            "packet_id": "optical_pilot13_stream_v1:frame:00000001",
+            "observed_at_s": 0.25,
+            "source_frame_index": 1,
+            "candidate_event_id": "optical_pilot13_stream_v1:candidate_event:000002",
+            "track_id": "optical_pilot13_stream_v1:candidate:000002",
+            "origin": "present_at_first_usable_frame",
+            "bbox_px": [
+              229,
+              153,
+              19,
+              28
+            ],
+            "first_detection_mask_path": "event_masks/event_000002_first.png",
+            "source_evidence_path": "evidence/frame_00000001.png",
+            "recommendation": "inspect_candidate_identity",
+            "reasons": [],
+            "requires_operator_review": true,
+            "operator_reviewed": false,
+            "physical_defect_confirmed": false,
+            "numerical_actuator_command": null
+          },
+          "proposal_sha256": "e84a598af766b6e663806482b06e538429e43028fb976963fb71f4db76f7657a",
+          "status": "pending_review"
+        },
+        {
+          "proposal": {
+            "proposal_id": "optical_pilot13_stream_v1:proposal:000003",
+            "run_id": "optical_pilot13_stream_v1",
+            "clock_id": "source_video:6030da9927749113bb048d42691259fbe7536ce7790343f97521692305a4cf2f",
+            "kind": "ramp_review",
+            "proposed_at_s": 0.5,
+            "expires_at_s": 2.5,
+            "evidence_kind": "synthetic",
+            "packet_id": "optical_pilot13_stream_v1:frame:00000002",
+            "observed_at_s": 0.5,
+            "source_frame_index": 2,
+            "candidate_event_id": "optical_pilot13_stream_v1:candidate_event:000003",
+            "track_id": "optical_pilot13_stream_v1:candidate:000003",
+            "origin": "appeared_after_clear_view",
+            "bbox_px": [
+              62,
+              151,
+              26,
+              29
+            ],
+            "first_detection_mask_path": "event_masks/event_000003_first.png",
+            "source_evidence_path": "evidence/frame_00000002.png",
+            "recommendation": "review_ramp_pause",
+            "reasons": [],
+            "requires_operator_review": true,
+            "operator_reviewed": false,
+            "physical_defect_confirmed": false,
+            "numerical_actuator_command": null
+          },
+          "proposal_sha256": "22c960c5d713c4862e5d1253ae60f46c9974a1d8061b046b42aa1adc06812eda",
+          "status": "pending_review"
+        }
+      ],
+      "numerical_actuator_commands": 0,
+      "operator_reviews_created": 0,
+      "model_weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb"
+    },
+    {
+      "path": "results/leeds_pilot12_shadow_v1",
+      "manifest_sha256": "e518708265723505a75e88f1d09effdda8cb27a0c15153063070ff808280a874",
+      "candidate_manifest_sha256": "1a3d8ae396b6d01f18b545b49545544d0eb3439b769c0f094ba66b6c7622d437",
+      "policy_sha256": "94eb650df60058f1b3290a4dc4e22603e9c0b321aff70ceade6c1daa716e9b19",
+      "source_sha256": {
+        "src/controllers/shadow.py": "f2eb80ab4bad1eaa69afd6abd6cda489b0587bf7156961f74dcf9d71d732bc9d",
+        "src/controllers/supervision.py": "aacae57c409fb1da3e83fe32e8aefa6d7d0963836e0a73b1767df013b7a05cb5",
+        "src/controllers/contracts.py": "6907b655183c6180b95e46fe53c451b513920bc053d70b1c6efefa6116846078",
+        "src/controllers/benchmark.py": "c227865eb755d85af65686d67e3b599ee8e059f6cea43545dab14ac0c1de621c",
+        "src/vision/video.py": "1d72d3e06fcac17f3599b959e8d37bcd7bb1fe2c1251db1d9ac9b4491436593c",
+        "src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a"
+      },
+      "source_info": {
+        "evidence_kind": "real",
+        "material": "alpha_L_glutamic_acid",
+        "source_id": "LGA-LEEDS-2026",
+        "experiment_id": "12",
+        "split": "train",
+        "source_url": "https://archive.researchdata.leeds.ac.uk/1537/",
+        "citation": "Ilett, Hazlehurst, Jiang, Ma, Hogg and Roberts (2026), Reconstruction of 3D crystal growth from transmission optical microscopy images - Supporting data, University of Leeds.",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_archive_sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+        "source_index_sha256": "815d86ae34c107c8bac9863b937e212b9c776d38e665ccd7a563e944c6478421",
+        "derivative": "JPEG sequence resized and MJPG encoded; original source retained",
+        "frame_map_sha256": "e83a490e238e966ac2da5f43fb2e016f2ad3cda3437cb47a781e1c73815ed24f",
+        "timing": "Display FPS only. Nominal acquisition cadence is in frame_map; actual capture times are unverified."
+      },
+      "source_input": {
+        "kind": "file",
+        "source": "/home/salves/dev/CrystaLab/results/leeds_pilot12_v1/sequence.avi",
+        "sha256": "082917c054c951c992b87869eb3f9b66087e25fe1acfacacae3f8a162ba40cce",
+        "clock": "container",
+        "reported_fps": 4.0,
+        "nominal_fps": 4.0,
+        "reported_frame_count": 30,
+        "backend": "FFMPEG",
+        "opencv_version": "4.13.0"
+      },
+      "source_experiment_clock": {
+        "origin_s": null,
+        "seconds_per_video_second": null
+      },
+      "clock_id": "source_video:082917c054c951c992b87869eb3f9b66087e25fe1acfacacae3f8a162ba40cce",
+      "clock_semantics": "Logical original source-video clock; receipt equals replay time, not measured processing latency or physical growth time",
+      "processed_frames": 30,
+      "proposals_by_kind": {
+        "view_inspection": 1
+      },
+      "final_proposals": [
+        {
+          "proposal": {
+            "proposal_id": "leeds_pilot12_stream_v1:proposal:000001",
+            "run_id": "leeds_pilot12_stream_v1",
+            "clock_id": "source_video:082917c054c951c992b87869eb3f9b66087e25fe1acfacacae3f8a162ba40cce",
+            "kind": "view_inspection",
+            "proposed_at_s": 3.75,
+            "expires_at_s": 5.75,
+            "evidence_kind": "real",
+            "packet_id": "leeds_pilot12_stream_v1:frame:00000015",
+            "observed_at_s": 3.75,
+            "source_frame_index": 15,
+            "candidate_event_id": null,
+            "track_id": null,
+            "origin": null,
+            "bbox_px": null,
+            "first_detection_mask_path": null,
+            "source_evidence_path": null,
+            "recommendation": "inspect_view",
+            "reasons": [
+              "seed_or_view_uncertain"
+            ],
+            "requires_operator_review": true,
+            "operator_reviewed": false,
+            "physical_defect_confirmed": false,
+            "numerical_actuator_command": null
+          },
+          "proposal_sha256": "f88fa3d9453ae3260058b5d788d0a28d20528f92fc7537b012bc995592a8975d",
+          "status": "expired"
+        }
+      ],
+      "numerical_actuator_commands": 0,
+      "operator_reviews_created": 0,
+      "model_weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb"
+    }
+  ],
+  "shadow_artifact_audit": {
+    "path": "results/supervisory_shadow_audit_v1.json",
+    "sha256": "b849916af2332cff9dc2b3e533f1192cf964ce25cc6fc13bdb66f2080e633bb2",
+    "report": {
+      "status": "pass",
+      "checks": [
+        "All shadow and source artifact hashes and current producer hashes match",
+        "Original source frame references/clocks and experiment-clock nulls are preserved",
+        "Immutable proposal hashes and event-type/origin/location links reconstruct",
+        "Copied native masks match original binary mask hashes/dimensions",
+        "Overlay videos decode to processed frame counts; evidence footer preserves native coordinates",
+        "No numerical actuator commands, physical-defect confirmations or human reviews are created"
+      ],
+      "runs": [
+        {
+          "path": "results/candidate_fixture_shadow_v1",
+          "manifest_sha256": "08d8541a63f464e804d218be2baf0795bdba3ace57f173e02483e43c50261f82",
+          "processed_frames": 48,
+          "proposals_by_kind": {
+            "candidate_inspection": 2,
+            "ramp_review": 1,
+            "view_inspection": 1,
+            "inclusion_alert": 1
+          },
+          "final_statuses": {
+            "expired": 3,
+            "visibility_restored": 1,
+            "pending_review": 1
+          },
+          "files_verified": 22,
+          "source_files_verified": 139,
+          "numerical_commands": 0
+        },
+        {
+          "path": "results/optical_pilot13_shadow_v1",
+          "manifest_sha256": "bc3626d348f21e3dd7a866a83fa80c81d2aa9afd97b8b6b6dea44fcb2629f5c6",
+          "processed_frames": 3,
+          "proposals_by_kind": {
+            "candidate_inspection": 2,
+            "ramp_review": 1
+          },
+          "final_statuses": {
+            "pending_review": 3
+          },
+          "files_verified": 19,
+          "source_files_verified": 21,
+          "numerical_commands": 0
+        },
+        {
+          "path": "results/leeds_pilot12_shadow_v1",
+          "manifest_sha256": "e518708265723505a75e88f1d09effdda8cb27a0c15153063070ff808280a874",
+          "processed_frames": 30,
+          "proposals_by_kind": {
+            "view_inspection": 1
+          },
+          "final_statuses": {
+            "expired": 1
+          },
+          "files_verified": 14,
+          "source_files_verified": 8,
+          "numerical_commands": 0
+        }
+      ]
+    }
+  },
+  "software_comparison": {
+    "path": "results/supervised_control_fixture_v2",
+    "manifest_sha256": "49d00f3586ae7d46acf5467294d084c57abaa91e15302a4eb504d6993cd8a34b",
+    "rows": 1803,
+    "source_sha256": {
+      "src/controllers/__init__.py": "981d3e2975cc05ce7c58727ccb494d4a9e04884f0e7a5c80b93789b6ff7b2712",
+      "src/controllers/audit.py": "75282a29807aaf62ad2e012e7d5552f0bb3e54c7cc715c82cce580c19fe35f5c",
+      "src/controllers/benchmark.py": "c227865eb755d85af65686d67e3b599ee8e059f6cea43545dab14ac0c1de621c",
+      "src/controllers/contracts.py": "6907b655183c6180b95e46fe53c451b513920bc053d70b1c6efefa6116846078",
+      "src/controllers/pid.py": "d5692e53ebee66e86cb4593e071227ce7f01557d44d619c025484f9a3c5d43a0",
+      "src/controllers/shadow.py": "f2eb80ab4bad1eaa69afd6abd6cda489b0587bf7156961f74dcf9d71d732bc9d",
+      "src/controllers/supervised_demo.py": "91732012854dc7fa0d3126eda895177d870c350c2dcbafbd838127dedfa8a8a5",
+      "src/controllers/supervision.py": "aacae57c409fb1da3e83fe32e8aefa6d7d0963836e0a73b1767df013b7a05cb5",
+      "src/controllers/thermal.py": "2ccc31d64e1759530acf4d81f8f41092cffb114e0fb6b1e0c036923e27607ab1",
+      "scripts/run_supervised_control.py": "ba9e8f18af80ecb77419544b4614f417df131ceec38bb6752413c65207e2942d"
+    },
+    "clock_mapping": {
+      "expected_source_video_sha256": "09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+      "source_origin_s": 0,
+      "target_origin_s": 0,
+      "target_seconds_per_source_second": 100,
+      "target_clock_id": "vision_thermal_fixture_elapsed_s",
+      "provenance": "Chosen integration-test scaling: 1 display second = 100 thermal fixture seconds; no physical growth-time conversion.",
+      "scope": "software_demonstration_only"
+    },
+    "runs": [
+      {
+        "run_id": "vision_pause_fixture:fixed_recipe",
+        "scenario": "vision_pause_fixture",
+        "method": "fixed_recipe",
+        "records_path": "vision_pause_fixture_fixed_recipe/observations.jsonl",
+        "commands_path": "vision_pause_fixture_fixed_recipe/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 0.18734932257089018,
+          "sample_rmse_K": 0.19200416928943095,
+          "trapezoidal_IAE_K_s": 112.4927786167352,
+          "maximum_above_target_K": 0.20832849673962528,
+          "maximum_below_target_K": 0.0,
+          "requested_input_total_variation_K": 2.0,
+          "saturated_steps": 0,
+          "rate_limited_steps": 0,
+          "fallback_steps": 0,
+          "scripted_manual_steps": 0,
+          "invalid_observation_steps": 1
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "vision_pause_fixture:fixed_recipe:command:000599",
+            "run_id": "vision_pause_fixture:fixed_recipe",
+            "clock_id": "vision_thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 601.0,
+            "value": 298.1533333333333,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "vision_pause_fixture:fixed_recipe:command:000600",
+            "run_id": "vision_pause_fixture:fixed_recipe",
+            "clock_id": "vision_thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 602.0,
+            "value": 298.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ],
+        "nominal_recipe_sample_mae_K": 0.18734932257089018,
+        "final_recipe_phase_s": 600.0,
+        "recipe_phase_lag_s": 0.0
+      },
+      {
+        "run_id": "vision_pause_fixture:pid",
+        "scenario": "vision_pause_fixture",
+        "method": "pid",
+        "records_path": "vision_pause_fixture_pid/observations.jsonl",
+        "commands_path": "vision_pause_fixture_pid/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 0.010532106225083621,
+          "sample_rmse_K": 0.01881611501284073,
+          "trapezoidal_IAE_K_s": 6.328461584357683,
+          "maximum_above_target_K": 0.061376815593234824,
+          "maximum_below_target_K": 0.008725386945457103,
+          "requested_input_total_variation_K": 13.823790522581817,
+          "saturated_steps": 0,
+          "rate_limited_steps": 0,
+          "fallback_steps": 1,
+          "scripted_manual_steps": 0,
+          "invalid_observation_steps": 1
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "vision_pause_fixture:pid:command:000599",
+            "run_id": "vision_pause_fixture:pid",
+            "clock_id": "vision_thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 601.0,
+            "value": 297.93034500821796,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "vision_pause_fixture:pid:command:000600",
+            "run_id": "vision_pause_fixture:pid",
+            "clock_id": "vision_thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 602.0,
+            "value": 297.9404531732521,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ],
+        "nominal_recipe_sample_mae_K": 0.010532106225083621,
+        "final_recipe_phase_s": 600.0,
+        "recipe_phase_lag_s": 0.0
+      },
+      {
+        "run_id": "vision_pause_fixture:rule_supervised",
+        "scenario": "vision_pause_fixture",
+        "method": "rule_supervised",
+        "records_path": "vision_pause_fixture_rule_supervised/observations.jsonl",
+        "commands_path": "vision_pause_fixture_rule_supervised/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 0.019101469066129934,
+          "sample_rmse_K": 0.027684103251947464,
+          "trapezoidal_IAE_K_s": 11.478663978511946,
+          "maximum_above_target_K": 0.061376815593234824,
+          "maximum_below_target_K": 0.06323232487920905,
+          "requested_input_total_variation_K": 13.839498047151608,
+          "saturated_steps": 0,
+          "rate_limited_steps": 0,
+          "fallback_steps": 1,
+          "scripted_manual_steps": 0,
+          "invalid_observation_steps": 1
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "vision_pause_fixture:rule_supervised:command:000599",
+            "run_id": "vision_pause_fixture:rule_supervised",
+            "clock_id": "vision_thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 601.0,
+            "value": 298.1303127563073,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "vision_pause_fixture:rule_supervised:command:000600",
+            "run_id": "vision_pause_fixture:rule_supervised",
+            "clock_id": "vision_thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 602.0,
+            "value": 298.1404209135233,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ],
+        "nominal_recipe_sample_mae_K": 0.15121675594223358,
+        "final_recipe_phase_s": 540.0,
+        "recipe_phase_lag_s": 60.0
+      }
+    ],
+    "scripted_executions": [
+      {
+        "proposal_id": "candidate_policy_fixture_v1:proposal:000002",
+        "proposal_sha256": "c8480e82aa1d19be178b9611e29e5a80120d2bcba09f8592d56aa4c2ce4b5559",
+        "decision_id": "scripted_pause:000001",
+        "source_decision_time_s": 1.3,
+        "model_decision_time_s": 130.0,
+        "pause_until_model_s": 190.0,
+        "pause_duration_model_s": 60,
+        "held_recipe_phase_s": 130.0,
+        "basis": "scripted_fixture_policy",
+        "operator_reviewed": false,
+        "physical_hardware_authorized": false,
+        "sensor_sample_id": "vision_pause_fixture:rule_supervised:sensor:000129"
+      }
+    ],
+    "scripted_decisions": [
+      {
+        "decision_id": "scripted_pause:000001",
+        "proposal_id": "candidate_policy_fixture_v1:proposal:000002",
+        "proposal_sha256": "c8480e82aa1d19be178b9611e29e5a80120d2bcba09f8592d56aa4c2ce4b5559",
+        "time_s": 1.3,
+        "clock_id": "source_video:09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+        "status": "simulation_authorized",
+        "action": "pause_recipe",
+        "basis": "scripted_fixture_policy",
+        "operator_reviewed": false,
+        "physical_hardware_authorized": false
+      }
+    ],
+    "operator_reviews_created": 0,
+    "adaptive_policy_implemented": false
+  },
+  "control_audit": {
+    "path": "results/supervised_control_fixture_v2_audit.json",
+    "sha256": "34099ee0f4743fb8a60d25b6499fca7af6dbb47eb8746e972d0eeff0bae0747e",
+    "report": {
+      "status": "pass",
+      "run_manifest_sha256": "49d00f3586ae7d46acf5467294d084c57abaa91e15302a4eb504d6993cd8a34b",
+      "files_verified": 25,
+      "source_sha256": "75282a29807aaf62ad2e012e7d5552f0bb3e54c7cc715c82cce580c19fe35f5c",
+      "runs": [
+        {
+          "run_id": "vision_pause_fixture:fixed_recipe",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 599,
+          "pending_commands": 2
+        },
+        {
+          "run_id": "vision_pause_fixture:pid",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 599,
+          "pending_commands": 2
+        },
+        {
+          "run_id": "vision_pause_fixture:rule_supervised",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 599,
+          "pending_commands": 2
+        }
+      ],
+      "scope": "Artifact/clock/sensor/command/analytic-plant/metric reconstruction; not physical validation or a proof of every PID trajectory"
+    }
+  },
+  "previous_thermal_benchmark_reaudit": {
+    "path": "results/temperature_control_baseline_v3_audit_after_rules.json",
+    "sha256": "f4e0eed5ef1f1d3da22faf290d77e2ea110177905b7569637e4cf6511dc39877",
+    "status": "pass"
+  },
+  "visual_inspection": [
+    {
+      "path": "results/supervised_control_fixture_v2/comparison.png",
+      "sha256": "5b95ddffc092e638405b90780f7e7ba51a0920bf8e3c36299e91e224173e2162"
+    },
+    {
+      "path": "results/leeds_pilot12_shadow_v1/evidence/proposal_000001.png",
+      "sha256": "6e7cab1bf74fafb97fd0e2baffee3fd79100c19094dedb6b743f07d51c29e9da"
+    },
+    {
+      "path": "results/candidate_fixture_shadow_v1/evidence/proposal_000005.png",
+      "sha256": "5494618624ba9a18a1b7e0f4ad4185e0c4542ac6c1c3a50290deb7c614bc025c"
+    }
+  ],
+  "prepared_real_bundle_review_receipts": 0,
+  "physical_hardware_contacted": false,
+  "real_numerical_actuator_commands": 0,
+  "real_event_accuracy": null,
+  "physical_first_hour_claim_evaluated": false,
+  "final_vision_test_scored": false,
+  "interpretation_limits": [
+    "Startup/gap candidates request identity inspection rather than proving newly visible nucleation",
+    "Optical bubble errors remain two inspection jobs and the inclusion remains missed",
+    "One uncertain real view episode does not establish defect absence, accuracy or physical response time",
+    "Scripted fixture authorization binds an exact proposal but explicitly leaves operator_reviewed false",
+    "The 60-model-second pause incurs 60 seconds recipe lag; PID-only follows the common nominal target more closely",
+    "The thermal fixture has no quality/defect response or calibrated KDP equipment parameters",
+    "Core rules accept causal packets, but current integration runs consume saved development evidence; physical live timing and operator review UI remain open"
+  ],
+  "remaining": [
+    "Observable short-horizon forecast, explicit changing adaptive state/policy and baseline comparison",
+    "Reviewed real masks/events/negative coverage and appropriate real/mixed training",
+    "Comparable-view projected growth and supported face/asymmetry measurements",
+    "Operator view with actual review/override input",
+    "Camera/equipment timing, response, approved limits and acknowledgment/fallback characterization",
+    "Representative independent KDP first-hour and physical action-response evidence",
+    "CPU/GPU transport benchmark and chemically justified Qiskit impurity study"
+  ]
+}

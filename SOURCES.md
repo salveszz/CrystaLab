@@ -696,3 +696,19 @@ the actual equations, analytic tests, comparison results and limits are in
 [Temperature control](docs/TEMPERATURE_CONTROL.md) and its
 [checkpoint](docs/TEMPERATURE_CONTROL_CHECKPOINT.json). Physical equipment timing,
 operating limits and action-response evidence remain separate requirements.
+
+## DESIGN-EVENT-SHADOW-002
+
+`configs/event_rule_policy.json` declares source-clock age/gap/expiry settings for
+development review proposals. `configs/supervised_control_fixture.json` binds an
+exact fixture video to a chosen software mapping of 100 thermal-model seconds per
+display second, a scripted decision delay and bounded recipe pauses. These are
+integration-test assumptions, not a physical acquisition clock, KDP operating
+recipe, human review or a measured quality response. Real sources are restricted
+to proposal-only shadow execution by this path.
+
+[Event supervision](docs/EVENT_SUPERVISION.md) retains the actual shadow outcomes,
+common-recipe tracking cost, proposal/evidence hashes and independent control
+audit. It extends DESIGN-CONTROL-THERMAL-001 without adding physical parameters
+or an adaptive forecast claim. The [checkpoint](docs/EVENT_SUPERVISION_CHECKPOINT.json)
+records the verified source revision and explicit open pitch requirements.

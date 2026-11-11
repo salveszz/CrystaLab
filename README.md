@@ -20,10 +20,15 @@ non-seed identities, persistent inspection evidence and independently scored
 synthetic errors. The same decisions now run during single-pass observation.
 The [temperature PID baseline](docs/TEMPERATURE_CONTROL.md) now runs with explicit
 sensor/command records and audited simulated-plant comparisons. Real review,
-equipment verification, vision/control integration, adaptation and the operator
+equipment verification, adaptation and the operator
 demo remain open. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
+
+[Event-rule supervision](docs/EVENT_SUPERVISION.md) now produces source-linked
+review proposals and connects a declared vision fixture through PID to simulated
+actuation. Real-video shadow runs create no numerical commands; scripted fixture
+decisions do not claim human review or physical action benefit.
 
 Real observations are now local: **2,123 alpha-LGA microscope images from nine
 runs, three phase-specific KDP movies and one separately identified ADP movie**.

@@ -4,6 +4,7 @@
 """Independent saved-artifact audit for the temperature software benchmark."""
 
 import json
+import hashlib
 import math
 from pathlib import Path
 
@@ -46,12 +47,198 @@ def reference_target(points, now):
     return a["temperature_K"] + fraction * (b["temperature_K"] - a["temperature_K"])
 
 
+def audit_supervision(root, manifest, config):
+    """Reconstruct clock-bound scripted pause eligibility without executing rules."""
+    require(
+        sha256(root / "supervised_config.json") == manifest["supervised_config_sha256"],
+        "supervised configuration identity",
+    )
+    demo = json.loads((root / "supervised_config.json").read_text())
+    require(
+        manifest["physical_hardware_contacted"] is False
+        and manifest["operator_reviews_created"] == 0,
+        "software-only supervision scope",
+    )
+    require(
+        demo["thermal"] == config,
+        "thermal configuration differs from the demo declaration",
+    )
+    require(
+        sha256(root / "policy.json") == manifest["policy_sha256"],
+        "rule policy identity",
+    )
+    policy = json.loads((root / "policy.json").read_text())
+    mapping = demo["clock_mapping"]
+    require(
+        mapping == manifest["clock_mapping"]
+        and mapping["scope"] == "software_demonstration_only",
+        "clock-map scope",
+    )
+    require(
+        mapping["source_origin_s"] == mapping["target_origin_s"] == 0
+        and mapping["target_clock_id"] == config["clock_id"],
+        "clock-map identities",
+    )
+    require(mapping["target_seconds_per_source_second"] > 0, "clock-map scale")
+    source_root = Path(manifest["source_analysis"]).resolve()
+    source = json.loads((root / "candidate_manifest.json").read_text())
+    require(
+        sha256(root / "candidate_manifest.json")
+        == manifest["candidate_manifest_sha256"]
+        == sha256(source_root / "manifest.json"),
+        "candidate lineage",
+    )
+    require(
+        source["status"] == "complete"
+        and source["source_info"] == manifest["source_info"]
+        and source["source_info"]["evidence_kind"] in {"fixture", "synthetic"},
+        "real evidence cannot become simulated action evidence",
+    )
+    for name, digest in source["files"].items():
+        require(
+            sha256(local(source_root, name)) == digest,
+            "source candidate artifact identity",
+        )
+    parent = json.loads((root / "source_replay_manifest.json").read_text())
+    require(
+        sha256(root / "source_replay_manifest.json")
+        == source["source_replay_manifest_sha256"],
+        "source observation context",
+    )
+    require(
+        parent["input"].get("sha256") == mapping["expected_source_video_sha256"],
+        "mapped video identity",
+    )
+    source_clock = "source_video:" + (
+        parent["input"].get("sha256") or manifest["candidate_manifest_sha256"]
+    )
+    events = {
+        e["event_id"]: e for e in json_rows(source_root / "candidate_events.jsonl")
+    }
+    observations = json_rows(source_root / "candidate_observations.jsonl")
+    proposals = {e["proposal"]["proposal_id"]: e for e in manifest["final_proposals"]}
+    decisions = {e["decision_id"]: e for e in manifest["scripted_decisions"]}
+    actions = manifest["scripted_executions"]
+    require(
+        len(decisions) == len(actions) == len(manifest["scripted_decisions"]),
+        "unique scripted decision IDs",
+    )
+    total_pause, previous_end = 0.0, 0.0
+    for action in actions:
+        entry = proposals[action["proposal_id"]]
+        proposal = entry["proposal"]
+        digest = hashlib.sha256(
+            json.dumps(
+                proposal, sort_keys=True, allow_nan=False, separators=(",", ":")
+            ).encode()
+        ).hexdigest()
+        require(
+            digest == entry["proposal_sha256"] == action["proposal_sha256"],
+            "exact proposal decision binding",
+        )
+        receipt = decisions[action["decision_id"]]
+        require(
+            proposal["run_id"] == source["run_id"]
+            and proposal["clock_id"] == receipt["clock_id"] == source_clock
+            and proposal["evidence_kind"] == source["source_info"]["evidence_kind"]
+            and proposal["numerical_actuator_command"] is None,
+            "proposal source/clock/action identity",
+        )
+        require(
+            receipt["proposal_id"] == proposal["proposal_id"]
+            and receipt["proposal_sha256"] == digest
+            and receipt["status"] == entry["status"] == "simulation_authorized",
+            "scripted authorization receipt",
+        )
+        require(
+            proposal["kind"] == "ramp_review"
+            and proposal["origin"] == "appeared_after_clear_view"
+            and proposal["requires_operator_review"] is True
+            and proposal["operator_reviewed"] is False,
+            "ramp-review semantics",
+        )
+        require(
+            receipt["basis"] == action["basis"] == "scripted_fixture_policy"
+            and receipt["operator_reviewed"] is action["operator_reviewed"] is False
+            and receipt["physical_hardware_authorized"]
+            is action["physical_hardware_authorized"]
+            is False,
+            "scripted action is not human/hardware approval",
+        )
+        source_time = action["source_decision_time_s"]
+        near(receipt["time_s"], source_time, "decision source clock")
+        near(
+            action["model_decision_time_s"],
+            source_time * mapping["target_seconds_per_source_second"],
+            "decision model clock",
+        )
+        require(
+            proposal["proposed_at_s"] + demo["scripted_decision_delay_source_s"]
+            <= source_time + 1e-10
+            < proposal["expires_at_s"],
+            "decision delay/expiry",
+        )
+        require(
+            source_time <= observations[-1]["video_time_s"] + 1e-10,
+            "decision after source coverage",
+        )
+        current = next(
+            r
+            for r in reversed(observations)
+            if r["video_time_s"] <= source_time + 1e-10
+        )
+        require(
+            current["observable"]["crystal_candidate"]
+            and source_time - current["video_time_s"]
+            <= policy["maximum_evidence_age_s"],
+            "fresh decision view",
+        )
+        event = events[proposal["candidate_event_id"]]
+        require(
+            event["candidate_type"] == "crystal_candidate"
+            and event["origin"] == proposal["origin"]
+            and event["track_id"] == proposal["track_id"]
+            and event["first_detection_mask_path"]
+            == proposal["first_detection_mask_path"],
+            "source candidate decision evidence",
+        )
+        require(
+            any(
+                t["id"] == event["track_id"]
+                and t["state"] == "observed"
+                and t["last_frame_index"] == current["frame_index"]
+                for t in current["tracks"]
+            ),
+            "decision candidate no longer observed",
+        )
+        require(
+            action["model_decision_time_s"] >= previous_end
+            and 0 < action["pause_duration_model_s"] <= demo["pause_model_duration_s"],
+            "pause overlap/duration",
+        )
+        near(
+            action["pause_until_model_s"],
+            action["model_decision_time_s"] + action["pause_duration_model_s"],
+            "bounded pause end",
+        )
+        previous_end = action["pause_until_model_s"]
+        total_pause += action["pause_duration_model_s"]
+    require(
+        total_pause <= demo["maximum_total_pause_model_s"], "cumulative pause budget"
+    )
+    return actions, source_root, source
+
+
 def audit_control_benchmark(path):
     root = Path(path).resolve()
     manifest_hash = sha256(root / "manifest.json")
     manifest = json.loads((root / "manifest.json").read_text())
     require(
-        manifest.get("schema") == "crystalab_temperature_benchmark_run_v1"
+        manifest.get("schema")
+        in {
+            "crystalab_temperature_benchmark_run_v1",
+            "crystalab_supervised_control_demo_v1",
+        }
         and manifest["status"] == "complete",
         "completed temperature experiment required",
     )
@@ -79,12 +266,22 @@ def audit_control_benchmark(path):
     limits = config["limits"]
     count = round(duration / dt) + 1
     reports = []
+    supervised = manifest["schema"] == "crystalab_supervised_control_demo_v1"
+    actions, source_root, source_manifest = (
+        audit_supervision(root, manifest, config) if supervised else ([], None, None)
+    )
+    methods = (
+        ["fixed_recipe", "pid", "rule_supervised"]
+        if supervised
+        else ["fixed_recipe", "pid"]
+    )
     require(
-        len(manifest["runs"]) == 2 * len(config["scenarios"]), "comparison coverage"
+        len(manifest["runs"]) == len(methods) * len(config["scenarios"]),
+        "comparison coverage",
     )
     require(
         {(r["scenario"], r["method"]) for r in manifest["runs"]}
-        == {(s["id"], m) for s in config["scenarios"] for m in ["fixed_recipe", "pid"]},
+        == {(s["id"], m) for s in config["scenarios"] for m in methods},
         "comparison identities",
     )
     for run in manifest["runs"]:
@@ -108,6 +305,34 @@ def audit_control_benchmark(path):
                 "row identity",
             )
             target = reference_target(config["recipe"], now)
+            if run["method"] == "rule_supervised":
+                near(row["nominal_recipe_setpoint_K"], target, "nominal recipe target")
+                phase = now - sum(
+                    max(
+                        0.0,
+                        min(now, a["pause_until_model_s"]) - a["model_decision_time_s"],
+                    )
+                    for a in actions
+                )
+                near(row["supervision"]["recipe_phase_s"], phase, "paused recipe phase")
+                target = reference_target(config["recipe"], phase)
+                for action in actions:
+                    if action["model_decision_time_s"] <= now:
+                        require(
+                            action["proposal_id"] in row["proposal"]["evidence_ids"]
+                            and action["decision_id"]
+                            in row["proposal"]["evidence_ids"],
+                            "supervised command causal evidence",
+                        )
+                    if action["model_decision_time_s"] == now:
+                        sensor = row["observation"]
+                        require(
+                            sensor["valid"]
+                            and sensor["sample_id"] == action["sensor_sample_id"]
+                            and now - sensor["measured_at_s"]
+                            <= config["pid"]["maximum_feedback_age_s"],
+                            "fresh process evidence at simulation decision",
+                        )
             near(row["setpoint_K"], target, "recipe interpolation")
             applications = row["applied_receipts"]
             for event in applications:
@@ -267,7 +492,7 @@ def audit_control_benchmark(path):
                 and row["physical_hardware_contacted"] is False,
                 "evidence scope",
             )
-            if run["method"] == "pid":
+            if run["method"] in {"pid", "rule_supervised"}:
                 require(
                     sensor["sample_id"] in proposal["evidence_ids"]
                     and decision["feedback_sample_id"] == sensor["sample_id"],
@@ -328,6 +553,22 @@ def audit_control_benchmark(path):
             "unapplied in-window command",
         )
         metrics = run["metrics"]
+        if supervised:
+            nominal_errors = [
+                abs(
+                    r["plant_truth"]["temperature_K"]
+                    - reference_target(config["recipe"], r["time_s"])
+                )
+                for r in rows
+            ]
+            near(
+                run["nominal_recipe_sample_mae_K"],
+                sum(nominal_errors) / len(rows),
+                "common nominal recipe error",
+            )
+            phase = rows[-1].get("supervision", {}).get("recipe_phase_s", duration)
+            near(run["final_recipe_phase_s"], phase, "final recipe phase")
+            near(run["recipe_phase_lag_s"], duration - phase, "recipe lag cost")
         require(metrics["samples"] == count, "metric sample count")
         near(metrics["sample_mae_K"], sum(errors) / count, "sample MAE")
         near(
@@ -384,6 +625,17 @@ def audit_control_benchmark(path):
             sha256(local(root, name)) == digest,
             "artifact changed during audit: " + name,
         )
+    if source_root is not None:
+        require(
+            sha256(source_root / "manifest.json")
+            == manifest["candidate_manifest_sha256"],
+            "candidate source changed during control audit",
+        )
+        for name, digest in source_manifest["files"].items():
+            require(
+                sha256(local(source_root, name)) == digest,
+                "candidate artifact changed during audit",
+            )
     return dict(
         status="pass",
         run_manifest_sha256=manifest_hash,
