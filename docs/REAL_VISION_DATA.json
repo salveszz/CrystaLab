@@ -1,0 +1,256 @@
+{
+  "date": "2026-11-11",
+  "status": "acquired_and_indexed_annotations_incomplete",
+  "registry": "configs/vision_sources.json",
+  "registry_sha256": "4ceef6e2ebe298313f6063977ee86b457d71a223ad1148f03fe8093b163b9b9f",
+  "source_audit": {
+    "schema_version": 1,
+    "checked_at_utc": "2026-11-11T14:24:19.861490+00:00",
+    "network_requested": false,
+    "sources": [
+      {
+        "source_id": "LGA-LEEDS-2026",
+        "data_status": "real_images_indexed_manual_shape_fits_preserved_masks_unavailable",
+        "reason": "Repository README identifies original microscope images and manual measurements for nine experiments. Other material; exact observations, splits and annotation compatibility require inspection. Validation and result videos are not automatically raw real training data.",
+        "assets": [
+          {
+            "name": "file_manifest.txt",
+            "url": "https://archive.researchdata.leeds.ac.uk/1537/2/file_manifest.txt",
+            "role": "archive_inventory",
+            "status": "cached",
+            "text_preview": "Archive: crystal_bumpmaps.zip\n\n    10000 NPZ (numpy compressed array) files\n\nArchive: experiments.zip\n\n    Mixture of data and image files used in experiments\n\nArchive: images_clean.zip\n\n    10000 PNG image files\n\nArchive: images.zip\n\n    10000 PNG image files\n\nArchive: keypoints_wfv=1.0_kpv=10.0.zi",
+            "sha256": "61e28177e714157edfed46ca1680a25883a8f89af6a8a872887afb33c2c7bde6",
+            "bytes": 873
+          },
+          {
+            "name": "README_ILETT_2026.txt",
+            "url": "https://archive.researchdata.leeds.ac.uk/1537/12/README_ILETT_2026.txt",
+            "role": "provenance_and_license",
+            "status": "cached",
+            "text_preview": "1. ABOUT THE DATASET\n--------------------\n\nTitle: Reconstruction of 3D crystal growth from transmission optical microscopy images - Supporting data\n\nCreators: Thomas P. Ilett, Thomas A. Hazlehurst, Chen Jiang, Cai Y. Ma, David C. Hogg, Kevin J. Roberts\n\nOrganisation: University of Leeds\n\nRights-hold",
+            "sha256": "b22b8d6b86e9058485c52d3666b1fdfddadd94d732d94c2dc514344e86931d14",
+            "bytes": 5399
+          },
+          {
+            "name": "experiments.zip",
+            "url": "https://archive.researchdata.leeds.ac.uk/1537/8/experiments.zip",
+            "role": "real_experiments",
+            "status": "cached",
+            "archive_entries": 2222,
+            "expanded_bytes": 697941049,
+            "sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+            "bytes": 698283843
+          },
+          {
+            "name": "videos.zip",
+            "url": "https://archive.researchdata.leeds.ac.uk/1537/11/videos.zip",
+            "role": "result_videos_requires_content_review",
+            "status": "cached",
+            "archive_entries": 6,
+            "expanded_bytes": 12954216,
+            "sha256": "b5f223b0f9517ed839f4acd7894e7ad7295abfbe5df6d07e4cf751830355e59e",
+            "bytes": 12932175
+          },
+          {
+            "name": "validation.zip",
+            "url": "https://archive.researchdata.leeds.ac.uk/1537/10/validation.zip",
+            "role": "synthetic_reconstruction_checks",
+            "status": "cached",
+            "archive_entries": 403,
+            "expanded_bytes": 43704017,
+            "sha256": "51124a153c0ac15c63fca1eefc7ad1a6070895ac17bb0056a16934b337424578",
+            "bytes": 42877443
+          }
+        ],
+        "material": "alpha_L_glutamic_acid",
+        "source_url": "https://archive.researchdata.leeds.ac.uk/1537/",
+        "license": "CC BY 4.0; copyright 2026 University of Leeds; retain citation, license link and derivative/change records"
+      },
+      {
+        "source_id": "ADP-NATURE-2024",
+        "data_status": "experimental_video_pending_import",
+        "reason": "Downloaded supplementary caption explicitly identifies rapid crystallization of ADP at S approximately 3.5. The article also studies KDP, but this movie must not be labeled KDP. Levitated droplet conditions differ from the seeded optical-crystal tank; no defect labels or acquisition-to-playback timing have been established.",
+        "assets": [
+          {
+            "name": "movie_description.pdf",
+            "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-024-47503-1/MediaObjects/41467_2024_47503_MOESM3_ESM.pdf",
+            "role": "movie_conditions",
+            "status": "cached",
+            "sha256": "e1004fbc065a60d06f13589a161eca21f55769fe3d621f59d444008e977e47a7",
+            "bytes": 161464
+          },
+          {
+            "name": "supplementary_movie_1.mp4",
+            "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-024-47503-1/MediaObjects/41467_2024_47503_MOESM4_ESM.mp4",
+            "role": "experimental_video_requires_content_review",
+            "status": "cached",
+            "sha256": "ca6b4e5db0c91f19586585e64039f3d5c6807c85e597f0a6c9a09ddd9ebb5a4d",
+            "bytes": 11398742
+          }
+        ],
+        "material": "ADP_levitated_solution",
+        "source_url": "https://www.nature.com/articles/s41467-024-47503-1",
+        "license": "CC BY 4.0 per article; inspect supplementary credits and preserve source/changes"
+      },
+      {
+        "source_id": "KDP-2026",
+        "data_status": "downloaded_phase_specific_movies_pending_annotations",
+        "reason": "Three KDP microscopy movies and supplementary methods were obtained through official PMC cloud storage and decoded. Phase-transition, dissolution and growth examples retain their published phase/cadence context; no pixel masks, defect-onset labels or actuator-response validation are supplied.",
+        "assets": [
+          {
+            "name": "pmc_metadata.json",
+            "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/PMC12919635.1.json",
+            "role": "official_repository_metadata",
+            "status": "cached",
+            "text_preview": "{\"pmcid\": \"PMC12919635\", \"version\": 1, \"pmid\": 41726226, \"doi\": \"10.1039/d5ra09916a\", \"mid\": null, \"title\": \"Growth and morphological control of metastable KDP crystals using defect-free seeds\", \"citation\": \"RSC Adv. 2026 Feb 19;16(11):10012\\u201321. doi: 10.1039/d5ra09916a\", \"is_pmc_openaccess\": tr",
+            "sha256": "ee62db4cd3ecdacdaf49ed2e0993fbb4c3c7294e690f8488a9e512122206a320",
+            "bytes": 2073
+          },
+          {
+            "name": "d5ra09916a1.pdf",
+            "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/RA-016-D5RA09916A-s001.pdf?md5=521dd459dd3ef74263dcabee07d914e9",
+            "status": "cached",
+            "publisher_md5_verified": "521dd459dd3ef74263dcabee07d914e9",
+            "sha256": "ef362635ba68880acf398ca14d9880b23dbb89e202ecacd8c080e93a8ab735d2",
+            "bytes": 586651
+          },
+          {
+            "name": "d5ra09916a2.mov",
+            "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/RA-016-D5RA09916A-s002.mov?md5=784083dac5f2965a8d2a277c818fcc66",
+            "role": "experimental_KDP_microscopy",
+            "status": "cached",
+            "publisher_md5_verified": "784083dac5f2965a8d2a277c818fcc66",
+            "sha256": "05f40dca1d31f89e06df7fbb3c10a558b5f2ad1d797ef1670a80e4da7735cd7a",
+            "bytes": 8533209
+          },
+          {
+            "name": "d5ra09916a3.mov",
+            "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/RA-016-D5RA09916A-s003.mov?md5=3ea69765040ebc970f7fec4f91bf2de1",
+            "role": "experimental_KDP_microscopy",
+            "status": "cached",
+            "publisher_md5_verified": "3ea69765040ebc970f7fec4f91bf2de1",
+            "sha256": "9741f0c9a296ff6cb76461f70f2e90222a30f71d4e485191207f4f1c0dfd297c",
+            "bytes": 8004606
+          },
+          {
+            "name": "d5ra09916a4.mov",
+            "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/RA-016-D5RA09916A-s004.mov?md5=8d3dd9ba24370132c8e2234f6ac46be4",
+            "role": "experimental_KDP_microscopy",
+            "status": "cached",
+            "publisher_md5_verified": "8d3dd9ba24370132c8e2234f6ac46be4",
+            "sha256": "562974edc8e05788afa1709ced9434452bed83b04a0fc33da4075b2a338b79ba",
+            "bytes": 8015802
+          }
+        ],
+        "material": "KDP_multiple_phases",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/",
+        "license": "CC BY-NC 3.0"
+      }
+    ],
+    "scope": "Real microscopy/vision acquisition. Source labels and conditions require import review; no KDP controller or optical-quality validation is implied.",
+    "verified_kdp_trajectory_sources": [],
+    "measurement_readiness": "no_verified_KDP_growth_trajectories"
+  },
+  "leeds_index": {
+    "directory": "data/real_vision_leeds_v1",
+    "protocol": "configs/leeds_vision_import.json",
+    "protocol_sha256": "d4e07ecfd9aa960af170dfd350fc9beda619c22018740b0f529f67ff1d9f5c14",
+    "index_sha256": "815d86ae34c107c8bac9863b937e212b9c776d38e665ccd7a563e944c6478421",
+    "archive_sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+    "summary": {
+      "images": 2123,
+      "runs": 9,
+      "images_by_split": {
+        "train": 1323,
+        "validation": 400,
+        "test": 400
+      },
+      "images_by_run": {
+        "12": 200,
+        "14": 523,
+        "16": 200,
+        "18": 200,
+        "20-R1": 200,
+        "20-R2": 200,
+        "20-R3": 200,
+        "22": 200,
+        "26-R0": 200
+      },
+      "images_with_manual_shape_fit": 79,
+      "reviewed_segmentation_masks": 0,
+      "reviewed_visible_events": 0
+    },
+    "reconstruction_audit": "pass",
+    "audit_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/import_vision_data.py --output data/real_vision_leeds_v1 --audit"
+  },
+  "experimental_videos": [
+    {
+      "source_id": "ADP-NATURE-2024",
+      "material": "ADP_levitated_solution",
+      "file": "supplementary_movie_1.mp4",
+      "sha256": "ca6b4e5db0c91f19586585e64039f3d5c6807c85e597f0a6c9a09ddd9ebb5a4d",
+      "decoded_frames": 297,
+      "width": 1280,
+      "height": 720,
+      "last_video_time_s": 9.876543209876544,
+      "clock": "container",
+      "reported_fps": 30.003033643102,
+      "published_playback_speedup": null,
+      "split": "development_only",
+      "pixel_event_labels_available": false
+    },
+    {
+      "source_id": "KDP-2026",
+      "material": "KDP_multiple_phases",
+      "file": "d5ra09916a2.mov",
+      "sha256": "05f40dca1d31f89e06df7fbb3c10a558b5f2ad1d797ef1670a80e4da7735cd7a",
+      "decoded_frames": 306,
+      "width": 1350,
+      "height": 1080,
+      "last_video_time_s": 10.166666666666666,
+      "clock": "container",
+      "reported_fps": 30.0,
+      "published_playback_speedup": 14,
+      "split": "development_only",
+      "pixel_event_labels_available": false
+    },
+    {
+      "source_id": "KDP-2026",
+      "material": "KDP_multiple_phases",
+      "file": "d5ra09916a3.mov",
+      "sha256": "9741f0c9a296ff6cb76461f70f2e90222a30f71d4e485191207f4f1c0dfd297c",
+      "decoded_frames": 286,
+      "width": 1440,
+      "height": 1080,
+      "last_video_time_s": 9.5,
+      "clock": "container",
+      "reported_fps": 30.0,
+      "published_playback_speedup": 25,
+      "split": "development_only",
+      "pixel_event_labels_available": false
+    },
+    {
+      "source_id": "KDP-2026",
+      "material": "KDP_multiple_phases",
+      "file": "d5ra09916a4.mov",
+      "sha256": "562974edc8e05788afa1709ced9434452bed83b04a0fc33da4075b2a338b79ba",
+      "decoded_frames": 289,
+      "width": 1350,
+      "height": 1080,
+      "last_video_time_s": 9.6,
+      "clock": "container",
+      "reported_fps": 30.0,
+      "published_playback_speedup": 15,
+      "split": "development_only",
+      "pixel_event_labels_available": false
+    }
+  ],
+  "limits": [
+    "No reviewed segmentation masks or visible-event onset labels",
+    "Leeds material is alpha-LGA; source manual fits are shape parameters, not pixel masks",
+    "KDP movies have different phase/growth/dissolution conditions and CC BY-NC restrictions",
+    "Nature movie is ADP, not KDP",
+    "Frames are not independent experiments; no physical controller/quality validation",
+    "Actual per-frame acquisition clocks remain unverified; playback timestamps are distinct"
+  ]
+}

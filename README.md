@@ -3,14 +3,22 @@
 CrystaLab aims to observe crystal growth through a camera, detect visible changes
 and support PID/adaptive control with operator involvement, as proposed in the
 [original pitch](Pitch_KDP.pptx). The implemented foundation is an illustrative 3D
-growth simulator, verified numerical flow components and an audited growth-data
-pipeline. No trained model, vision system or automatic controller is implemented.
+growth simulator, verified numerical flow components, an audited growth-data
+pipeline and an OpenCV video-observation baseline. No trained model, evaluated
+defect detector or automatic controller is implemented.
 
 The completed growth dataset contains **360 episodes and 1,080 audited samples**.
-The next milestone is video ingestion, a vision baseline and real/synthetic image
-data, followed by YOLOv8-seg, event alerts and controller integration. See the
+Video ingestion and the seed baseline are implemented; the next work is real
+image annotation and synthetic optical data, followed by YOLOv8-seg,
+event alerts and controller integration. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
+
+Real observations are now local: **2,123 alpha-LGA microscope images from nine
+runs, three phase-specific KDP movies and one separately identified ADP movie**.
+The image index preserves 79 source manual shape fits; reviewed segmentation and
+event labels are still missing. See [real vision data](docs/REAL_VISION_DATA.md)
+for source licenses, frozen groups, local paths and import/replay commands.
 
 ## Where is the dataset?
 
@@ -78,6 +86,7 @@ vision and physical control require their own measurements and validation.
 
 - [Documentation index](docs/README.md): methods, evidence and source references.
 - [Vision MVP](docs/VISION_MVP.md): image data, perception, alerts and control gates.
+- [Video baseline](docs/VISION_BASELINE.md): fixture replay, input clocks, masks and evidence outputs.
 - [AI readiness](docs/AI_READINESS.md): separate vision, growth and control readiness.
 - [Physical data](docs/PHYSICAL_DATA.md): structural reference and measurement limits.
 - [Development history](docs/DEVELOPMENT_HISTORY.md): superseded plans and milestones.

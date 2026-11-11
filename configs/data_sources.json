@@ -34,7 +34,7 @@
       "material": "KDP_multiple_phases",
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/",
       "license": "CC BY-NC 3.0",
-      "reason": "Supplementary solubility/micrographs and three movies; phase-specific conditions, timing, scale and labels need audit.",
+      "reason": "Primary publisher requests failed, but the supplementary PDF and three microscopy movies were retrieved through official PMC cloud storage on 2026-11-11. See configs/vision_sources.json for pinned URLs/checksums and phase-specific limits; no reviewed facet trajectories or defect masks.",
       "assets": [
         {
           "name": "d5ra09916a1.pdf",
@@ -68,8 +68,8 @@
       "material": "alpha_L_glutamic_acid",
       "url": "https://archive.researchdata.leeds.ac.uk/1537/",
       "license": "CC BY 4.0 per repository record",
-      "reason": "Record describes synthetic RGB/3D labels and experimental images/manual measurements. Archive record exposes no direct file downloads; file access remains unverified.",
-      "data_status": "other_material_vision_candidate"
+      "reason": "Direct repository links were verified on 2026-11-11 and microscope images/manual shape fits were downloaded and indexed. See configs/vision_sources.json and docs/REAL_VISION_DATA.md. Other material; no KDP calibration or reviewed segmentation labels.",
+      "data_status": "other_material_microscopy_downloaded"
     },
     {
       "source_id": "MFA-STRATH-2022",

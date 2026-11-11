@@ -1,6 +1,9 @@
 # Vision and control MVP contract
 
-Status: planned on 2026-11-11. No camera, vision model or controller is implemented.
+Status: first implementation/data batch on 2026-11-11. The file/camera adapter,
+OpenCV seed baseline and real-image importer exist. No trained model, evaluated
+defect detector or controller is implemented. See [Video baseline](VISION_BASELINE.md)
+and [Real vision data](REAL_VISION_DATA.md) for actual evidence.
 The [roadmap](../roadmap.md) defines the sequence. This document turns the
 [pitch](../Pitch_KDP.pptx), especially slides 5–9, into reviewable deliverables.
 

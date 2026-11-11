@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-11-11",
+  "scope": "Real microscopy/vision acquisition. Source labels and conditions require import review; no KDP controller or optical-quality validation is implied.",
+  "sources": [
+    {
+      "source_id": "LGA-LEEDS-2026",
+      "material": "alpha_L_glutamic_acid",
+      "url": "https://archive.researchdata.leeds.ac.uk/1537/",
+      "doi": "10.5518/1684",
+      "citation": "Ilett, Hazlehurst, Jiang, Ma, Hogg and Roberts (2026), Reconstruction of 3D crystal growth from transmission optical microscopy images - Supporting data, University of Leeds.",
+      "license": "CC BY 4.0; copyright 2026 University of Leeds; retain citation, license link and derivative/change records",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "reason": "Repository README identifies original microscope images and manual measurements for nine experiments. Other material; exact observations, splits and annotation compatibility require inspection. Validation and result videos are not automatically raw real training data.",
+      "data_status": "real_images_indexed_manual_shape_fits_preserved_masks_unavailable",
+      "assets": [
+        {
+          "name": "file_manifest.txt",
+          "kind": "text",
+          "role": "archive_inventory",
+          "url": "https://archive.researchdata.leeds.ac.uk/1537/2/file_manifest.txt",
+          "max_bytes": 1000000,
+          "sha256": "61e28177e714157edfed46ca1680a25883a8f89af6a8a872887afb33c2c7bde6"
+        },
+        {
+          "name": "README_ILETT_2026.txt",
+          "kind": "text",
+          "role": "provenance_and_license",
+          "url": "https://archive.researchdata.leeds.ac.uk/1537/12/README_ILETT_2026.txt",
+          "max_bytes": 1000000,
+          "sha256": "b22b8d6b86e9058485c52d3666b1fdfddadd94d732d94c2dc514344e86931d14"
+        },
+        {
+          "name": "experiments.zip",
+          "kind": "zip",
+          "role": "real_experiments",
+          "url": "https://archive.researchdata.leeds.ac.uk/1537/8/experiments.zip",
+          "max_bytes": 750000000,
+          "sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690"
+        },
+        {
+          "name": "videos.zip",
+          "kind": "zip",
+          "role": "result_videos_requires_content_review",
+          "url": "https://archive.researchdata.leeds.ac.uk/1537/11/videos.zip",
+          "max_bytes": 25000000,
+          "sha256": "b5f223b0f9517ed839f4acd7894e7ad7295abfbe5df6d07e4cf751830355e59e"
+        },
+        {
+          "name": "validation.zip",
+          "kind": "zip",
+          "role": "synthetic_reconstruction_checks",
+          "url": "https://archive.researchdata.leeds.ac.uk/1537/10/validation.zip",
+          "max_bytes": 55000000,
+          "sha256": "51124a153c0ac15c63fca1eefc7ad1a6070895ac17bb0056a16934b337424578"
+        }
+      ]
+    },
+    {
+      "source_id": "ADP-NATURE-2024",
+      "material": "ADP_levitated_solution",
+      "url": "https://www.nature.com/articles/s41467-024-47503-1",
+      "doi": "10.1038/s41467-024-47503-1",
+      "citation": "Cho et al. (2024), Impact of molecular symmetry on crystallization pathways in highly supersaturated KH2PO4 solutions, Nature Communications 15, 3117.",
+      "license": "CC BY 4.0 per article; inspect supplementary credits and preserve source/changes",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "reason": "Downloaded supplementary caption explicitly identifies rapid crystallization of ADP at S approximately 3.5. The article also studies KDP, but this movie must not be labeled KDP. Levitated droplet conditions differ from the seeded optical-crystal tank; no defect labels or acquisition-to-playback timing have been established.",
+      "data_status": "experimental_video_pending_import",
+      "assets": [
+        {
+          "name": "movie_description.pdf",
+          "kind": "pdf",
+          "role": "movie_conditions",
+          "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-024-47503-1/MediaObjects/41467_2024_47503_MOESM3_ESM.pdf",
+          "max_bytes": 1000000,
+          "sha256": "e1004fbc065a60d06f13589a161eca21f55769fe3d621f59d444008e977e47a7"
+        },
+        {
+          "name": "supplementary_movie_1.mp4",
+          "kind": "mp4",
+          "role": "experimental_video_requires_content_review",
+          "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-024-47503-1/MediaObjects/41467_2024_47503_MOESM4_ESM.mp4",
+          "max_bytes": 20000000,
+          "sha256": "ca6b4e5db0c91f19586585e64039f3d5c6807c85e597f0a6c9a09ddd9ebb5a4d"
+        }
+      ]
+    },
+    {
+      "source_id": "KDP-2026",
+      "material": "KDP_multiple_phases",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/",
+      "license": "CC BY-NC 3.0",
+      "reason": "Three KDP microscopy movies and supplementary methods were obtained through official PMC cloud storage and decoded. Phase-transition, dissolution and growth examples retain their published phase/cadence context; no pixel masks, defect-onset labels or actuator-response validation are supplied.",
+      "assets": [
+        {
+          "name": "pmc_metadata.json",
+          "kind": "text",
+          "role": "official_repository_metadata",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/PMC12919635.1.json",
+          "max_bytes": 1000000,
+          "sha256": "ee62db4cd3ecdacdaf49ed2e0993fbb4c3c7294e690f8488a9e512122206a320"
+        },
+        {
+          "name": "d5ra09916a1.pdf",
+          "kind": "pdf",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/RA-016-D5RA09916A-s001.pdf?md5=521dd459dd3ef74263dcabee07d914e9",
+          "max_bytes": 2000000,
+          "original_publisher_url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a1.pdf",
+          "md5": "521dd459dd3ef74263dcabee07d914e9",
+          "sha256": "ef362635ba68880acf398ca14d9880b23dbb89e202ecacd8c080e93a8ab735d2"
+        },
+        {
+          "name": "d5ra09916a2.mov",
+          "kind": "mov",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/RA-016-D5RA09916A-s002.mov?md5=784083dac5f2965a8d2a277c818fcc66",
+          "max_bytes": 15000000,
+          "original_publisher_url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a2.mov",
+          "md5": "784083dac5f2965a8d2a277c818fcc66",
+          "sha256": "05f40dca1d31f89e06df7fbb3c10a558b5f2ad1d797ef1670a80e4da7735cd7a",
+          "role": "experimental_KDP_microscopy",
+          "caption_id": "S1",
+          "published_playback_speedup": 14,
+          "caption_context": "Defective seed undergoing transition in a solution supersaturated relative to stable tetragonal KDP.",
+          "caption_provenance": "Supplementary information page S8",
+          "split": "development_only",
+          "pixel_labels_available": false
+        },
+        {
+          "name": "d5ra09916a3.mov",
+          "kind": "mov",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/RA-016-D5RA09916A-s003.mov?md5=3ea69765040ebc970f7fec4f91bf2de1",
+          "max_bytes": 15000000,
+          "original_publisher_url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a3.mov",
+          "md5": "3ea69765040ebc970f7fec4f91bf2de1",
+          "sha256": "9741f0c9a296ff6cb76461f70f2e90222a30f71d4e485191207f4f1c0dfd297c",
+          "role": "experimental_KDP_microscopy",
+          "caption_id": "S2",
+          "published_playback_speedup": 25,
+          "caption_context": "Monoclinic and tetragonal fiber seeds in a solution slightly undersaturated relative to the monoclinic phase.",
+          "caption_provenance": "Supplementary information page S8",
+          "split": "development_only",
+          "pixel_labels_available": false
+        },
+        {
+          "name": "d5ra09916a4.mov",
+          "kind": "mov",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/RA-016-D5RA09916A-s004.mov?md5=8d3dd9ba24370132c8e2234f6ac46be4",
+          "max_bytes": 15000000,
+          "original_publisher_url": "https://www.rsc.org/suppdata/d5/ra/d5ra09916a/d5ra09916a4.mov",
+          "md5": "8d3dd9ba24370132c8e2234f6ac46be4",
+          "sha256": "562974edc8e05788afa1709ced9434452bed83b04a0fc33da4075b2a338b79ba",
+          "role": "experimental_KDP_microscopy",
+          "caption_id": "S3",
+          "published_playback_speedup": 15,
+          "caption_context": "Monoclinic and tetragonal fiber seeds at 4.18 percent relative supersaturation with respect to the monoclinic phase.",
+          "caption_provenance": "Supplementary information page S8",
+          "split": "development_only",
+          "pixel_labels_available": false
+        }
+      ],
+      "data_status": "downloaded_phase_specific_movies_pending_annotations",
+      "repository_metadata_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12919635.1/PMC12919635.1.json",
+      "retrieval_note": "Direct publisher links returned 404/403 on 2026-11-11. Official PMC cloud media URLs and MD5 values were discovered through its current public metadata API; primary failures remain in the dated audit.",
+      "attribution": "Article authors/RSC; retrieved through NIH NLM NCBI PubMed Central Article Datasets; no endorsement implied.",
+      "license_url": "https://creativecommons.org/licenses/by-nc/3.0/"
+    }
+  ]
+}

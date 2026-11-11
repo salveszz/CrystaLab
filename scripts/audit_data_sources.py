@@ -1,5 +1,6 @@
-# FILE PURPOSE: Audit physical/measurement source metadata and explicitly listed
-# public files. This standalone tool preserves access failures and file hashes;
+# FILE PURPOSE: Audit physical/vision source metadata and explicitly listed
+# public files, including bounded image archives and experimental videos.
+# This standalone tool preserves access failures, licenses and file hashes;
 # it does not generate datasets, fit models or change simulation parameters.
 
 """Inspect physical-data sources, optionally caching bounded public downloads."""
@@ -12,6 +13,7 @@ import io
 import json
 from pathlib import Path
 import urllib.request
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -24,9 +26,34 @@ def _describe_payload(data, kind):
     if kind == "pdf":
         if not data.startswith(b"%PDF-"):
             raise ValueError("Response is not a PDF")
-    elif kind == "mov":
+    elif kind in {"mov", "mp4"}:
         if data[4:8] not in (b"ftyp", b"mdat", b"moov", b"wide"):
             raise ValueError("Response has no recognized QuickTime container header")
+    elif kind == "zip":
+        try:
+            with zipfile.ZipFile(io.BytesIO(data)) as archive:
+                entries = archive.infolist()
+                if not entries:
+                    raise ValueError("Archive is empty")
+                for item in entries:
+                    path = Path(item.filename)
+                    if (
+                        path.is_absolute()
+                        or ".." in path.parts
+                        or "\\" in item.filename
+                    ):
+                        raise ValueError("Unsafe archive member path")
+                expanded = sum(item.file_size for item in entries)
+                if expanded > 8 * 1024**3:
+                    raise ValueError(
+                        "Archive exceeds the 8 GiB expanded-size audit limit"
+                    )
+                bad = archive.testzip()
+                if bad is not None:
+                    raise ValueError(f"Archive CRC failure: {bad}")
+                details.update(archive_entries=len(entries), expanded_bytes=expanded)
+        except zipfile.BadZipFile as error:
+            raise ValueError("Response is not a complete valid ZIP archive") from error
     elif kind == "csv":
         rows = list(csv.reader(io.StringIO(data.decode("utf-8-sig"))))
         if len(rows) < 2 or len(rows[0]) < 2:
@@ -47,6 +74,7 @@ def audit_sources(registry, cache, *, fetch=False):
         "checked_at_utc": datetime.now(timezone.utc).isoformat(),
         "network_requested": fetch,
         "sources": [],
+        "scope": registry.get("scope"),
     }
     for source in registry["sources"]:
         result = {
@@ -54,9 +82,14 @@ def audit_sources(registry, cache, *, fetch=False):
             "data_status": source["data_status"],
             "reason": source["reason"],
             "assets": [],
+            "material": source.get("material"),
+            "source_url": source.get("url"),
+            "license": source.get("license"),
         }
         for asset in source.get("assets", []):
             entry = {"name": asset["name"], "url": asset["url"]}
+            if "role" in asset:
+                entry["role"] = asset["role"]
             try:
                 if (
                     Path(asset["name"]).name != asset["name"]
@@ -84,6 +117,13 @@ def audit_sources(registry, cache, *, fetch=False):
                     raise ValueError("Asset exceeds the declared download size limit")
                 entry.update(_describe_payload(data, asset["kind"]))
                 digest = hashlib.sha256(data).hexdigest()
+                if asset.get("md5") is not None:
+                    actual_md5 = hashlib.md5(data).hexdigest()
+                    if actual_md5 != asset["md5"]:
+                        raise ValueError(
+                            "Asset differs from the publisher's MD5 metadata"
+                        )
+                    entry["publisher_md5_verified"] = actual_md5
                 if asset.get("sha256") is not None and asset["sha256"] != digest:
                     raise ValueError("Asset SHA256 changed; source review is required")
                 entry.update(sha256=digest, bytes=len(data))

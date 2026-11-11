@@ -535,6 +535,17 @@ describes alpha-LGA vision data under CC BY 4.0; no direct file URLs were expose
 by the inspected archive record. IEEE lists a subscription requirement and no
 uploaded files. No unavailable payload is represented as a downloaded dataset.
 
+**2026-11-11 vision follow-up:** the Leeds direct file URLs are now verified;
+2,123 real alpha-LGA images and 79 manual shape-fit sidecars were downloaded and
+indexed. Three phase-specific KDP movies and supplementary methods were obtained
+from the official PMC cloud mirror after primary links failed. Publisher MD5 and
+local SHA256 checks pass. A separate Nature movie is explicitly ADP according to
+its caption. Current URLs, license/phase limits, actual labels and import evidence
+are in [the vision registry](configs/vision_sources.json) and
+[real vision data](docs/REAL_VISION_DATA.md). The old failed audit remains historical.
+These acquisitions do not supply reviewed segmentation masks, defect-onset labels
+or calibrated controller responses.
+
 No registered source currently supplies reviewed raw KDP facet trajectories.
 KDP-2016 and KDP-2025 remain their existing
 fit/aggregate records. Counts are not expanded into sample rows, and fitted

@@ -1,0 +1,14 @@
+{
+  "seed_point": [495, 345],
+  "roi": [350, 200, 370, 340],
+  "polarity": "dark",
+  "threshold": 180,
+  "minimum_area_px": 200,
+  "maximum_area_fraction": 0.8,
+  "morphology_size": 3,
+  "minimum_contrast": 5.0,
+  "minimum_focus": 0.0,
+  "minimum_iou": 0.1,
+  "ambiguity_margin": 0.05,
+  "maximum_gap_s": 2.0
+}

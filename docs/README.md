@@ -10,15 +10,19 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 |---|---|
 | [Roadmap](../roadmap.md) | Pitch-led milestones: camera, image data, perception, alerts, PID/adaptation and demonstration, plus HPC/Qiskit extensions. |
 | [Vision MVP](VISION_MVP.md) | Capture/annotation contract, observable targets, real/synthetic splits, evaluation and control interfaces. |
+| [Video baseline](VISION_BASELINE.md) | Implemented file/camera observation, explicit clocks, projected seed tracking, validity events and reproducible fixture replay. |
+| [Real vision data](REAL_VISION_DATA.md) | Acquired microscope images/videos, actual labels, frozen image splits, licenses, audits and development replay. |
+| [Vision checkpoint](VISION_CHECKPOINT.json) | Source hashes, 244-test result, fixture/development replay checks and remaining gates. |
 | [Dataset v1 card](SYNTHETIC_DATASET_V1.md) | The active 360-episode / 1,080-sample dataset, splits, missingness and use limits. |
 | [Dataset v1 report](SYNTHETIC_DATASET_V1.json) | Actual hashes, groups, audit results and measured runtime. |
 | [Data pipeline contract](SYNTHETIC_DATA.md) | Generation/audit commands, exact labels, observations, units and provenance. |
 | [AI readiness](AI_READINESS.md) | Separate readiness gates for vision, synthetic growth prediction and physical control. |
 | [Data directory guide](../data/README.md) | Local generated files, original inputs and the Git ignore policy. |
 
-No model fitting, vision system or physical controller is implemented. The next
-work is a video baseline and real/synthetic image-data path. YOLOv8-seg and event
-alerts follow the image-data gate. Growth baselines and XGBoost remain a supporting
+The file/camera adapter and OpenCV seed baseline are implemented; no model fitting,
+evaluated defect detector or physical controller is implemented. Real image
+annotation and optical synthetic data are next. YOLOv8-seg and event alerts
+follow the image-data gate. Growth baselines and XGBoost remain a supporting
 experiment using the frozen tabular splits, illustrative units and fixed law.
 
 ## Physics and verification

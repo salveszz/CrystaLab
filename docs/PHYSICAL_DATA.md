@@ -53,13 +53,20 @@ package or folder layout is introduced.
 ```
 
 Downloads have size limits and format/hash checks. HTML challenge pages are
-rejected; failures remain visible. The last actual file-access attempts,
-2026-11-08, returned 403/404 for the listed KDP supplementary and Strathclyde
+rejected; failures remain visible. The 2026-11-08 physical-source audit returned
+403/404 for listed KDP/Strathclyde
 files. Those are dated access observations, not proof of permanent unavailability.
 The existing KDP tables/fitted rates remain aggregate calibration references;
-they are not expanded into artificial measured trajectories. No verified raw
-KDP growth time series has been imported. Evidence is in
+they are not expanded into artificial measured trajectories. No reviewed numerical
+KDP facet-growth trajectory dataset has been imported. Evidence is in
 [DATA_AUDIT.json](DATA_AUDIT.json).
+
+The 2026-11-11 [vision acquisition](REAL_VISION_DATA.md) subsequently obtained the
+KDP supplementary PDF and three phase-specific movies through the official PMC
+cloud mirror. It also imported real alpha-LGA microscope images and separately
+identified an ADP movie. These actual observations still need target annotations,
+clock/condition review and calibration; they do not complete the facet-trajectory
+or physical-control validation described here. The dated 2026-11-08 audit is retained.
 
 ## Measurement preparation and next work
 

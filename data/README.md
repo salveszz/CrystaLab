@@ -1,5 +1,22 @@
 # Data directory
 
+## Real vision observations
+
+The acquired microscope data is indexed at `data/real_vision_leeds_v1/images.jsonl`:
+2,123 real alpha-LGA images from nine runs, split 1,323/400/400 by whole source
+run/family. Original images and 79 manual shape-fit sidecars remain in the pinned
+ZIP under `data/external_vision/LGA-LEEDS-2026/`. Pixel masks and event labels are
+unavailable until annotation review. This is another material, not KDP calibration.
+
+`data/external_vision/KDP-2026/` retains three real phase-specific KDP microscopy
+movies and supplementary methods; `ADP-NATURE-2024/` retains a separately identified
+ADP movie. Source licenses, clocks, integrity checks and import/replay commands
+are in [Real vision data](../docs/REAL_VISION_DATA.md) and the
+[source registry](../configs/vision_sources.json). These raw acquisitions and
+generated indexes remain Git-ignored. A fresh clone must fetch/index them.
+
+## Synthetic growth data
+
 The active synthetic dataset is stored locally at:
 
 ```text

@@ -1,0 +1,25 @@
+{
+  "schema": "crystalab_leeds_import_v1",
+  "source_id": "LGA-LEEDS-2026",
+  "material": "alpha_L_glutamic_acid",
+  "source_url": "https://archive.researchdata.leeds.ac.uk/1537/",
+  "doi": "10.5518/1684",
+  "citation": "Ilett, Hazlehurst, Jiang, Ma, Hogg and Roberts (2026), Reconstruction of 3D crystal growth from transmission optical microscopy images - Supporting data, University of Leeds.",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "archive_sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+  "nominal_frame_interval_s": 300,
+  "clock_provenance": "The article reports five-minute imaging intervals. Per-frame acquisition timestamps and dropped frames are not yet independently transcribed. Nominal elapsed times are assumptions; actual acquisition times remain null.",
+  "split_policy": "Whole runs; all 20-degree replicates share a conservative condition family. Runs 12 and 14 were used for pilot source/label inspection and remain training/development data. Validation/test images are not used for visual tuning. This tests within-source transfer, not an independent laboratory/campaign.",
+  "experiments": {
+    "12": {"annotation_id": "12", "family_id": "temperature_12", "split": "train", "expected_frames": 200},
+    "14": {"annotation_id": "14", "family_id": "temperature_14", "split": "train", "expected_frames": 523},
+    "16": {"annotation_id": "16", "family_id": "temperature_16", "split": "validation", "expected_frames": 200},
+    "18": {"annotation_id": "18", "family_id": "temperature_18", "split": "test", "expected_frames": 200},
+    "20-R1": {"annotation_id": "20R1", "family_id": "temperature_20", "split": "train", "expected_frames": 200},
+    "20-R2": {"annotation_id": "20R2", "family_id": "temperature_20", "split": "train", "expected_frames": 200},
+    "20-R3": {"annotation_id": "20R3", "family_id": "temperature_20", "split": "train", "expected_frames": 200},
+    "22": {"annotation_id": "22", "family_id": "temperature_22", "split": "validation", "expected_frames": 200},
+    "26-R0": {"annotation_id": "26R0", "family_id": "temperature_26", "split": "test", "expected_frames": 200}
+  }
+}

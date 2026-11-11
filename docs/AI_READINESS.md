@@ -3,29 +3,30 @@
 The [pitch-led roadmap](../roadmap.md) prioritizes camera observations, real and
 synthetic images, YOLOv8-seg, event alerts and PID/adaptive control. The completed
 tabular growth dataset is ready for a bounded supporting experiment. It does not
-make the vision system or physical controller ready. No model fitting, camera
-pipeline or automatic controller is implemented.
+make the vision system or physical controller ready. Video/camera ingestion, the
+OpenCV seed baseline and real-image import are implemented. No trained model,
+evaluated defect detector or automatic controller is implemented.
 
 ## Readiness gates
 
 | Task | Current evidence | Next gate |
 |---|---|---|
-| Video baseline and image-data pipeline | Existing geometry/rendering foundation; no image dataset or camera adapter. | Inventory pilot footage/capture access; implement ingestion, annotations, baseline replay and audited synthetic images. |
+| Video baseline and image-data pipeline | File/camera adapter, tested seed baseline and development replay; 2,123 real alpha-LGA images indexed, plus KDP/ADP clips acquired. | Review pixel/event labels, acquisition clocks and measurement accuracy; add audited optical synthetic images. |
 | YOLOv8-seg and visible-event alerts | Model task is defined in the pitch; no training or evaluated alerts. | Reviewed labels, whole-run/scene splits, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
 | PID/adaptive software loop | Bounded scripted simulation commands; no feedback controller. | Sensor/command interfaces, PID and bounded supervisor, fixed-recipe comparison and traceable action logs. |
-| Physical KDP growth/control | Structural references and aggregate literature summaries. | Suitable measured runs, relevant calibration, equipment/response characterization and independent experiments. |
+| Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
 | HPC/Qiskit extensions | Separate verified CPU flow operators; no Qiskit implementation. | Bounded hardware/accuracy benchmark and a justified impurity-cluster VQE/classical comparison, as defined in the roadmap. |
 
 ## Immediate vision work
 
 1. Freeze a pilot capture/annotation contract: observable targets, original
    timestamps, view/pose, run/source IDs, uncertainty and event-onset evidence.
-2. Implement video ingestion and an OpenCV seed-measurement/tracking baseline;
-   export evidence overlays before adding a learned detector.
+2. The [video baseline](VISION_BASELINE.md) is implemented. Establish mask/measurement
+   accuracy on reviewed development annotations before treating it as a detector.
 3. Build the Blender/OpenCV image path with inspected masks and recorded rendering
-   assumptions. Collect/annotate real clips now; their availability remains an
-   explicit dependency, not an assumed completed input.
+   assumptions. [Real images/clips](REAL_VISION_DATA.md) are now acquired, with
+   source fits preserved. Reviewed pixel masks and visible-event labels remain open.
 4. Compare YOLOv8-seg and temporal event decisions against the baseline, separating
    real and synthetic results and reserving whole real experiments for final test.
 

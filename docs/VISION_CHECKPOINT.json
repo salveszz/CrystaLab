@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-11",
+  "scope": "First video baseline and real-data acquisition/import; no ML/control completion claim",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "status": "pass",
+    "tests": 244,
+    "subtests": 130,
+    "seconds": 102.93
+  },
+  "source_sha256": {
+    "src/vision/__init__.py": "b34f3c72e8da31e68c4fc157dc8275fa90bba24cd977ab49ddb3ea5ccfa14826",
+    "src/vision/baseline.py": "567bedbc626959339e30af9b2d83000c43ffc6a0ef5a765144d864af8f41f359",
+    "src/vision/data.py": "309e05d7c6b5fbda13439dc0e4c68ac960deb53dffcece397a32a0ecb34c5e02",
+    "src/vision/replay.py": "5913b8fd71e2dc56b83eb6242c919f68ffc9a67341c5d1a494fb371f42553bed",
+    "src/vision/sequence.py": "d10b7133be89a30980a340a700387c81ec64df37eb771b26d6665e9b7113bdfc",
+    "src/vision/video.py": "1d72d3e06fcac17f3599b959e8d37bcd7bb1fe2c1251db1d9ac9b4491436593c",
+    "src/rendering/observation.py": "8dae97df5b2a55a03405b76e87edf3de6e3b0ce212544bcd81ffa0aa8a52167d",
+    "scripts/observe_video.py": "99215936e1d908ea44ea20fb57aaf95e20d65d89eb00df40a18e6391df1b0fad",
+    "scripts/make_vision_fixture.py": "f77f66914dcdd0b33dd6f086fec4556b4de405144195ed693c4a4729d67b184e",
+    "scripts/import_vision_data.py": "5c787592c7788fa8ea443c4ad9bb20513593b1e1df91a8250fad2842186570c0",
+    "scripts/export_vision_sequence.py": "6599f477e616682cb3a740d0d49ef147dac986f4c9c2018f4eb01c4c174b0834",
+    "scripts/audit_data_sources.py": "25f3eb18aa67880a084fed99ac6a552555559cd8cba62586b33efd01e50e83e1",
+    "tests/test_vision.py": "0a937ec004e6c21472686599ded7a3bcc462e5f875c0e6abcf7c9de303957b4e",
+    "tests/test_vision_data.py": "330676a28d799f5a63c5498d2660c58f4d622f4372b643b7615e1b1e4ceda337",
+    "tests/test_data_sources.py": "d00a2644d6399e82683facfcb601bb327f48a1683688cba9672979dd380350d9",
+    "pyproject.toml": "80a0167b941248c7fcea74541d938e676dc22a26c81365d1d3d677353d5edc29"
+  },
+  "fixture": {
+    "path": "results/vision_baseline_v1",
+    "processed": 24,
+    "valid": 20,
+    "invalid": 4,
+    "final_image_visually_inspected": true
+  },
+  "development_pilot": {
+    "path": "results/leeds_pilot12_baseline_v2",
+    "source_run": "12",
+    "frames": 30,
+    "valid": 30,
+    "invalid": 0,
+    "initial_threshold_150_valid": 6,
+    "final_threshold_180_valid": 30,
+    "scope": "Development tuning only; validity count is not segmentation accuracy",
+    "final_image_visually_inspected": true
+  },
+  "growth_dataset_audit": "pass; all 360 episodes/1080 samples retained",
+  "simulation_and_growth_pipeline_source_unchanged": true,
+  "packaging_note": "pyproject.toml adds an optional vision extra; strict historical resume identity therefore changes",
+  "data_report": "docs/REAL_VISION_DATA.json",
+  "data_report_sha256": "fbc1003d3c816957400bfc2678bf68641c032249038c7ce83d3b80ef7a69faa0",
+  "remaining": [
+    "Reviewed pixel/event annotations and acceptance budgets",
+    "Blender optical synthetic data",
+    "YOLOv8-seg and real holdout event/measurement evaluation",
+    "PID/adaptive predictive control, operator interface and physical assessment",
+    "HPC GPU benchmark and justified Qiskit impurity-cluster extension"
+  ]
+}

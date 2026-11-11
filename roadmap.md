@@ -32,8 +32,17 @@ contract and evidence gates are in [Vision MVP](docs/VISION_MVP.md).
   six recipes and 648/216/216 frozen train/validation/test rows.
 - [x] Review: 227 tests pass across the full run and the nine sandbox-affected
   multiprocessing reruns; the working dataset passes a fresh reconstruction audit.
-- [ ] Camera ingestion, annotated image/video data, trained perception, alert UI,
-  PID/adaptive control, physical integration and Qiskit implementation.
+- [x] First implementation checkpoint: 244 tests / 130 subtests pass in a fresh
+  full run; growth data and real-image reconstruction audits pass. Evidence:
+  [vision checkpoint](docs/VISION_CHECKPOINT.json).
+- [x] File-video/camera adapters, explicit clocks, OpenCV seed baseline, masks,
+  validity events and inspectable fixture/real-pilot replays.
+- [x] Acquire/index 2,123 real alpha-LGA microscope images across nine runs;
+  preserve 79 manual shape fits and frozen whole-run/family image splits.
+- [x] Acquire three phase-specific KDP microscopy movies and a separate ADP movie,
+  with original methods/captions, licenses and source checksum verification.
+- [ ] Reviewed pixel/event labels, optical synthetic image data, trained perception,
+  defect alerts/UI, PID/adaptive control, physical integration and Qiskit.
 
 The growth dataset has 720 fully observed rows and 360 startup rows with missing
 sensor/history inputs. It uses illustrative units, one fixed growth law and no
@@ -45,6 +54,8 @@ quality targets. Keep its [card](docs/SYNTHETIC_DATASET_V1.md),
 - [ ] Inventory available real footage/capture equipment, material, independent
   growth runs, temperature logs and possible actuator access. Unknown access
   remains an explicit dependency; no purchase or hardware capability is assumed.
+  The public-data portion is now inventoried in [Real vision data](docs/REAL_VISION_DATA.md);
+  user-owned equipment and actuator access remain unconfirmed.
 - [ ] Define timestamp origin, camera view/pose, scale, lighting, observation
   interval and the measurements actually visible through the vessel.
 - [ ] Prioritize seed silhouette and visible secondary crystals; check pilot
@@ -61,10 +72,14 @@ start, while real-data and early-defect claims remain blocked by that dependency
 
 ## Milestone 1 — video baseline and real/synthetic image data
 
-- [ ] Implement recorded-video ingestion and a camera adapter with common
-  timestamps, calibration, frame validity and run metadata.
-- [ ] Add an OpenCV seed-measurement baseline and temporal tracking; export an
-  overlay with projected area/dimensions and their measurement validity.
+- [x] Implement recorded-video ingestion and a camera adapter with explicit
+  timestamps, frame validity and run metadata. Physical calibration remains open.
+- [x] Add an OpenCV seed-measurement baseline and temporal tracking; export an
+  overlay with projected area/dimensions and their measurement validity. Fixture
+  checks and a 30-frame development replay pass; real mask accuracy is unevaluated.
+- [x] Import the pinned real microscope image archive with an independent
+  reconstruction audit and source-family splits. Source shape fits stay distinct
+  from missing segmentation/event labels.
 - [ ] Label a real pilot including negative periods and optical distractors;
   establish whether candidate objects are observable and consistently labelable.
 - [ ] Build the pitch's Blender/OpenCV image generator with masks and temporal
@@ -199,5 +214,7 @@ permission notes are historical; future work follows the current authorization.
 
 The [development history](docs/DEVELOPMENT_HISTORY.md) and numerical checkpoints
 retain earlier work. Current priorities are defined here; method documents and
-dataset cards describe their own bounded components. This replanning changes
-documentation only and starts no training, generation, deployment or hardware run.
+dataset cards describe their own bounded components. The first implementation and
+real-data acquisition are now present; [Video baseline](docs/VISION_BASELINE.md) and
+[Real vision data](docs/REAL_VISION_DATA.md) record their scope. Model fitting,
+optical synthetic generation, deployment and hardware actuation have not started.
