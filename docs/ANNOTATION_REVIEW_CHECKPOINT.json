@@ -1,0 +1,137 @@
+{
+  "schema": "crystalab_annotation_review_checkpoint_v1",
+  "date": "2026-11-11",
+  "parent_revision": "e0c8171b17d003e6d9004367b69245168ed81b3d",
+  "scope": "Local still-image annotation tool; no actual human labels, mixed training, full operator control UI or physical action",
+  "source_sha256": {
+    "src/dashboard/__init__.py": "c380b59505c39f9a8dd040e6e4305b7ba78603d0174a547e86e99667a221115c",
+    "src/dashboard/review.py": "0df2db9db2cf9d0691e47fd88a945089a537d2b6e5f5be5ce16f1583ca1d0c4f",
+    "src/dashboard/static/review.html": "b62f32257b2e0c79809765c1f171b661b7b2df77cf6a893bc3aad78b27aea81b",
+    "src/dashboard/static/review.css": "da2af77d0c391d284fe86b2347657b8555ba3fe6a969442515cf65c37a64de2f",
+    "src/dashboard/static/review.js": "159e0f4ba0392db6520a902d41487e5e6098a8068ea94fdd3c47c706f68f3107",
+    "src/vision/annotations.py": "336a2f906cb0ad9a4fa3c6bc4fb66cc78a0765902acdc1b5d5d5cc505f4a6446",
+    "scripts/review_annotations.py": "e1b6c1ae7cb8372c5836d1d7ad0bc9176d96dcd5496b1a600a83c3e81748cce0",
+    "tests/annotation_review_fixture.py": "97128626c8056e6f41c612963d3d923b00478dd726631ea83827b8414feac7ee",
+    "tests/test_annotation_review.py": "8b8cd17a16a01d0149f63a5bdb4e333507be49ce2607492fed653175c2b318dd",
+    "tests/check_annotation_review_ui.py": "393b5a2eff0e1167a6781236c4d005010ca8f25bf1ccf3fa68ec88f073ef2df7",
+    "pyproject.toml": "d09e4de063a201bb98799e35e6dd474a52d24bc1eb267963f9adea250eb8a5a2"
+  },
+  "regression": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "tests_passed": 358,
+    "subtests_passed": 236,
+    "elapsed_seconds": 101.75,
+    "python": "3.14.8",
+    "log_sha256": "3be303f83878adcd77d1a363982a292f1f2ade88d90cdb02a122766602ac37d0",
+    "lint": "ruff check: all checks passed",
+    "format": "ruff format --check: 7 files already formatted",
+    "javascript_syntax": "node --check: passed"
+  },
+  "browser": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 QT_QPA_PLATFORM=offscreen QTWEBENGINE_CHROMIUM_FLAGS=--disable-gpu .venv/bin/python tests/check_annotation_review_ui.py --output results/annotation_review_ui_v2 --real-bundle data/annotations_leeds12_v1",
+    "adapter": "Installed PySide6/QtWebEngine, offscreen with an off-the-record profile; user-facing CUA surfaces were unavailable",
+    "path": "results/annotation_review_ui_v2",
+    "report_sha256": "a2314df3a6e7645ccce31b278513ce98d56c6664182f430820f8fcbafce6d9c6",
+    "status": "passed",
+    "pyside6": "6.11.2",
+    "checks": [
+      "Initial proposals are unreviewed; review/export disabled",
+      "Native canvas drag changes a polygon vertex",
+      "Undo restores the dragged outline",
+      "Clicking an edge inserts a vertex",
+      "Delete removes the selected vertex",
+      "New outline preserves an explicit object class",
+      "An uncertain object disables review",
+      "Uncertain draft saves without a receipt",
+      "Image-level uncertainty stays a draft",
+      "Editing after acknowledgment clears it",
+      "Explicit fixture review saves and locks the exact labels",
+      "Export includes only reviewed fixture image",
+      "Revision unlocks selected labels and removes its prior acknowledgment",
+      "Navigation clears review acknowledgment",
+      "Empty image needs separate explicit negative acknowledgment",
+      "Reviewed empty fixture has an explicit negative receipt",
+      "Mobile layout fits without horizontal page overflow",
+      "Real bundle opens read-only with zero review receipts",
+      "Original real image dimensions remain native",
+      "Read-only preview can navigate real proposals"
+    ],
+    "console_errors": [],
+    "servers_stopped": true,
+    "screenshot_sha256": {
+      "fixture_desktop.png": "a034f5bfec2c3d0cd2db86c92f23b38d8d682bb61be0594e2ac47e8a26eff353",
+      "fixture_mobile.png": "a781e95a1ab23f62df5d39577ba6e9fdbd1a983ad3f97e3c9be80b30a1737019",
+      "real_read_only_desktop.png": "e73895b05aa4dd2857dc5deddb3c418718f76d53ad581cc16e5a9d9221f4f449",
+      "real_read_only_full_image.png": "2ff9a6110a35c8ab3287e89e110b8019b96cad1273443d51c7bd201e045d9b63"
+    },
+    "visual_inspection": "Desktop fixture, native real focused outline and real full-image screenshots inspected; mobile fixture screenshot inspected at 390x844",
+    "earlier_attempt": {
+      "path": "results/annotation_review_ui_v1/report.json",
+      "status": "failed",
+      "report_sha256": "d55a9d9003d545d6b9a3b29e84d723cca6d79d983ee6ca741d70c0aa50a57e5d",
+      "finding": "QA probes raced page navigation and emitted injected evaluation errors. Harness now waits for the requested port and safely polls during navigation; subsequent run passed."
+    }
+  },
+  "package": {
+    "command": ".venv/bin/python -m pip wheel --no-build-isolation --no-deps --no-index --wheel-dir /tmp/crystalab-review-wheel .",
+    "report_path": "results/annotation_review_wheel_v1.json",
+    "report_sha256": "29f11c1d92f45e3391df13a3787e1331827433947385f7a81677e66a03889431",
+    "status": "passed",
+    "finding": "All three packaged editor assets are byte-identical to the checkout"
+  },
+  "real_annotation_bundle": {
+    "path": "/home/salves/dev/CrystaLab/data/annotations_leeds12_v1",
+    "unchanged": true,
+    "before": {
+      "annotations/12_0000.json": "57f7f6234570292f0df41275da775801b9bd715bd3c0e15c55d02a7c827302ac",
+      "annotations/12_0040.json": "48366d15b39ecced52871d79c3df6a2b6fc2afbc357c15b44af5be08de4eb1e0",
+      "annotations/12_0080.json": "db2e1edc60c7a3916fbf3d1e71cfe0e59540cad706b54bc6264547a13288fbc7",
+      "annotations/12_0120.json": "51489bd7d03db430b27aa0b0a6b862e7bf6e20388bf05e5664f2ee0ca2b3ad7e",
+      "annotations/12_0160.json": "848f3db036a61f53f8f61b92f8a1847aa6255758f6835c140c5f6a20e64a7c42",
+      "annotations/12_0199.json": "b22c7df70e7d07ba3e4d7f3045defae987514bb3a84f839b766d42d37c460b57",
+      "images/12_0000.png": "6b2676b4f0747a9d641767f2855bb3d890b64560d14bfd79194cd7739e95cf99",
+      "images/12_0040.png": "23502c5cf3d8d5bb9f1abfd83b4f2a5fa5a515c02aa66cc9506cc47d9fa7c205",
+      "images/12_0080.png": "239a98499028d7d4dab67368458a8ed410f57a71e30fdcf501f6c3b0304766ff",
+      "images/12_0120.png": "cdb48dee3e19e3503723e15e6c7e1be72d4b88e860d8bc3157d944a98722cc22",
+      "images/12_0160.png": "d094ae92ff1cdac443ed56487356725e23401652a9b1f826257065e7d16cbffb",
+      "images/12_0199.png": "08220c0dd973f8d72e79ca911ec18cd779b8be609fab7354e8f35d1c091e8115",
+      "manifest.json": "8faf7bff0b5acb667be3d88cf7429232dc1651139dfd2016feec77ff3b4ee963"
+    },
+    "after": {
+      "annotations/12_0000.json": "57f7f6234570292f0df41275da775801b9bd715bd3c0e15c55d02a7c827302ac",
+      "annotations/12_0040.json": "48366d15b39ecced52871d79c3df6a2b6fc2afbc357c15b44af5be08de4eb1e0",
+      "annotations/12_0080.json": "db2e1edc60c7a3916fbf3d1e71cfe0e59540cad706b54bc6264547a13288fbc7",
+      "annotations/12_0120.json": "51489bd7d03db430b27aa0b0a6b862e7bf6e20388bf05e5664f2ee0ca2b3ad7e",
+      "annotations/12_0160.json": "848f3db036a61f53f8f61b92f8a1847aa6255758f6835c140c5f6a20e64a7c42",
+      "annotations/12_0199.json": "b22c7df70e7d07ba3e4d7f3045defae987514bb3a84f839b766d42d37c460b57",
+      "images/12_0000.png": "6b2676b4f0747a9d641767f2855bb3d890b64560d14bfd79194cd7739e95cf99",
+      "images/12_0040.png": "23502c5cf3d8d5bb9f1abfd83b4f2a5fa5a515c02aa66cc9506cc47d9fa7c205",
+      "images/12_0080.png": "239a98499028d7d4dab67368458a8ed410f57a71e30fdcf501f6c3b0304766ff",
+      "images/12_0120.png": "cdb48dee3e19e3503723e15e6c7e1be72d4b88e860d8bc3157d944a98722cc22",
+      "images/12_0160.png": "d094ae92ff1cdac443ed56487356725e23401652a9b1f826257065e7d16cbffb",
+      "images/12_0199.png": "08220c0dd973f8d72e79ca911ec18cd779b8be609fab7354e8f35d1c091e8115",
+      "manifest.json": "8faf7bff0b5acb667be3d88cf7429232dc1651139dfd2016feec77ff3b4ee963"
+    }
+  },
+  "review_evidence": {
+    "actual_human_reviews_created": 0,
+    "current_actual_review_receipts": 0,
+    "images_available": 6,
+    "synthetic_receipts": "Only generated QA fixture pixels; not real truth",
+    "uploads": false,
+    "physical_devices_opened": false,
+    "physical_commands_issued": false
+  },
+  "next_gate": [
+    "A person inspects/corrects six original outline proposals and records actual per-image reviews",
+    "Settle boundary/class rules, expand training-family pilot and collect contiguous labeled event/negative periods",
+    "Freeze numeric budgets and independent evaluation protocol before mixed real/synthetic training and final scoring"
+  ],
+  "remaining_pitch_requirements": [
+    "Reviewed real accuracy, relevant independent KDP data and first-hour clock/coverage evidence",
+    "Comparable-pose face/asymmetry measurements and supported inclusion/event labels",
+    "Longer trajectories/action-response evidence and changing adaptive forecast/state policy",
+    "Full video/process/proposal/override operator display and equipment characterization",
+    "GPU HPC comparison, justified impurity-cluster VQE/classical comparison and independent physical benefit experiments"
+  ]
+}

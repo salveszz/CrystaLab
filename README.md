@@ -40,8 +40,10 @@ runs, three phase-specific KDP movies and one separately identified ADP movie**.
 The image index preserves 79 source manual shape fits; reviewed segmentation and
 event labels are still missing. See [real vision data](docs/REAL_VISION_DATA.md)
 for source licenses, frozen groups, local paths and import/replay commands.
+The [local review editor](docs/ANNOTATION_REVIEW_UI.md) now lets a person correct
+the six proposed outlines, save uncertain drafts and record individual reviews.
 The [annotation workflow](docs/ANNOTATIONS.md) exports only explicitly reviewed
-labels. [Optical synthetic data](docs/OPTICAL_SYNTHETIC.md) keeps geometric masks,
+labels; actual human reviews are still zero. [Optical synthetic data](docs/OPTICAL_SYNTHETIC.md) keeps geometric masks,
 refracted proxies and uncalibrated optics distinct.
 
 ## Where is the dataset?

@@ -44,7 +44,20 @@ data/annotations_leeds12_v1/
   reviews/
 ```
 
-The JSON annotations use the polygon structure supported by
+The [local image review tool](ANNOTATION_REVIEW_UI.md) opens these originals and
+lets a person move, add or remove outline points without editing JSON:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/review_annotations.py \
+  --bundle data/annotations_leeds12_v1
+```
+
+Open `http://127.0.0.1:8765`. Draft saving and navigation do not record reviews.
+Use `--read-only` for an inspection session with all writes disabled. The editor
+supports uncertain drafts, explicit individual reviews, preserved revision bundles
+and reviewed-subset export. It is separate from the future video/control dashboard.
+
+The JSON annotations also use the polygon structure supported by
 [LabelMe](https://github.com/wkentaro/labelme). Open the annotation JSON in a local
 polygon editor that preserves its relative image reference, or edit the points
 directly. No online upload is needed by this workflow. The source image, dimensions,
@@ -59,8 +72,9 @@ source ID, run and family must remain unchanged.
   `secondary_crystal` and `inclusion_candidate`. Do not identify a bubble or speck
   as a secondary crystal without supporting evidence; uncertain identity remains
   flagged and excluded from reviewed training export.
-- Keep an uncertain shape's `flags.uncertain` true. The exporter rejects uncertain
-  polygons. Review the observation/target definition rather than silently converting
+- Keep an uncertain shape's `flags.uncertain` true, or flag the whole image when
+  it cannot be labeled confidently. The editor can save such drafts; review and
+  export reject them. Review the observation/target definition rather than silently converting
   uncertainty into a healthy/negative label.
 - An empty proposal means the baseline did not produce an outline. It is not a
   negative example. Only an explicitly inspected image with no visible target
@@ -89,6 +103,8 @@ For a verified empty image, add `--empty-reviewed`. There is no automatic
 approve-all operation. A receipt records reviewer, time and exact image/annotation
 hashes. Changing a polygon or source image after review invalidates that receipt.
 Previous receipts are never overwritten; use a new bundle for a revised review.
+The editor's **Revise selected image** action creates that bundle and preserves
+earlier evidence, while retaining other unchanged valid reviews.
 This is a traceable operator attestation, not authentication of reviewer identity.
 
 Export the accepted subset into an unused directory:

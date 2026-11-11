@@ -1,0 +1,44 @@
+<!-- FILE PURPOSE: Present original microscope images and editable outlines for explicit local review. -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CrystaLab · Image review</title>
+  <link rel="stylesheet" href="/assets/review.css">
+  <script src="/assets/review.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand"><span class="crystal-mark" aria-hidden="true">◇</span><div><strong>CrystaLab</strong><span>Image review</span></div></div>
+    <div class="header-progress"><span id="progress-label">Loading images…</span><progress id="progress" value="0" max="1" aria-label="Reviewed images"></progress></div>
+    <span id="read-only" class="badge" hidden>Read-only preview</span>
+    <button id="export" class="button-secondary" disabled>Export reviewed labels</button>
+  </header>
+  <main>
+    <section class="workspace" aria-label="Image and outline editor">
+      <div class="workspace-heading"><div><p class="eyebrow" id="material">MICROSCOPE IMAGES</p><h1>Check the crystal’s visible edge</h1><p>Move the points to follow the outer boundary. Mark unclear objects or edges as uncertain.</p></div><span class="badge" id="version"></span></div>
+      <nav id="samples" class="sample-tabs" aria-label="Images in this bundle"></nav>
+      <div class="canvas-panel">
+        <div class="canvas-toolbar" role="toolbar" aria-label="Outline tools">
+          <div class="tool-group"><button id="edit" aria-pressed="true">Edit points</button><button id="draw" aria-pressed="false">New outline</button><button id="pan" aria-pressed="false">Pan</button><button id="finish" hidden>Finish outline ↵</button><button id="cancel-draw" hidden>Cancel</button></div>
+          <div class="tool-group"><button id="undo" title="Undo the last edit" disabled>Undo</button><button id="hide" aria-pressed="false">Hide outlines</button></div>
+        </div>
+        <div id="viewport" class="viewport"><canvas id="canvas" tabindex="0" aria-label="Microscope image with editable polygon points"></canvas><span id="image-loading" class="loading">Loading original image…</span></div>
+        <div class="canvas-footer"><div class="tool-group"><button id="focus-outline">Focus outline</button><button id="fit-image">Fit image</button><button id="native-size">100%</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-in" aria-label="Zoom in">+</button></div><span id="image-info">—</span></div>
+      </div>
+      <p class="shortcuts">Drag a point to move it · Click an edge to add a point · Delete removes a selected point · Space + drag pans · Scroll zooms</p>
+      <div class="image-navigation"><button id="previous">← Previous</button><span id="source-label"></span><button id="next">Next →</button></div>
+    </section>
+    <aside class="review-panel" aria-label="Labels and review">
+      <div class="review-heading"><h2>This image</h2><span id="status" class="badge">Loading</span></div>
+      <p class="muted" id="sample-name"></p>
+      <section class="side-section"><h3>Visible objects</h3><div id="shape-list" class="shape-list"></div><p id="draw-help" class="muted" hidden>Click each corner of the object, then press Enter to close the outline.</p><label for="label">Object label</label><select id="label"><option value="seed">Main crystal</option><option value="secondary_crystal">Other crystal</option><option value="inclusion_candidate">Possible inclusion</option></select><label class="check"><input id="shape-uncertain" type="checkbox"><span>This object or boundary is uncertain</span></label><button id="remove-shape" class="button-text" disabled>Remove selected outline</button></section>
+      <section class="side-section"><label class="check"><input id="image-uncertain" type="checkbox"><span>The image is too unclear to label confidently</span></label><label for="notes">Notes <span class="optional">optional</span></label><textarea id="notes" rows="3" placeholder="For example: glare obscures the right edge."></textarea><div class="draft-actions"><button id="save" class="button-secondary" disabled>Save draft</button><button id="discard" class="button-text" disabled>Discard edits</button></div><p class="muted">Drafts can stay uncertain. A draft is not a reviewed training label.</p></section>
+      <section class="side-section review-action"><h3>Record a review</h3><p class="muted">Check the original image and every visible target object before continuing.</p><label for="reviewer">Reviewer name</label><input id="reviewer" type="text" autocomplete="name" maxlength="200" placeholder="Your name"><label class="check"><input id="ack" type="checkbox"><span>I checked this image and its current outlines.</span></label><label id="empty-row" class="check" hidden><input id="empty-reviewed" type="checkbox"><span>I checked that no target objects are visible.</span></label><button id="review" class="button-primary" disabled>Record review</button><p id="review-help" class="muted"></p><button id="revise" class="button-secondary" hidden>Revise selected image</button></section>
+      <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+    </aside>
+  </main>
+  <footer class="app-footer"><span id="bundle-path"></span><span>Original pixels · Local files · Still-image outline review</span></footer>
+</body>
+</html>

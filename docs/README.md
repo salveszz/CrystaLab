@@ -24,6 +24,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Area forecast checkpoint](AREA_FORECAST_CHECKPOINT.json) | Actual cohort/model/replay identities, independent parameter/metric audit, negative baseline finding and regression evidence. |
 | [Real vision data](REAL_VISION_DATA.md) | Acquired microscope images/videos, actual labels, frozen image splits, licenses, audits and development replay. |
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
+| [Local image review](ANNOTATION_REVIEW_UI.md) | Native-image polygon editor, uncertain drafts, explicit per-image review, preserved revisions and accepted-subset export. |
+| [Image review checkpoint](ANNOTATION_REVIEW_CHECKPOINT.json) | API/regression checks, 20 browser interactions and byte-identical real read-only preview with zero actual human reviews. |
 | [Optical synthetic images](OPTICAL_SYNTHETIC.md) | Pinned Blender/Cycles renderer, scene splits, geometric/optical mask semantics and visual failure history. |
 | [Optical/annotation checkpoint](OPTICAL_CHECKPOINT.json) | Source-matched optical/annotation verification, 254-test run, revised smoke audit and zero accepted real labels. |
 | [Vision training](VISION_TRAINING.md) | Audited YOLO polygon adapter, pinned local training/evaluation, synthetic first fits and retained detection failures. |

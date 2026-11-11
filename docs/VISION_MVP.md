@@ -188,6 +188,8 @@ real-training/evaluation dataset. Follow the current batches in the
 1. Checkpoint those additions, review the six proposed real outlines, expand a
    bounded pilot and freeze annotation/evaluation rules. Declare a synthetic
    cohort and identify missing physical capture dependencies.
+   The [local polygon editor](ANNOTATION_REVIEW_UI.md) implements draft/review
+   interaction for this data gate; it does not replace actual human inspection.
 2. The YOLOv8-seg training/evaluation entry points and first synthetic software
    checks in `src/models/` are implemented, including the grouped synthetic pilot
    and synthetic seed comparison. Compare on reviewed real data when available.

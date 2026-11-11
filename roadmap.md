@@ -30,10 +30,10 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 | Tabular growth data | 360 episodes / 1,080 audited samples, frozen grouped splits and no quality labels. | Optional supporting forecast benchmark. These are not camera-training examples. |
 | Video observation | Baseline/learned file/camera adapters, explicit clocks, seed role/uncertainty, raw masks, mapped source frames and candidate identities/inspection events during observation or on saved masks. | Reviewed real event accuracy and live equipment verification. Integrated decisions were tested on files; candidates are not confirmed defects. |
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies and a separate ADP movie. | Reviewed pixel/event labels and representative independent KDP evaluation data. Source fits are not segmentation masks. |
-| Annotation tooling | Six editable seed proposals from training run 12, previews and guarded review/export code. | Zero actual review receipts. A reviewer must inspect and correct labels before accepted real training export. |
+| Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke and 60-image/20-scene pilot, development visual inspection and independently exported construction-event labels for one three-frame scene. | Relevant real/image diversity and longer temporal coverage. Refracted masks remain annotation proxies. |
 | Observable forecast | Sixteen optical development replays, 32 within-clip windows, training-only rate calibration, startup-aware baseline metrics and real shadow forecasts. Calibrated future area is worse than persistence on four shared validation windows. | Boundary/measurement review, longer comparable-view/action-labelled trajectories, frozen budgets and adaptive forecast/state policy. No action-response model exists. |
-| Learned perception, controllers and UI | Local training/evaluation, grouped pilot, candidate analysis, explicit process records, PID, thermal tests, event-rule shadow proposals and scripted fixture-to-PID integration. Bubble/inclusion errors remain. Dashboard is a placeholder. | Real evaluation, equipment timing, face measurements, adaptive forecast/policy and operator demonstration. |
+| Learned perception, controllers and UI | Local training/evaluation, grouped pilot, candidate analysis, explicit process records, PID, thermal tests, event-rule shadow proposals and scripted fixture-to-PID integration. Still-image annotation UI exists; bubble/inclusion errors remain. | Real evaluation, equipment timing, face measurements, adaptive forecast/policy and the video/process/action operator demonstration. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
@@ -61,6 +61,9 @@ comparison. Its scripted pause delays recipe phase; no quality benefit is modele
 The [area-forecast checkpoint](docs/AREA_FORECAST_CHECKPOINT.json) adds the causal
 cohort/model/replay experiment, its measurement-bias finding and independent metric
 reconstruction. Final test families remain unscored.
+The [image-review checkpoint](docs/ANNOTATION_REVIEW_CHECKPOINT.json) adds the
+local still-image editor, explicit review/revision/export checks and 20 browser
+interactions. Real proposals were previewed read-only and remain unreviewed.
 
 ## Pitch requirements and completion evidence
 
@@ -88,6 +91,8 @@ alongside each other; human review remains necessary for accepted real labels.
 2. **Show and review the six existing seed proposals.** Explain the original image
    and proposed outline in plain language before choosing a reviewer. Correct
    visible boundaries, record uncertain cases and save actual review receipts.
+   The [local editor](docs/ANNOTATION_REVIEW_UI.md) now supports this directly,
+   including uncertain drafts and corrections that preserve earlier receipts.
    Use this to settle annotation rules before preparing a larger bundle. The
    agent must not invent human reviews.
 3. **Expand a bounded development pilot.** Start with roughly 30–50 selected images

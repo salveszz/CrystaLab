@@ -150,10 +150,11 @@ def _sample(bundle, annotation_name):
     return matches[0]
 
 
-def _validated_annotation(root, sample):
+def _validated_annotation(root, sample, *, annotation=None, allow_uncertain=False):
     if file_sha256(root / sample["image_path"]) != sample["image_sha256"]:
         raise ValueError("Annotation image changed")
-    annotation = read_json(root / sample["annotation_path"])
+    if annotation is None:
+        annotation = read_json(root / sample["annotation_path"])
     original = sample["source_record"]
     width, height = annotation["imageWidth"], annotation["imageHeight"]
     if (width, height) != (original["image_width"], original["image_height"]):
@@ -163,6 +164,8 @@ def _validated_annotation(root, sample):
     ).resolve():
         raise ValueError("Annotation image reference changed")
     shapes = annotation["shapes"]
+    if annotation.get("flags", {}).get("uncertain") and not allow_uncertain:
+        raise ValueError("Uncertain images cannot become reviewed training truth")
     for shape in shapes:
         if shape["label"] not in CLASSES or shape["shape_type"] != "polygon":
             raise ValueError("Unsupported polygon class/type")
@@ -185,7 +188,7 @@ def _validated_annotation(root, sample):
             or cv2.contourArea(points.astype(np.float32)) < 1
         ):
             raise ValueError("Degenerate polygon")
-        if shape.get("flags", {}).get("uncertain"):
+        if shape.get("flags", {}).get("uncertain") and not allow_uncertain:
             raise ValueError("Uncertain polygons cannot become reviewed training truth")
 
         # Simple polygons may be concave but must not cross themselves.
@@ -199,10 +202,26 @@ def _validated_annotation(root, sample):
                 if (j + 1) % len(points) == i:
                     continue
                 c, d = points[j], points[(j + 1) % len(points)]
-                if (
+                proper_cross = (
                     cross(a, b, c) * cross(a, b, d) < 0
                     and cross(c, d, a) * cross(c, d, b) < 0
-                ):
+                )
+
+                def on_segment(p, q, r):
+                    return abs(cross(p, q, r)) <= 1e-9 and bool(
+                        np.all(r >= np.minimum(p, q) - 1e-9)
+                        and np.all(r <= np.maximum(p, q) + 1e-9)
+                    )
+
+                touching = any(
+                    (
+                        on_segment(a, b, c),
+                        on_segment(a, b, d),
+                        on_segment(c, d, a),
+                        on_segment(c, d, b),
+                    )
+                )
+                if proper_cross or touching:
                     raise ValueError("Self-intersecting polygon")
     return annotation
 
@@ -217,10 +236,16 @@ def record_review(
     note="",
 ):
     """Explicit operator attestation; never called automatically during proposal export."""
-    if not acknowledge_image_reviewed or not reviewer.strip():
+    if (
+        acknowledge_image_reviewed is not True
+        or not isinstance(reviewer, str)
+        or not reviewer.strip()
+    ):
         raise ValueError(
             "An explicit named reviewer and image-review acknowledgment are required"
         )
+    if type(empty_reviewed) is not bool:
+        raise ValueError("Reviewed-negative acknowledgment must be explicit")
     root = Path(bundle_path)
     bundle = read_json(root / "manifest.json")
     if (

@@ -27,6 +27,11 @@ comparison are implemented; adaptive supervision and physical control remain ope
 
 Follow the [roadmap](../roadmap.md). The annotation/rendering additions are
 checkpointed. Next show the six existing outline proposals for review.
+The [local editor](ANNOTATION_REVIEW_UI.md) now supports native-image point edits,
+uncertain drafts and explicit individual reviews, with earlier receipts retained
+when corrections need a new version. Its real read-only preview changed no files;
+actual human review receipts remain zero. It does not complete the video/process
+operator display or adaptive/manual control interface.
 A reviewed outline is an image boundary that a person has checked and
 corrected; it is distinct from the computer's initial suggestion. An event label
 records what became visible and when, such as a secondary crystal appearing.
