@@ -6,7 +6,7 @@ and support PID/adaptive control with operator involvement, as proposed in the
 growth simulator, verified numerical flow components, an audited growth-data
 pipeline, an OpenCV video-observation baseline and a local YOLOv8-seg training
 pipeline. Initial synthetic-only fits save working weights; real defect accuracy
-and automatic control remain unevaluated.
+and physical control remain unevaluated.
 
 The completed growth dataset contains **360 episodes and 1,080 audited samples**.
 Video ingestion, the seed baseline, editable real-image proposals and the first
@@ -18,8 +18,10 @@ replays. Bubble false positives, missed inclusions and real mask accuracy remain
 open. [Temporal candidate analysis](docs/TEMPORAL_CANDIDATES.md) now retains
 non-seed identities, persistent inspection evidence and independently scored
 synthetic errors. The same decisions now run during single-pass observation.
-Real review, equipment verification, PID/adaptation and the operator demo remain
-open. See the
+The [temperature PID baseline](docs/TEMPERATURE_CONTROL.md) now runs with explicit
+sensor/command records and audited simulated-plant comparisons. Real review,
+equipment verification, vision/control integration, adaptation and the operator
+demo remain open. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
 

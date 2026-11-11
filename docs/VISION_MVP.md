@@ -189,9 +189,11 @@ real-training/evaluation dataset. Follow the current batches in the
    on saved replays and during observation are implemented. Verify physical capture,
    add supported face/edge measurements and evaluate temporal decisions on reviewed
    independent real data. The small synthetic event check retains detector errors.
-4. Fill `src/controllers/` with temperature PID, rule supervision and bounded
-   adaptation. Integrate an operator view in `src/dashboard/` and traceable
-   simulated/shadow actions before physical use.
+4. Temperature PID, unit-bearing process records, delayed simulated actuation and
+   audited fixed-recipe comparisons now exist in `src/controllers/`; see
+   [Temperature control](TEMPERATURE_CONTROL.md). Add vision/event integration,
+   rule supervision and bounded adaptation. Integrate an operator view in
+   `src/dashboard/` and traceable shadow actions before physical use.
 
 Preserve the simulator/data contracts and introduce optional training dependencies
 reproducibly. Synthetic-only fitting can test the pipeline while real review is

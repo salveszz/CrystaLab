@@ -1,2 +1,2 @@
-# FILE PURPOSE: Reserve the package for action-selection strategies; no controller code exists yet.
+# FILE PURPOSE: Provide explicit process contracts and bounded software feedback controllers.
 # Importing this package has no initialization side effects.

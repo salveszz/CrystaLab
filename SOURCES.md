@@ -1,6 +1,8 @@
 # CrystaLab sources and data register
 
-Last audit: 2026-11-08. This file records the websites and numeric evidence used
+Last full source audit: 2026-11-08. Subsequent vision acquisition and control-method
+updates are dated 2026-11-11; their artifacts are in the linked guides/checkpoints.
+This file records the websites and numeric evidence used
 or cited in the project. It separates imported values, method references,
 project choices and sources awaiting audit. A search result alone is not an
 experimental dataset. No imported record establishes calibrated optical quality.
@@ -18,8 +20,11 @@ corresponding JSON together when values, units or interpretations change.
 | NIST-KDP | [NIST Chemistry WebBook: KDP](https://webbook.nist.gov/cgi/cbook.cgi?ID=C7778770&Mask=80) | Molecular weight for molality-to-mass-ratio conversion; official entry inspected. |
 | COD-9010000 | [COD entry](https://www.crystallography.net/cod/9010000.html), [original paper DOI](https://doi.org/10.1088/0022-3719/15/1/005) | Hash-pinned local CIF, revision 291792, 295 K cell/density reference. Measurement pressure missing; original paper access blocked. |
 | CIF-CORE | [IUCr density definition](https://www.iucr.org/__data/iucr/cifdic_html/3/CORE_DIC/Iexptl_crystal.density_diffrn.html), [pressure definition](https://www.iucr.org/__data/iucr/cifdic_html/3/CORE_DIC/Icell_measurement.pressure.html) | Official field meanings/units: calculated density in Mg/m3 and cell measurement pressure in kPa, distinct from synthesis pressure. |
-| KDP-2026 | [Li et al., primary article](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/), [publisher](https://pubs.rsc.org/en/content/articlelanding/2026/ra/d5ra09916a) | Supplementary-data candidate across stable/metastable KDP phases; listed files could not be downloaded in this audit. No numeric observations imported. |
-| LGA-LEEDS-2026 | [University of Leeds dataset record](https://archive.researchdata.leeds.ac.uk/1537/) | Other-material vision candidate; record describes synthetic/experimental images and measurements. Direct file access unverified. |
+| KDP-2026 | [Li et al., primary article](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/), [publisher](https://pubs.rsc.org/en/content/articlelanding/2026/ra/d5ra09916a) | Later acquisition retrieved the supplement and three phase-specific microscopy movies through official PMC cloud storage; decoded and hash-pinned. No reviewed event/mask or actuator-response labels. See [acquired vision data](docs/REAL_VISION_DATA.md). |
+| LGA-LEEDS-2026 | [University of Leeds dataset record](https://archive.researchdata.leeds.ac.uk/1537/) | Later direct acquisition/import verified 2,123 microscope images from nine alpha-LGA runs and 79 source shape-fit sidecars. Reviewed masks remain unavailable. See [acquired vision data](docs/REAL_VISION_DATA.md). |
+| ADP-NATURE-2024 | [Cho et al., primary article](https://www.nature.com/articles/s41467-024-47503-1) | One acquired/decoded supplementary movie explicitly depicts ADP in a levitated droplet, not KDP tank growth. Caption/license/hash evidence is retained in the [vision registry](configs/vision_sources.json). |
+| CTRL-ANTIWINDUP | [MathWorks PID anti-windup documentation](https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html) | Primary method reference inspected 2026-11-11 for saturation/back-calculation/tracking concepts. Project Python implementation and test gains are independent; no physical parameters adopted. |
+| CTRL-DERIVATIVE | [NI PID algorithm documentation](https://www.ni.com/docs/en-US/bundle/labview/page/implementing-the-pid-algorithm-with-the-pid-vis.html) | Primary method reference inspected 2026-11-11 for derivative on measurement. Our filter/discretization/units are declared separately; no vendor code, gains or equipment limits adopted. |
 | MFA-STRATH-2022 | [University of Strathclyde dataset](https://pureportal.strath.ac.uk/en/datasets/data-for-direct-image-feature-extraction-and-multivariate-analysi/) | Other-material process/image CSV candidate; public file requests returned 403. No numeric observations imported. |
 | KDP-IEEE-2024 | [IEEE DataPort listing](https://ieee-dataport.org/documents/images-micro-craters-and-micro-cracks-surface-kdp-crystals) | Surface-defect images, subscription required and no files listed; not a growth-control dataset. |
 | KDP-2016 | [Wu et al., accepted manuscript](https://eprints.whiterose.ac.uk/105693/3/20160707%20Crystal%20Face%20Specific%20Growth%20Kinetics%20FINAL%20x-x.pdf), [repository record](https://eprints.whiterose.ac.uk/id/eprint/105693/), [DOI](https://doi.org/10.1021/acs.cgd.6b00189) | Two published face-distance fit summaries; manuscript inspected. |
@@ -676,3 +681,18 @@ Both Courant-1000 cases retain ~1e-10 capacities and pass momentum/energy/bounds
 All 214 tests pass. Source-matched records and failed/interrupted history are
 in `docs/CUTCELL_MOMENTUM_CHECKPOINT.json`; current regime limits and source
 changes are explained in `docs/CUTCELL_MOMENTUM.md`.
+
+## DESIGN-CONTROL-THERMAL-001
+
+`configs/temperature_control_baseline.json` defines a first-order thermal software
+fixture and four declared development scenarios. The time constants, loads,
+sensor/actuator delays, noise, PID gains, fallback value and command range/slew
+are project test assumptions. They are not measured KDP parameters, literature
+operating bounds or an approved thermostat recipe. The SI-bearing interfaces do
+not convert the older illustrative growth engine into a calibrated plant.
+
+The method references above motivate anti-windup and measurement derivatives;
+the actual equations, analytic tests, comparison results and limits are in
+[Temperature control](docs/TEMPERATURE_CONTROL.md) and its
+[checkpoint](docs/TEMPERATURE_CONTROL_CHECKPOINT.json). Physical equipment timing,
+operating limits and action-response evidence remain separate requirements.

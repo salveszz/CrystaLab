@@ -7,7 +7,8 @@ make the vision system or physical controller ready. Video/camera ingestion, the
 OpenCV seed baseline, real-image import, annotation tooling and the Blender
 optical smoke batch are implemented. YOLOv8-seg training and development
 evaluation now run locally on synthetic labels. The small fits do not establish
-real defect accuracy; no automatic controller is implemented.
+real defect accuracy. A temperature PID software baseline now runs on a declared
+thermal fixture; adaptive supervision and physical control remain open.
 
 ## Readiness gates
 
@@ -16,7 +17,7 @@ real defect accuracy; no automatic controller is implemented.
 | Video baseline and image-data pipeline | File/camera adapter, baseline/learned replay, original-frame mapping, real-image index, six editable proposals and audited 18-frame smoke / 60-image grouped optical datasets. | Human pixel/event review, clock/measurement checks and relevant real coverage. |
 | YOLOv8-seg and visible-event alerts | Pinned training/evaluation, grouped synthetic fit, seed comparison, learned seed-role replay and shared causal candidate inspection during observation or on saved masks. File-tested; bubble errors and missed inclusions remain. | Equipment timing, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
-| PID/adaptive software loop | Bounded scripted simulation commands; no feedback controller. | Sensor/command interfaces, PID and bounded supervisor, fixed-recipe comparison and traceable action logs. |
+| PID/adaptive software loop | Explicit channel/run/clock records, bounded temperature PID, delayed simulated actuator and independently audited fixed-recipe comparisons over four declared thermal scenarios. | Vision/event integration, bounded rule/adaptive supervisor and forecast, operator view and equipment-specific response/timeout evidence. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
 | HPC/Qiskit extensions | Separate verified CPU flow operators; no Qiskit implementation. | Bounded hardware/accuracy benchmark and a justified impurity-cluster VQE/classical comparison, as defined in the roadmap. |
 

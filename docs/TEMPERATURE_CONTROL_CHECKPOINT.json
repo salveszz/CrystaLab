@@ -1,0 +1,784 @@
+{
+  "schema": "crystalab_temperature_control_checkpoint_v1",
+  "date": "2026-11-11",
+  "parent_revision": "439f026950f5e88afde6d47bdcc8771d53fcd9be",
+  "design_id": "DESIGN-CONTROL-THERMAL-001",
+  "scope": "Unit-bearing process interfaces and temperature PID on a declared uncalibrated first-order thermal software fixture",
+  "source_sha256": {
+    "src/controllers/__init__.py": "981d3e2975cc05ce7c58727ccb494d4a9e04884f0e7a5c80b93789b6ff7b2712",
+    "src/controllers/audit.py": "7765b10c6ad9e34c381c6eaecd0cc21daff93eab1c2d96502438bb6f800a7dd2",
+    "src/controllers/benchmark.py": "42cc88c5e49d39693f64a7bb902552493be7927a3a18f965c6ced22fc8633255",
+    "src/controllers/contracts.py": "6907b655183c6180b95e46fe53c451b513920bc053d70b1c6efefa6116846078",
+    "src/controllers/pid.py": "d5692e53ebee66e86cb4593e071227ce7f01557d44d619c025484f9a3c5d43a0",
+    "src/controllers/thermal.py": "2ccc31d64e1759530acf4d81f8f41092cffb114e0fb6b1e0c036923e27607ab1",
+    "scripts/run_control_baseline.py": "334dd48e165460ae8a9d587973093f80c5a406ebd106e191461ca2be0f71c11a",
+    "scripts/audit_control_baseline.py": "ef267ba34f13b51510f5e483d8a2055ce0cf7259305c1d3954d92e53389e04d1",
+    "tests/test_control.py": "82ff021b2847ce57b9c71a6def990b02352fa39c1c04939bef8c1d3fcd40f0f9",
+    "tests/test_control_benchmark.py": "b1d4576e5b6eba55cfe3bf2c34439857c3f83315189bae3a7ddac5d1c5aff9e6"
+  },
+  "configuration_path": "configs/temperature_control_baseline.json",
+  "configuration_sha256": "fb1117522eee6cd7b678ede1497a9a01e9ddcef0cfc88764ae6d32d70ed539ef",
+  "configuration": {
+    "schema": "crystalab_temperature_benchmark_v1",
+    "description": "Declared first-order thermal SOFTWARE FIXTURE with illustrative gains, time constants, disturbances and limits. Not measured KDP/equipment parameters or an operating recommendation.",
+    "clock_id": "thermal_fixture_elapsed_s",
+    "step_s": 1,
+    "duration_s": 600,
+    "limits": {
+      "channel": "bath_temperature",
+      "unit": "K",
+      "minimum": 294.15,
+      "maximum": 304.15,
+      "maximum_rate_per_s": 0.2,
+      "provenance": "SOFTWARE FIXTURE ONLY: chosen interface-test bounds, not approved KDP/equipment limits"
+    },
+    "pid": {
+      "kp": 1.5,
+      "ki_per_s": 0.05,
+      "kd_s": 2,
+      "derivative_filter_s": 3,
+      "anti_windup_time_s": 5,
+      "integral_min_K": -20,
+      "integral_max_K": 20,
+      "maximum_feedback_age_s": 4,
+      "maximum_update_gap_s": 5,
+      "initial_output_K": 298.15,
+      "fallback_output_K": 298.15
+    },
+    "recipe": [
+      {
+        "time_s": 0,
+        "temperature_K": 298.15
+      },
+      {
+        "time_s": 60,
+        "temperature_K": 300.15
+      },
+      {
+        "time_s": 300,
+        "temperature_K": 300.15
+      },
+      {
+        "time_s": 420,
+        "temperature_K": 299.15
+      },
+      {
+        "time_s": 600,
+        "temperature_K": 299.15
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "nominal_ramp",
+        "time_constant_s": 60,
+        "actuator_delay_s": 2,
+        "sensor_delay_s": 1,
+        "sensor_noise_std_K": 0.01,
+        "seed": 20261111,
+        "disturbances": [
+          {
+            "time_s": 0,
+            "offset_K": 0
+          }
+        ],
+        "missing_intervals": [],
+        "held_intervals": [],
+        "manual_intervals": []
+      },
+      {
+        "id": "thermal_loads",
+        "time_constant_s": 90,
+        "actuator_delay_s": 3,
+        "sensor_delay_s": 2,
+        "sensor_noise_std_K": 0.01,
+        "seed": 20261112,
+        "disturbances": [
+          {
+            "time_s": 0,
+            "offset_K": -0.5
+          },
+          {
+            "time_s": 120,
+            "offset_K": -2
+          },
+          {
+            "time_s": 300,
+            "offset_K": 1
+          },
+          {
+            "time_s": 450,
+            "offset_K": 0
+          }
+        ],
+        "missing_intervals": [],
+        "held_intervals": [],
+        "manual_intervals": []
+      },
+      {
+        "id": "unreachable_then_recover",
+        "time_constant_s": 45,
+        "actuator_delay_s": 2,
+        "sensor_delay_s": 1,
+        "sensor_noise_std_K": 0.01,
+        "seed": 20261113,
+        "disturbances": [
+          {
+            "time_s": 0,
+            "offset_K": 0
+          },
+          {
+            "time_s": 100,
+            "offset_K": -8
+          },
+          {
+            "time_s": 220,
+            "offset_K": 0
+          }
+        ],
+        "missing_intervals": [],
+        "held_intervals": [],
+        "manual_intervals": []
+      },
+      {
+        "id": "feedback_faults",
+        "time_constant_s": 60,
+        "actuator_delay_s": 2,
+        "sensor_delay_s": 2,
+        "sensor_noise_std_K": 0.01,
+        "seed": 20261114,
+        "disturbances": [
+          {
+            "time_s": 0,
+            "offset_K": 0.5
+          },
+          {
+            "time_s": 300,
+            "offset_K": -1
+          }
+        ],
+        "missing_intervals": [
+          {
+            "start_s": 150,
+            "end_s": 170
+          }
+        ],
+        "held_intervals": [
+          {
+            "start_s": 260,
+            "end_s": 280
+          }
+        ],
+        "manual_intervals": [
+          {
+            "start_s": 380,
+            "end_s": 400,
+            "output_K": 301.15
+          }
+        ]
+      }
+    ]
+  },
+  "regression": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "tests_passed": 322,
+    "subtests_passed": 187,
+    "elapsed_seconds": 98.82,
+    "log_sha256": "7834b1505dc56f8f047f57642186fb84841ad7053e8426dbaae9a889577ccd77",
+    "lint": "ruff check: all checks passed",
+    "format": "ruff format --check: 10 files already formatted"
+  },
+  "experiment": {
+    "path": "results/temperature_control_baseline_v3",
+    "manifest_sha256": "c5845ffaff95a2bcfdca465410603627bbf28b0bd7e7bb7df9cb9f2a6893e4af",
+    "environment": {
+      "python": "3.14.8",
+      "numpy": "2.5.0",
+      "platform": "Linux-7.2.13-200.fc44.x86_64-x86_64-with-glibc2.43"
+    },
+    "elapsed_seconds": 0.8743327749980381,
+    "source_sha256": {
+      "src/controllers/__init__.py": "981d3e2975cc05ce7c58727ccb494d4a9e04884f0e7a5c80b93789b6ff7b2712",
+      "src/controllers/audit.py": "7765b10c6ad9e34c381c6eaecd0cc21daff93eab1c2d96502438bb6f800a7dd2",
+      "src/controllers/benchmark.py": "42cc88c5e49d39693f64a7bb902552493be7927a3a18f965c6ced22fc8633255",
+      "src/controllers/contracts.py": "6907b655183c6180b95e46fe53c451b513920bc053d70b1c6efefa6116846078",
+      "src/controllers/pid.py": "d5692e53ebee66e86cb4593e071227ce7f01557d44d619c025484f9a3c5d43a0",
+      "src/controllers/thermal.py": "2ccc31d64e1759530acf4d81f8f41092cffb114e0fb6b1e0c036923e27607ab1",
+      "scripts/run_control_baseline.py": "334dd48e165460ae8a9d587973093f80c5a406ebd106e191461ca2be0f71c11a"
+    },
+    "runs": [
+      {
+        "run_id": "nominal_ramp:fixed_recipe",
+        "scenario": "nominal_ramp",
+        "method": "fixed_recipe",
+        "records_path": "nominal_ramp_fixed_recipe/observations.jsonl",
+        "commands_path": "nominal_ramp_fixed_recipe/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 0.3050749514046043,
+          "sample_rmse_K": 0.43480796188337945,
+          "trapezoidal_IAE_K_s": 183.33890706997752,
+          "maximum_above_target_K": 0.4470319999433059,
+          "maximum_below_target_K": 1.316325361636416,
+          "requested_input_total_variation_K": 3.0,
+          "saturated_steps": 0,
+          "rate_limited_steps": 0,
+          "fallback_steps": 0,
+          "scripted_manual_steps": 0,
+          "invalid_observation_steps": 1
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "nominal_ramp:fixed_recipe:command:000599",
+            "run_id": "nominal_ramp:fixed_recipe",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 601.0,
+            "value": 299.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "nominal_ramp:fixed_recipe:command:000600",
+            "run_id": "nominal_ramp:fixed_recipe",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 602.0,
+            "value": 299.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ]
+      },
+      {
+        "run_id": "nominal_ramp:pid",
+        "scenario": "nominal_ramp",
+        "method": "pid",
+        "records_path": "nominal_ramp_pid/observations.jsonl",
+        "commands_path": "nominal_ramp_pid/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 0.14290918997396537,
+          "sample_rmse_K": 0.2135360109562738,
+          "trapezoidal_IAE_K_s": 85.88457878616822,
+          "maximum_above_target_K": 0.422235454871668,
+          "maximum_below_target_K": 0.5810782741260141,
+          "requested_input_total_variation_K": 17.76890650044237,
+          "saturated_steps": 0,
+          "rate_limited_steps": 0,
+          "fallback_steps": 1,
+          "scripted_manual_steps": 0,
+          "invalid_observation_steps": 1
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "nominal_ramp:pid:command:000599",
+            "run_id": "nominal_ramp:pid",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 601.0,
+            "value": 299.14815068368205,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "nominal_ramp:pid:command:000600",
+            "run_id": "nominal_ramp:pid",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 602.0,
+            "value": 299.1611664971444,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ]
+      },
+      {
+        "run_id": "thermal_loads:fixed_recipe",
+        "scenario": "thermal_loads",
+        "method": "fixed_recipe",
+        "records_path": "thermal_loads_fixed_recipe/observations.jsonl",
+        "commands_path": "thermal_loads_fixed_recipe/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 1.0059432567601954,
+          "sample_rmse_K": 1.1637066065458899,
+          "trapezoidal_IAE_K_s": 604.490057483273,
+          "maximum_above_target_K": 0.8666003271470117,
+          "maximum_below_target_K": 1.8846100477596792,
+          "requested_input_total_variation_K": 3.0,
+          "saturated_steps": 0,
+          "rate_limited_steps": 0,
+          "fallback_steps": 0,
+          "scripted_manual_steps": 0,
+          "invalid_observation_steps": 2
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "thermal_loads:fixed_recipe:command:000598",
+            "run_id": "thermal_loads:fixed_recipe",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 598.0,
+            "effective_at_s": 601.0,
+            "value": 299.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "thermal_loads:fixed_recipe:command:000599",
+            "run_id": "thermal_loads:fixed_recipe",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 602.0,
+            "value": 299.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "thermal_loads:fixed_recipe:command:000600",
+            "run_id": "thermal_loads:fixed_recipe",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 603.0,
+            "value": 299.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ]
+      },
+      {
+        "run_id": "thermal_loads:pid",
+        "scenario": "thermal_loads",
+        "method": "pid",
+        "records_path": "thermal_loads_pid/observations.jsonl",
+        "commands_path": "thermal_loads_pid/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 0.3616432098883781,
+          "sample_rmse_K": 0.46637024772288577,
+          "trapezoidal_IAE_K_s": 217.34312448083494,
+          "maximum_above_target_K": 0.965453204700907,
+          "maximum_below_target_K": 0.9272029774431871,
+          "requested_input_total_variation_K": 24.236666305482515,
+          "saturated_steps": 0,
+          "rate_limited_steps": 0,
+          "fallback_steps": 2,
+          "scripted_manual_steps": 0,
+          "invalid_observation_steps": 2
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "thermal_loads:pid:command:000598",
+            "run_id": "thermal_loads:pid",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 598.0,
+            "effective_at_s": 601.0,
+            "value": 299.4509047070553,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "thermal_loads:pid:command:000599",
+            "run_id": "thermal_loads:pid",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 602.0,
+            "value": 299.4483734063315,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "thermal_loads:pid:command:000600",
+            "run_id": "thermal_loads:pid",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 603.0,
+            "value": 299.3945384214931,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ]
+      },
+      {
+        "run_id": "unreachable_then_recover:fixed_recipe",
+        "scenario": "unreachable_then_recover",
+        "method": "fixed_recipe",
+        "records_path": "unreachable_then_recover_fixed_recipe/observations.jsonl",
+        "commands_path": "unreachable_then_recover_fixed_recipe/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 1.7491718640503802,
+          "sample_rmse_K": 2.947065710527466,
+          "trapezoidal_IAE_K_s": 1051.249716419126,
+          "maximum_above_target_K": 0.280491661271526,
+          "maximum_below_target_K": 7.47748786324712,
+          "requested_input_total_variation_K": 3.0,
+          "saturated_steps": 0,
+          "rate_limited_steps": 0,
+          "fallback_steps": 0,
+          "scripted_manual_steps": 0,
+          "invalid_observation_steps": 1
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "unreachable_then_recover:fixed_recipe:command:000599",
+            "run_id": "unreachable_then_recover:fixed_recipe",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 601.0,
+            "value": 299.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "unreachable_then_recover:fixed_recipe:command:000600",
+            "run_id": "unreachable_then_recover:fixed_recipe",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 602.0,
+            "value": 299.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ]
+      },
+      {
+        "run_id": "unreachable_then_recover:pid",
+        "scenario": "unreachable_then_recover",
+        "method": "pid",
+        "records_path": "unreachable_then_recover_pid/observations.jsonl",
+        "commands_path": "unreachable_then_recover_pid/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 0.7956247929374016,
+          "sample_rmse_K": 1.435758652232172,
+          "trapezoidal_IAE_K_s": 478.16973091977263,
+          "maximum_above_target_K": 0.4636923871433396,
+          "maximum_below_target_K": 3.7868986477425324,
+          "requested_input_total_variation_K": 21.179986410570393,
+          "saturated_steps": 106,
+          "rate_limited_steps": 18,
+          "fallback_steps": 1,
+          "scripted_manual_steps": 0,
+          "invalid_observation_steps": 1
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "unreachable_then_recover:pid:command:000599",
+            "run_id": "unreachable_then_recover:pid",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 601.0,
+            "value": 299.1835938168958,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "unreachable_then_recover:pid:command:000600",
+            "run_id": "unreachable_then_recover:pid",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 602.0,
+            "value": 299.12406858827745,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ]
+      },
+      {
+        "run_id": "feedback_faults:fixed_recipe",
+        "scenario": "feedback_faults",
+        "method": "fixed_recipe",
+        "records_path": "feedback_faults_fixed_recipe/observations.jsonl",
+        "commands_path": "feedback_faults_fixed_recipe/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 0.4318888289490638,
+          "sample_rmse_K": 0.5186733523949154,
+          "trapezoidal_IAE_K_s": 259.09164440991236,
+          "maximum_above_target_K": 0.4724907322054719,
+          "maximum_below_target_K": 1.0002650822221426,
+          "requested_input_total_variation_K": 6.31666666666672,
+          "saturated_steps": 0,
+          "rate_limited_steps": 17,
+          "fallback_steps": 0,
+          "scripted_manual_steps": 20,
+          "invalid_observation_steps": 22
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "feedback_faults:fixed_recipe:command:000599",
+            "run_id": "feedback_faults:fixed_recipe",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 601.0,
+            "value": 299.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "feedback_faults:fixed_recipe:command:000600",
+            "run_id": "feedback_faults:fixed_recipe",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 602.0,
+            "value": 299.15,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ]
+      },
+      {
+        "run_id": "feedback_faults:pid",
+        "scenario": "feedback_faults",
+        "method": "pid",
+        "records_path": "feedback_faults_pid/observations.jsonl",
+        "commands_path": "feedback_faults_pid/commands.jsonl",
+        "metrics": {
+          "samples": 601,
+          "sample_mae_K": 0.285036065566564,
+          "sample_rmse_K": 0.35007561570354256,
+          "trapezoidal_IAE_K_s": 171.3014891521231,
+          "maximum_above_target_K": 0.46750669556996627,
+          "maximum_below_target_K": 0.7595393106697657,
+          "requested_input_total_variation_K": 22.26338200086559,
+          "saturated_steps": 0,
+          "rate_limited_steps": 18,
+          "fallback_steps": 39,
+          "scripted_manual_steps": 20,
+          "invalid_observation_steps": 22
+        },
+        "accepted_not_yet_applied_at_end": [
+          {
+            "command_id": "feedback_faults:pid:command:000599",
+            "run_id": "feedback_faults:pid",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 599.0,
+            "effective_at_s": 601.0,
+            "value": 300.1652333942258,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          },
+          {
+            "command_id": "feedback_faults:pid:command:000600",
+            "run_id": "feedback_faults:pid",
+            "clock_id": "thermal_fixture_elapsed_s",
+            "channel": "bath_temperature",
+            "unit": "K",
+            "event": "accepted",
+            "time_s": 600.0,
+            "effective_at_s": 602.0,
+            "value": 300.1373817229331,
+            "reason": null,
+            "authorization": "simulation_policy",
+            "source": "simulated_actuator_v1"
+          }
+        ]
+      }
+    ],
+    "rows": 4808,
+    "scenarios": 4,
+    "methods": [
+      "fixed_recipe",
+      "pid"
+    ],
+    "independent_physical_runs": 0
+  },
+  "independent_audit": {
+    "path": "results/temperature_control_baseline_v3_audit.json",
+    "sha256": "e67dfd8984c8602a0c464d6607f85a4a590efec3650e6dd64b1ac23eaf5c0eab",
+    "report": {
+      "status": "pass",
+      "run_manifest_sha256": "c5845ffaff95a2bcfdca465410603627bbf28b0bd7e7bb7df9cb9f2a6893e4af",
+      "files_verified": 25,
+      "source_sha256": "7765b10c6ad9e34c381c6eaecd0cc21daff93eab1c2d96502438bb6f800a7dd2",
+      "runs": [
+        {
+          "run_id": "nominal_ramp:fixed_recipe",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 599,
+          "pending_commands": 2
+        },
+        {
+          "run_id": "nominal_ramp:pid",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 599,
+          "pending_commands": 2
+        },
+        {
+          "run_id": "thermal_loads:fixed_recipe",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 598,
+          "pending_commands": 3
+        },
+        {
+          "run_id": "thermal_loads:pid",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 598,
+          "pending_commands": 3
+        },
+        {
+          "run_id": "unreachable_then_recover:fixed_recipe",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 599,
+          "pending_commands": 2
+        },
+        {
+          "run_id": "unreachable_then_recover:pid",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 599,
+          "pending_commands": 2
+        },
+        {
+          "run_id": "feedback_faults:fixed_recipe",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 599,
+          "pending_commands": 2
+        },
+        {
+          "run_id": "feedback_faults:pid",
+          "samples": 601,
+          "accepted_commands": 601,
+          "applied_commands": 599,
+          "pending_commands": 2
+        }
+      ],
+      "scope": "Artifact/clock/sensor/command/analytic-plant/metric reconstruction; not physical validation or a proof of every PID trajectory"
+    }
+  },
+  "visual_inspection": {
+    "path": "results/temperature_control_baseline_v3/comparison.png",
+    "sha256": "b34e2c20cc06c405102b31a82c9d7685e7b9ea15464ec5f0a9e50005aeeda07a",
+    "inspected_equivalent_path": "results/temperature_control_baseline_v2/comparison.png",
+    "byte_identical": true
+  },
+  "tests_cover": [
+    "Unit/time/run identity, missing values and causal delivery",
+    "Analytic proportional/integral/filtered-derivative behavior including held packets",
+    "Output and slew bounds, anti-windup and saturation recovery",
+    "Missing/stale/conflicting/out-of-order feedback and update gaps",
+    "Bounded scripted manual mode and recovery without a jump when the integral range permits",
+    "Separate acceptance/delayed application, expiry, duplicate/range/rate/identity rejections",
+    "Exact thermal response across fractional disturbance and actuator boundaries",
+    "Repeatable scenario ledgers and rehashed future-feedback artifact rejected by semantic audit"
+  ],
+  "observed_limits": [
+    "PID reduces sample MAE in all four chosen scenarios but increases command movement",
+    "Maximum above-target error is higher than fixed recipe in the thermal-load and unreachable-load scenarios",
+    "No gains/limits/noise/time constants are physical KDP or equipment calibration",
+    "Derivative/filter/back-calculation test choices are project implementation, not imported vendor defaults",
+    "Accepted commands beyond the finite window remain explicitly pending",
+    "No hardware failure/acknowledgment timeout policy, adaptive supervisor or event-to-action integration yet"
+  ],
+  "retained_prior_experiments": [
+    {
+      "path": "results/temperature_control_baseline_v1",
+      "reason": "Initial producer before held-packet derivative-clock correction"
+    },
+    {
+      "path": "results/temperature_control_baseline_v2",
+      "reason": "Corrected derivative producer before NumPy-minimum-compatible trapezoidal reduction; same trajectories and plot as v3"
+    }
+  ],
+  "method_references": [
+    {
+      "id": "CTRL-ANTIWINDUP",
+      "url": "https://www.mathworks.com/help/simulink/slref/anti-windup-control-using-a-pid-controller.html",
+      "use": "Conceptual anti-windup reference only; no numeric parameters adopted"
+    },
+    {
+      "id": "CTRL-DERIVATIVE",
+      "url": "https://www.ni.com/docs/en-US/bundle/labview/page/implementing-the-pid-algorithm-with-the-pid-vis.html",
+      "use": "Derivative-on-measurement motivation only; project filter/discretization independent"
+    }
+  ],
+  "physical_hardware_contacted": false,
+  "operator_approval_fabricated": false,
+  "real_annotation_review_receipts": 0,
+  "physical_KDP_control_validated": false,
+  "first_hour_detection_validated": false,
+  "final_vision_test_scored": false,
+  "remaining": [
+    "Bounded event-rule supervision and traceable real-video shadow proposals",
+    "Causal forecast and explicit adaptive state/policy with simpler-baseline comparison",
+    "Reviewed real masks/events/negative time and relevant mixed training",
+    "Comparable-view growth/face/asymmetry measurement and inclusion errors",
+    "Operator interface and actual camera/equipment response/limits/timeout characterization",
+    "Representative independent KDP first-hour and physical action-response evidence",
+    "CPU/GPU transport benchmark and chemically justified Qiskit impurity study"
+  ]
+}

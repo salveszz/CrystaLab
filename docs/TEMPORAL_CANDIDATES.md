@@ -172,6 +172,7 @@ Review real masks/events, expand relevant independent training
 coverage, investigate bubble/inclusion errors and freeze budgets before final
 evaluation. Add comparable-view growth/face measurements where labels support
 them. Verify physical capture/cadence before claiming live equipment performance.
-Temperature PID and bounded supervision can be implemented on a declared
-simulated plant while real review and equipment characterization are pending.
+The [temperature PID baseline](TEMPERATURE_CONTROL.md) now runs on a declared
+simulated thermal plant. Event integration and bounded supervision remain next
+while real review and equipment characterization are pending.
 The [roadmap](../roadmap.md) keeps physical, operator, HPC and Qiskit gates explicit.

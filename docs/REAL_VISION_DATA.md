@@ -1,7 +1,10 @@
 # Acquired real vision data
 
 The first real-data acquisition and image import are complete. **Segmentation
-masks and visible-event annotations are still missing.** No model has been fitted.
+masks and visible-event annotations are still missing.** No model has been fitted
+on reviewed real labels. [Synthetic-only model fits](VISION_PILOT.md) and
+[learned development replay](LEARNED_VIDEO.md) exist; their real accuracy remains
+unevaluated.
 The [source registry](../configs/vision_sources.json) pins URLs, licenses, citations
 and actual SHA256 values. The [compact report](REAL_VISION_DATA.json) records the
 download/decode/import evidence; raw archives remain local and Git-ignored.

@@ -16,6 +16,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Temporal candidates](TEMPORAL_CANDIDATES.md) | Causal non-seed identities, startup/new/unknown inspection events, independent event matching and clock/negative-coverage limits. |
 | [Temporal checkpoint](TEMPORAL_CANDIDATES_CHECKPOINT.json) | 300-test verification, audited replay artifacts, actual optical/fixture event errors and unscored real events. |
 | [Streaming checkpoint](STREAMING_CANDIDATES_CHECKPOINT.json) | Integrated per-frame candidate delivery, identical saved-replay decisions, file-based timing and 304-test verification. |
+| [Temperature control](TEMPERATURE_CONTROL.md) | Unit-bearing sensor/command contracts, bounded PID, delayed simulated actuator, fixed-recipe comparisons and physical interpretation limits. |
+| [Temperature checkpoint](TEMPERATURE_CONTROL_CHECKPOINT.json) | Actual thermal scenario results, source/artifact identities, independent trajectory audit and regression verification. |
 | [Real vision data](REAL_VISION_DATA.md) | Acquired microscope images/videos, actual labels, frozen image splits, licenses, audits and development replay. |
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
 | [Optical synthetic images](OPTICAL_SYNTHETIC.md) | Pinned Blender/Cycles renderer, scene splits, geometric/optical mask semantics and visual failure history. |
