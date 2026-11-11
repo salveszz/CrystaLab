@@ -45,6 +45,8 @@ def replay(
     experiment_seconds_per_video_second=None,
     observer_factory=None,
     frame_map=None,
+    candidate_config=None,
+    candidate_output=None,
 ):
     """Export masks, JSONL and a convenience constant-FPS overlay; never overwrite.
 
@@ -82,6 +84,34 @@ def replay(
         "experiment_clock_provenance"
     ):
         raise ValueError("Experiment-clock mapping requires its source evidence")
+    if (candidate_config is None) != (candidate_output is None):
+        raise ValueError(
+            "Candidate observation needs both a policy and a separate output"
+        )
+    if candidate_config is not None:
+        from .candidates import CandidateConfig
+
+        if (
+            not isinstance(candidate_config, CandidateConfig)
+            or observer_factory is None
+        ):
+            raise ValueError(
+                "Candidate observation requires a learned observer and CandidateConfig"
+            )
+        if source_info.get("split") == "test":
+            raise ValueError("Development candidate observation excludes final test")
+        parent_path, candidate_path = (
+            Path(output).resolve(),
+            Path(candidate_output).resolve(),
+        )
+        if parent_path.is_relative_to(candidate_path) or candidate_path.is_relative_to(
+            parent_path
+        ):
+            raise ValueError(
+                "Candidate and observation outputs must be separate directories"
+            )
+        if candidate_path.exists():
+            raise FileExistsError("Candidate output already exists")
     mapped_frames = None
     map_path = None
     if frame_map is not None:
@@ -131,10 +161,29 @@ def replay(
     )
     write_json(output / "manifest.json", manifest)
     writer = None
+    candidate_recorder = None
     processed = valid = decoded = instance_count = inspection_count = 0
     observe_times = []
+    pipeline_times = []
     previous_status, last_overlay = None, None
     try:
+        if candidate_config is not None:
+            from .candidate_replay import CandidateRecorder
+
+            candidate_recorder = CandidateRecorder(
+                output,
+                candidate_config,
+                candidate_output,
+                run_id=run_id,
+                source_info=source_info,
+                overlay_timing=manifest["overlay_timing"],
+                mode="during_observation",
+            )
+            manifest["candidate_analysis"] = dict(
+                output=str(Path(candidate_output).resolve()),
+                mode="during_observation",
+                config=asdict(candidate_config),
+            )
         setup = time.perf_counter()
         tracker = (
             SeedTracker(config)
@@ -158,6 +207,8 @@ def replay(
             root / "src/rendering/observation.py",
             *getattr(tracker, "source_files", []),
         ]
+        if candidate_recorder is not None:
+            sources += [root / p for p in candidate_recorder.manifest["source_sha256"]]
         source_hashes = {}
         for source_path in sources:
             relative = source_path.relative_to(root)
@@ -278,6 +329,17 @@ def replay(
                             raise OSError("MJPG overlay writer is unavailable")
                         manifest["overlay_display_fps"] = display_fps
                     writer.write(overlay)
+                    if candidate_recorder is not None:
+                        candidate_recorder.record(
+                            record,
+                            [
+                                dict(obj, mask=instance["mask"])
+                                for obj, instance in zip(record["objects"], instances)
+                            ],
+                            mask,
+                            overlay,
+                            manifest["overlay_display_fps"],
+                        )
                     needs_inspection = record.get(
                         "requires_inspection", not record["valid"]
                     )
@@ -306,6 +368,7 @@ def replay(
                         )
                     previous_status, last_overlay = status, overlay
                     write_row(measurements, record)
+                    pipeline_times.append(time.perf_counter() - observe_started)
                     processed += 1
                     valid += int(record["valid"])
                     inspection_count += int(needs_inspection)
@@ -335,6 +398,12 @@ def replay(
                 tracker.verify()
         writer.release()
         writer = None
+        if candidate_recorder is not None:
+            candidate_recorder.close()
+            manifest["candidate_analysis"].update(
+                processed_frames=candidate_recorder.processed,
+                persistent_candidate_events=candidate_recorder.event_count,
+            )
         if not cv2.imwrite(str(output / "final_observation.png"), last_overlay):
             raise OSError("Could not save final observation")
         manifest.update(
@@ -354,6 +423,14 @@ def replay(
                 all_p95_seconds=float(np.percentile(observe_times, 95)),
                 scope="Tracker measure call after decoding; excludes model setup, overlay and disk output",
             ),
+            pipeline_latency=dict(
+                first_seconds=pipeline_times[0],
+                subsequent_median_seconds=float(np.median(pipeline_times[1:]))
+                if len(pipeline_times) > 1
+                else None,
+                all_p95_seconds=float(np.percentile(pipeline_times, 95)),
+                scope="Decoded frame through observer, masks, overlays and flushed observation/candidate records; excludes decoding, setup, final hashing and camera exposure/transport",
+            ),
         )
         manifest["files"] = {
             str(p.relative_to(output)): file_sha256(p)
@@ -361,8 +438,12 @@ def replay(
             if p.is_file() and p.name != "manifest.json"
         }
         write_json(output / "manifest.json", manifest)
+        if candidate_recorder is not None:
+            candidate_recorder.complete()
         return manifest
     except Exception as error:
+        if candidate_recorder is not None:
+            candidate_recorder.fail(error)
         manifest.update(
             status="failed",
             decoded_frames=decoded,
@@ -374,3 +455,5 @@ def replay(
     finally:
         if writer is not None:
             writer.release()
+        if candidate_recorder is not None:
+            candidate_recorder.close()

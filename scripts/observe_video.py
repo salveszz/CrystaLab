@@ -33,9 +33,25 @@ def main():
     parser.add_argument("--fps", type=float)
     parser.add_argument("--max-frames", type=int)
     parser.add_argument("--sample-every", type=int, default=1)
+    parser.add_argument(
+        "--candidate-config",
+        type=Path,
+        help="Fixed-view candidate policy; requires --model-run and --candidate-output",
+    )
+    parser.add_argument(
+        "--candidate-output",
+        type=Path,
+        help="Separate directory for candidate decisions emitted during observation",
+    )
     parser.add_argument("--experiment-origin-s", type=float)
     parser.add_argument("--experiment-seconds-per-video-second", type=float)
     args = parser.parse_args()
+    if (args.candidate_config is None) != (args.candidate_output is None):
+        parser.error(
+            "Candidate observation needs both --candidate-config and --candidate-output"
+        )
+    if args.candidate_config is not None and args.model_run is None:
+        parser.error("--candidate-config requires --model-run")
     camera = args.camera is not None
     settings = json.loads(args.config.read_text())
     observer_factory = None
@@ -66,6 +82,10 @@ def main():
         experiment_seconds_per_video_second=args.experiment_seconds_per_video_second,
         observer_factory=observer_factory,
         frame_map=args.frame_map,
+        candidate_config=None
+        if args.candidate_config is None
+        else load_candidate_config(args.candidate_config),
+        candidate_output=args.candidate_output,
     )
     print(
         json.dumps(
@@ -83,6 +103,12 @@ def main():
             indent=2,
         )
     )
+
+
+def load_candidate_config(path):
+    from vision.candidates import CandidateConfig
+
+    return CandidateConfig(**json.loads(path.read_text()))
 
 
 if __name__ == "__main__":

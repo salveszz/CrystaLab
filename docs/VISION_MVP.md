@@ -5,8 +5,9 @@ real-image importer, annotation workflow and optical renderer exist. Real review
 remains open. The 60-image grouped synthetic cohort, 30-epoch YOLOv8-seg fit and
 development comparison are complete. Learned replay now preserves seed role,
 uncertainty and source-frame mapping. Saved-replay candidate tracking/evaluation
-now retains inspection evidence; streaming integration, real defect evaluation
-and control remain open. See [Temporal candidates](TEMPORAL_CANDIDATES.md),
+now retains inspection evidence and also runs during single-pass observation.
+Equipment timing, real defect evaluation and control remain open. See
+[Temporal candidates](TEMPORAL_CANDIDATES.md),
 [Learned video](LEARNED_VIDEO.md), [Grouped pilot](VISION_PILOT.md), [Training](VISION_TRAINING.md), [Video baseline](VISION_BASELINE.md)
 and [Real vision data](REAL_VISION_DATA.md) for actual evidence.
 The [roadmap](../roadmap.md) defines the sequence. This document turns the
@@ -185,7 +186,7 @@ real-training/evaluation dataset. Follow the current batches in the
    checks in `src/models/` are implemented, including the grouped synthetic pilot
    and synthetic seed comparison. Compare on reviewed real data when available.
 3. Learned seed-role tracking, inspection transitions and causal candidate analysis
-   on saved replays are implemented. Integrate candidates into the streaming path,
+   on saved replays and during observation are implemented. Verify physical capture,
    add supported face/edge measurements and evaluate temporal decisions on reviewed
    independent real data. The small synthetic event check retains detector errors.
 4. Fill `src/controllers/` with temperature PID, rule supervision and bounded

@@ -15,6 +15,7 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Learned replay checkpoint](LEARNED_VIDEO_CHECKPOINT.json) | 284-test result, actual synthetic/real development replays, strict-prototype failures and remaining real/event/control gates. |
 | [Temporal candidates](TEMPORAL_CANDIDATES.md) | Causal non-seed identities, startup/new/unknown inspection events, independent event matching and clock/negative-coverage limits. |
 | [Temporal checkpoint](TEMPORAL_CANDIDATES_CHECKPOINT.json) | 300-test verification, audited replay artifacts, actual optical/fixture event errors and unscored real events. |
+| [Streaming checkpoint](STREAMING_CANDIDATES_CHECKPOINT.json) | Integrated per-frame candidate delivery, identical saved-replay decisions, file-based timing and 304-test verification. |
 | [Real vision data](REAL_VISION_DATA.md) | Acquired microscope images/videos, actual labels, frozen image splits, licenses, audits and development replay. |
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
 | [Optical synthetic images](OPTICAL_SYNTHETIC.md) | Pinned Blender/Cycles renderer, scene splits, geometric/optical mask semantics and visual failure history. |
@@ -36,7 +37,8 @@ are implemented. Synthetic first fits establish software behavior and expose
 remaining errors. The bounded optical pilot and synthetic baseline comparison
 are complete. Learned observation retains uncertainty and source frames;
 candidate analysis/evaluation now preserves non-seed identities and visible-event
-evidence. Real labels/accuracy, streaming candidate integration and physical
+evidence during observation and on saved replays. Real labels/accuracy, equipment
+verification and physical
 control remain open.
 Growth baselines and XGBoost remain a supporting
 experiment using the frozen tabular splits, illustrative units and fixed law.

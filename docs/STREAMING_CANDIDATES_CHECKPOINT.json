@@ -1,0 +1,714 @@
+{
+  "schema": "crystalab_streaming_candidates_checkpoint_v1",
+  "date": "2026-11-11",
+  "parent_revision": "f4d23f8f5cae592a5acd79cbf4ce063eb2605d8c",
+  "scope": "Causal per-frame candidate delivery integrated with observation; verified using recorded files, not physical camera/actuator timing",
+  "source_sha256": {
+    "src/vision/replay.py": "5d71943e60cf445a65b0021652e02a67ffc2c2424f1cb3e2d481d3f667d3bad6",
+    "src/vision/candidate_replay.py": "f98f23186efb88e71470893ca7fff1b1d45578c6d2daa4287edaffb3b782dd51",
+    "src/vision/candidates.py": "dd32026d2a897943b6fd0f5c05ddef9a03cdffa7360d032f0e758019fe3c48aa",
+    "scripts/observe_video.py": "a36c80be67ef8cff3a2bc26af469f1b4e049a46f62b0e6232c6bc5471fef25f2",
+    "scripts/make_candidate_fixture.py": "65d146ac12caf195dbd22dcbe7fa6256150b708e25444c9534e975517ea76267",
+    "tests/test_candidate_stream.py": "44a84b068c7c4c042b50cafc4bd1acf8f86ff84f4b00de80aaaea2398cdaaf70"
+  },
+  "regression": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "tests_passed": 304,
+    "subtests_passed": 158,
+    "elapsed_seconds": 96.39,
+    "log_sha256": "96f1be19695948e3e1ffd9e798b16fb0ed059b53422b9520a37d889f6921065e",
+    "python": "3.14.8",
+    "lint": "ruff check: all checks passed",
+    "format": "ruff format --check: 5 files already formatted"
+  },
+  "hardware": {
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+    "inference_device": "cpu",
+    "inference_threads": 2,
+    "camera_opened": false
+  },
+  "runs": [
+    {
+      "parent_path": "results/optical_pilot13_stream_v1",
+      "parent_manifest_sha256": "436e8157845d32aef996e9a577b01af35f48e2c3202b7d33c1193670e45888f4",
+      "candidate_path": "results/optical_pilot13_stream_candidates_v1",
+      "candidate_manifest_sha256": "b2356ed3b30b79a5315a077018ee99e8181342df5264cddefe5492f71b9af94b",
+      "source_info": {
+        "evidence_kind": "synthetic",
+        "material": "illustrative_optical_geometry",
+        "source_id": "crystalab_optical_images_v1",
+        "scene_id": "optical_pilot_013",
+        "family_id": "optical_pilot_013",
+        "split": "validation",
+        "source_dataset": "/home/salves/dev/CrystaLab/data/synthetic_vision_pilot_v1",
+        "source_manifest_sha256": "6434179db8c54e16cba55378f67568999ebb050899ba3756ae4563e10f02e429",
+        "frame_map_sha256": "c1efe3fb994a3665cca457cf11dff804b055b7349a5ba66b23a62cfeed0ee5ba",
+        "derivative": "PNG frames MJPG encoded at original dimensions; no source frame duplication",
+        "timing": "Display FPS only. Synthetic geometry steps are not physical seconds.",
+        "optical_quality": null,
+        "physical_defect_response": null
+      },
+      "input": {
+        "kind": "file",
+        "source": "/home/salves/dev/CrystaLab/results/optical_pilot13_sequence_v1/sequence.avi",
+        "sha256": "6030da9927749113bb048d42691259fbe7536ce7790343f97521692305a4cf2f",
+        "clock": "container",
+        "reported_fps": 4.0,
+        "nominal_fps": 4.0,
+        "reported_frame_count": 3,
+        "backend": "FFMPEG",
+        "opencv_version": "4.13.0"
+      },
+      "environment": {
+        "python": "3.14.8",
+        "numpy": "2.5.0",
+        "opencv": "4.13.0"
+      },
+      "observer": {
+        "method": "yolov8n_seg_seed_component_overlap_v1",
+        "inference": {
+          "device": "cpu",
+          "imgsz": 256,
+          "threads": 2,
+          "confidence": 0.25,
+          "mask_threshold": 0.5,
+          "retina_masks": true
+        },
+        "packages": {
+          "ultralytics": "8.4.210",
+          "torch": "2.12.1",
+          "torchvision": "0.27.1"
+        },
+        "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+        "training_manifest_sha256": "6ce66979f40c76bbd83e7b5394b70e0f67cf09e45a5b8b0d5e9eed77d2ef69f6"
+      },
+      "config": {
+        "seed_point": [
+          128,
+          128
+        ],
+        "schema": "crystalab_learned_observation_v1",
+        "roi": null,
+        "confidence": 0.25,
+        "seed_candidate_class_ids": [
+          0,
+          1
+        ],
+        "compatible_seed_iou": 0.9,
+        "threads": 2,
+        "minimum_area_px": 32,
+        "maximum_area_fraction": 0.8,
+        "minimum_contrast": 5.0,
+        "minimum_focus": 0.0,
+        "minimum_iou": 0.1,
+        "ambiguity_margin": 0.05,
+        "maximum_gap_s": 2.0
+      },
+      "sampling": {
+        "every_source_frame": 1,
+        "max_decoded_frames": null
+      },
+      "candidate_config": {
+        "schema": "crystalab_candidate_policy_v1",
+        "minimum_confirmations": 2,
+        "minimum_duration_s": 0.0,
+        "maximum_gap_s": 1.0,
+        "minimum_iou": 0.2,
+        "duplicate_iou": 0.9,
+        "minimum_area_px": 12,
+        "maximum_seed_overlap_fraction": 0.25,
+        "minimum_inclusion_seed_fraction": 0.5,
+        "maximum_tracks": 128,
+        "fixed_view_assumed": true
+      },
+      "counts": {
+        "decoded_frames": 3,
+        "processed_frames": 3,
+        "valid_observations": 3,
+        "invalid_observations": 0,
+        "inspection_observations": 0,
+        "raw_candidate_instances": 11
+      },
+      "candidate_summary": {
+        "mode": "during_observation",
+        "persistent_candidate_events": 3,
+        "event_kinds": {
+          "startup_candidate": 2,
+          "new_visible_candidate": 1
+        },
+        "issues": {},
+        "usable_source_seconds": {
+          "crystal_candidate": 0.5,
+          "inclusion_candidate": 0.5
+        }
+      },
+      "observation_latency": {
+        "first_seconds": 0.5977441590002854,
+        "subsequent_median_seconds": 0.011844239001220558,
+        "all_p95_seconds": 0.5392481317001511,
+        "scope": "Tracker measure call after decoding; excludes model setup, overlay and disk output"
+      },
+      "pipeline_latency": {
+        "first_seconds": 0.6024679440015461,
+        "subsequent_median_seconds": 0.017170838502352126,
+        "all_p95_seconds": 0.5440716955017706,
+        "scope": "Decoded frame through observer, masks, overlays and flushed observation/candidate records; excludes decoding, setup, final hashing and camera exposure/transport"
+      },
+      "elapsed_before_final_hashing_s": 1.340990729004261,
+      "saved_analysis_manifest_sha256": "c7f87b93b8241be1b3115a4a7e996ce886e2aff364695d65383522aedfc9dace",
+      "identical_saved_analysis_json_values": true
+    },
+    {
+      "parent_path": "results/leeds_pilot12_stream_v1",
+      "parent_manifest_sha256": "f97377d777cbd7413f8d501efae86f48723d945719930d70439eb9d99ffe58a6",
+      "candidate_path": "results/leeds_pilot12_stream_candidates_v1",
+      "candidate_manifest_sha256": "1a3d8ae396b6d01f18b545b49545544d0eb3439b769c0f094ba66b6c7622d437",
+      "source_info": {
+        "evidence_kind": "real",
+        "material": "alpha_L_glutamic_acid",
+        "source_id": "LGA-LEEDS-2026",
+        "experiment_id": "12",
+        "split": "train",
+        "source_url": "https://archive.researchdata.leeds.ac.uk/1537/",
+        "citation": "Ilett, Hazlehurst, Jiang, Ma, Hogg and Roberts (2026), Reconstruction of 3D crystal growth from transmission optical microscopy images - Supporting data, University of Leeds.",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "source_archive_sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+        "source_index_sha256": "815d86ae34c107c8bac9863b937e212b9c776d38e665ccd7a563e944c6478421",
+        "derivative": "JPEG sequence resized and MJPG encoded; original source retained",
+        "frame_map_sha256": "e83a490e238e966ac2da5f43fb2e016f2ad3cda3437cb47a781e1c73815ed24f",
+        "timing": "Display FPS only. Nominal acquisition cadence is in frame_map; actual capture times are unverified."
+      },
+      "input": {
+        "kind": "file",
+        "source": "/home/salves/dev/CrystaLab/results/leeds_pilot12_v1/sequence.avi",
+        "sha256": "082917c054c951c992b87869eb3f9b66087e25fe1acfacacae3f8a162ba40cce",
+        "clock": "container",
+        "reported_fps": 4.0,
+        "nominal_fps": 4.0,
+        "reported_frame_count": 30,
+        "backend": "FFMPEG",
+        "opencv_version": "4.13.0"
+      },
+      "environment": {
+        "python": "3.14.8",
+        "numpy": "2.5.0",
+        "opencv": "4.13.0"
+      },
+      "observer": {
+        "method": "yolov8n_seg_seed_component_overlap_v1",
+        "inference": {
+          "device": "cpu",
+          "imgsz": 256,
+          "threads": 2,
+          "confidence": 0.25,
+          "mask_threshold": 0.5,
+          "retina_masks": true
+        },
+        "packages": {
+          "ultralytics": "8.4.210",
+          "torch": "2.12.1",
+          "torchvision": "0.27.1"
+        },
+        "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+        "training_manifest_sha256": "6ce66979f40c76bbd83e7b5394b70e0f67cf09e45a5b8b0d5e9eed77d2ef69f6"
+      },
+      "config": {
+        "seed_point": [
+          495,
+          345
+        ],
+        "schema": "crystalab_learned_observation_v1",
+        "roi": [
+          350,
+          200,
+          370,
+          340
+        ],
+        "confidence": 0.25,
+        "seed_candidate_class_ids": [
+          0,
+          1
+        ],
+        "compatible_seed_iou": 0.9,
+        "threads": 2,
+        "minimum_area_px": 200,
+        "maximum_area_fraction": 0.8,
+        "minimum_contrast": 5.0,
+        "minimum_focus": 0.0,
+        "minimum_iou": 0.1,
+        "ambiguity_margin": 0.05,
+        "maximum_gap_s": 2.0
+      },
+      "sampling": {
+        "every_source_frame": 1,
+        "max_decoded_frames": null
+      },
+      "candidate_config": {
+        "schema": "crystalab_candidate_policy_v1",
+        "minimum_confirmations": 2,
+        "minimum_duration_s": 0.0,
+        "maximum_gap_s": 1.0,
+        "minimum_iou": 0.2,
+        "duplicate_iou": 0.9,
+        "minimum_area_px": 12,
+        "maximum_seed_overlap_fraction": 0.25,
+        "minimum_inclusion_seed_fraction": 0.5,
+        "maximum_tracks": 128,
+        "fixed_view_assumed": true
+      },
+      "counts": {
+        "decoded_frames": 30,
+        "processed_frames": 30,
+        "valid_observations": 30,
+        "invalid_observations": 0,
+        "inspection_observations": 11,
+        "raw_candidate_instances": 40
+      },
+      "candidate_summary": {
+        "mode": "during_observation",
+        "persistent_candidate_events": 0,
+        "event_kinds": {},
+        "issues": {
+          "seed_or_view_uncertain": 11
+        },
+        "usable_source_seconds": {
+          "crystal_candidate": 4.25,
+          "inclusion_candidate": 4.25
+        }
+      },
+      "observation_latency": {
+        "first_seconds": 0.605812044996128,
+        "subsequent_median_seconds": 0.01682654100295622,
+        "all_p95_seconds": 0.028039704946786512,
+        "scope": "Tracker measure call after decoding; excludes model setup, overlay and disk output"
+      },
+      "pipeline_latency": {
+        "first_seconds": 0.6165416069998173,
+        "subsequent_median_seconds": 0.02399536600569263,
+        "all_p95_seconds": 0.037110938501791674,
+        "scope": "Decoded frame through observer, masks, overlays and flushed observation/candidate records; excludes decoding, setup, final hashing and camera exposure/transport"
+      },
+      "elapsed_before_final_hashing_s": 2.1049277169950074,
+      "saved_analysis_manifest_sha256": "27a7c6dd806db5bbfe81f9ef238f1b873c75594297b305449de0e3af68cb1b48",
+      "identical_saved_analysis_json_values": true
+    },
+    {
+      "parent_path": "results/candidate_stream_fixture_v1/observations",
+      "parent_manifest_sha256": "d7dc18140174f591bda916cc0db6aa18ca9284e212207a8cc8d6084ccd20cd05",
+      "candidate_path": "results/candidate_stream_fixture_v1_candidates",
+      "candidate_manifest_sha256": "0ce89a81c41e64594551dd9c45f9851f384c7146fb6c6d7f84549b60365e18e9",
+      "source_info": {
+        "evidence_kind": "fixture",
+        "material": "none",
+        "source_id": "candidate_policy_fixture_v1",
+        "split": "development",
+        "frame_map_sha256": "3c238a4b5dbb7ea69b9a2ddef614b0ff5c81c6dcc71e90e6b0db2f0b264d75cb",
+        "limitations": "Analytic RGB and supplied imperfect masks; no learned detector or physical defect/clock evidence"
+      },
+      "input": {
+        "kind": "file",
+        "source": "/home/salves/dev/CrystaLab/results/candidate_stream_fixture_v1/sequence.avi",
+        "sha256": "09a8750c6814833367f6ffafbc64f14630967a675ef75760d9a64d7599bc45b4",
+        "clock": "container",
+        "reported_fps": 10.0,
+        "nominal_fps": 10.0,
+        "reported_frame_count": 48,
+        "backend": "FFMPEG",
+        "opencv_version": "4.13.0"
+      },
+      "environment": {
+        "python": "3.14.8",
+        "numpy": "2.5.0",
+        "opencv": "4.13.0"
+      },
+      "observer": {
+        "method": "fixture_supplied_candidate_masks"
+      },
+      "config": {
+        "seed_point": [
+          65,
+          80
+        ],
+        "schema": "crystalab_learned_observation_v1",
+        "roi": null,
+        "confidence": 0.25,
+        "seed_candidate_class_ids": [
+          0,
+          1
+        ],
+        "compatible_seed_iou": 0.9,
+        "threads": 2,
+        "minimum_area_px": 32,
+        "maximum_area_fraction": 0.8,
+        "minimum_contrast": 5.0,
+        "minimum_focus": 0.0,
+        "minimum_iou": 0.1,
+        "ambiguity_margin": 0.05,
+        "maximum_gap_s": 2.0
+      },
+      "sampling": {
+        "every_source_frame": 1,
+        "max_decoded_frames": null
+      },
+      "candidate_config": {
+        "schema": "crystalab_candidate_policy_v1",
+        "minimum_confirmations": 2,
+        "minimum_duration_s": 0.0,
+        "maximum_gap_s": 1.0,
+        "minimum_iou": 0.2,
+        "duplicate_iou": 0.9,
+        "minimum_area_px": 12,
+        "maximum_seed_overlap_fraction": 0.25,
+        "minimum_inclusion_seed_fraction": 0.5,
+        "maximum_tracks": 128,
+        "fixed_view_assumed": true
+      },
+      "counts": {
+        "decoded_frames": 48,
+        "processed_frames": 48,
+        "valid_observations": 44,
+        "invalid_observations": 4,
+        "inspection_observations": 4,
+        "raw_candidate_instances": 167
+      },
+      "candidate_summary": {
+        "mode": "during_observation",
+        "persistent_candidate_events": 4,
+        "event_kinds": {
+          "startup_candidate": 1,
+          "new_visible_candidate": 2,
+          "candidate_after_unknown_interval": 1
+        },
+        "issues": {
+          "seed_or_view_uncertain": 4
+        },
+        "usable_source_seconds": {
+          "crystal_candidate": 4.199999999999999,
+          "inclusion_candidate": 4.199999999999999
+        }
+      },
+      "observation_latency": {
+        "first_seconds": 0.001883042001281865,
+        "subsequent_median_seconds": 0.001376940002955962,
+        "all_p95_seconds": 0.0016264735506410944,
+        "scope": "Tracker measure call after decoding; excludes model setup, overlay and disk output"
+      },
+      "pipeline_latency": {
+        "first_seconds": 0.00516537600196898,
+        "subsequent_median_seconds": 0.004759832998388447,
+        "all_p95_seconds": 0.005477427000005264,
+        "scope": "Decoded frame through observer, masks, overlays and flushed observation/candidate records; excludes decoding, setup, final hashing and camera exposure/transport"
+      },
+      "elapsed_before_final_hashing_s": 0.22092407899617683,
+      "saved_analysis_manifest_sha256": "93202eb2a73f4e386f0525b27bf725e78e1d58d41cefc87164ecffee6e7f4975",
+      "identical_saved_analysis_json_values": true
+    }
+  ],
+  "evaluations": [
+    {
+      "path": "results/optical_pilot13_stream_candidates_v1_evaluation/report.json",
+      "sha256": "7c38bef87ecc8f079c257bc77a2c747c7463d47db8bb201d8ab4b1e3b9622f47",
+      "report": {
+        "schema": "crystalab_candidate_event_evaluation_v1",
+        "status": "complete",
+        "analysis_manifest_sha256": "b2356ed3b30b79a5315a077018ee99e8181342df5264cddefe5492f71b9af94b",
+        "annotation_sha256": "b099ccc4d35759a5bd6d918f1519adb8631eda2bdb8c1f09dbbf7c73abd0fde8",
+        "annotation_evidence_kind": "synthetic",
+        "review_receipt": null,
+        "match_iou": 0.5,
+        "maximum_delay_source_s": 1.0,
+        "events": 3,
+        "truth_events": 2,
+        "analysis_source_window_s": [
+          0.0,
+          0.5
+        ],
+        "excluded_outside_window_event_ids": [],
+        "metric_scope": "Visible-episode matching in available clip; short follow-up is separately censored for matching-window recall",
+        "complete_followup": {
+          "crystal_candidate": {
+            "eligible": 0,
+            "matched": 0,
+            "censored_event_ids": [
+              "optical_pilot_013:secondary_0"
+            ]
+          },
+          "inclusion_candidate": {
+            "eligible": 0,
+            "matched": 0,
+            "censored_event_ids": [
+              "optical_pilot_013:inclusion_0"
+            ]
+          }
+        },
+        "per_kind": {
+          "crystal_candidate": {
+            "tp": 1,
+            "fp": 2,
+            "fn": 0,
+            "truth": 1,
+            "predictions": 3,
+            "precision": 0.3333333333333333,
+            "recall": 1.0
+          },
+          "inclusion_candidate": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 1,
+            "truth": 1,
+            "predictions": 0,
+            "precision": null,
+            "recall": 0.0
+          }
+        },
+        "matches": [
+          {
+            "truth_event_id": "optical_pilot_013:secondary_0",
+            "prediction_event_id": "optical_pilot13_stream_v1:candidate_event:000003",
+            "candidate_type": "crystal_candidate",
+            "mask_iou": 0.7106382978723405,
+            "origin_correct": true,
+            "truth_origin": "appeared_after_clear_view",
+            "prediction_origin": "appeared_after_clear_view",
+            "alert_delay_after_first_visible_s": 0.25,
+            "alert_delay_interval_s": [
+              0.25,
+              0.5
+            ]
+          }
+        ],
+        "duplicate_alert_ids": [],
+        "missed_event_ids": [
+          "optical_pilot_013:inclusion_0"
+        ],
+        "unmatched_prediction_ids": [
+          "optical_pilot13_stream_v1:candidate_event:000001",
+          "optical_pilot13_stream_v1:candidate_event:000002"
+        ],
+        "origin_confusion": {
+          "appeared_after_clear_view -> appeared_after_clear_view": 1
+        },
+        "new_visibility_claims": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0
+        },
+        "negative_coverage": {
+          "crystal_candidate": {
+            "usable_annotated_negative_source_seconds": 0,
+            "false_events_in_negative_intervals": 0,
+            "physical_negative_seconds": null,
+            "false_alerts_per_observed_negative_hour": null
+          },
+          "inclusion_candidate": {
+            "usable_annotated_negative_source_seconds": 0,
+            "false_events_in_negative_intervals": 0,
+            "physical_negative_seconds": null,
+            "false_alerts_per_observed_negative_hour": null
+          }
+        },
+        "physical_clock_scored": false,
+        "first_hour_claim_evaluated": false,
+        "source_sha256": {
+          "src/vision/event_evaluation.py": "bcd05bdc2cb68223c3fea5954ea071625e602320269c67bb1187fa56cdf597f5"
+        },
+        "scope": "Visible candidate inspection events under declared source clock; no microscopic nucleation, quality or control benefit claim"
+      }
+    },
+    {
+      "path": "results/candidate_stream_fixture_v1_candidates_evaluation/report.json",
+      "sha256": "deaea79ae2b10bbe47d47a6c0d8943e85bb869ad1cdd06298ba6d7b038c772a5",
+      "report": {
+        "schema": "crystalab_candidate_event_evaluation_v1",
+        "status": "complete",
+        "analysis_manifest_sha256": "0ce89a81c41e64594551dd9c45f9851f384c7146fb6c6d7f84549b60365e18e9",
+        "annotation_sha256": "ff8b5a4e944fae0f923b8c3678d93343b15dbcc59c159de25ecd4737106f950f",
+        "annotation_evidence_kind": "fixture",
+        "review_receipt": null,
+        "match_iou": 0.5,
+        "maximum_delay_source_s": 1.0,
+        "events": 4,
+        "truth_events": 3,
+        "analysis_source_window_s": [
+          0.0,
+          4.7
+        ],
+        "excluded_outside_window_event_ids": [],
+        "metric_scope": "Visible-episode matching in available clip; short follow-up is separately censored for matching-window recall",
+        "complete_followup": {
+          "crystal_candidate": {
+            "eligible": 2,
+            "matched": 2,
+            "censored_event_ids": []
+          },
+          "inclusion_candidate": {
+            "eligible": 1,
+            "matched": 1,
+            "censored_event_ids": []
+          }
+        },
+        "per_kind": {
+          "crystal_candidate": {
+            "tp": 2,
+            "fp": 1,
+            "fn": 0,
+            "truth": 2,
+            "predictions": 3,
+            "precision": 0.6666666666666666,
+            "recall": 1.0
+          },
+          "inclusion_candidate": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "truth": 1,
+            "predictions": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        },
+        "matches": [
+          {
+            "truth_event_id": "new_crystal_A",
+            "prediction_event_id": "candidate_policy_fixture_v1:candidate_event:000002",
+            "candidate_type": "crystal_candidate",
+            "mask_iou": 1.0,
+            "origin_correct": true,
+            "truth_origin": "appeared_after_clear_view",
+            "prediction_origin": "appeared_after_clear_view",
+            "alert_delay_after_first_visible_s": 0.10000000000000009,
+            "alert_delay_interval_s": [
+              0.10000000000000009,
+              0.20000000000000007
+            ]
+          },
+          {
+            "truth_event_id": "crystal_C_after_unknown",
+            "prediction_event_id": "candidate_policy_fixture_v1:candidate_event:000003",
+            "candidate_type": "crystal_candidate",
+            "mask_iou": 1.0,
+            "origin_correct": true,
+            "truth_origin": "appeared_after_unknown_interval",
+            "prediction_origin": "appeared_after_unknown_interval",
+            "alert_delay_after_first_visible_s": 0.10000000000000009,
+            "alert_delay_interval_s": [
+              0.10000000000000009,
+              0.6000000000000001
+            ]
+          },
+          {
+            "truth_event_id": "new_inclusion_B",
+            "prediction_event_id": "candidate_policy_fixture_v1:candidate_event:000004",
+            "candidate_type": "inclusion_candidate",
+            "mask_iou": 1.0,
+            "origin_correct": true,
+            "truth_origin": "appeared_after_clear_view",
+            "prediction_origin": "appeared_after_clear_view",
+            "alert_delay_after_first_visible_s": 0.10000000000000053,
+            "alert_delay_interval_s": [
+              0.10000000000000053,
+              0.20000000000000018
+            ]
+          }
+        ],
+        "duplicate_alert_ids": [],
+        "missed_event_ids": [],
+        "unmatched_prediction_ids": [
+          "candidate_policy_fixture_v1:candidate_event:000001"
+        ],
+        "origin_confusion": {
+          "appeared_after_clear_view -> appeared_after_clear_view": 2,
+          "appeared_after_unknown_interval -> appeared_after_unknown_interval": 1
+        },
+        "new_visibility_claims": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "negative_coverage": {
+          "crystal_candidate": {
+            "usable_annotated_negative_source_seconds": 0.9,
+            "false_events_in_negative_intervals": 1,
+            "physical_negative_seconds": null,
+            "false_alerts_per_observed_negative_hour": null
+          },
+          "inclusion_candidate": {
+            "usable_annotated_negative_source_seconds": 2.2,
+            "false_events_in_negative_intervals": 0,
+            "physical_negative_seconds": null,
+            "false_alerts_per_observed_negative_hour": null
+          }
+        },
+        "physical_clock_scored": false,
+        "first_hour_claim_evaluated": false,
+        "source_sha256": {
+          "src/vision/event_evaluation.py": "bcd05bdc2cb68223c3fea5954ea071625e602320269c67bb1187fa56cdf597f5"
+        },
+        "scope": "Visible candidate inspection events under declared source clock; no microscopic nucleation, quality or control benefit claim"
+      }
+    }
+  ],
+  "independent_artifact_audit": [
+    {
+      "path": "results/optical_pilot13_stream_candidates_v1",
+      "manifest_sha256": "b2356ed3b30b79a5315a077018ee99e8181342df5264cddefe5492f71b9af94b",
+      "frames": 3,
+      "events": 3,
+      "files_verified": 21,
+      "usable_source_seconds": {
+        "crystal_candidate": 0.5,
+        "inclusion_candidate": 0.5
+      }
+    },
+    {
+      "path": "results/leeds_pilot12_stream_candidates_v1",
+      "manifest_sha256": "1a3d8ae396b6d01f18b545b49545544d0eb3439b769c0f094ba66b6c7622d437",
+      "frames": 30,
+      "events": 0,
+      "files_verified": 8,
+      "usable_source_seconds": {
+        "crystal_candidate": 4.25,
+        "inclusion_candidate": 4.25
+      }
+    },
+    {
+      "path": "results/candidate_stream_fixture_v1_candidates",
+      "manifest_sha256": "0ce89a81c41e64594551dd9c45f9851f384c7146fb6c6d7f84549b60365e18e9",
+      "frames": 48,
+      "events": 4,
+      "files_verified": 139,
+      "usable_source_seconds": {
+        "crystal_candidate": 4.199999999999999,
+        "inclusion_candidate": 4.199999999999999
+      }
+    }
+  ],
+  "additional_verification": [
+    "Tests observe flushed startup/new candidate alerts before the following observer prediction and before EOF",
+    "Sampled observations keep original frame IDs/source clock and confirmation spacing",
+    "Interrupted observer retains partial alerts and both manifests fail; evaluation rejects the failed analysis",
+    "Unsupported policy/output/baseline/final-test combinations fail before capture",
+    "Per-frame and event JSON values match saved analysis for all three actual runs; JSON key serialization order may differ",
+    "All analysis and parent files, source masks, components, aliases, event masks, confirmation streaks and clock intervals reconstruct",
+    "All three candidate overlay videos decode to their processed frame counts"
+  ],
+  "visual_inspection": [
+    "results/optical_pilot13_stream_candidates_v1/evidence/frame_00000002.png"
+  ],
+  "real_review_receipts": 0,
+  "real_event_accuracy": null,
+  "physical_camera_opened": false,
+  "actuator_commands_issued": false,
+  "physical_first_hour_claim_evaluated": false,
+  "final_test_scored": false,
+  "remaining": [
+    "Reviewed real masks, events and negative time; frozen numeric budgets",
+    "Bubble/inclusion errors and relevant independent real/mixed training",
+    "Comparable-view growth/face/asymmetry measurements",
+    "Physical capture latency/cadence and sensor-clock calibration",
+    "Temperature PID, bounded forecast/adaptive supervision and operator demonstration",
+    "Representative KDP first-hour/action-response evidence",
+    "HPC/GPU benchmark and chemically justified Qiskit impurity study"
+  ]
+}

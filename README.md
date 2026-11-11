@@ -17,8 +17,9 @@ original-frame mapping and inspection requests on synthetic/real development
 replays. Bubble false positives, missed inclusions and real mask accuracy remain
 open. [Temporal candidate analysis](docs/TEMPORAL_CANDIDATES.md) now retains
 non-seed identities, persistent inspection evidence and independently scored
-synthetic errors. Streaming integration, real review, PID/adaptation and the
-operator demo remain open. See the
+synthetic errors. The same decisions now run during single-pass observation.
+Real review, equipment verification, PID/adaptation and the operator demo remain
+open. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
 

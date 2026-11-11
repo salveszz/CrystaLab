@@ -8,9 +8,10 @@ temperature PID plus an adaptive supervisor, and traceable actions with an
 operator involved. The intended actions are temperature-ramp changes, rotation
 and circulation. The demonstration must identify its material and evidence level.
 
-**The next milestone is a reviewed real-image/event pilot and streaming candidate
-integration.** Traceable saved-replay candidate tracking/evaluation is implemented;
-continue from its recorded errors and the completed grouped synthetic experiment.
+**The next milestone is a reviewed real-image/event pilot and the temperature PID
+software baseline.** Candidate tracking/evaluation now works during observation
+and on saved replays. Continue from its recorded errors; real review and equipment
+characterization can progress alongside simulated controller work.
 Preserve the simulation and growth dataset as supporting assets. New CFD work or
 an XGBoost benchmark does not close the perception/control requirements.
 
@@ -24,11 +25,11 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 |---|---|---|
 | Simulation and numerical methods | Illustrative faceted growth and verified flow/transport components. Separate fixed-domain flow kernels are not coupled into current growth labels. | Physical calibration and any coupling needed by a specified experiment. |
 | Tabular growth data | 360 episodes / 1,080 audited samples, frozen grouped splits and no quality labels. | Optional supporting forecast benchmark. These are not camera-training examples. |
-| Video observation | Baseline/learned file/camera adapters, explicit clocks, seed role/uncertainty, raw masks, mapped source frames and saved-replay candidate identities/inspection events. | Streaming candidate integration, reviewed real event accuracy and live equipment verification. Candidates are not confirmed defects. |
+| Video observation | Baseline/learned file/camera adapters, explicit clocks, seed role/uncertainty, raw masks, mapped source frames and candidate identities/inspection events during observation or on saved masks. | Reviewed real event accuracy and live equipment verification. Integrated decisions were tested on files; candidates are not confirmed defects. |
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies and a separate ADP movie. | Reviewed pixel/event labels and representative independent KDP evaluation data. Source fits are not segmentation masks. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews and guarded review/export code. | Zero actual review receipts. A reviewer must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke and 60-image/20-scene pilot, development visual inspection and independently exported construction-event labels for one three-frame scene. | Relevant real/image diversity and longer temporal coverage. Refracted masks remain annotation proxies. |
-| Learned perception, controllers and UI | Local training/evaluation, grouped pilot, seed comparison, learned replay and causal candidate analysis/event scoring. Bubble errors and missed inclusions remain. Controllers/dashboard remain placeholders. | Real evaluation, streaming integration, face measurements, PID, adaptation, action adapters and operator demonstration. |
+| Learned perception, controllers and UI | Local training/evaluation, grouped pilot, seed comparison, learned replay and integrated causal candidate analysis/event scoring. Bubble errors and missed inclusions remain. Controllers/dashboard remain placeholders. | Real evaluation, equipment timing, face measurements, PID, adaptation, action adapters and operator demonstration. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
@@ -44,6 +45,9 @@ The [learned replay checkpoint](docs/LEARNED_VIDEO_CHECKPOINT.json) adds 284-tes
 verification, original-frame mapping and actual seed-role/uncertainty replays.
 The [temporal checkpoint](docs/TEMPORAL_CANDIDATES_CHECKPOINT.json) records 300
 tests, audited candidate artifacts and independent optical/fixture event scores.
+The [streaming checkpoint](docs/STREAMING_CANDIDATES_CHECKPOINT.json) adds
+single-pass delivery, identical saved-analysis decisions, processing timing and
+304-test verification. No physical camera or actuator was used.
 
 ## Pitch requirements and completion evidence
 
@@ -145,8 +149,9 @@ alone cannot close the KDP detection requirement.
 - Causal candidate identities and persistent inspection decisions now analyze
   saved learned replays, with explicit startup/new/unknown origins, unique mask
   association, missing observations and bounded retained identities. See
-  [Temporal candidates](docs/TEMPORAL_CANDIDATES.md). Integrate the same policy into
-  the streaming observer; it is not yet a live equipment loop.
+  [Temporal candidates](docs/TEMPORAL_CANDIDATES.md). The same recorder now runs
+  during observation, with per-frame evidence flushed before the next prediction.
+  Verify camera/equipment timing separately; current integrated runs use files.
 - Measure projected growth from comparable views. Add visible-face/edge annotations
   or a justified measurement method before claiming face-specific asymmetry.
 - Implement persistent secondary-candidate alerts, supported asymmetry decisions

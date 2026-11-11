@@ -15,7 +15,8 @@ cannot replace it. Clipped, weak, missing, split or competing distinct candidate
 produce invalid measurements; a long gap requires a new explicit initialization.
 This observer batch gives the seed a persistent role and retains other raw objects
 by per-frame index. The subsequent [temporal analysis](TEMPORAL_CANDIDATES.md)
-adds causal candidate identities and inspection events to saved replays. These
+adds causal candidate identities and inspection events to saved replays and can
+run directly during observation using the optional candidate policy/output. These
 remain experimental visible candidates rather than confirmed parasitic nucleation.
 
 Raw model classes `seed` and `secondary_crystal` are visual predictions, while

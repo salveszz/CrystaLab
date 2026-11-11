@@ -14,7 +14,7 @@ real defect accuracy; no automatic controller is implemented.
 | Task | Current evidence | Next gate |
 |---|---|---|
 | Video baseline and image-data pipeline | File/camera adapter, baseline/learned replay, original-frame mapping, real-image index, six editable proposals and audited 18-frame smoke / 60-image grouped optical datasets. | Human pixel/event review, clock/measurement checks and relevant real coverage. |
-| YOLOv8-seg and visible-event alerts | Pinned training/evaluation, grouped synthetic fit, seed comparison, learned seed-role replay and causal candidate inspection/evaluation on saved observations. Bubble errors and missed inclusions remain. | Streaming candidate integration, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
+| YOLOv8-seg and visible-event alerts | Pinned training/evaluation, grouped synthetic fit, seed comparison, learned seed-role replay and shared causal candidate inspection during observation or on saved masks. File-tested; bubble errors and missed inclusions remain. | Equipment timing, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
 | PID/adaptive software loop | Bounded scripted simulation commands; no feedback controller. | Sensor/command interfaces, PID and bounded supervisor, fixed-recipe comparison and traceable action logs. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
@@ -43,7 +43,8 @@ accuracy claim. [Temporal candidate analysis](TEMPORAL_CANDIDATES.md) now preser
 non-seed identities and scores visible-event decisions against independent
 construction labels. The optical example retains two false startup inspections
 and an unmatched inclusion; both target deadlines lack complete clip follow-up.
-Integrate the causal policy into the streaming observer and investigate these errors.
+The policy now runs during observation and preserves the same decisions as saved
+analysis. Investigate these errors and verify equipment/capture timing separately.
 Unreviewed proposals remain excluded from accepted real
 training; the real baseline/model comparison needs actual reviewed masks.
 

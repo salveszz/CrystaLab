@@ -43,7 +43,7 @@ def geometry(index):
     return [] if 20 <= index < 24 else values
 
 
-def generate_candidate_fixture(output):
+def generate_candidate_fixture(output, *, candidate_config=None):
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=False)
     (output / "truth_masks").mkdir()
@@ -133,6 +133,10 @@ def generate_candidate_fixture(output):
         source_info=info,
         observer_factory=factory,
         frame_map=output / "frame_map.jsonl",
+        candidate_config=candidate_config,
+        candidate_output=None
+        if candidate_config is None
+        else output.parent / f"{output.name}_candidates",
     )
     expected = [
         (
@@ -214,7 +218,24 @@ def generate_candidate_fixture(output):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", type=Path, required=True)
-    print(json.dumps(generate_candidate_fixture(p.parse_args().output), indent=2))
+    p.add_argument(
+        "--candidate-config",
+        type=Path,
+        help="Emit decisions during observation into an adjacent <output>_candidates directory",
+    )
+    args = p.parse_args()
+    from vision.candidates import CandidateConfig
+
+    policy = (
+        None
+        if args.candidate_config is None
+        else CandidateConfig(**json.loads(args.candidate_config.read_text()))
+    )
+    print(
+        json.dumps(
+            generate_candidate_fixture(args.output, candidate_config=policy), indent=2
+        )
+    )
 
 
 if __name__ == "__main__":

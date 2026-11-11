@@ -3,14 +3,17 @@
 The learned replay now has a causal tracker for non-seed crystal and inclusion
 candidates. It retains mask evidence, object/event IDs and startup, later-appearance
 and unknown-interval distinctions. Every emitted event requests operator review.
-The command-line path analyzes a completed replay; integration into a single-pass
-camera/observer loop remains open. It issues no actuator commands.
+The shared recorder works on completed replays and during single-pass observation,
+flushing decisions before the next prediction. The integrated path was exercised
+on recorded files; physical camera/equipment timing remains unverified. It issues
+no actuator commands.
 
 This is a software milestone toward the pitch's visible-event alerts. The model
 still mistakes bubbles for crystals and misses inclusions. No real event labels
 have been reviewed, no physical first-hour result is available, and no supported
 face-growth asymmetry measurement exists. See the
-[checkpoint](TEMPORAL_CANDIDATES_CHECKPOINT.json) for exact evidence.
+[saved-replay checkpoint](TEMPORAL_CANDIDATES_CHECKPOINT.json) and subsequent
+[streaming checkpoint](STREAMING_CANDIDATES_CHECKPOINT.json) for exact evidence.
 
 ## Policy and clocks
 
@@ -72,6 +75,51 @@ proxies rather than exact empirical visibility. The source frames are three
 correlated construction steps in one development scene, not three independent
 physical experiments.
 
+## Single-pass observation
+
+The same candidate policy can run directly on native observation masks, without
+rereading saved masks or rerunning the detector. Add both candidate options to
+the learned observer command:
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
+  MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python scripts/observe_video.py \
+  --video results/optical_pilot13_sequence_v1/sequence.avi \
+  --config configs/optical_learned_observation.json \
+  --model-run results/vision_training_pilot_v1 \
+  --source-info results/optical_pilot13_sequence_v1/source_info.json \
+  --frame-map results/optical_pilot13_sequence_v1/frame_map.jsonl \
+  --run-id optical_pilot13_stream_v1 --output results/optical_pilot13_stream_v1 \
+  --candidate-config configs/candidate_policy.json \
+  --candidate-output results/optical_pilot13_stream_candidates_v1
+```
+
+Observation and candidate output directories must be separate and unused. Each
+candidate event and observation is flushed during processing, while manifests
+remain `running`. After observation closes, its immutable manifest and files are
+verified and bound into the completed candidate manifest. An error marks both
+runs failed and retains partial evidence. This avoids circular manifest hashes.
+Candidate options require the learned observer; the seed-only baseline cannot
+supply candidate absence evidence. Final test inputs remain excluded.
+
+The 48-frame fixture can also exercise this path with
+`scripts/make_candidate_fixture.py --output results/candidate_stream_fixture_v1
+--candidate-config configs/candidate_policy.json`; its adjacent
+`results/candidate_stream_fixture_v1_candidates` directory holds decisions.
+The fixture still supplies imperfect masks and makes no detector accuracy claim.
+
+The actual three-frame optical, 30-frame real and 48-frame fixture runs produce
+the same per-frame/event JSON values as subsequent saved-replay analysis of each
+parent. Tests observe flushed alerts before the following prediction and verify
+sampled clocks, interrupted runs and rejected input/output combinations.
+
+The real development run's decoded-frame-to-flushed-record processing latency was
+0.617 seconds initially, then 0.024 seconds median; overall p95 was 0.037 seconds.
+The metric includes inference, mask/overlay writes and candidate decisions. It
+excludes decoding, model setup, final hashing and camera exposure/transport. It
+does not establish an equipment deadline or sensor-to-command latency. Hardware
+and exact values are retained in the streaming checkpoint; no camera was opened.
+
 ## Actual results
 
 | Evidence | Observed result | Interpretation |
@@ -120,10 +168,10 @@ are null. First-hour evaluation remains explicitly unfinished.
 
 ## Next pitch work
 
-Integrate candidate decisions into the streaming observer and retain the same
-evidence contract. Review real masks/events, expand relevant independent training
+Review real masks/events, expand relevant independent training
 coverage, investigate bubble/inclusion errors and freeze budgets before final
 evaluation. Add comparable-view growth/face measurements where labels support
-them. Temperature PID and bounded supervision can be implemented on a declared
+them. Verify physical capture/cadence before claiming live equipment performance.
+Temperature PID and bounded supervision can be implemented on a declared
 simulated plant while real review and equipment characterization are pending.
 The [roadmap](../roadmap.md) keeps physical, operator, HPC and Qiskit gates explicit.
