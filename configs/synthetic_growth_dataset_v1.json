@@ -1,0 +1,740 @@
+{
+  "description": "Synthetic growth dataset v1: 60 distinct initial concentrations spanning 1.25-1.45, six verified paired recipes per group, 360 episodes and 1080 exact-horizon samples. Twelve concentration strata each assign 3 train / 1 validation / 1 test groups, with deterministic split seed 20261110; both range endpoints are training anchors. Fixed verified 32^3 focused grid, dt=1, duration=30 and sampling depth=0.75. Illustrative model units and kinetics; quality unavailable; no ML fitting.",
+  "simulation": {
+    "width": 10.0,
+    "depth": 8.0,
+    "height": 8.0,
+    "nx": 32,
+    "ny": 32,
+    "nz": 32,
+    "temperature": 25.0,
+    "concentration": 1.35,
+    "temperature_gradient": 0,
+    "seed_normals": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        -1,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        -1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        -1,
+        1
+      ],
+      [
+        1,
+        0,
+        -1
+      ],
+      [
+        -1,
+        0,
+        -1
+      ],
+      [
+        0,
+        1,
+        -1
+      ],
+      [
+        0,
+        -1,
+        -1
+      ]
+    ],
+    "seed_offsets": [
+      0.35,
+      0.35,
+      0.35,
+      0.35,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7
+    ],
+    "face_growth": [
+      0.025,
+      0.025,
+      0.025,
+      0.025,
+      0.015,
+      0.015,
+      0.015,
+      0.015,
+      0.015,
+      0.015,
+      0.015,
+      0.015
+    ],
+    "rotation": 0.5,
+    "circulation": 0.5,
+    "impurity": 0.0,
+    "defect_rate": 0.0,
+    "dt": 1.0,
+    "duration": 30,
+    "seed": 42,
+    "initial_liquid_height": 6.0,
+    "mixing_diffusivity": 0.02,
+    "grid_focus_width": 3.6,
+    "boundary_layer_cells": 2.4,
+    "concentration_noise": 0
+  },
+  "recording": {
+    "sample_interval": 2,
+    "decision_interval": 10,
+    "forecast_horizon": 10,
+    "history_samples": 2,
+    "sensor_delay": 2,
+    "relative_observation_noise": 0.002,
+    "temperature_observation_noise": 0.02,
+    "observation_seed": 103
+  },
+  "groups": [
+    {
+      "id": "base_000",
+      "family_id": "base_000",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.25,
+        "seed": 20261110
+      }
+    },
+    {
+      "id": "base_001",
+      "family_id": "base_001",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.253389831,
+        "seed": 20261111
+      }
+    },
+    {
+      "id": "base_002",
+      "family_id": "base_002",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.256779661,
+        "seed": 20261112
+      }
+    },
+    {
+      "id": "base_003",
+      "family_id": "base_003",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.260169492,
+        "seed": 20261113
+      }
+    },
+    {
+      "id": "base_004",
+      "family_id": "base_004",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.263559322,
+        "seed": 20261114
+      }
+    },
+    {
+      "id": "base_005",
+      "family_id": "base_005",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.266949153,
+        "seed": 20261115
+      }
+    },
+    {
+      "id": "base_006",
+      "family_id": "base_006",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.270338983,
+        "seed": 20261116
+      }
+    },
+    {
+      "id": "base_007",
+      "family_id": "base_007",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.273728814,
+        "seed": 20261117
+      }
+    },
+    {
+      "id": "base_008",
+      "family_id": "base_008",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.277118644,
+        "seed": 20261118
+      }
+    },
+    {
+      "id": "base_009",
+      "family_id": "base_009",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.280508475,
+        "seed": 20261119
+      }
+    },
+    {
+      "id": "base_010",
+      "family_id": "base_010",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.283898305,
+        "seed": 20261120
+      }
+    },
+    {
+      "id": "base_011",
+      "family_id": "base_011",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.287288136,
+        "seed": 20261121
+      }
+    },
+    {
+      "id": "base_012",
+      "family_id": "base_012",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.290677966,
+        "seed": 20261122
+      }
+    },
+    {
+      "id": "base_013",
+      "family_id": "base_013",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.294067797,
+        "seed": 20261123
+      }
+    },
+    {
+      "id": "base_014",
+      "family_id": "base_014",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.297457627,
+        "seed": 20261124
+      }
+    },
+    {
+      "id": "base_015",
+      "family_id": "base_015",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.300847458,
+        "seed": 20261125
+      }
+    },
+    {
+      "id": "base_016",
+      "family_id": "base_016",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.304237288,
+        "seed": 20261126
+      }
+    },
+    {
+      "id": "base_017",
+      "family_id": "base_017",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.307627119,
+        "seed": 20261127
+      }
+    },
+    {
+      "id": "base_018",
+      "family_id": "base_018",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.311016949,
+        "seed": 20261128
+      }
+    },
+    {
+      "id": "base_019",
+      "family_id": "base_019",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.31440678,
+        "seed": 20261129
+      }
+    },
+    {
+      "id": "base_020",
+      "family_id": "base_020",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.31779661,
+        "seed": 20261130
+      }
+    },
+    {
+      "id": "base_021",
+      "family_id": "base_021",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.321186441,
+        "seed": 20261131
+      }
+    },
+    {
+      "id": "base_022",
+      "family_id": "base_022",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.324576271,
+        "seed": 20261132
+      }
+    },
+    {
+      "id": "base_023",
+      "family_id": "base_023",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.327966102,
+        "seed": 20261133
+      }
+    },
+    {
+      "id": "base_024",
+      "family_id": "base_024",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.331355932,
+        "seed": 20261134
+      }
+    },
+    {
+      "id": "base_025",
+      "family_id": "base_025",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.334745763,
+        "seed": 20261135
+      }
+    },
+    {
+      "id": "base_026",
+      "family_id": "base_026",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.338135593,
+        "seed": 20261136
+      }
+    },
+    {
+      "id": "base_027",
+      "family_id": "base_027",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.341525424,
+        "seed": 20261137
+      }
+    },
+    {
+      "id": "base_028",
+      "family_id": "base_028",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.344915254,
+        "seed": 20261138
+      }
+    },
+    {
+      "id": "base_029",
+      "family_id": "base_029",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.348305085,
+        "seed": 20261139
+      }
+    },
+    {
+      "id": "base_030",
+      "family_id": "base_030",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.351694915,
+        "seed": 20261140
+      }
+    },
+    {
+      "id": "base_031",
+      "family_id": "base_031",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.355084746,
+        "seed": 20261141
+      }
+    },
+    {
+      "id": "base_032",
+      "family_id": "base_032",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.358474576,
+        "seed": 20261142
+      }
+    },
+    {
+      "id": "base_033",
+      "family_id": "base_033",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.361864407,
+        "seed": 20261143
+      }
+    },
+    {
+      "id": "base_034",
+      "family_id": "base_034",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.365254237,
+        "seed": 20261144
+      }
+    },
+    {
+      "id": "base_035",
+      "family_id": "base_035",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.368644068,
+        "seed": 20261145
+      }
+    },
+    {
+      "id": "base_036",
+      "family_id": "base_036",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.372033898,
+        "seed": 20261146
+      }
+    },
+    {
+      "id": "base_037",
+      "family_id": "base_037",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.375423729,
+        "seed": 20261147
+      }
+    },
+    {
+      "id": "base_038",
+      "family_id": "base_038",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.378813559,
+        "seed": 20261148
+      }
+    },
+    {
+      "id": "base_039",
+      "family_id": "base_039",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.38220339,
+        "seed": 20261149
+      }
+    },
+    {
+      "id": "base_040",
+      "family_id": "base_040",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.38559322,
+        "seed": 20261150
+      }
+    },
+    {
+      "id": "base_041",
+      "family_id": "base_041",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.388983051,
+        "seed": 20261151
+      }
+    },
+    {
+      "id": "base_042",
+      "family_id": "base_042",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.392372881,
+        "seed": 20261152
+      }
+    },
+    {
+      "id": "base_043",
+      "family_id": "base_043",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.395762712,
+        "seed": 20261153
+      }
+    },
+    {
+      "id": "base_044",
+      "family_id": "base_044",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.399152542,
+        "seed": 20261154
+      }
+    },
+    {
+      "id": "base_045",
+      "family_id": "base_045",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.402542373,
+        "seed": 20261155
+      }
+    },
+    {
+      "id": "base_046",
+      "family_id": "base_046",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.405932203,
+        "seed": 20261156
+      }
+    },
+    {
+      "id": "base_047",
+      "family_id": "base_047",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.409322034,
+        "seed": 20261157
+      }
+    },
+    {
+      "id": "base_048",
+      "family_id": "base_048",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.412711864,
+        "seed": 20261158
+      }
+    },
+    {
+      "id": "base_049",
+      "family_id": "base_049",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.416101695,
+        "seed": 20261159
+      }
+    },
+    {
+      "id": "base_050",
+      "family_id": "base_050",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.419491525,
+        "seed": 20261160
+      }
+    },
+    {
+      "id": "base_051",
+      "family_id": "base_051",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.422881356,
+        "seed": 20261161
+      }
+    },
+    {
+      "id": "base_052",
+      "family_id": "base_052",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.426271186,
+        "seed": 20261162
+      }
+    },
+    {
+      "id": "base_053",
+      "family_id": "base_053",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.429661017,
+        "seed": 20261163
+      }
+    },
+    {
+      "id": "base_054",
+      "family_id": "base_054",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.433050847,
+        "seed": 20261164
+      }
+    },
+    {
+      "id": "base_055",
+      "family_id": "base_055",
+      "split": "validation",
+      "overrides": {
+        "concentration": 1.436440678,
+        "seed": 20261165
+      }
+    },
+    {
+      "id": "base_056",
+      "family_id": "base_056",
+      "split": "test",
+      "overrides": {
+        "concentration": 1.439830508,
+        "seed": 20261166
+      }
+    },
+    {
+      "id": "base_057",
+      "family_id": "base_057",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.443220339,
+        "seed": 20261167
+      }
+    },
+    {
+      "id": "base_058",
+      "family_id": "base_058",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.446610169,
+        "seed": 20261168
+      }
+    },
+    {
+      "id": "base_059",
+      "family_id": "base_059",
+      "split": "train",
+      "overrides": {
+        "concentration": 1.45,
+        "seed": 20261169
+      }
+    }
+  ],
+  "recipes": [
+    {
+      "id": "baseline",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 25,
+          "agitation": 1
+        }
+      ]
+    },
+    {
+      "id": "cool",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 22,
+          "agitation": 1
+        }
+      ]
+    },
+    {
+      "id": "warm",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 28,
+          "agitation": 1
+        }
+      ]
+    },
+    {
+      "id": "low_agitation",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 25,
+          "agitation": 0
+        }
+      ]
+    },
+    {
+      "id": "high_agitation",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 25,
+          "agitation": 2
+        }
+      ]
+    },
+    {
+      "id": "staged",
+      "schedule": [
+        {
+          "time": 0,
+          "temperature": 25,
+          "agitation": 1
+        },
+        {
+          "time": 10,
+          "temperature": 22,
+          "agitation": 1
+        },
+        {
+          "time": 20,
+          "temperature": 25,
+          "agitation": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,9 @@
 # Bounded physical-data preparation
 
-This step keeps the repository layout and existing starter files intact. It adds
-one checked KDP structural reference and a standalone source-audit tool. It does
-not implement model training, forecasting, dataset generation or a controller.
+The physical-data tools provide a checked KDP structural reference and a
+standalone source audit. They do not calibrate the illustrative growing engine.
+The separate [synthetic pipeline](SYNTHETIC_DATA.md) now generates tabular growth
+data; model training, real forecasting and physical control remain future work.
 
 ## KDP structural reference
 
@@ -31,8 +32,10 @@ engine's model-unit coefficients.
 .venv/bin/python scripts/check_material_reference.py
 ```
 
-The archive is read directly; extracting `data/COD/` is optional. The uploaded
-kinetic/export proposal remains unchanged and unused.
+The archive is read directly. The duplicate `data/COD/` extraction was verified
+byte-for-byte against all 22 ZIP entries and removed during cleanup on 2026-11-11.
+The uploaded kinetic/export proposal remains unchanged and unused. The
+[data guide](../data/README.md) identifies retained inputs and the active dataset.
 
 ## Source/access audit
 

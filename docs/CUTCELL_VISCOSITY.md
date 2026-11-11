@@ -141,7 +141,7 @@ normalized flux/work balance error is below 2.5e-15. Wall traces are exactly zer
 | `docs/CUTCELL_VISCOSITY.md` | Method, assumptions, evidence, limitations and this file-by-file review. |
 | `SOURCES.md` | Primary method citation and numerical evidence entry. |
 | `docs/AI_READINESS.md`, `docs/PHYSICAL_MODEL.md`, `docs/PHYSICAL_DATA.md`, `docs/FLOW_MODEL.md`, `docs/CUTCELL_PRESSURE.md` | Current status and links; full cut-cell dynamics and growth/AI readiness remain unfinished. |
-| `roadmap.md`, `PROGRESS.md` | Local progress/status, including the approved checkpoint push and the next coupling step. |
+| `roadmap.md`, `docs/DEVELOPMENT_HISTORY.md` | Current priorities and the archived checkpoint/coupling history. |
 
 Existing solver, runner and package layouts are preserved. No AI implementation
 or ML dependency is added. The viscosity files and roadmap were subsequently

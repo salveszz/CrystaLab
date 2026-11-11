@@ -1,14 +1,19 @@
-# Local planning document
+# Private notes, local environment and generated caches
 PROGRESS.md
 .venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
 *.egg-info/
 build/
 dist/
 .mplconfig/
+# Keep raw/generated data local; version the data guide and generation protocols.
 data/*
 !data/.gitkeep
+!data/README.md
 results/*
 !results/.gitkeep

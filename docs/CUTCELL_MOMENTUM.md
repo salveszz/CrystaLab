@@ -1,5 +1,11 @@
 # Conservative cut-cell momentum and small cells
 
+Workspace cleanup on 2026-11-10 removed generated `results/` artifacts at the
+user's request. The original protocols, hashes, pass/fail metrics and additional
+summaries remain in [CUTCELL_MOMENTUM_CHECKPOINT.json](CUTCELL_MOMENTUM_CHECKPOINT.json).
+Historical raw paths below no longer exist; rerun the verification CLI when raw
+fields are needed. This cleanup changes no numerical source or tolerance.
+
 `simulation.momentum` adds fixed-domain nonlinear momentum transport to the
 existing pressure/viscosity operator. It retains the same geometry, cell volume
 means, face velocity means and pressure gauges. No geometry is voxelized, no
