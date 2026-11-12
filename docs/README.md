@@ -29,6 +29,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Local image review](ANNOTATION_REVIEW_UI.md) | Native-image polygon editor, uncertain drafts, explicit per-image review, preserved revisions and accepted-subset export. |
 | [Image review checkpoint](ANNOTATION_REVIEW_CHECKPOINT.json) | API/regression checks, 20 browser interactions and byte-identical real read-only preview with zero actual human reviews. |
 | [Optical synthetic images](OPTICAL_SYNTHETIC.md) | Pinned Blender/Cycles renderer, scene splits, geometric/optical mask semantics and visual failure history. |
+| [Longer optical temporal diagnostic](OPTICAL_TEMPORAL.md) | Timed object presence and varied face offsets, frozen detector/forecast comparison, usable-deadline coverage and reserved-scene exclusion. |
+| [Longer optical checkpoint](OPTICAL_TEMPORAL_CHECKPOINT.json) | Actual 96-frame render, five-clip frozen diagnostic, retained failures, independent numeric/mask reconstruction and 377-test regression. |
 | [Optical/annotation checkpoint](OPTICAL_CHECKPOINT.json) | Source-matched optical/annotation verification, 254-test run, revised smoke audit and zero accepted real labels. |
 | [Vision training](VISION_TRAINING.md) | Audited YOLO polygon adapter, pinned local training/evaluation, synthetic first fits and retained detection failures. |
 | [Training checkpoint](VISION_TRAINING_CHECKPOINT.json) | 264-test result, actual model hashes, synthetic development errors and remaining real/control gates. |

@@ -1,4 +1,4 @@
-# CrystaLab roadmap — 2026-11-11
+# CrystaLab roadmap — 2026-11-12
 
 ## Goal and order of work
 
@@ -15,6 +15,8 @@ forecast diagnostic exposes current-mask bias and fails to beat future-area
 persistence on four shared development windows. Resolve the measurement/trajectory
 gate, define the adaptive objective and compare it with the current baselines. Real review and equipment
 characterization can progress alongside this software work.
+The longer synthetic diagnostic now confirms the persistence advantage on 28
+shared validation windows and exposes remaining false alerts/inclusion coverage.
 Preserve the simulation and growth dataset as supporting assets. New CFD work or
 an XGBoost benchmark does not close the perception/control requirements.
 
@@ -31,8 +33,8 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 | Video observation | Baseline/learned file/camera adapters, explicit clocks, seed role/uncertainty, raw masks, mapped source frames and candidate identities/inspection events during observation or on saved masks. | Reviewed real event accuracy and live equipment verification. Integrated decisions were tested on files; candidates are not confirmed defects. |
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies, a separate ADP movie and 587 protein-crystal images with 4,986 published crystal/drop masks. | Reviewed Leeds/KDP pixel/event labels and representative independent KDP evaluation data. Source fits are not masks; protein selected-object labels need a separate compatible task. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
-| Optical synthetic images | Audited 18-frame smoke and 60-image/20-scene pilot, development visual inspection and independently exported construction-event labels for one three-frame scene. | Relevant real/image diversity and longer temporal coverage. Refracted masks remain annotation proxies. |
-| Observable forecast | Sixteen optical development replays, 32 within-clip windows, training-only rate calibration, startup-aware baseline metrics and real shadow forecasts. Calibrated future area is worse than persistence on four shared validation windows. | Boundary/measurement review, longer comparable-view/action-labelled trajectories, frozen budgets and adaptive forecast/state policy. No action-response model exists. |
+| Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal diagnostic. Frozen-model development evaluation uses 80 frames; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
+| Observable forecast | Earlier grouped calibration plus a frozen comparison on 75 longer-clip windows. On 28 shared new validation windows, calibrated future-area MAE is 339.71 px² versus persistence 248.04 px². | Boundary/measurement review, relevant real/action-labelled trajectories, frozen budgets and adaptive forecast/state policy. No action-response model exists. |
 | Learned perception, controllers and UI | Local training/evaluation, grouped pilot, candidate analysis, explicit process records, PID, thermal tests, event-rule shadow proposals and scripted fixture-to-PID integration. Still-image annotation UI exists; bubble/inclusion errors remain. | Real evaluation, equipment timing, face measurements, adaptive forecast/policy and the video/process/action operator demonstration. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
@@ -67,6 +69,10 @@ interactions. Real proposals were previewed read-only and remain unreviewed.
 The [published-mask checkpoint](docs/PUBLISHED_MASKS_CHECKPOINT.json) adds a
 source-reconstructed auxiliary real image/mask index. It preserves author splits
 and selected protein-crystal semantics without accepting them as KDP pitch labels.
+The [longer optical checkpoint](docs/OPTICAL_TEMPORAL_CHECKPOINT.json) adds the
+96-frame schedule, frozen-model event/forecast execution, class-specific usable
+deadline coverage and independent numeric/mask reconstruction. It preserves three
+false crystal alerts, a missed inclusion and the negative forecast result.
 
 ## Pitch requirements and completion evidence
 
@@ -184,6 +190,9 @@ alone cannot close the KDP detection requirement.
   Saved-replay evidence and event matching are implemented. Current optical scores
   preserve bubble false inspections and an unmatched inclusion; real event scores,
   physical negative hours, first-hour coverage and numeric budgets remain open.
+  The longer frozen diagnostic adds three crystal matches and three false
+  inspections, plus one missed inclusion. It separates elapsed clip coverage from
+  uninterrupted class-usable deadlines and exposes absent validation inclusion truth.
 - Freeze thresholds and persistence settings on development/validation data before
   final test. Keep unsupported classes open rather than relabeling synthetic cases
   as real detections.

@@ -151,6 +151,101 @@ def merged_intervals(values):
     return merged
 
 
+def observation_coverage(rows, maximum_gap_s):
+    """Reconstruct class-specific usable intervals instead of trusting saved duration claims."""
+    if not math.isfinite(maximum_gap_s) or maximum_gap_s <= 0:
+        raise ValueError("Declare a finite positive observation-gap bound")
+    observations = []
+    intervals = {kind: [] for kind in KINDS}
+    previous = None
+    for row in rows:
+        when = row["video_time_s"]
+        observable = row["observable"]
+        if (
+            not math.isfinite(when)
+            or when < 0
+            or set(observable) != set(KINDS)
+            or any(type(v) is not bool for v in observable.values())
+            or previous is not None
+            and when <= previous["video_time_s"]
+        ):
+            raise ValueError("Candidate observation clock/observability is invalid")
+        expected = []
+        if previous is not None and when - previous["video_time_s"] <= maximum_gap_s:
+            expected = [
+                dict(candidate_type=kind, start_s=previous["video_time_s"], end_s=when)
+                for kind in KINDS
+                if observable[kind] and previous["observable"][kind]
+            ]
+        if row["usable_intervals"] != expected:
+            raise ValueError(
+                "Usable intervals differ from adjacent class-specific observations"
+            )
+        for interval in expected:
+            intervals[interval["candidate_type"]].append(
+                (interval["start_s"], interval["end_s"])
+            )
+        observations.append(dict(time_s=when, observable=observable))
+        previous = row
+    return observations, {
+        kind: merged_intervals(values) for kind, values in intervals.items()
+    }
+
+
+def observable_deadline_followup(
+    targets, matched_ids, observations, intervals, maximum_delay_s
+):
+    """Separate available clip duration from uninterrupted usable evidence through the deadline."""
+    output = {}
+    last = observations[-1]["time_s"]
+    for kind in KINDS:
+        eligible, excluded = [], []
+        for event in targets:
+            if event["candidate_type"] != kind:
+                continue
+            start = event["onset_interval_source_s"][1]
+            end = start + maximum_delay_s
+            onset_usable = any(
+                a - 1e-9 <= start <= b + 1e-9 for a, b in intervals[kind]
+            ) or any(
+                math.isclose(row["time_s"], start, abs_tol=1e-9, rel_tol=0)
+                and row["observable"][kind]
+                for row in observations
+            )
+            duration = sum(
+                max(0, min(b, end) - max(a, start)) for a, b in intervals[kind]
+            )
+            reason = (
+                "clip_ends_before_deadline"
+                if end > last + 1e-9
+                else "onset_frame_unobservable"
+                if not onset_usable
+                else "unobservable_or_gap_within_deadline"
+                if duration + 1e-9 < maximum_delay_s
+                else None
+            )
+            if reason is None:
+                eligible.append(event["event_id"])
+            else:
+                excluded.append(
+                    dict(
+                        event_id=event["event_id"],
+                        reason=reason,
+                        required_window_source_s=[start, end],
+                        usable_source_seconds=duration,
+                    )
+                )
+        matched = sum(event_id in matched_ids for event_id in eligible)
+        output[kind] = dict(
+            eligible=len(eligible),
+            matched=matched,
+            recall=matched / len(eligible) if eligible else None,
+            eligible_event_ids=eligible,
+            excluded=excluded,
+        )
+    return output
+
+
 def score_candidate_events(
     analysis, annotations, output, *, match_iou=0.5, maximum_delay_s=1.0
 ):
@@ -191,14 +286,13 @@ def score_candidate_events(
         json.loads(line)
         for line in (analysis / "candidate_events.jsonl").read_text().splitlines()
     ]
-    first_time = last_time = None
-    for row in json_rows(analysis / "candidate_observations.jsonl"):
-        when = row["video_time_s"]
-        if first_time is None:
-            first_time = when
-        last_time = when
-    if first_time is None:
+    observations, usable_intervals = observation_coverage(
+        json_rows(analysis / "candidate_observations.jsonl"),
+        manifest["config"]["maximum_gap_s"],
+    )
+    if not observations:
         raise ValueError("No candidate observation window")
+    first_time, last_time = observations[0]["time_s"], observations[-1]["time_s"]
     targets = [
         event
         for event in truth["events"]
@@ -276,15 +370,15 @@ def score_candidate_events(
             recall=tp / gt if gt else None,
         )
     negative = {kind: [] for kind in KINDS}
-    for row in json_rows(analysis / "candidate_observations.jsonl"):
-        for usable in row["usable_intervals"]:
+    for kind, usable in usable_intervals.items():
+        for usable_start, usable_end in usable:
             for interval in truth["negative_intervals"]:
-                if interval["candidate_type"] != usable["candidate_type"]:
+                if interval["candidate_type"] != kind:
                     continue
-                start = max(usable["start_s"], interval["start_s"])
-                end = min(usable["end_s"], interval["end_s"])
+                start = max(usable_start, interval["start_s"])
+                end = min(usable_end, interval["end_s"])
                 if start < end:
-                    negative[usable["candidate_type"]].append((start, end))
+                    negative[kind].append((start, end))
     negative = {kind: merged_intervals(values) for kind, values in negative.items()}
     clock = source.get("experiment_clock", {})
     physical = bool(
@@ -338,7 +432,11 @@ def score_candidate_events(
         truth_events=len(targets),
         analysis_source_window_s=[first_time, last_time],
         excluded_outside_window_event_ids=excluded,
-        metric_scope="Visible-episode matching in available clip; short follow-up is separately censored for matching-window recall",
+        metric_scope="Visible-episode matching in available clip; elapsed-window and class-observable deadline coverage are reported separately",
+        usable_source_intervals=usable_intervals,
+        observable_deadline_followup=observable_deadline_followup(
+            targets, matched_gt, observations, usable_intervals, maximum_delay_s
+        ),
         complete_followup={
             kind: dict(
                 eligible=sum(

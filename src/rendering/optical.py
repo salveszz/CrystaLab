@@ -18,6 +18,11 @@ import numpy as np
 
 from simulation.crystal import Crystal
 from vision.video import file_sha256
+from rendering.optical_temporal import (
+    temporal_profile,
+    present_ids,
+    constructed_targets,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 CLASSES = ["seed", "secondary_crystal", "inclusion_candidate"]
@@ -76,6 +81,7 @@ def prepare_scenes(protocol):
         for key in ("secondary_count", "inclusion_count", "bubble_count"):
             if type(case[key]) is not int or not 0 <= case[key] <= 3:
                 raise ValueError(f"Invalid {key}")
+        temporal = temporal_profile(protocol, case)
         rng = np.random.default_rng(case["seed"])
         scales = rng.uniform(0.8, 1.2, 3)
         normals = np.asarray(settings["seed_normals"], float) / scales
@@ -138,7 +144,10 @@ def prepare_scenes(protocol):
             frames=[],
         )
         for index in range(protocol["frames_per_scene"]):
-            crystal = Crystal(normals, offsets + index * 0.015)
+            face_offset = (
+                index * 0.015 if temporal is None else temporal["offsets"][index]
+            )
+            crystal = Crystal(normals, offsets + face_offset)
             scene["frames"].append(
                 dict(
                     index=index,
@@ -150,6 +159,16 @@ def prepare_scenes(protocol):
                     time_semantics="illustrative_geometry_step_not_physical_time",
                 )
             )
+            if temporal is not None:
+                frame = scene["frames"][-1]
+                frame.update(
+                    face_offset=face_offset,
+                    present_object_ids=present_ids(temporal, index),
+                )
+                frame["secondary_visible"] = any(
+                    name.startswith("secondary_")
+                    for name in frame["present_object_ids"]
+                )
         scenes.append(scene)
     if set(families.values()) != {"train", "validation", "test"}:
         raise ValueError("Declare nonempty train/validation/test scene families")
@@ -171,6 +190,7 @@ def generate_optical(protocol, output, blender, *, timeout_s=1800):
         ROOT / "scripts/blender_optical_scene.py",
         ROOT / "scripts/generate_vision_images.py",
         ROOT / "src/simulation/crystal.py",
+        ROOT / "src/rendering/optical_temporal.py",
         ROOT / protocol["geometry_config"],
     ]
     snapshot = output / "source_snapshot"
@@ -353,14 +373,13 @@ def audit_optical(output):
         digest = file_sha256(output / row["image_path"])
         if hashes.setdefault(digest, row["split"]) != row["split"]:
             raise ValueError("Identical rendered images cross splits")
-        wanted = {
-            "seed": 0,
-            **{f"inclusion_{i}": 2 for i in range(scene["inclusion_count"])},
-        }
-        if frame["secondary_visible"]:
-            wanted.update(
-                {f"secondary_{i}": 1 for i in range(scene["secondary_count"])}
-            )
+        wanted = constructed_targets(m["protocol"], scene, frame)
+        render = json.loads((output / image_path.parent / "render.json").read_text())
+        if (
+            "present_object_ids" in frame
+            and render.get("constructed_object_ids") != frame["present_object_ids"]
+        ):
+            raise ValueError("Rendered presence record differs from declared frame")
         if len(row["objects"]) != len(wanted) or {
             o["id"] for o in row["objects"]
         } != set(wanted):

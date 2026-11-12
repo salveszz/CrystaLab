@@ -1,0 +1,693 @@
+{
+  "schema": "crystalab_optical_temporal_checkpoint_v1",
+  "date": "2026-11-11",
+  "parent_revision": "b5bd6ffaf10f7dee9a18e5098a0b2f0d0e32f4ba",
+  "scope": "Scheduled illustrative optical clips and frozen-model event/area diagnostic; no new model fit, reserved-test scoring, actual human review or physical action",
+  "source_sha256": {
+    "src/rendering/optical.py": "e3514f8c9030a4e0ee473912cd5ad72b72d792086b0a7a6a8dadab301cb979c0",
+    "src/rendering/optical_temporal.py": "c31763456df2b8ba938f4462999f0060d24a36f22759146a965df7b89dbf205b",
+    "scripts/blender_optical_scene.py": "cb88e3fa8dd878a5a2d233b451ad7896e0bf0e7badeddfe6af26c406533d77c1",
+    "src/vision/event_evaluation.py": "6b532cdb16410879cb72e0895c9cd192c0099d41f0852af6afe939e5d3ea5d35",
+    "src/vision/temporal_diagnostic.py": "164595b67aad245cbaa64fa380bac18a294b3713c01cb375b47096ada6bfc5e5",
+    "scripts/run_temporal_diagnostic.py": "e5613cf9bdceeb46e67244531c52f6f103ee2edc8ce8903332a60316cd230d60",
+    "tests/test_optical_temporal.py": "379e52f11b54eb0d834b63f65316c86b38487d82ac53e80571389405fbc25552",
+    "tests/test_event_evaluation.py": "2498506165a567a9380f99293f8bcd6d8a9cba43d8b8919e19271b75437a0257",
+    "tests/test_temporal_diagnostic.py": "cdaebd05c4a603efd164e0f8ca40e9d0b5b5a8b06935a9cc87369ce5891fa337",
+    "configs/synthetic_vision_temporal.json": "00e0066919e2535c4017e8b14209060933c9bbac1ec45b7d5cbbb87ab7009e4e",
+    "configs/optical_temporal_experiment.json": "5ed568500950e666bc0f80f8c3b62b1ab3baefe68cebe3f6588514934b895ce7"
+  },
+  "regression": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "tests_passed": 377,
+    "subtests_passed": 262,
+    "elapsed_seconds": 152.12,
+    "log_sha256": "9ca436f82a7674b51d8a935249d168c68d106e8375057051e012fdc49d8a92ca",
+    "python": "3.14.8",
+    "execution_context": "Concurrent with eight-thread CPU Blender render",
+    "lint": "ruff check: all checks passed",
+    "format": "ruff format --check: 9 files already formatted"
+  },
+  "render": {
+    "path": "data/synthetic_vision_temporal_v1",
+    "manifest_sha256": "1ab084b9eed4f0d9a46ab77ea7b549ee8b70041df112af2ac3410c4be0ebba0f",
+    "protocol_sha256": "00e0066919e2535c4017e8b14209060933c9bbac1ec45b7d5cbbb87ab7009e4e",
+    "job_path": "results/optical_temporal_job_v1.json",
+    "job_sha256": "0b69f974086f4f901f704b2913f13c2a4113eb779c5e3b0c71161b7f7bd01bc3",
+    "job_status": "complete",
+    "elapsed_seconds": 898.1990944110003,
+    "blender_version": "Blender 4.5.16 LTS",
+    "blender_executable_sha256": "c752cdc50bc29b5968e23b6e5588936bb05046e29dbc119e26aab79a9de2b55b",
+    "images": 96,
+    "samples_by_split": {
+      "train": 48,
+      "validation": 32,
+      "test": 16
+    },
+    "families": 6,
+    "frames_per_family": 16,
+    "display_fps": 4.0,
+    "physical_time_mapping": null,
+    "audit_path": "results/optical_temporal_source_audit_v1.json",
+    "audit_sha256": "aa7cd8a13cfc1f8fe00cf8dd4c197955d52bd907889fc7884ec28710ef974af4",
+    "audit": {
+      "status": "pass",
+      "samples": 96,
+      "scenes": 6,
+      "samples_by_split": {
+        "train": 48,
+        "validation": 32,
+        "test": 16
+      },
+      "eligible_object_masks": 158,
+      "eligible_masks_by_class": {
+        "seed": 96,
+        "secondary_crystal": 51,
+        "inclusion_candidate": 11
+      },
+      "physical_quality_labels": 0,
+      "scope": "Illustrative optical training scenes; no real KDP kinetics/quality/control validation"
+    }
+  },
+  "legacy_compatibility": {
+    "path": "results/optical_temporal_legacy_compatibility_v1.json",
+    "sha256": "b79104fbaede626bc3f90b4789e25c62fcf77f091e53e3f360aecfdf37d5fc33",
+    "findings": "Prepared legacy scenes exactly match archived scene metadata; the existing 60-image audit passes; same pinned Blender binary"
+  },
+  "inspection": {
+    "raw_training_preview": "results/optical_temporal_raw_training_preview_v1.png",
+    "raw_preview_sha256": "e407f4807f64581cf5178a47932d7738812e09c94bbb6f912d261c7510e39ae0",
+    "processed_preview": "results/optical_temporal_processed_preview_v1",
+    "manifest_sha256": "469d3b3999104b6155f31cdf381071923306076f6b03a146951872746b459ec4",
+    "inspection_sha256": "7f3221bf98557950b35edf7565557ded18cd317139ce85498e5fcacce2050cd4",
+    "raw_training_cells": 12,
+    "processed_training_cells": 6,
+    "decision": "Synthetic alignment inspected for frozen diagnostic, not accepted for a new fit; zero validation/test RGB inspected"
+  },
+  "diagnostic": {
+    "path": "results/optical_temporal_diagnostic_v1",
+    "manifest_sha256": "9835c445a8026d54a4ade7f07cc7eb1a8772a79053a84721adfc927b880580a0",
+    "experiment_sha256": "5ed568500950e666bc0f80f8c3b62b1ab3baefe68cebe3f6588514934b895ce7",
+    "development_frames": 80,
+    "forecast_windows": 75,
+    "common_history_windows": 70,
+    "cases": [
+      {
+        "scene_id": "optical_temporal_000",
+        "family_id": "optical_temporal_000",
+        "split": "train",
+        "replay_path": "observations/optical_temporal_000",
+        "replay_manifest_sha256": "0e80ce35749a6d53bfd4b482241d9cf7f3938a07c05a43b8083fdc9c9455b4c2",
+        "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+        "frames": 16,
+        "samples": 15,
+        "rate_ready": 14
+      },
+      {
+        "scene_id": "optical_temporal_001",
+        "family_id": "optical_temporal_001",
+        "split": "train",
+        "replay_path": "observations/optical_temporal_001",
+        "replay_manifest_sha256": "82a192853fbebb47347b649ffe1ae8bdddedab8babd5ecf70418f51cfda8fd76",
+        "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+        "frames": 16,
+        "samples": 15,
+        "rate_ready": 14
+      },
+      {
+        "scene_id": "optical_temporal_002",
+        "family_id": "optical_temporal_002",
+        "split": "train",
+        "replay_path": "observations/optical_temporal_002",
+        "replay_manifest_sha256": "ecf14f178dd7ecfa48d5aee4213e5d31baab4945c2270ca8b0ce5efd498aba36",
+        "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+        "frames": 16,
+        "samples": 15,
+        "rate_ready": 14
+      },
+      {
+        "scene_id": "optical_temporal_003",
+        "family_id": "optical_temporal_003",
+        "split": "validation",
+        "replay_path": "observations/optical_temporal_003",
+        "replay_manifest_sha256": "a6de61c53c291d82e837ccf108834e03773113e1620747d8215f04bfb9a92392",
+        "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+        "frames": 16,
+        "samples": 15,
+        "rate_ready": 14
+      },
+      {
+        "scene_id": "optical_temporal_004",
+        "family_id": "optical_temporal_004",
+        "split": "validation",
+        "replay_path": "observations/optical_temporal_004",
+        "replay_manifest_sha256": "5d6002214be60ff48106b712c18e4ba284481d0829efe825c64e93fdd73ced13",
+        "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+        "frames": 16,
+        "samples": 15,
+        "rate_ready": 14
+      }
+    ],
+    "event_summary_sha256": "7003b2e558e5ed2d70b338f90e7abc9ebaa0ecb454d2aa4ae9b25705f54f08d9",
+    "event_metrics": {
+      "crystal_candidate": {
+        "tp": 3,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "observable_deadline_eligible": 3,
+        "observable_deadline_matched": 3,
+        "observable_deadline_recall": 1.0,
+        "sum_of_clip_negative_source_seconds": 6.0,
+        "false_events_in_negative_intervals": 3,
+        "physical_negative_seconds": null,
+        "false_alerts_per_physical_hour": null
+      },
+      "inclusion_candidate": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "precision": null,
+        "recall": 0.0,
+        "observable_deadline_eligible": 1,
+        "observable_deadline_matched": 0,
+        "observable_deadline_recall": 0.0,
+        "sum_of_clip_negative_source_seconds": 16.25,
+        "false_events_in_negative_intervals": 0,
+        "physical_negative_seconds": null,
+        "false_alerts_per_physical_hour": null
+      }
+    },
+    "origin_confusion": {
+      "appeared_after_clear_view -> appeared_after_clear_view": 1,
+      "present_at_first_usable_frame -> present_at_first_usable_frame": 1,
+      "appeared_after_clear_view -> appeared_after_unknown_interval": 1
+    },
+    "frozen_forecast_sha256": "890aaa74929aa1a15df71c12ead7deac0efabb5f7ed2d4fd7f5243abf168b78b",
+    "perception_weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+    "forecast_metrics": {
+      "train": {
+        "persistence": {
+          "labelled_windows": 45,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available": {
+            "samples": 45,
+            "families": 3,
+            "future_area_mae_px2": 223.42222222222222,
+            "future_area_rmse_px2": 306.4050333210022,
+            "gain_mae_px2": 96.64444444444445,
+            "relative_gain_mae": 0.025943204464974255,
+            "future_area_signed_error_px2": 164.8,
+            "family_macro_area_mae_px2": 223.42222222222222
+          },
+          "common_history_support": {
+            "samples": 42,
+            "families": 3,
+            "future_area_mae_px2": 219.07142857142858,
+            "future_area_rmse_px2": 303.3160774788288,
+            "gain_mae_px2": 97.38095238095238,
+            "relative_gain_mae": 0.025836417654603167,
+            "future_area_signed_error_px2": 159.83333333333334,
+            "family_macro_area_mae_px2": 219.07142857142856
+          },
+          "clipped_predictions": 0,
+          "per_family": {
+            "optical_temporal_000": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 101.64285714285714,
+              "future_area_rmse_px2": 125.78751925370021,
+              "gain_mae_px2": 111.14285714285714,
+              "relative_gain_mae": 0.025674362181770632,
+              "future_area_signed_error_px2": -43.785714285714285,
+              "family_macro_area_mae_px2": 101.64285714285714
+            },
+            "optical_temporal_001": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 477.0,
+              "future_area_rmse_px2": 500.10627442003334,
+              "gain_mae_px2": 67.92857142857143,
+              "relative_gain_mae": 0.020518708280928964,
+              "future_area_signed_error_px2": 477.0,
+              "family_macro_area_mae_px2": 477.0
+            },
+            "optical_temporal_002": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 78.57142857142857,
+              "future_area_rmse_px2": 100.36504798555549,
+              "gain_mae_px2": 113.07142857142857,
+              "relative_gain_mae": 0.03131618250110991,
+              "future_area_signed_error_px2": 46.285714285714285,
+              "family_macro_area_mae_px2": 78.57142857142857
+            }
+          }
+        },
+        "recent_rate": {
+          "labelled_windows": 45,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 3
+          },
+          "all_available": {
+            "samples": 42,
+            "families": 3,
+            "future_area_mae_px2": 280.92857142857144,
+            "future_area_rmse_px2": 390.5377550189458,
+            "gain_mae_px2": 95.33333333333333,
+            "relative_gain_mae": 0.024127288464665587,
+            "future_area_signed_error_px2": 244.4047619047619,
+            "family_macro_area_mae_px2": 280.9285714285714
+          },
+          "common_history_support": {
+            "samples": 42,
+            "families": 3,
+            "future_area_mae_px2": 280.92857142857144,
+            "future_area_rmse_px2": 390.5377550189458,
+            "gain_mae_px2": 95.33333333333333,
+            "relative_gain_mae": 0.024127288464665587,
+            "future_area_signed_error_px2": 244.4047619047619,
+            "family_macro_area_mae_px2": 280.9285714285714
+          },
+          "clipped_predictions": 0,
+          "per_family": {
+            "optical_temporal_000": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 146.28571428571428,
+              "future_area_rmse_px2": 183.17166031582818,
+              "gain_mae_px2": 76.07142857142857,
+              "relative_gain_mae": 0.01751364202382673,
+              "future_area_signed_error_px2": 58.857142857142854,
+              "family_macro_area_mae_px2": 146.28571428571428
+            },
+            "optical_temporal_001": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 533.6428571428571,
+              "future_area_rmse_px2": 625.0549118734632,
+              "gain_mae_px2": 151.28571428571428,
+              "relative_gain_mae": 0.03790004940989451,
+              "future_area_signed_error_px2": 533.6428571428571,
+              "family_macro_area_mae_px2": 533.6428571428571
+            },
+            "optical_temporal_002": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 162.85714285714286,
+              "future_area_rmse_px2": 182.52044895220448,
+              "gain_mae_px2": 58.642857142857146,
+              "relative_gain_mae": 0.016968173960275522,
+              "future_area_signed_error_px2": 140.71428571428572,
+              "family_macro_area_mae_px2": 162.85714285714286
+            }
+          }
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 45,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available": {
+            "samples": 45,
+            "families": 3,
+            "future_area_mae_px2": 440.3640729998622,
+            "future_area_rmse_px2": 507.751176324238,
+            "gain_mae_px2": 178.91962855541772,
+            "relative_gain_mae": 0.04323606072327566,
+            "future_area_signed_error_px2": 440.3640729998622,
+            "family_macro_area_mae_px2": 440.3640729998621
+          },
+          "common_history_support": {
+            "samples": 42,
+            "families": 3,
+            "future_area_mae_px2": 438.27328721459276,
+            "future_area_rmse_px2": 505.87578287743537,
+            "gain_mae_px2": 181.05900150030703,
+            "relative_gain_mae": 0.04334284753364674,
+            "future_area_signed_error_px2": 438.27328721459276,
+            "family_macro_area_mae_px2": 438.27328721459276
+          },
+          "clipped_predictions": 0,
+          "per_family": {
+            "optical_temporal_000": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 261.5814450073906,
+              "future_area_rmse_px2": 279.919858760095,
+              "gain_mae_px2": 194.22430215024772,
+              "relative_gain_mae": 0.04350490300647928,
+              "future_area_signed_error_px2": 261.5814450073906,
+              "family_macro_area_mae_px2": 261.5814450073906
+            },
+            "optical_temporal_001": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 756.4891727366146,
+              "future_area_rmse_px2": 771.9834791273621,
+              "gain_mae_px2": 211.56060130804318,
+              "relative_gain_mae": 0.04866055690732097,
+              "future_area_signed_error_px2": 756.4891727366146,
+              "family_macro_area_mae_px2": 756.4891727366146
+            },
+            "optical_temporal_002": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 296.74924389977303,
+              "future_area_rmse_px2": 305.64244425752855,
+              "gain_mae_px2": 137.39210104263017,
+              "relative_gain_mae": 0.03786308268713999,
+              "future_area_signed_error_px2": 296.74924389977303,
+              "family_macro_area_mae_px2": 296.74924389977303
+            }
+          }
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 45,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 3
+          },
+          "all_available": {
+            "samples": 42,
+            "families": 3,
+            "future_area_mae_px2": 273.75020132448674,
+            "future_area_rmse_px2": 378.86237583561643,
+            "gain_mae_px2": 87.31209807442731,
+            "relative_gain_mae": 0.0222492494988888,
+            "future_area_signed_error_px2": 235.4181582910265,
+            "family_macro_area_mae_px2": 273.7502013244868
+          },
+          "common_history_support": {
+            "samples": 42,
+            "families": 3,
+            "future_area_mae_px2": 273.75020132448674,
+            "future_area_rmse_px2": 378.86237583561643,
+            "gain_mae_px2": 87.31209807442731,
+            "relative_gain_mae": 0.0222492494988888,
+            "future_area_signed_error_px2": 235.4181582910265,
+            "family_macro_area_mae_px2": 273.7502013244868
+          },
+          "clipped_predictions": 0,
+          "per_family": {
+            "optical_temporal_000": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 141.14372998203325,
+              "future_area_rmse_px2": 173.04271350841344,
+              "gain_mae_px2": 69.85518840280581,
+              "relative_gain_mae": 0.016090988078533017,
+              "future_area_signed_error_px2": 47.95025992391834,
+              "family_macro_area_mae_px2": 141.14372998203325
+            },
+            "optical_temporal_001": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 527.6239579319684,
+              "future_area_rmse_px2": 609.5825567157369,
+              "gain_mae_px2": 136.20972532083255,
+              "relative_gain_mae": 0.03435646710649068,
+              "future_area_signed_error_px2": 527.6239579319684,
+              "family_macro_area_mae_px2": 527.6239579319684
+            },
+            "optical_temporal_002": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 152.48291605945857,
+              "future_area_rmse_px2": 170.5151762189343,
+              "gain_mae_px2": 55.87138049964359,
+              "relative_gain_mae": 0.0163002933116427,
+              "future_area_signed_error_px2": 130.68025701719264,
+              "family_macro_area_mae_px2": 152.48291605945857
+            }
+          }
+        }
+      },
+      "validation": {
+        "persistence": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available": {
+            "samples": 30,
+            "families": 2,
+            "future_area_mae_px2": 247.36666666666667,
+            "future_area_rmse_px2": 268.66031836999423,
+            "gain_mae_px2": 97.46666666666667,
+            "relative_gain_mae": 0.02267785882885724,
+            "future_area_signed_error_px2": 246.56666666666666,
+            "family_macro_area_mae_px2": 247.36666666666667
+          },
+          "common_history_support": {
+            "samples": 28,
+            "families": 2,
+            "future_area_mae_px2": 248.03571428571428,
+            "future_area_rmse_px2": 270.58237457116724,
+            "gain_mae_px2": 98.60714285714286,
+            "relative_gain_mae": 0.022701397532982937,
+            "future_area_signed_error_px2": 247.17857142857142,
+            "family_macro_area_mae_px2": 248.03571428571428
+          },
+          "clipped_predictions": 0,
+          "per_family": {
+            "optical_temporal_003": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 227.71428571428572,
+              "future_area_rmse_px2": 266.5319600240949,
+              "gain_mae_px2": 134.57142857142858,
+              "relative_gain_mae": 0.030231608242738767,
+              "future_area_signed_error_px2": 226.0,
+              "family_macro_area_mae_px2": 227.71428571428572
+            },
+            "optical_temporal_004": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 268.35714285714283,
+              "future_area_rmse_px2": 274.5730451862621,
+              "gain_mae_px2": 62.642857142857146,
+              "relative_gain_mae": 0.015171186823227111,
+              "future_area_signed_error_px2": 268.35714285714283,
+              "family_macro_area_mae_px2": 268.35714285714283
+            }
+          }
+        },
+        "recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available": {
+            "samples": 28,
+            "families": 2,
+            "future_area_mae_px2": 350.82142857142856,
+            "future_area_rmse_px2": 408.0055584355264,
+            "gain_mae_px2": 92.10714285714286,
+            "relative_gain_mae": 0.019047136933258456,
+            "future_area_signed_error_px2": 343.67857142857144,
+            "family_macro_area_mae_px2": 350.82142857142856
+          },
+          "common_history_support": {
+            "samples": 28,
+            "families": 2,
+            "future_area_mae_px2": 350.82142857142856,
+            "future_area_rmse_px2": 408.0055584355264,
+            "gain_mae_px2": 92.10714285714286,
+            "relative_gain_mae": 0.019047136933258456,
+            "future_area_signed_error_px2": 343.67857142857144,
+            "family_macro_area_mae_px2": 350.82142857142856
+          },
+          "clipped_predictions": 0,
+          "per_family": {
+            "optical_temporal_003": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 381.0,
+              "future_area_rmse_px2": 474.6064535109965,
+              "gain_mae_px2": 143.71428571428572,
+              "relative_gain_mae": 0.02861134804997815,
+              "future_area_signed_error_px2": 366.7142857142857,
+              "family_macro_area_mae_px2": 381.0
+            },
+            "optical_temporal_004": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 320.64285714285717,
+              "future_area_rmse_px2": 328.1551244675081,
+              "gain_mae_px2": 40.5,
+              "relative_gain_mae": 0.009482925816538758,
+              "future_area_signed_error_px2": 320.64285714285717,
+              "family_macro_area_mae_px2": 320.64285714285717
+            }
+          }
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available": {
+            "samples": 30,
+            "families": 2,
+            "future_area_mae_px2": 560.352283683037,
+            "future_area_rmse_px2": 572.9029166659362,
+            "gain_mae_px2": 219.58561701637026,
+            "relative_gain_mae": 0.04728484596445372,
+            "future_area_signed_error_px2": 560.352283683037,
+            "family_macro_area_mae_px2": 560.3522836830371
+          },
+          "common_history_support": {
+            "samples": 28,
+            "families": 2,
+            "future_area_mae_px2": 563.809597507149,
+            "future_area_rmse_px2": 576.9577274906434,
+            "gain_mae_px2": 221.5238832214346,
+            "relative_gain_mae": 0.0473172672321181,
+            "future_area_signed_error_px2": 563.809597507149,
+            "family_macro_area_mae_px2": 563.809597507149
+          },
+          "clipped_predictions": 0,
+          "per_family": {
+            "optical_temporal_003": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 549.788609337519,
+              "future_area_rmse_px2": 573.6210177669784,
+              "gain_mae_px2": 189.21718076609042,
+              "relative_gain_mae": 0.03894765694551118,
+              "future_area_signed_error_px2": 549.788609337519,
+              "family_macro_area_mae_px2": 549.788609337519
+            },
+            "optical_temporal_004": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 577.8305856767788,
+              "future_area_rmse_px2": 580.275250720131,
+              "gain_mae_px2": 253.8305856767788,
+              "relative_gain_mae": 0.05568687751872502,
+              "future_area_signed_error_px2": 577.8305856767788,
+              "family_macro_area_mae_px2": 577.8305856767788
+            }
+          }
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available": {
+            "samples": 28,
+            "families": 2,
+            "future_area_mae_px2": 339.70784996075423,
+            "future_area_rmse_px2": 391.9001393950187,
+            "gain_mae_px2": 82.9687385066889,
+            "relative_gain_mae": 0.01731194709950439,
+            "future_area_signed_error_px2": 333.4244316632365,
+            "family_macro_area_mae_px2": 339.7078499607542
+          },
+          "common_history_support": {
+            "samples": 28,
+            "families": 2,
+            "future_area_mae_px2": 339.70784996075423,
+            "future_area_rmse_px2": 391.9001393950187,
+            "gain_mae_px2": 82.9687385066889,
+            "relative_gain_mae": 0.01731194709950439,
+            "future_area_signed_error_px2": 333.4244316632365,
+            "family_macro_area_mae_px2": 339.7078499607542
+          },
+          "clipped_predictions": 0,
+          "per_family": {
+            "optical_temporal_003": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 364.3287497425486,
+              "future_area_rmse_px2": 451.02164983055354,
+              "gain_mae_px2": 127.1528253382969,
+              "relative_gain_mae": 0.02549233863813738,
+              "future_area_signed_error_px2": 351.76191314751304,
+              "family_macro_area_mae_px2": 364.3287497425486
+            },
+            "optical_temporal_004": {
+              "samples": 14,
+              "families": 1,
+              "future_area_mae_px2": 315.0869501789598,
+              "future_area_rmse_px2": 322.1038806034408,
+              "gain_mae_px2": 38.784651675080895,
+              "relative_gain_mae": 0.0091315555608714,
+              "future_area_signed_error_px2": 315.0869501789598,
+              "family_macro_area_mae_px2": 315.0869501789598
+            }
+          }
+        }
+      }
+    },
+    "reserved_scenes": [
+      "optical_temporal_005"
+    ],
+    "fitted_new_parameters": false,
+    "final_test_scored": false,
+    "numerical_actuator_commands": 0,
+    "operator_reviews_created": 0
+  },
+  "independent_audit": {
+    "path": "results/optical_temporal_execution_audit_v1.json",
+    "sha256": "071a1b7b28bda658054b3179f7adba665dedcf5229e42a8603d8fcb3a34f3fce",
+    "auditor_path": "results/audit_optical_temporal_v1.py",
+    "auditor_sha256": "02bc9626655fbc368fc40a59aac021acbc2078e1ced749d0fb75caf55810282e",
+    "report": {
+      "schema": "crystalab_temporal_independent_execution_audit_v1",
+      "status": "passed",
+      "source_manifest_sha256": "1ab084b9eed4f0d9a46ab77ea7b549ee8b70041df112af2ac3410c4be0ebba0f",
+      "run_manifest_sha256": "9835c445a8026d54a4ade7f07cc7eb1a8772a79053a84721adfc927b880580a0",
+      "source_observations_checked": 80,
+      "causal_windows_checked": 75,
+      "forecast_records_checked": 300,
+      "event_matches_checked": 3,
+      "native_forecast_formulas_and_metrics_reconstructed": true,
+      "native_event_iou_and_matching_reconstructed": true,
+      "source_proxy_event_labels_and_negative_intervals_reconstructed": true,
+      "class_negative_coverage_and_false_counts_reconstructed": true,
+      "usable_deadline_counts_reconstructed": true,
+      "reserved_scene_replayed": false,
+      "model_bytes_unchanged": true,
+      "mean_current_area_bias_by_family": {
+        "optical_temporal_000": 66.66666666666667,
+        "optical_temporal_001": 551.8,
+        "optical_temporal_002": 165.86666666666667,
+        "optical_temporal_003": 359.3333333333333,
+        "optical_temporal_004": 322.2
+      },
+      "scope": "Independent numeric/mask reconstruction of this executed diagnostic; no physical visibility, real accuracy or control-benefit audit",
+      "auditor_sha256": "02bc9626655fbc368fc40a59aac021acbc2078e1ced749d0fb75caf55810282e"
+    }
+  },
+  "coverage_correction": {
+    "fixture_report": "results/temporal_fixture_coverage_v2/report.json",
+    "report_sha256": "a0fb4f814b40f01adfa2a15effb06206835366f2d6e986d6c35481e73bed6aed",
+    "finding": "Elapsed fixture deadlines cover two crystal and one inclusion events; uninterrupted class-usable follow-up covers only one crystal and the inclusion. Ordinary matches remain unchanged.",
+    "incomplete_source_guard": "results/optical_temporal_incomplete_guard_v1.json",
+    "guard_sha256": "5b79afb8f863d9efa99980c0478cbb05c6201c58e2360ddd4c36309d7deece25"
+  },
+  "retained_failures": [
+    "Three false crystal inspections across two no-secondary clips",
+    "One eligible training-scene inclusion missed despite full usable deadline follow-up",
+    "Validation inclusion has zero proxy-mask pixels at every constructed presence frame; no validation inclusion recall",
+    "One clear-view appearance labeled by tracker as appearance after an unknown interval",
+    "Frozen calibrated future-area MAE 339.70784996075423 exceeds persistence 248.03571428571428 on 28 shared validation windows; positive current-area bias persists"
+  ],
+  "next_gate": [
+    "Investigate false crystal alerts and current-boundary bias before promoting an observable forecast",
+    "Define and inspect relevant inclusion/face coverage; preserve this frozen cohort and do not tune on reserved test",
+    "Complete actual human Leeds/KDP masks/events and numerical budgets; obtain relevant real/action-response trajectories",
+    "Implement and compare changing adaptive state/policy and the full video/process/proposal/override operator interface"
+  ],
+  "remaining_pitch": [
+    "Independent KDP accuracy, physical first-hour coverage and measured action-response evidence",
+    "Supported face/asymmetry and inclusion interpretation",
+    "Mixed real/synthetic model comparison and independent real scoring",
+    "Equipment characterization, physical quality/yield/energy comparisons",
+    "GPU HPC and chemically justified Qiskit experiments"
+  ]
+}

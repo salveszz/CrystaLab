@@ -126,13 +126,24 @@ and exact values are retained in the streaming checkpoint; no camera was opened.
 |---|---|---|
 | Trained model, optical scene 013, three frames / 0.5 display seconds | One later crystal match, two false startup crystal inspections; one inclusion unmatched. Matched mask IoU 0.711, alert 0.25 source seconds after its first eligible frame. | Both target matching windows are censored by the short clip. No full-deadline recall or physical delay claim. Startup false alarms remain in all-alert counts. |
 | Trained model, real alpha-LGA training run 12, 30 frames | Zero candidate events, 11 seed/view-uncertain frames; 4.25 usable source-video seconds per type. | No reviewed events or negative periods. Zero alerts cannot establish absence, recall, false-alert rate or KDP performance. |
-| Constructed 48-frame policy fixture / 4.7 seconds | Two crystal matches, one inclusion match, one false startup crystal alert; transient noise suppressed and appearance after occlusion distinguished. | Predictions are supplied imperfect masks. This checks tracking/evaluation behavior, not learned-model accuracy. All three matching windows have complete follow-up. |
+| Constructed 48-frame policy fixture / 4.7 seconds | Two crystal matches, one inclusion match, one false startup crystal alert; transient noise suppressed and appearance after occlusion distinguished. | Predictions are supplied imperfect masks. All three deadlines fit within the clip, but only one crystal window and the inclusion window have uninterrupted class-usable evidence. The other crystal window overlaps an unknown view. |
 
 The fixture has 0.9 usable annotated-negative source seconds for crystals and 2.2
 for inclusions after excluding the unknown interval. It has no physical-time
 interpretation. Generate it with `scripts/make_candidate_fixture.py --output ...`,
 then use `analyze_candidates.py` on its `observations/` directory and evaluate
 against its `annotations.json`.
+
+The current evaluator reconstructs usable intervals from adjacent class flags,
+timestamps and the configured gap bound. Its `observable_deadline_followup`
+requires uninterrupted usable evidence across the full matching window; the
+older `complete_followup` field retains elapsed-clip coverage for comparability.
+The stricter fixture rerun is preserved at
+`results/temporal_fixture_coverage_v2/report.json`. Ordinary hits, misses and false
+inspections remain reported independently of follow-up exclusions. These usability
+flags do not establish independently measured visibility or healthy crystal quality.
+The [longer optical diagnostic](OPTICAL_TEMPORAL.md) supplies timed construction
+profiles and a frozen-model workflow for clips with more post-onset observations.
 
 ## Event annotation and matching
 

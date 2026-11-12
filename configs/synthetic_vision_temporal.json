@@ -1,0 +1,253 @@
+{
+  "schema": "crystalab_optical_images_v1",
+  "description": "Frozen temporal diagnostic: six independent base families, sixteen illustrative geometry steps each, timed presence and varied unconditioned outward-face profiles. No physical clock, action-response or KDP accuracy claim.",
+  "geometry_config": "configs/synthetic_growth.json",
+  "resolution": 256,
+  "samples": 64,
+  "threads": 8,
+  "frames_per_scene": 16,
+  "minimum_label_pixels": 12,
+  "optical_mask_threshold": 32,
+  "classes": [
+    "seed",
+    "secondary_crystal",
+    "inclusion_candidate"
+  ],
+  "scenes": [
+    {
+      "id": "optical_temporal_000",
+      "family_id": "optical_temporal_000",
+      "split": "train",
+      "seed": 202611200,
+      "secondary_count": 0,
+      "inclusion_count": 0,
+      "bubble_count": 1,
+      "face_offset_by_frame": [
+        0.0,
+        0.006,
+        0.012,
+        0.018,
+        0.024,
+        0.03,
+        0.036,
+        0.042,
+        0.048,
+        0.054,
+        0.06,
+        0.066,
+        0.072,
+        0.078,
+        0.084,
+        0.09
+      ],
+      "presence_intervals": {
+        "bubble_0": [
+          2,
+          16
+        ]
+      }
+    },
+    {
+      "id": "optical_temporal_001",
+      "family_id": "optical_temporal_001",
+      "split": "train",
+      "seed": 202611201,
+      "secondary_count": 1,
+      "inclusion_count": 0,
+      "bubble_count": 1,
+      "face_offset_by_frame": [
+        0.0,
+        0.008,
+        0.016,
+        0.024,
+        0.032,
+        0.04,
+        0.048,
+        0.056,
+        0.058,
+        0.06,
+        0.062,
+        0.064,
+        0.066,
+        0.068,
+        0.07,
+        0.072
+      ],
+      "presence_intervals": {
+        "secondary_0": [
+          4,
+          16
+        ],
+        "bubble_0": [
+          0,
+          16
+        ]
+      }
+    },
+    {
+      "id": "optical_temporal_002",
+      "family_id": "optical_temporal_002",
+      "split": "train",
+      "seed": 202611202,
+      "secondary_count": 1,
+      "inclusion_count": 1,
+      "bubble_count": 1,
+      "face_offset_by_frame": [
+        0,
+        0.002,
+        0.004,
+        0.006,
+        0.008,
+        0.014,
+        0.02,
+        0.026,
+        0.032,
+        0.038,
+        0.044,
+        0.054,
+        0.064,
+        0.074,
+        0.084,
+        0.094
+      ],
+      "presence_intervals": {
+        "secondary_0": [
+          0,
+          16
+        ],
+        "inclusion_0": [
+          6,
+          16
+        ],
+        "bubble_0": [
+          0,
+          16
+        ]
+      }
+    },
+    {
+      "id": "optical_temporal_003",
+      "family_id": "optical_temporal_003",
+      "split": "validation",
+      "seed": 202611203,
+      "secondary_count": 1,
+      "inclusion_count": 1,
+      "bubble_count": 2,
+      "face_offset_by_frame": [
+        0.0,
+        0.004,
+        0.008,
+        0.012,
+        0.016,
+        0.02,
+        0.024,
+        0.028,
+        0.037,
+        0.046,
+        0.055,
+        0.064,
+        0.073,
+        0.082,
+        0.091,
+        0.1
+      ],
+      "presence_intervals": {
+        "secondary_0": [
+          5,
+          16
+        ],
+        "inclusion_0": [
+          8,
+          16
+        ],
+        "bubble_0": [
+          0,
+          16
+        ],
+        "bubble_1": [
+          2,
+          16
+        ]
+      }
+    },
+    {
+      "id": "optical_temporal_004",
+      "family_id": "optical_temporal_004",
+      "split": "validation",
+      "seed": 202611204,
+      "secondary_count": 0,
+      "inclusion_count": 0,
+      "bubble_count": 2,
+      "face_offset_by_frame": [
+        0.0,
+        0.005,
+        0.01,
+        0.015,
+        0.02,
+        0.025,
+        0.025,
+        0.025,
+        0.025,
+        0.025,
+        0.025,
+        0.029,
+        0.033,
+        0.037,
+        0.041,
+        0.045
+      ],
+      "presence_intervals": {
+        "bubble_0": [
+          0,
+          16
+        ],
+        "bubble_1": [
+          3,
+          13
+        ]
+      }
+    },
+    {
+      "id": "optical_temporal_005",
+      "family_id": "optical_temporal_005",
+      "split": "test",
+      "seed": 202611205,
+      "secondary_count": 1,
+      "inclusion_count": 1,
+      "bubble_count": 1,
+      "face_offset_by_frame": [
+        0.0,
+        0.005,
+        0.01,
+        0.015,
+        0.02,
+        0.025,
+        0.03,
+        0.035,
+        0.04,
+        0.045,
+        0.05,
+        0.055,
+        0.06,
+        0.065,
+        0.07,
+        0.075
+      ],
+      "presence_intervals": {
+        "secondary_0": [
+          4,
+          16
+        ],
+        "inclusion_0": [
+          6,
+          16
+        ],
+        "bubble_0": [
+          0,
+          16
+        ]
+      }
+    }
+  ],
+  "temporal_schema": "crystalab_optical_temporal_v1"
+}

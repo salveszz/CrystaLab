@@ -114,10 +114,20 @@ def render_frame(case, frame, protocol, folder):
             dims[axis] = 0.08
             media.append(cube(f"wall_{axis}_{sign}", location, dims, glass))
     for i, item in enumerate(case["bubbles"]):
+        if (
+            "present_object_ids" in frame
+            and f"bubble_{i}" not in frame["present_object_ids"]
+        ):
+            continue
         media.append(sphere(f"bubble_{i}", item["position"], item["radius"], bubble))
     targets = [(crystal("seed", frame, (0, 0, 0.65), case["rotation"], 1, solid), 0)]
     if frame["secondary_visible"]:
         for i, item in enumerate(case["secondaries"]):
+            if (
+                "present_object_ids" in frame
+                and f"secondary_{i}" not in frame["present_object_ids"]
+            ):
+                continue
             targets.append(
                 (
                     crystal(
@@ -132,6 +142,11 @@ def render_frame(case, frame, protocol, folder):
                 )
             )
     for i, item in enumerate(case["inclusions"]):
+        if (
+            "present_object_ids" in frame
+            and f"inclusion_{i}" not in frame["present_object_ids"]
+        ):
+            continue
         targets.append(
             (sphere(f"inclusion_{i}", item["position"], item["radius"], dark), 2)
         )
@@ -193,6 +208,7 @@ def render_frame(case, frame, protocol, folder):
         json.dumps(
             dict(
                 targets=records,
+                constructed_object_ids=frame.get("present_object_ids"),
                 blender=bpy.app.version_string,
                 optics="illustrative_nested_dielectrics_not_calibrated",
             ),

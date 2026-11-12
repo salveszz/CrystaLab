@@ -153,6 +153,10 @@ horizon, acceptance budgets and grouping protocol before final evaluation.
 
 The adaptive agent still needs an explicit changing state/policy, objective and
 bounded choices, compared with persistence, PID and [event-rule supervision](EVENT_SUPERVISION.md).
+The [longer optical diagnostic](OPTICAL_TEMPORAL.md) now provides a declared
+16-frame construction protocol and evaluates the existing frozen parameters
+without fitting on the new cohort. It retains per-split/family errors, unavailable
+histories and calibration-family overlap; it does not automatically promote a model.
 Real sources remain shadow-only until their measurement, timing and action
 evidence supports a stronger role. Operator review, physical first-hour evidence,
 face/asymmetry measurements, HPC and Qiskit remain open in the [roadmap](../roadmap.md).

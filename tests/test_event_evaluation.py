@@ -4,6 +4,7 @@
 
 import copy
 import json
+import math
 from pathlib import Path
 import shutil
 import sys
@@ -186,6 +187,64 @@ class EventEvaluationTests(unittest.TestCase):
             result["complete_followup"]["inclusion_candidate"]["censored_event_ids"],
             ["new_inclusion_B"],
         )
+
+    def test_elapsed_clip_does_not_count_unobservable_class_deadline_as_complete(self):
+        baseline = score_candidate_events(
+            self.analysis, self.annotations, self.case / "baseline"
+        )
+        self.assertEqual(
+            baseline["observable_deadline_followup"]["inclusion_candidate"]["eligible"],
+            1,
+        )
+        analysis = self.case / "gap"
+        shutil.copytree(self.analysis, analysis)
+        path = analysis / "candidate_observations.jsonl"
+        rows = [json.loads(line) for line in path.read_text().splitlines()]
+        index = next(
+            i for i, row in enumerate(rows) if math.isclose(row["video_time_s"], 3.0)
+        )
+        rows[index]["observable"]["inclusion_candidate"] = False
+        for i in (index, index + 1):
+            rows[i]["usable_intervals"] = [
+                v
+                for v in rows[i]["usable_intervals"]
+                if v["candidate_type"] != "inclusion_candidate"
+            ]
+        path.write_text("".join(json.dumps(row) + "\n" for row in rows))
+        manifest = json.loads((analysis / "manifest.json").read_text())
+        manifest["files"][path.name] = file_sha256(path)
+        save_json(analysis / "manifest.json", manifest)
+        result = score_candidate_events(analysis, self.annotations, self.case / "score")
+        self.assertEqual(
+            result["complete_followup"]["inclusion_candidate"]["eligible"], 1
+        )
+        strict = result["observable_deadline_followup"]["inclusion_candidate"]
+        self.assertEqual(strict["eligible"], 0)
+        self.assertEqual(
+            strict["excluded"][0]["reason"], "unobservable_or_gap_within_deadline"
+        )
+        self.assertEqual(
+            result["observable_deadline_followup"]["crystal_candidate"],
+            baseline["observable_deadline_followup"]["crystal_candidate"],
+        )
+        self.assertEqual(result["per_kind"]["inclusion_candidate"]["tp"], 1)
+
+    def test_rehashed_usable_interval_cannot_bridge_unknown_observations(self):
+        analysis = self.case / "forged"
+        shutil.copytree(self.analysis, analysis)
+        path = analysis / "candidate_observations.jsonl"
+        rows = [json.loads(line) for line in path.read_text().splitlines()]
+        index = next(
+            i for i, row in enumerate(rows) if math.isclose(row["video_time_s"], 3.0)
+        )
+        rows[index]["observable"]["inclusion_candidate"] = False
+        # Leave the old interval claiming that this unknown endpoint was usable.
+        path.write_text("".join(json.dumps(row) + "\n" for row in rows))
+        manifest = json.loads((analysis / "manifest.json").read_text())
+        manifest["files"][path.name] = file_sha256(path)
+        save_json(analysis / "manifest.json", manifest)
+        with self.assertRaisesRegex(ValueError, "adjacent class-specific"):
+            score_candidate_events(analysis, self.annotations, self.case / "score")
 
     def test_physical_rate_needs_real_review_and_supported_clock_mapping(self):
         # Explicitly artificial metadata mutation to test unit conversion, never real evidence.

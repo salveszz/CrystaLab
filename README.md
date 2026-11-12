@@ -34,6 +34,10 @@ A [projected-area forecast diagnostic](docs/AREA_FORECAST.md) now uses causal
 learned observations and separate original proxy labels. Its calibrated rate
 does not beat persistence on four shared development windows; measurement bias,
 longer trajectories and adaptive-policy validation remain open.
+A [longer optical diagnostic](docs/OPTICAL_TEMPORAL.md) now adds 96 scheduled
+frames and a frozen-model comparison. It retains three false crystal alerts, a
+missed inclusion and worse calibrated future-area error than persistence on 28
+shared validation windows. No forecast or adaptive action is promoted.
 
 Real observations are now local: **2,123 alpha-LGA microscope images from nine
 runs, three phase-specific KDP movies and one separately identified ADP movie**.

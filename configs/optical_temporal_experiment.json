@@ -1,0 +1,53 @@
+{
+  "schema": "crystalab_optical_temporal_diagnostic_v1",
+  "protocol_path": "configs/synthetic_vision_temporal.json",
+  "protocol_sha256": "00e0066919e2535c4017e8b14209060933c9bbac1ec45b7d5cbbb87ab7009e4e",
+  "purpose": "Longer-source-clip event/area diagnostics; no detector threshold tuning, new model fit, final test scoring or validated adaptive action",
+  "frames_per_scene": 16,
+  "display_fps": 4.0,
+  "last_source_time_s": 3.75,
+  "physical_time_mapping": null,
+  "source_clock": "source_video_time_s",
+  "synthetic_time_semantics": "illustrative_geometry_step_not_physical_time",
+  "model_run": "results/vision_training_pilot_v1",
+  "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+  "observer": {
+    "path": "configs/optical_learned_observation.json",
+    "sha256": "1c660d72e06937edff21546afbf459102bfcb4b6046b78a451c0a52dcf679ae6"
+  },
+  "candidates": {
+    "path": "configs/candidate_policy.json",
+    "sha256": "f7993d09bacbdf0a341d8ff1fa076975f34c4c29827592efc173ab6d6ffd29a4"
+  },
+  "source_proxy_event_matching": {
+    "minimum_iou": 0.5,
+    "maximum_delay_source_s": 1.0,
+    "role": "Diagnostic matching convention, not a frozen real performance acceptance budget"
+  },
+  "area_forecast": {
+    "path": "configs/area_forecast.json",
+    "sha256": "29f9f5e506a9153447c7d835ddfe3807a7a2d09cf89940f8a3f0276d9d040e44",
+    "horizon_source_s": 0.25,
+    "existing_model": "results/area_forecast_fit_v3/model.json",
+    "role": "Frozen negative-baseline candidate; not promoted for control",
+    "model_file_sha256": "890aaa74929aa1a15df71c12ead7deac0efabb5f7ed2d4fd7f5243abf168b78b"
+  },
+  "development_scenes": [
+    "optical_temporal_000",
+    "optical_temporal_001",
+    "optical_temporal_002",
+    "optical_temporal_003",
+    "optical_temporal_004"
+  ],
+  "reserved_test_scenes": [
+    "optical_temporal_005"
+  ],
+  "visual_qa": "Inspect training scenes only before any training export; retain raw RGB and original proxy/geometric passes",
+  "final_test_policy": "Render and audit byte/mask integrity only; no visual tuning or development replay/export",
+  "findings_required": [
+    "Per-class event matches, origin errors, missed targets, complete deadline follow-up and negative source-time coverage",
+    "Causal forecast coverage and window/family errors, including startup, uncertainty and current-mask bias",
+    "Failures retained without claiming first-hour physical coverage or control benefit"
+  ],
+  "model_run_manifest_sha256": "6ce66979f40c76bbd83e7b5394b70e0f67cf09e45a5b8b0d5e9eed77d2ef69f6"
+}

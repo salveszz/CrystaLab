@@ -57,6 +57,11 @@ construction labels. The optical example retains two false startup inspections
 and an unmatched inclusion; both target deadlines lack complete clip follow-up.
 The policy now runs during observation and preserves the same decisions as saved
 analysis. Investigate these errors and verify equipment/capture timing separately.
+The [longer optical diagnostic](OPTICAL_TEMPORAL.md) now adds 96 scheduled frames
+and a frozen-model experiment on five development families. It retains three
+false crystal inspections, a missed inclusion and an origin mismatch; validation
+has no eligible inclusion truth. Calibrated future-area error remains worse than
+persistence on 28 shared validation windows. No model is promoted for adaptation.
 Unreviewed proposals remain excluded from accepted real
 training; the real baseline/model comparison needs actual reviewed masks.
 

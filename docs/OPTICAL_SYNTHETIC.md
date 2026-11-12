@@ -111,3 +111,10 @@ The [grouped experiment report](VISION_PILOT.md) records its 30-epoch fit,
 OpenCV comparison and bubble/inclusion failures. This pilot is useful software
 evidence and retains the optical-proxy limits above; it does not establish real
 visibility, physical growth time, quality or defect response to control.
+
+The [longer temporal protocol](OPTICAL_TEMPORAL.md) adds explicitly timed object
+presence and per-frame outward-face offsets while preserving legacy behavior.
+Its six-family, 16-frame design addresses the earlier short follow-up gap;
+the frozen diagnostic keeps detector/forecast parameters unchanged and excludes
+reserved test scenes from development replay. See that guide for execution and
+the distinction between elapsed clip duration and usable event-class coverage.
