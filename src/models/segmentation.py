@@ -1,6 +1,8 @@
 # FILE PURPOSE: Train the pitch's YOLOv8n-seg locally with pinned inputs and bounded experiments.
 # Input data is independently audited; settings disable cloud logging and automatic
 # downloads. Real accuracy and physical control are outside a synthetic first fit.
+# Mask downsampling and overlap handling are explicit because they change the
+# supervision of visible silhouettes and nested inclusion masks.
 """Reproducible local YOLOv8-seg training with retained failure manifests."""
 
 from datetime import datetime, timezone
@@ -31,6 +33,12 @@ def load_run_metadata(run):
     weights = safe_path(run, manifest["best_weights"])
     if file_sha256(weights) != manifest["best_weights_sha256"]:
         raise ValueError("Trained weight identity changed")
+    if (
+        manifest.get("trainer_args_path") is not None
+        and file_sha256(safe_path(run, manifest["trainer_args_path"]))
+        != manifest["trainer_args_sha256"]
+    ):
+        raise ValueError("Resolved trainer configuration changed")
     for relative, digest in manifest["source_sha256"].items():
         if file_sha256(safe_path(run / "source_snapshot", relative)) != digest:
             raise ValueError("Training source snapshot changed")
@@ -63,6 +71,17 @@ def training_options(config):
     ):
         raise ValueError(
             "Overfit check needs an explicit positive training-image count"
+        )
+    mask_ratio = config.get("mask_ratio", 4)
+    overlap_mask = config.get("overlap_mask", True)
+    if (
+        type(mask_ratio) is not int
+        or mask_ratio < 1
+        or config["imgsz"] % mask_ratio
+        or type(overlap_mask) is not bool
+    ):
+        raise ValueError(
+            "Declare an integer mask ratio dividing image size and explicit boolean overlap handling"
         )
     return dict(
         epochs=config["epochs"],
@@ -98,6 +117,8 @@ def training_options(config):
         perspective=0.0,
         flipud=0.0,
         fliplr=0.0,
+        mask_ratio=mask_ratio,
+        overlap_mask=overlap_mask,
     )
 
 
@@ -199,6 +220,17 @@ def train_segmentation(dataset, config, runtime, output):
                     "polars",
                 )
             },
+            segmentation_implementation_sha256={
+                name: file_sha256(
+                    importlib.metadata.distribution("ultralytics").locate_file(name)
+                )
+                for name in (
+                    "ultralytics/cfg/default.yaml",
+                    "ultralytics/utils/loss.py",
+                    "ultralytics/data/augment.py",
+                    "ultralytics/data/utils.py",
+                )
+            },
         )
         data_path = dataset / "dataset.yaml"
         if config["purpose"] == "overfit_check":
@@ -234,6 +266,14 @@ def train_segmentation(dataset, config, runtime, output):
             **options,
         )
         run_dir = Path(model.trainer.save_dir)
+        resolved = dict(
+            mask_ratio=model.trainer.args.mask_ratio,
+            overlap_mask=model.trainer.args.overlap_mask,
+        )
+        if resolved != {key: options[key] for key in resolved}:
+            raise ValueError(
+                "Trainer mask supervision differs from declared experiment"
+            )
         best, last = run_dir / "weights/best.pt", run_dir / "weights/last.pt"
         if not best.exists() or not last.exists():
             raise ValueError(
@@ -249,6 +289,9 @@ def train_segmentation(dataset, config, runtime, output):
             last_weights=str(last.relative_to(output)),
             last_weights_sha256=file_sha256(last),
             results_csv=str((run_dir / "results.csv").relative_to(output)),
+            resolved_mask_supervision=resolved,
+            trainer_args_path=str((run_dir / "args.yaml").relative_to(output)),
+            trainer_args_sha256=file_sha256(run_dir / "args.yaml"),
         )
         if audit_segmentation(dataset) != audit:
             raise ValueError("Dataset changed during training")

@@ -24,6 +24,45 @@ The [Vision MVP contract](docs/VISION_MVP.md) defines measurements, evaluation,
 controller interfaces and interpretation limits. This roadmap defines execution
 order. HPC and Qiskit remain explicit pitch deliverables with bounded experiments.
 
+## What we do next
+
+The pitch's next useful demonstration is a video of the growing crystal with
+measured outlines, supported alerts and a traceable proposed control response.
+The foundations run; dependable real detection and adaptive control are unfinished.
+
+1. **Make the camera measurements consistent.** The expanded synthetic fits now
+   reduce some errors, but PNG images and encoded video produce substantially
+   different area estimates. Compare lossless and MJPG observation with frozen
+   weights, then choose and freeze the measurement path. Keep persistence as the
+   forecast baseline; the current rate forecast still loses to it.
+2. **Check six real images before labeling many more.** Show the computer's outline
+   on each existing training image. A person corrects the outline and marks
+   uncertainty. An event label adds what appeared and when. This small review
+   establishes the example answers used to train and check the model. It needs
+   no specialist job title; ambiguous defects remain unresolved until someone
+   with relevant knowledge can assess them. No reviews have been invented.
+3. **Run the real-data model comparison once compatible labels exist.** Expand
+   training examples across the preserved development runs, independently review
+   evaluation labels, and compare synthetic-only, real-only and mixed fits.
+   Report missed crystals, false alerts, outline error and supported event delay.
+   Visible inclusions and face asymmetry remain open tasks with their own labels.
+4. **Build the operator demonstration alongside data review.** Show video, crystal
+   outline, process values, alert evidence and proposed action. Record operator
+   approval/override separately from simulated command and response. Connect the
+   existing PID/rule components before evaluating a changing adaptive state/policy.
+5. **Complete the remaining pitch evidence in order.** Evaluate an explicitly
+   defined adaptive objective against persistence/PID/rules, gather relevant KDP
+   runs with synchronized process/action logs and first-hour coverage, and complete
+   the bounded CPU/GPU and impurity-cluster Qiskit experiments. Physical quality,
+   yield and energy claims need measured outcome comparisons.
+
+The [expanded vision experiment](docs/VISION_REFINEMENT.md) is complete as a
+synthetic development comparison. Standard supervision cuts validation secondary
+FP from 10 to 2 but introduces two misses; fullmask improves seed overlap further
+while retaining more false alerts. Both miss all six validation inclusions. Neither
+is automatically promoted. Its [checkpoint](docs/VISION_REFINEMENT_CHECKPOINT.json)
+records 378 tests / 269 subtests and independent mask/event/forecast audits.
+
 ## Current evidence
 
 | Component | Actual position | Remaining work |
@@ -33,9 +72,9 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 | Video observation | Baseline/learned file/camera adapters, explicit clocks, seed role/uncertainty, raw masks, mapped source frames and candidate identities/inspection events during observation or on saved masks. | Reviewed real event accuracy and live equipment verification. Integrated decisions were tested on files; candidates are not confirmed defects. |
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies, a separate ADP movie and 587 protein-crystal images with 4,986 published crystal/drop masks. | Reviewed Leeds/KDP pixel/event labels and representative independent KDP evaluation data. Source fits are not masks; protein selected-object labels need a separate compatible task. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
-| Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal diagnostic. Frozen-model development evaluation uses 80 frames; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
-| Observable forecast | Earlier grouped calibration plus a frozen comparison on 75 longer-clip windows. On 28 shared new validation windows, calibrated future-area MAE is 339.71 px² versus persistence 248.04 px². | Boundary/measurement review, relevant real/action-labelled trajectories, frozen budgets and adaptive forecast/state policy. No action-response model exists. |
-| Learned perception, controllers and UI | Local training/evaluation, grouped pilot, candidate analysis, explicit process records, PID, thermal tests, event-rule shadow proposals and scripted fixture-to-PID integration. Still-image annotation UI exists; bubble/inclusion errors remain. | Real evaluation, equipment timing, face measurements, adaptive forecast/policy and the video/process/action operator demonstration. |
+| Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal source. Combined export has 84 training / 44 validation / 28 reserved images. Two new fits and development replays are complete; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
+| Observable forecast | Frozen comparisons with the original and two expanded detectors. The fullmask run has calibrated future-area MAE 273.37 px² versus persistence 201.00 px² on 28 shared validation windows. All three rate-based comparisons lose to persistence. | Resolve PNG/video measurement sensitivity, gather relevant real/action-labelled trajectories, freeze budgets and define adaptive forecast/state policy. No action-response model exists. |
+| Learned perception, controllers and UI | Local training/evaluation, expanded synthetic comparisons, candidate analysis, explicit process records, PID, thermal tests, event-rule shadow proposals and scripted fixture-to-PID integration. Still-image annotation UI exists; secondary misses and inclusion failures remain. | Real evaluation, equipment timing, face measurements, adaptive forecast/policy and the video/process/action operator demonstration. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /

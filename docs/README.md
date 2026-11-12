@@ -33,6 +33,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Longer optical checkpoint](OPTICAL_TEMPORAL_CHECKPOINT.json) | Actual 96-frame render, five-clip frozen diagnostic, retained failures, independent numeric/mask reconstruction and 377-test regression. |
 | [Optical/annotation checkpoint](OPTICAL_CHECKPOINT.json) | Source-matched optical/annotation verification, 254-test run, revised smoke audit and zero accepted real labels. |
 | [Vision training](VISION_TRAINING.md) | Audited YOLO polygon adapter, pinned local training/evaluation, synthetic first fits and retained detection failures. |
+| [Expanded vision comparison](VISION_REFINEMENT.md) | Two 84-image fits, common 44-image validation, split event/forecast results and PNG/video measurement sensitivity. |
+| [Expanded vision checkpoint](VISION_REFINEMENT_CHECKPOINT.json) | Model/config identities, family results, independent mask/event/formula audits and 378-test regression. |
 | [Training checkpoint](VISION_TRAINING_CHECKPOINT.json) | 264-test result, actual model hashes, synthetic development errors and remaining real/control gates. |
 | [Seed benchmark](VISION_BENCHMARK.md) | Identical-image OpenCV/YOLO comparison, training-only threshold calibration, invalid-measurement denominators and smoke failures. |
 | [Grouped synthetic pilot](VISION_PILOT.md) | Completed 60-image dataset, 30-epoch model, four-family development evaluation, bubble/inclusion failures and remaining gates. |

@@ -6,6 +6,9 @@ The first experiments use synthetic images only. The latest
 [grouped pilot](VISION_PILOT.md) detects seeds/secondary objects in its small
 validation set, with bubble false positives and missed inclusions. Real-image
 outlines still need review. This is a development checkpoint, not an evaluated KDP detector.
+The later [expanded synthetic experiment](VISION_REFINEMENT.md) compares standard
+and full-resolution separate-mask supervision on 84 training / 44 validation
+images, preserving misses, per-family results and a separate video comparison.
 
 ## Inputs and safeguards
 
@@ -90,6 +93,10 @@ PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
 
 Each training run retains settings, source snapshots, exact input manifest/weight
 identity, actual trainer options, loss CSV, best/last weights and a run manifest.
+A new run also retains resolved mask-supervision settings, the hash of the
+trainer's argument file, and hashes of the installed segmentation implementation.
+Historical manifests without these newer fields still load; newer argument-file
+changes are rejected. Defaults remain mask ratio four with merged overlap masks.
 A failure retains its manifest and error. The development evaluator preserves
 prediction masks, overlays, evidence IDs and explicit confidence/matching gates.
 It supports training/validation images; final test scoring is excluded at this

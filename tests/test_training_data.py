@@ -187,6 +187,11 @@ class TrainingDataTests(unittest.TestCase):
         options = training_options(config)
         self.assertFalse(options["amp"])
         self.assertEqual(options["workers"], 0)
+        self.assertEqual(options["mask_ratio"], 4)
+        self.assertTrue(options["overlap_mask"])
+        full = training_options(dict(config, mask_ratio=1, overlap_mask=False))
+        self.assertEqual(full["mask_ratio"], 1)
+        self.assertFalse(full["overlap_mask"])
         for change in [
             dict(purpose="production_accuracy"),
             dict(epochs=0),
@@ -194,6 +199,11 @@ class TrainingDataTests(unittest.TestCase):
             dict(device="cuda"),
             dict(learning_rate=float("nan")),
             dict(purpose="overfit_check"),
+            dict(mask_ratio=True),
+            dict(mask_ratio=0),
+            dict(mask_ratio=3),
+            dict(mask_ratio=512),
+            dict(overlap_mask="false"),
         ]:
             invalid = copy.deepcopy(config)
             invalid.update(change)

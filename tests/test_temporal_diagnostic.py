@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 from test_area_forecast_pipeline import fixture_cohort
 from models.area_forecast_run import train_forecast
-from vision.temporal_diagnostic import evaluate_frozen_cohort
+from vision.temporal_diagnostic import evaluate_frozen_cohort, split_event_summaries
 from vision.video import file_sha256
 
 
@@ -62,6 +62,39 @@ class FrozenTemporalDiagnosticTests(unittest.TestCase):
                 self.cohort, edited / "model.json", self.root / "blocked"
             )
         self.assertFalse((self.root / "blocked").exists())
+
+    def test_training_clip_events_are_not_counted_as_validation(self):
+        def case(split, tp, fn):
+            kinds = ("crystal_candidate", "inclusion_candidate")
+            return dict(
+                split=split,
+                report=dict(
+                    per_kind={k: dict(tp=tp, fp=0, fn=fn) for k in kinds},
+                    observable_deadline_followup={
+                        k: dict(eligible=tp + fn, matched=tp) for k in kinds
+                    },
+                    negative_coverage={
+                        k: dict(
+                            usable_annotated_negative_source_seconds=1.0,
+                            false_events_in_negative_intervals=0,
+                        )
+                        for k in kinds
+                    },
+                ),
+            )
+
+        result = split_event_summaries([case("train", 3, 0), case("validation", 0, 1)])
+        self.assertEqual(result["train"]["per_kind"]["crystal_candidate"]["tp"], 3)
+        self.assertEqual(result["validation"]["per_kind"]["crystal_candidate"]["tp"], 0)
+        self.assertEqual(
+            result["validation"]["per_kind"]["crystal_candidate"]["recall"], 0.0
+        )
+        for split in ("test", None):
+            with (
+                self.subTest(split=split),
+                self.assertRaisesRegex(ValueError, "explicit development split"),
+            ):
+                split_event_summaries([case(split, 1, 0)])
 
 
 if __name__ == "__main__":

@@ -39,6 +39,12 @@ frames and a frozen-model comparison. It retains three false crystal alerts, a
 missed inclusion and worse calibrated future-area error than persistence on 28
 shared validation windows. No forecast or adaptive action is promoted.
 
+An [expanded synthetic vision comparison](docs/VISION_REFINEMENT.md) now trains
+two further fits on 84 images and checks the same 44 validation images. It improves
+seed outlines and some false alerts, while retaining secondary misses, missed
+inclusions and a PNG/video measurement discrepancy. The [next steps](roadmap.md#what-we-do-next)
+prioritize consistent measurements, six real-image reviews and the operator demo.
+
 Real observations are now local: **2,123 alpha-LGA microscope images from nine
 runs, three phase-specific KDP movies and one separately identified ADP movie**.
 The image index preserves 79 source manual shape fits; reviewed segmentation and

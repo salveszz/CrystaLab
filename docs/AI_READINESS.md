@@ -62,6 +62,14 @@ and a frozen-model experiment on five development families. It retains three
 false crystal inspections, a missed inclusion and an origin mismatch; validation
 has no eligible inclusion truth. Calibrated future-area error remains worse than
 persistence on 28 shared validation windows. No model is promoted for adaptation.
+The [expanded synthetic fits](VISION_REFINEMENT.md) improve native seed overlap
+and reduce some false secondary detections, with two new secondary misses and
+zero of six validation inclusions detected. Standard has fewer video false alerts;
+fullmask has better image-weighted seed measurements. PNG and encoded-video area
+estimates differ substantially. Compare lossless and MJPG input before refitting
+forecasts or treating improved still-image scores as stable growth measurements.
+The [short execution sequence](../roadmap.md#what-we-do-next) explains the real
+review step and the operator demonstration in plain language.
 Unreviewed proposals remain excluded from accepted real
 training; the real baseline/model comparison needs actual reviewed masks.
 

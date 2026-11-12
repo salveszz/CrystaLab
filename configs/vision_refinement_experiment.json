@@ -1,0 +1,102 @@
+{
+  "schema": "crystalab_vision_refinement_experiment_v1",
+  "date": "2026-11-12",
+  "purpose": "Bounded expanded-synthetic training and paired mask-supervision diagnostic before adaptive control; no real-data fit or physical acceptance",
+  "dataset": {
+    "path": "data/yolo_optical_refinement_v1",
+    "manifest_sha256": "0e1ef9044b768da31da7f5d2324d9df7a5e02f373dcf678ab4c29dfd3dbf6bfa",
+    "sources": [
+      "/home/salves/dev/CrystaLab/data/synthetic_vision_pilot_v1",
+      "/home/salves/dev/CrystaLab/data/synthetic_vision_temporal_v1"
+    ],
+    "source_manifest_sha256": [
+      "6434179db8c54e16cba55378f67568999ebb050899ba3756ae4563e10f02e429",
+      "1ab084b9eed4f0d9a46ab77ea7b549ee8b70041df112af2ac3410c4be0ebba0f"
+    ],
+    "images_by_split": {
+      "train": 84,
+      "validation": 44,
+      "test": 28
+    },
+    "families_by_split": {
+      "train": 15,
+      "validation": 6,
+      "test": 5
+    },
+    "synthetic_temporal_qa_sha256": "fe44712f0d12becd8c471bd945b4a38f123ae5775e10a32a16036c43ef717447"
+  },
+  "baseline": {
+    "name": "pilot",
+    "run": "results/vision_training_pilot_v1",
+    "run_manifest_sha256": "6ce66979f40c76bbd83e7b5394b70e0f67cf09e45a5b8b0d5e9eed77d2ef69f6",
+    "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+    "training_images": 36,
+    "epochs": 30,
+    "mask_ratio": 4,
+    "overlap_mask": true
+  },
+  "candidates": [
+    {
+      "name": "standard",
+      "training_config": "configs/vision_training_refinement_standard.json",
+      "config_sha256": "745e135ea44544c5806d362fea04b300de37f898eb8a3803818bba1c5cba99a8",
+      "output_run": "results/vision_refinement_standard_v1"
+    },
+    {
+      "name": "fullmask",
+      "training_config": "configs/vision_training_refinement_fullmask.json",
+      "config_sha256": "0b87b600504c198f94462899f8232875dfd482add7e880157317d9ff2422f4f9",
+      "output_run": "results/vision_refinement_fullmask_v1"
+    }
+  ],
+  "runtime": {
+    "path": "configs/yolov8n_seg_runtime.json",
+    "sha256": "4db2738202dd6d2812c7618cae1c8668eb1988ee1e5d2de3977584ae7b60cf21"
+  },
+  "initialization": "Each candidate starts from the same pinned COCO weights; neither resumes the pilot or another candidate",
+  "fixed_training_settings": {
+    "epochs": 30,
+    "batch": 4,
+    "imgsz": 256,
+    "threads": 2,
+    "seed": 20261111,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001
+  },
+  "interpretation": [
+    "Expanded-data fits use more image passes and optimization updates than the original pilot; the comparison does not isolate data quantity from compute.",
+    "The two new fits share data, initialization and schedule; their paired representation change combines mask ratio and overlap behavior rather than isolating each independently.",
+    "Best checkpoints are selected by each trainer on the same development images. Native standalone scoring uses common polygon masks; trainer mAP values have different mask representations and are not the common comparison."
+  ],
+  "common_evaluation": {
+    "split": "validation",
+    "images": 44,
+    "confidence": 0.25,
+    "mask_iou_gate": 0.5,
+    "retina_masks": true,
+    "seed_benchmark_config": "results/vision_seed_pilot_calibration_v1/selected_config.json",
+    "seed_benchmark_config_sha256": "e8552f194f197dece10fd0f956b8d9f95604d26ac9d4235813387356206eb1ff",
+    "required": [
+      "Per-class TP/FP/FN and per-family performance",
+      "Seed overlap including misses as zero, valid coverage and area bias/MAE",
+      "Temporal event/negative/deadline results by source split",
+      "Native current-area error and frozen old forecast comparison on validation clips"
+    ]
+  },
+  "temporal": {
+    "source": "data/synthetic_vision_temporal_v1",
+    "source_manifest_sha256": "1ab084b9eed4f0d9a46ab77ea7b549ee8b70041df112af2ac3410c4be0ebba0f",
+    "base_experiment": "configs/optical_temporal_experiment.json",
+    "base_experiment_sha256": "5ed568500950e666bc0f80f8c3b62b1ab3baefe68cebe3f6588514934b895ce7",
+    "rule": "Write a new source-bound replay experiment after fitting each candidate; original frozen experiment is not modified",
+    "observer_sha256": "1c660d72e06937edff21546afbf459102bfcb4b6046b78a451c0a52dcf679ae6",
+    "candidate_policy_sha256": "f7993d09bacbdf0a341d8ff1fa076975f34c4c29827592efc173ab6d6ffd29a4",
+    "forecast_model_sha256": "890aaa74929aa1a15df71c12ead7deac0efabb5f7ed2d4fd7f5243abf168b78b",
+    "note": "Old forecast parameters are deliberately not recalibrated to new observation masks. Training and validation clips remain distinct."
+  },
+  "real_labels_used": 0,
+  "final_test_scored": false,
+  "automatic_model_promotion": false,
+  "physical_actuation_allowed": false,
+  "selection": "Retain both candidate fits and report all failures. Real review, budgets and independent KDP evidence remain separate gates."
+}

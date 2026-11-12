@@ -138,6 +138,21 @@ def summarize_events(cases):
     return result
 
 
+def split_event_summaries(cases):
+    """Keep training clips out of validation metrics even when both are replayed."""
+    if any(case.get("split") not in {"train", "validation"} for case in cases):
+        raise ValueError(
+            "Event summaries require explicit development split membership"
+        )
+    return {
+        split: dict(
+            clips=sum(c["split"] == split for c in cases),
+            per_kind=summarize_events([c for c in cases if c["split"] == split]),
+        )
+        for split in ("train", "validation")
+    }
+
+
 def run_temporal_diagnostic(source, experiment_path, output):
     source, experiment_path, output = [
         Path(p).resolve() for p in (source, experiment_path, output)
@@ -158,6 +173,7 @@ def run_temporal_diagnostic(source, experiment_path, output):
         raise ValueError("Rendered protocol differs from frozen diagnostic")
     scenes = sorted(s["id"] for s in original["scenes"] if s["split"] != "test")
     reserved = sorted(s["id"] for s in original["scenes"] if s["split"] == "test")
+    scene_splits = {s["id"]: s["split"] for s in original["scenes"]}
     if (
         scenes != experiment["development_scenes"]
         or reserved != experiment["reserved_test_scenes"]
@@ -241,11 +257,12 @@ def run_temporal_diagnostic(source, experiment_path, output):
                     "maximum_delay_source_s"
                 ],
             )
-            cases.append(dict(scene_id=scene, report=report))
+            cases.append(dict(scene_id=scene, split=scene_splits[scene], report=report))
         save_json(
             output / "event_summary.json",
             dict(
                 per_kind=summarize_events(cases),
+                by_split=split_event_summaries(cases),
                 origin_confusion=dict(
                     sum(
                         (Counter(c["report"]["origin_confusion"]) for c in cases),
@@ -270,6 +287,7 @@ def run_temporal_diagnostic(source, experiment_path, output):
             reserved_test_scenes=reserved,
             forecast_metrics=forecast["metrics"],
             event_metrics=summarize_events(cases),
+            event_metrics_by_split=split_event_summaries(cases),
             files={
                 str(p.relative_to(output)): file_sha256(p)
                 for p in output.rglob("*")
