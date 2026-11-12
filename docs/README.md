@@ -13,6 +13,7 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Vision MVP](VISION_MVP.md) | Capture/annotation contract, observable targets, real/synthetic splits, evaluation and control interfaces. |
 | [Public KDP source review](PUBLIC_KDP_SOURCE_REVIEW.md) | Additional surface-defect leads, observed access/license limits and remaining growth-event evidence under public-only access. |
 | [KDP video index and review pack](KDP_VIDEO_DATA.md) | All 881 native source frames, preserved phase/timestamp provenance, six unreviewed sheets and independent pixel/browser checks. |
+| [KDP gel-growth publication panels](KDP_GEL_DATA.md) | A second KDP study: nine source-bound image crops, uncertain review sheets, sparse published clocks and independent decoder/provenance checks. |
 | [Al precursor VQE/classical diagnostic](QUANTUM_IMPURITY.md) | Source-motivated hydrated clusters, frozen geometries/active spaces, six local starts, independent fermion/circuit audits, retained failures and physical chemistry limits. |
 | [Quantum experiment checkpoint](QUANTUM_IMPURITY_CHECKPOINT.json) | Exact protocol/source/runtime/artifact identities, all starts, baseline comparison and verification evidence. |
 | [Video baseline](VISION_BASELINE.md) | Implemented file/camera observation, explicit clocks, projected seed tracking, validity events and reproducible fixture replay. |

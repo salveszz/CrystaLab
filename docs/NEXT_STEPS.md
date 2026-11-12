@@ -23,6 +23,9 @@ establish real detection accuracy.
    Preserve whole-run groups and source permissions. Seek additional public KDP
    growth data with labels and timing; the current three clips form one study
    family and cannot provide an independent evaluation cohort.
+   A second [KDP gel-growth study](KDP_GEL_DATA.md) now adds nine published panel
+   candidates. They retain their small resolution, source marks and separate
+   domain; actual reviews and an independent evaluation cohort are still needed.
 3. **Compare models fairly.** Use compatible reviewed labels to compare
    synthetic-only, real-only and mixed YOLOv8-seg training. Freeze the evaluation
    rules and independent real groups before scoring. Report outline error, missed

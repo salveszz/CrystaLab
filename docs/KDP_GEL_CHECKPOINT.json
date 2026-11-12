@@ -1,0 +1,376 @@
+{
+  "record_kind": "public_KDP_publication_panels_not_raw_camera_or_reviewed_truth",
+  "date": "2026-11-12",
+  "base_commit": "0ae5671",
+  "raw_artifacts_tracked": false,
+  "source_sha256": {
+    "configs/kdp_gel_panels.json": "39ce76558a4f2862b1d6343eba3f8695ab923fbf632ba794402e0063c901a541",
+    "configs/vision_sources.json": "6415478d56814fc563c7b6eabcedd084c4d690d59d04beb9e16db8543b89eca5",
+    "src/vision/publication_panels.py": "9a9ec61fe7d90b5b50fc7c08c43fbe307da04b70c129e4cd1836a473d1abf6b6",
+    "scripts/import_publication_panels.py": "1d81830defde4c533fc5db36a223703d9ac2cee3fb4b8458c6e46c87d2a835b0",
+    "scripts/audit_publication_panels.py": "b4a5e732be855be5da5bb96ebe9e458c9034b5bac5d7ae26d835dc1df4c0287f",
+    "scripts/audit_data_sources.py": "d34dfa51e933c1c9b1f2c76b8efdbf3b26edcaf9727ac1f5f6d94250285da0eb",
+    "tests/test_publication_panels.py": "976105ebbce37fe8b217d255bc9d010a902618bea74ae76b5eae42cbfe9c0bfe",
+    "docs/KDP_GEL_DATA.md": "58fe55cc50aa4354741941c4a651a979312ba0a9b0b020b45963b807eaeaf8b2",
+    "docs/REAL_VISION_DATA.md": "9257fd8497053e5b927ca3c0fd45efcbfbdde1213bbe6cd17af0f8ace357c2b2",
+    "docs/AI_READINESS.md": "2501200d04927bba71d12b38d95fb99ac5b6421d423fffa96a9573dccbb0ffa9",
+    "docs/README.md": "02c75480b41db9a5e9c0b2004ee14a6cb2e71b8b9c91eb6544c9a2a0ec6dbe27",
+    "docs/NEXT_STEPS.md": "bb4a524bbd4aca10843c117130434b2b9f8f597be703ab47fa45e8f83692d5af",
+    "docs/PUBLIC_KDP_SOURCE_REVIEW.md": "e72f99a844c6d085ef0487585d329897aa18962c65d97048c47b591afce95d45",
+    "README.md": "3c3ea61abd8d6709e3f29cc37c644aa6d11e874c0e91c167d8e37939a8263a37",
+    "SOURCES.md": "72a6128355c9096238bd53debbbcd891ea500e1eee6811589575b32ede89864a",
+    "roadmap.md": "5218dabc88ab06c4362f7c87007c2dccc02a861367ba41e6178acf76e9ba7423"
+  },
+  "protocol_sha256": "39ce76558a4f2862b1d6343eba3f8695ab923fbf632ba794402e0063c901a541",
+  "import_manifest": {
+    "schema": "crystalab_publication_panels_index_v1",
+    "status": "complete",
+    "protocol": {
+      "schema": "crystalab_publication_panels_protocol_v1",
+      "source_id": "KDP-GEL-2026",
+      "material": "tetragonal_KDP",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13210260/",
+      "doi": "10.3390/molecules31101744",
+      "attribution": "Cai, Ren, Yao and Li (2026), Gel-Grown Kebab-like KDP Crystal Formation Mechanisms, Molecules 31(10), 1744",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "dependency_family_id": "KDP-GEL-2026-study",
+      "run_id": "KDP_GEL_2026_publication_panels",
+      "split": "train",
+      "split_semantics": "Development candidates only. Keep all panels of this study together; physical run/specimen independence is unknown. No independent validation/test cohort is claimed.",
+      "label_scope": "No pixel masks, reviewed instance identities, inclusion truth or event-onset labels are supplied. All extracted sheets remain uncertain and unreviewed.",
+      "clock_semantics": "Figure 2a labels give 0/10/70 minutes relative to the first published panel. They do not establish growth-run start, first-hour membership, original acquisition timestamps, continuous observation or alert-delay coverage.",
+      "derivation": "Integer crop of the original decoded publication JPEG only. Preserve text, scale bars and source marks; no resizing, colour adjustment, overlay removal or inferred unseen pixels. These are publication panels, not raw camera frames.",
+      "metadata": [
+        {
+          "file": "pmc_metadata.json",
+          "sha256": "5587b6a2a5bc77ce4b42ea6ab054438da8acc5f7c704ce0b1c4e4f2557813594"
+        },
+        {
+          "file": "article.xml",
+          "sha256": "ed9fa83af14fce8a40951c5ea92c39534d48f5ae9dae4ea4089e326f473aab81"
+        }
+      ],
+      "figures": [
+        {
+          "figure_id": "fig1",
+          "file": "molecules-31-01744-g001.jpg",
+          "width": 656,
+          "height": 1033,
+          "sha256": "63b6cc46fd30eb99a7cf97d961803f4dda620119e76d3e1b1838a141b95e2c91",
+          "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/d80d/13210260/76c9188b5be4/molecules-31-01744-g001.jpg"
+        },
+        {
+          "figure_id": "fig2",
+          "file": "molecules-31-01744-g002.jpg",
+          "width": 676,
+          "height": 751,
+          "sha256": "184a6224d69b61af2e63cba4f34f7856cff61af58b577975a53d772a52c878f0",
+          "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/d80d/13210260/ca629447bd66/molecules-31-01744-g002.jpg"
+        },
+        {
+          "figure_id": "fig3",
+          "file": "molecules-31-01744-g003.jpg",
+          "width": 739,
+          "height": 990,
+          "sha256": "fa6020ed363fd009ba4d3e2b2c0066977611bddcb0c9115b9929f4345ee91ae3",
+          "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/d80d/13210260/2917d4998161/molecules-31-01744-g003.jpg"
+        }
+      ],
+      "panels": [
+        {
+          "panel_id": "fig1b_photo",
+          "figure_id": "fig1",
+          "crop_xyxy": [
+            403,
+            358,
+            603,
+            509
+          ],
+          "domain": "solution_grown_microscopy_imaging_medium_unestablished",
+          "context": "Solution-grown KDP microscope image from Figure 1b; capture medium and physical specimen/run identity are not supplied.",
+          "published_relative_time_s": null
+        },
+        {
+          "panel_id": "fig1c_photo",
+          "figure_id": "fig1",
+          "crop_xyxy": [
+            403,
+            534,
+            603,
+            685
+          ],
+          "domain": "gel_grown_microscopy_imaging_medium_unestablished",
+          "context": "Gel-grown elongated KDP microscope image from Figure 1c; optical streaks are not inclusion labels.",
+          "published_relative_time_s": null
+        },
+        {
+          "panel_id": "fig2a_0min",
+          "figure_id": "fig2",
+          "crop_xyxy": [
+            10,
+            10,
+            222,
+            169
+          ],
+          "domain": "silica_gel_in_situ_growth",
+          "context": "Figure 2a gel-growth sequence, first published panel marked 0 min. Authors describe secondary growth on a preformed needle; no pixel/event annotations are supplied.",
+          "published_relative_time_s": 0
+        },
+        {
+          "panel_id": "fig2a_10min",
+          "figure_id": "fig2",
+          "crop_xyxy": [
+            232,
+            10,
+            443,
+            169
+          ],
+          "domain": "silica_gel_in_situ_growth",
+          "context": "Figure 2a gel-growth sequence, published panel marked 10 min after the first panel. Sparse publication snapshots do not establish onset or continuous negative coverage.",
+          "published_relative_time_s": 600
+        },
+        {
+          "panel_id": "fig2a_70min",
+          "figure_id": "fig2",
+          "crop_xyxy": [
+            453,
+            10,
+            665,
+            169
+          ],
+          "domain": "silica_gel_in_situ_growth",
+          "context": "Figure 2a gel-growth sequence, published panel marked 70 min after the first panel. This figure-relative clock is not the growth-run origin.",
+          "published_relative_time_s": 4200
+        },
+        {
+          "panel_id": "fig2c_needle",
+          "figure_id": "fig2",
+          "crop_xyxy": [
+            10,
+            354,
+            222,
+            513
+          ],
+          "domain": "gel_grown_microscopy_imaging_medium_unestablished",
+          "context": "Figure 2c needle-like KDP grown in gel; the publication does not establish an event time or main-seed identity.",
+          "published_relative_time_s": null
+        },
+        {
+          "panel_id": "fig3g_solution",
+          "figure_id": "fig3",
+          "crop_xyxy": [
+            16,
+            510,
+            245,
+            681
+          ],
+          "domain": "solution_grown_microscopy_imaging_medium_unestablished",
+          "context": "Figure 3g solution-grown KDP, nominal 3 v/v% acetic acid. Source text and scale bar are retained; these are not live process readings.",
+          "published_relative_time_s": null
+        },
+        {
+          "panel_id": "fig3h_solution",
+          "figure_id": "fig3",
+          "crop_xyxy": [
+            254,
+            510,
+            484,
+            681
+          ],
+          "domain": "solution_grown_microscopy_imaging_medium_unestablished",
+          "context": "Figure 3h solution-grown KDP, nominal 6 v/v% acetic acid. No acquisition clock, quality label or actuator history is supplied.",
+          "published_relative_time_s": null
+        },
+        {
+          "panel_id": "fig3i_solution",
+          "figure_id": "fig3",
+          "crop_xyxy": [
+            493,
+            510,
+            723,
+            681
+          ],
+          "domain": "solution_grown_microscopy_imaging_medium_unestablished",
+          "context": "Figure 3i solution-grown KDP, nominal 9 v/v% acetic acid. No acquisition clock, quality label or actuator history is supplied.",
+          "published_relative_time_s": null
+        }
+      ]
+    },
+    "protocol_sha256": "39ce76558a4f2862b1d6343eba3f8695ab923fbf632ba794402e0063c901a541",
+    "cache_path": "/home/salves/dev/CrystaLab/data/external_vision/KDP-GEL-2026",
+    "source_sha256": "9a9ec61fe7d90b5b50fc7c08c43fbe307da04b70c129e4cd1836a473d1abf6b6",
+    "opencv_version": "4.13.0",
+    "panels": 9,
+    "dependency_families": 1,
+    "reviewed_labels": 0,
+    "index_sha256": "740d89cfbfa6e9ef642dce9051faf82d48b33d7410e5ebdd9e51ba88b5e3e731"
+  },
+  "bundle": {
+    "path": "data/annotations_kdp_gel_v1",
+    "samples": 9,
+    "human_reviews": 0,
+    "accepted_training_labels": 0
+  },
+  "independent_audit": {
+    "status": "passed",
+    "protocol_sha256": "39ce76558a4f2862b1d6343eba3f8695ab923fbf632ba794402e0063c901a541",
+    "panels": [
+      {
+        "panel_id": "fig1b_photo",
+        "width": 200,
+        "height": 151,
+        "cross_decoder_max_pixel_difference": 0
+      },
+      {
+        "panel_id": "fig1c_photo",
+        "width": 200,
+        "height": 151,
+        "cross_decoder_max_pixel_difference": 0
+      },
+      {
+        "panel_id": "fig2a_0min",
+        "width": 212,
+        "height": 159,
+        "cross_decoder_max_pixel_difference": 0
+      },
+      {
+        "panel_id": "fig2a_10min",
+        "width": 211,
+        "height": 159,
+        "cross_decoder_max_pixel_difference": 0
+      },
+      {
+        "panel_id": "fig2a_70min",
+        "width": 212,
+        "height": 159,
+        "cross_decoder_max_pixel_difference": 0
+      },
+      {
+        "panel_id": "fig2c_needle",
+        "width": 212,
+        "height": 159,
+        "cross_decoder_max_pixel_difference": 0
+      },
+      {
+        "panel_id": "fig3g_solution",
+        "width": 229,
+        "height": 171,
+        "cross_decoder_max_pixel_difference": 0
+      },
+      {
+        "panel_id": "fig3h_solution",
+        "width": 230,
+        "height": 171,
+        "cross_decoder_max_pixel_difference": 0
+      },
+      {
+        "panel_id": "fig3i_solution",
+        "width": 230,
+        "height": 171,
+        "cross_decoder_max_pixel_difference": 0
+      }
+    ],
+    "families": 1,
+    "accepted_labels": 0,
+    "human_reviews": 0,
+    "scope": "Independent original-figure crop/pixel and critical-provenance reconstruction; no segmentation or event accuracy claim"
+  },
+  "acquisition": {
+    "original_figures": 3,
+    "pinned_source_assets": 5,
+    "official_PMC_XML_and_figure_MD5_verified": 4,
+    "license": "CC BY 4.0",
+    "doi": "10.3390/molecules31101744",
+    "source_id": "KDP-GEL-2026",
+    "dependency_family_id": "KDP-GEL-2026-study",
+    "observations": "nine integer publication crops; no raw video or masks in inspected versioned payload"
+  },
+  "verification": {
+    "full_regression": {
+      "passed": 434,
+      "subtests": 315,
+      "elapsed_s": 113.79,
+      "exit_code": 0,
+      "log": "results/kdp_gel_verification_v1/crystalab-kdp-gel-regression-v1.log"
+    },
+    "targeted": {
+      "passed": 12,
+      "subtests": 6,
+      "elapsed_s": 0.32,
+      "exit_code": 0,
+      "log": "results/kdp_gel_verification_v1/crystalab-kdp-gel-targeted-v2.log"
+    },
+    "independent_audit": "results/kdp_gel_independent_audit_v2.json",
+    "source_asset_audit": "results/kdp_gel_source_audit_v1.json",
+    "read_only_store_check": "results/kdp_gel_preview_v2/report.json",
+    "browser_test_performed": false,
+    "visual_inspection": "Original three figures and native-size nine-panel contact sheet inspected; source marks and low contrast/clipping retained",
+    "contact_sheet": "results/kdp_gel_preview_v2/contact_sheet.png",
+    "retained_failures": "results/kdp_gel_verification_v1/attempts.json"
+  },
+  "limitations": [
+    "All nine candidates remain unreviewed and outside accepted training",
+    "One conservative study family; run/specimen independence and an independent evaluation cohort remain unestablished",
+    "Publication JPEG crops at 200\u2013230 by 151\u2013171 pixels, with text/ROI boxes/arrows/scale bars retained",
+    "Gel/in-situ and specimen-microscopy domains differ from live seeded tank imaging",
+    "Published 0/10/70-minute labels do not establish growth-run origin, first-hour membership, continuous coverage or visible-onset labels",
+    "No pixel calibration, process/action trace, optical quality truth, real model accuracy or physical control benefit"
+  ],
+  "next_core_gate": "Actual review of the small KDP development pack, compatible pixel/event labels and independent real evaluation data",
+  "artifact_sha256": {
+    "data/annotations_kdp_gel_v1/annotations/fig1b_photo.json": "4fb867ffdd86f73ab8a0cd96fac024f2a66866b51df00fa6781e1a0078af7540",
+    "data/annotations_kdp_gel_v1/annotations/fig1c_photo.json": "2eb0ef6205a8025d4abd728a938b63ceb071c584a2fd4268eb7038b2b4caa51e",
+    "data/annotations_kdp_gel_v1/annotations/fig2a_0min.json": "55bd51a4e8c17d5e558329016c949b93ae4cbf71c91422329e45cc3040f7146b",
+    "data/annotations_kdp_gel_v1/annotations/fig2a_10min.json": "a3e85a25e2ec968bfdcb798e69c0149fa31f44af63d6cb3a116c2b42db44b351",
+    "data/annotations_kdp_gel_v1/annotations/fig2a_70min.json": "90c910bad7deb387cba8854a6a9b23f85cd79152fdc3a7f36649332e80941c08",
+    "data/annotations_kdp_gel_v1/annotations/fig2c_needle.json": "561a46f1d7dd7a479181e9db8e3f0fdb15660ffc65509c03d486c18374ccc46d",
+    "data/annotations_kdp_gel_v1/annotations/fig3g_solution.json": "629c531c218c15419cd96b78c82eb680ef56e91644457dfc3c059cb2d84f5926",
+    "data/annotations_kdp_gel_v1/annotations/fig3h_solution.json": "66b7b9065cadbad48756f3e31ccedf9e57df189cfd39685da3573c35bead2720",
+    "data/annotations_kdp_gel_v1/annotations/fig3i_solution.json": "54ce764610d20bddd2aa7c049b827bde7a111d764864d9747437b33ce334e9cc",
+    "data/annotations_kdp_gel_v1/images/fig1b_photo.png": "fa6515f7dcc1230d9696e0031f70d7b8e68a1647e6640129f13bff39c27989b4",
+    "data/annotations_kdp_gel_v1/images/fig1c_photo.png": "a0c048fa3389069def06166ad45c85c1a8917c132b32d2218bb6e610f592e288",
+    "data/annotations_kdp_gel_v1/images/fig2a_0min.png": "583315f134ab83b529a1db50c60f6f33ff427c418f4ca3e0ba106ba4a42a04d0",
+    "data/annotations_kdp_gel_v1/images/fig2a_10min.png": "4560f0dafe400e289538ecc955c00714734299a001b59eb3413efd168968d43b",
+    "data/annotations_kdp_gel_v1/images/fig2a_70min.png": "f722aa17ed77ddbd518c70f8a125a86bdfbf1bf16cd10b27333cf6fed14b1a51",
+    "data/annotations_kdp_gel_v1/images/fig2c_needle.png": "4f1792f49e378cfc87ca334992f43e10eefcb92c332cce81faade6b4498ccc49",
+    "data/annotations_kdp_gel_v1/images/fig3g_solution.png": "1c19ea7af647c7a2256b4d8a3e8de07ebf16e7beb411a88c1f92999fbad2c1a1",
+    "data/annotations_kdp_gel_v1/images/fig3h_solution.png": "15ec9e2d86f7f09c6185cec72396b2a210c3659f8132f4c862b2b06d9270d153",
+    "data/annotations_kdp_gel_v1/images/fig3i_solution.png": "8ae0e3df9422d99b6eeb59a132f8f36079bd67a3b4c4c2754e6c5cd720db64d9",
+    "data/annotations_kdp_gel_v1/manifest.json": "757b7e402b161301dd2c7e7acb694b500064ffd507661710f10a81514c2d7722",
+    "data/external_vision/KDP-GEL-2026/acquisition_v1.json": "20c6b1626ccece495ce9be2b2342ecd50f085321c5d03196f2d8554787a374bf",
+    "data/external_vision/KDP-GEL-2026/article.html": "4a08241ec11bb4b04d68de40e18c2c3deadd33a578dd11d9fc345e33011f8d13",
+    "data/external_vision/KDP-GEL-2026/article.xml": "ed9fa83af14fce8a40951c5ea92c39534d48f5ae9dae4ea4089e326f473aab81",
+    "data/external_vision/KDP-GEL-2026/figure2.html": "4a3da2fc0b7ab739f2f6203a6a08042a69d5f11f7ffc9086f734af5568a14835",
+    "data/external_vision/KDP-GEL-2026/figure_acquisition_v1.json": "efc75fa2220a1d0b158d3a57c941a9327175191e42a13e439b7538c03b90409e",
+    "data/external_vision/KDP-GEL-2026/metadata_acquisition_v2.json": "da55e65203fe6d76d06de1553aad6e72db0e8a4dfc9180cdf786629629bf721a",
+    "data/external_vision/KDP-GEL-2026/molecules-31-01744-g001.jpg": "63b6cc46fd30eb99a7cf97d961803f4dda620119e76d3e1b1838a141b95e2c91",
+    "data/external_vision/KDP-GEL-2026/molecules-31-01744-g002.jpg": "184a6224d69b61af2e63cba4f34f7856cff61af58b577975a53d772a52c878f0",
+    "data/external_vision/KDP-GEL-2026/molecules-31-01744-g003.jpg": "fa6020ed363fd009ba4d3e2b2c0066977611bddcb0c9115b9929f4345ee91ae3",
+    "data/external_vision/KDP-GEL-2026/pmc_metadata.json": "5587b6a2a5bc77ce4b42ea6ab054438da8acc5f7c704ce0b1c4e4f2557813594",
+    "data/external_vision/KDP-GEL-2026/xml_acquisition_v1.json": "7edd5ef8f3e62ef807a8ea2e0e49ef1149ae6213f8a293cd57f75fdb2df211c2",
+    "data/real_vision_kdp_gel_v1/images/fig1b_photo.png": "fa6515f7dcc1230d9696e0031f70d7b8e68a1647e6640129f13bff39c27989b4",
+    "data/real_vision_kdp_gel_v1/images/fig1c_photo.png": "a0c048fa3389069def06166ad45c85c1a8917c132b32d2218bb6e610f592e288",
+    "data/real_vision_kdp_gel_v1/images/fig2a_0min.png": "583315f134ab83b529a1db50c60f6f33ff427c418f4ca3e0ba106ba4a42a04d0",
+    "data/real_vision_kdp_gel_v1/images/fig2a_10min.png": "4560f0dafe400e289538ecc955c00714734299a001b59eb3413efd168968d43b",
+    "data/real_vision_kdp_gel_v1/images/fig2a_70min.png": "f722aa17ed77ddbd518c70f8a125a86bdfbf1bf16cd10b27333cf6fed14b1a51",
+    "data/real_vision_kdp_gel_v1/images/fig2c_needle.png": "4f1792f49e378cfc87ca334992f43e10eefcb92c332cce81faade6b4498ccc49",
+    "data/real_vision_kdp_gel_v1/images/fig3g_solution.png": "1c19ea7af647c7a2256b4d8a3e8de07ebf16e7beb411a88c1f92999fbad2c1a1",
+    "data/real_vision_kdp_gel_v1/images/fig3h_solution.png": "15ec9e2d86f7f09c6185cec72396b2a210c3659f8132f4c862b2b06d9270d153",
+    "data/real_vision_kdp_gel_v1/images/fig3i_solution.png": "8ae0e3df9422d99b6eeb59a132f8f36079bd67a3b4c4c2754e6c5cd720db64d9",
+    "data/real_vision_kdp_gel_v1/images.jsonl": "740d89cfbfa6e9ef642dce9051faf82d48b33d7410e5ebdd9e51ba88b5e3e731",
+    "data/real_vision_kdp_gel_v1/manifest.json": "f6596dffc1f4bc62bfc0991698765677917fdef319665640bfe32534a449e470",
+    "data/real_vision_kdp_gel_v1/protocol.json": "39ce76558a4f2862b1d6343eba3f8695ab923fbf632ba794402e0063c901a541",
+    "data/real_vision_kdp_gel_v1/source_snapshot/publication_panels.py": "9a9ec61fe7d90b5b50fc7c08c43fbe307da04b70c129e4cd1836a473d1abf6b6",
+    "results/kdp_gel_independent_audit_v1.json": "4f498344fd34686423e9fc408168024051493756a65558821cb03885a34551fd",
+    "results/kdp_gel_independent_audit_v2.json": "4f498344fd34686423e9fc408168024051493756a65558821cb03885a34551fd",
+    "results/kdp_gel_preview_v2/contact_sheet.png": "e514c0a35d6f608d155442aee38e0c8e60c2461841f8ab15438a3fff993848bf",
+    "results/kdp_gel_preview_v2/report.json": "2aa679bf4c44399eecceaa56c3d79f57b6d4bbe53605d8b0494f1f59fc18fb46",
+    "results/kdp_gel_source_audit_v1.json": "8a3bbef4b621caec17bfca81175bc9c5792b621f87dacd569d7cfa495197fd0e",
+    "results/kdp_gel_verification_v1/attempts.json": "07f500b77a8295d1553a443bd30d5ba94e9627ca9577f46ad54d33411e17a496",
+    "results/kdp_gel_verification_v1/crystalab-kdp-gel-independent-v2.log": "4f498344fd34686423e9fc408168024051493756a65558821cb03885a34551fd",
+    "results/kdp_gel_verification_v1/crystalab-kdp-gel-regression-v1.log": "ba4ae629242dd35512431cbc16b32a95efebe4ef210d8c92bdd024a28f2eb293",
+    "results/kdp_gel_verification_v1/crystalab-kdp-gel-targeted-v1.log": "82a8e8ba206781e7ac72c60bdfb47a2f2387fb94f9d0fdb86755eb98064d78f0",
+    "results/kdp_gel_verification_v1/crystalab-kdp-gel-targeted-v2.log": "717fe0bfd7efdd9d22e14b9ab2f9794a1f9ed2cbdccbb5b87ca7ddd88c688a3e"
+  }
+}

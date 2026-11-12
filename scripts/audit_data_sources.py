@@ -59,6 +59,14 @@ def _describe_payload(data, kind):
         if len(rows) < 2 or len(rows[0]) < 2:
             raise ValueError("CSV has no tabular observations")
         details = {"columns": rows[0], "data_rows": len(rows) - 1}
+    elif kind in {"jpg", "png"}:
+        from PIL import Image
+
+        with Image.open(io.BytesIO(data)) as image:
+            if image.format != {"jpg": "JPEG", "png": "PNG"}[kind]:
+                raise ValueError("Image format differs from declared source asset")
+            image.load()
+            details = dict(width=image.width, height=image.height, mode=image.mode)
     elif kind == "text":
         details["text_preview"] = data.decode("utf-8-sig")[:300]
     else:

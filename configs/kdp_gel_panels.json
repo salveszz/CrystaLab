@@ -1,0 +1,37 @@
+{
+  "schema": "crystalab_publication_panels_protocol_v1",
+  "source_id": "KDP-GEL-2026",
+  "material": "tetragonal_KDP",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13210260/",
+  "doi": "10.3390/molecules31101744",
+  "attribution": "Cai, Ren, Yao and Li (2026), Gel-Grown Kebab-like KDP Crystal Formation Mechanisms, Molecules 31(10), 1744",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "dependency_family_id": "KDP-GEL-2026-study",
+  "run_id": "KDP_GEL_2026_publication_panels",
+  "split": "train",
+  "split_semantics": "Development candidates only. Keep all panels of this study together; physical run/specimen independence is unknown. No independent validation/test cohort is claimed.",
+  "label_scope": "No pixel masks, reviewed instance identities, inclusion truth or event-onset labels are supplied. All extracted sheets remain uncertain and unreviewed.",
+  "clock_semantics": "Figure 2a labels give 0/10/70 minutes relative to the first published panel. They do not establish growth-run start, first-hour membership, original acquisition timestamps, continuous observation or alert-delay coverage.",
+  "derivation": "Integer crop of the original decoded publication JPEG only. Preserve text, scale bars and source marks; no resizing, colour adjustment, overlay removal or inferred unseen pixels. These are publication panels, not raw camera frames.",
+  "metadata": [
+    {"file": "pmc_metadata.json", "sha256": "5587b6a2a5bc77ce4b42ea6ab054438da8acc5f7c704ce0b1c4e4f2557813594"},
+    {"file": "article.xml", "sha256": "ed9fa83af14fce8a40951c5ea92c39534d48f5ae9dae4ea4089e326f473aab81"}
+  ],
+  "figures": [
+    {"figure_id": "fig1", "file": "molecules-31-01744-g001.jpg", "width": 656, "height": 1033, "sha256": "63b6cc46fd30eb99a7cf97d961803f4dda620119e76d3e1b1838a141b95e2c91", "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/d80d/13210260/76c9188b5be4/molecules-31-01744-g001.jpg"},
+    {"figure_id": "fig2", "file": "molecules-31-01744-g002.jpg", "width": 676, "height": 751, "sha256": "184a6224d69b61af2e63cba4f34f7856cff61af58b577975a53d772a52c878f0", "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/d80d/13210260/ca629447bd66/molecules-31-01744-g002.jpg"},
+    {"figure_id": "fig3", "file": "molecules-31-01744-g003.jpg", "width": 739, "height": 990, "sha256": "fa6020ed363fd009ba4d3e2b2c0066977611bddcb0c9115b9929f4345ee91ae3", "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/d80d/13210260/2917d4998161/molecules-31-01744-g003.jpg"}
+  ],
+  "panels": [
+    {"panel_id": "fig1b_photo", "figure_id": "fig1", "crop_xyxy": [403, 358, 603, 509], "domain": "solution_grown_microscopy_imaging_medium_unestablished", "context": "Solution-grown KDP microscope image from Figure 1b; capture medium and physical specimen/run identity are not supplied.", "published_relative_time_s": null},
+    {"panel_id": "fig1c_photo", "figure_id": "fig1", "crop_xyxy": [403, 534, 603, 685], "domain": "gel_grown_microscopy_imaging_medium_unestablished", "context": "Gel-grown elongated KDP microscope image from Figure 1c; optical streaks are not inclusion labels.", "published_relative_time_s": null},
+    {"panel_id": "fig2a_0min", "figure_id": "fig2", "crop_xyxy": [10, 10, 222, 169], "domain": "silica_gel_in_situ_growth", "context": "Figure 2a gel-growth sequence, first published panel marked 0 min. Authors describe secondary growth on a preformed needle; no pixel/event annotations are supplied.", "published_relative_time_s": 0},
+    {"panel_id": "fig2a_10min", "figure_id": "fig2", "crop_xyxy": [232, 10, 443, 169], "domain": "silica_gel_in_situ_growth", "context": "Figure 2a gel-growth sequence, published panel marked 10 min after the first panel. Sparse publication snapshots do not establish onset or continuous negative coverage.", "published_relative_time_s": 600},
+    {"panel_id": "fig2a_70min", "figure_id": "fig2", "crop_xyxy": [453, 10, 665, 169], "domain": "silica_gel_in_situ_growth", "context": "Figure 2a gel-growth sequence, published panel marked 70 min after the first panel. This figure-relative clock is not the growth-run origin.", "published_relative_time_s": 4200},
+    {"panel_id": "fig2c_needle", "figure_id": "fig2", "crop_xyxy": [10, 354, 222, 513], "domain": "gel_grown_microscopy_imaging_medium_unestablished", "context": "Figure 2c needle-like KDP grown in gel; the publication does not establish an event time or main-seed identity.", "published_relative_time_s": null},
+    {"panel_id": "fig3g_solution", "figure_id": "fig3", "crop_xyxy": [16, 510, 245, 681], "domain": "solution_grown_microscopy_imaging_medium_unestablished", "context": "Figure 3g solution-grown KDP, nominal 3 v/v% acetic acid. Source text and scale bar are retained; these are not live process readings.", "published_relative_time_s": null},
+    {"panel_id": "fig3h_solution", "figure_id": "fig3", "crop_xyxy": [254, 510, 484, 681], "domain": "solution_grown_microscopy_imaging_medium_unestablished", "context": "Figure 3h solution-grown KDP, nominal 6 v/v% acetic acid. No acquisition clock, quality label or actuator history is supplied.", "published_relative_time_s": null},
+    {"panel_id": "fig3i_solution", "figure_id": "fig3", "crop_xyxy": [493, 510, 723, 681], "domain": "solution_grown_microscopy_imaging_medium_unestablished", "context": "Figure 3i solution-grown KDP, nominal 9 v/v% acetic acid. No acquisition clock, quality label or actuator history is supplied.", "published_relative_time_s": null}
+  ]
+}

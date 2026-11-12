@@ -39,6 +39,9 @@ and any quantum advantage remain unestablished.
 The acquired [KDP movies now have a frame index and review pack](docs/KDP_VIDEO_DATA.md):
 881 source-linked frames and six native annotation sheets, with no accepted labels
 or invented acquisition/run-start clocks.
+A [second KDP study](docs/KDP_GEL_DATA.md) adds nine small published microscopy
+panels with a source-bound review pack. Their gel/specimen domains, publication
+marks and sparse clocks remain explicit; all labels are still unreviewed.
 The [inclusion diagnostic](docs/INCLUSION_RESOLUTION.md) now detects one of six
 synthetic validation inclusions and demonstrates a localized training-clip alert,
 but adds false secondary detections and worsens seed measurements. It is not

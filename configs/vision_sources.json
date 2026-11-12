@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "review_date": "2026-11-11",
+  "review_date": "2026-11-12",
   "scope": "Real microscopy/vision acquisition. Source labels and conditions require import review; no KDP controller or optical-quality validation is implied.",
   "sources": [
     {
@@ -192,6 +192,59 @@
         "note": "Exact dated Zenodo API response includes volatile usage statistics. Preserve this local snapshot; future API responses may legitimately differ.",
         "tracked_snapshot": "docs/CHIMP_ZENODO_METADATA_20261111.json"
       }
+    },
+    {
+      "source_id": "KDP-GEL-2026",
+      "material": "tetragonal_KDP",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13210260/",
+      "doi": "10.3390/molecules31101744",
+      "citation": "Cai, Ren, Yao and Li (2026), Gel-Grown Kebab-like KDP Crystal Formation Mechanisms, Molecules 31(10), 1744",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "reason": "Nine integer crops from three published figures, including a sparse 0/10/70-minute gel-growth sequence and solution-grown microscopy. Publication marks and source family remain explicit. No raw camera video, reviewed masks, onset labels or control records.",
+      "data_status": "publication_panels_unreviewed_development_candidates",
+      "assets": [
+        {
+          "name": "pmc_metadata.json",
+          "kind": "text",
+          "role": "primary_provenance_and_license",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13210260.1/PMC13210260.1.json",
+          "max_bytes": 2000000,
+          "sha256": "5587b6a2a5bc77ce4b42ea6ab054438da8acc5f7c704ce0b1c4e4f2557813594"
+        },
+        {
+          "name": "article.xml",
+          "kind": "text",
+          "role": "primary_provenance_and_license",
+          "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13210260.1/PMC13210260.1.xml",
+          "max_bytes": 2000000,
+          "sha256": "ed9fa83af14fce8a40951c5ea92c39534d48f5ae9dae4ea4089e326f473aab81"
+        },
+        {
+          "name": "molecules-31-01744-g001.jpg",
+          "kind": "jpg",
+          "role": "original_publication_figure",
+          "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/d80d/13210260/76c9188b5be4/molecules-31-01744-g001.jpg",
+          "max_bytes": 2000000,
+          "sha256": "63b6cc46fd30eb99a7cf97d961803f4dda620119e76d3e1b1838a141b95e2c91"
+        },
+        {
+          "name": "molecules-31-01744-g002.jpg",
+          "kind": "jpg",
+          "role": "original_publication_figure",
+          "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/d80d/13210260/ca629447bd66/molecules-31-01744-g002.jpg",
+          "max_bytes": 2000000,
+          "sha256": "184a6224d69b61af2e63cba4f34f7856cff61af58b577975a53d772a52c878f0"
+        },
+        {
+          "name": "molecules-31-01744-g003.jpg",
+          "kind": "jpg",
+          "role": "original_publication_figure",
+          "url": "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/d80d/13210260/2917d4998161/molecules-31-01744-g003.jpg",
+          "max_bytes": 2000000,
+          "sha256": "fa6020ed363fd009ba4d3e2b2c0066977611bddcb0c9115b9929f4345ee91ae3"
+        }
+      ]
     }
   ]
 }

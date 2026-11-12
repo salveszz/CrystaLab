@@ -751,3 +751,15 @@ KDP lattice, adsorption energy, impurity threshold or quantum advantage is
 established. The unequal-stoichiometry total energies are not reaction energies.
 The [checkpoint](docs/QUANTUM_IMPURITY_CHECKPOINT.json) retains the protocol,
 runtime, independent audits, failed attempts and software verification.
+
+## KDP-GEL-2026
+
+[Cai, Ren, Yao and Li (2026), DOI 10.3390/molecules31101744](https://pmc.ncbi.nlm.nih.gov/articles/PMC13210260/)
+provides CC BY 4.0 publication figures for KDP grown in gel and solution. The
+versioned PMC metadata/XML and three original JPEGs are pinned in the vision
+registry. Nine integer crops preserve original marks and form one conservative
+development family. An independent decoder reconstructs the pixels exactly.
+The [source guide](docs/KDP_GEL_DATA.md) and [checkpoint](docs/KDP_GEL_CHECKPOINT.json)
+retain sparse published clocks, uncertain review sheets and raw-camera/label/
+control limitations. No actual human review, automatic class mapping or model
+training is claimed for these panels.

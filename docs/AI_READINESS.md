@@ -56,6 +56,9 @@ with phase and display-clock context, from an audited 881-frame index. Two outli
 are uncertain drafts and four sheets need manual outlines. All remain unreviewed;
 the three clips stay together in one development family, with unknown run-start
 and first-hour membership.
+The separate [KDP gel-growth source](KDP_GEL_DATA.md) adds nine small publication
+panels, all uncertain and unreviewed. It widens source material without supplying
+accepted masks, raw camera sequences or an independent evaluation cohort.
 
 Then expand a small development pilot across the existing training families,
 including difficult views and contiguous candidate-event/negative periods. Freeze

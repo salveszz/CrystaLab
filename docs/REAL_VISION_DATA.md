@@ -23,11 +23,16 @@ The [KDP frame index/review pack](KDP_VIDEO_DATA.md) now makes all 881 movie fra
 traceable and prepares six native annotation sheets with phase/timing context.
 Two contain uncertain outline drafts; four need manual outlines. None is reviewed
 or accepted as real training truth. All three clips stay in one development family.
+A second [KDP gel-growth source](KDP_GEL_DATA.md) now adds nine small publication
+panels and uncertain sheets in a separate family. Its sparse figure-relative
+clocks, source marks and imaging-domain limits remain explicit. It supplies no
+accepted pixel/event labels or raw camera sequence.
 
 ## What is actually present
 
 | Source | Local observations | Permitted project interpretation |
 |---|---|---|
+| [Cai et al., KDP gel-growth, 2026](https://pmc.ncbi.nlm.nih.gov/articles/PMC13210260/) | Nine integer crops from three published figures, including a sparse 0/10/70-minute gel-growth sequence. CC BY 4.0; original marks retained. | Separate publication-panel development candidates. No raw camera pixels, reviewed masks, first-hour origin, event delay or control validation. See [source/import guide](KDP_GEL_DATA.md). |
 | [University of Leeds, DOI 10.5518/1684](https://archive.researchdata.leeds.ac.uk/1537/) | 2,123 original microscope JPEGs from nine alpha-LGA runs; 79 source manual crystal-shape fit sidecars. CC BY 4.0. | Real other-material vision development and a source of shape-fit supervision after its geometry/units are checked. The fits are not reviewed pixel masks or defect labels. |
 | [Li, Zhang and Ren, KDP study](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/) | Supplementary PDF and three experimental KDP movies, all decoded; 881 total video frames. CC BY-NC 3.0. | Phase-specific microscopy development examples. Conditions include transition, dissolution and growth; these are not all defect-free tetragonal optical-crystal growth. |
 | [Cho et al., Nature Communications 2024](https://www.nature.com/articles/s41467-024-47503-1) | One decoded-format ADP crystallization movie and its caption. CC BY 4.0. | Other-material experimental video. The caption explicitly identifies ADP, despite the paper also studying KDP. |
