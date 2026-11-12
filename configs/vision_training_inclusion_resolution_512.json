@@ -1,0 +1,14 @@
+{
+  "schema": "crystalab_yolov8_seg_train_v1",
+  "purpose": "grouped_experiment",
+  "description": "Same expanded optical cohort and schedule as the existing fullmask run, with 512 rather than 256 input pixels. Native RGB remains 256; no new captured information or real labels.",
+  "epochs": 30,
+  "imgsz": 512,
+  "batch": 4,
+  "threads": 2,
+  "seed": 20261111,
+  "device": "cpu",
+  "learning_rate": 0.001,
+  "mask_ratio": 1,
+  "overlap_mask": false
+}

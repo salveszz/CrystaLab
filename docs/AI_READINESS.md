@@ -31,7 +31,7 @@ remain open.
 | PID/adaptive software loop | PID, delayed simulated actuation, rules, four-way adaptive diagnostic and operator replay. The console now displays source-bound forecasts/state and preserves explicit suggested/manual pause reviews. | Reviewed real evidence, an action-response objective and equipment/operator validation. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
 | Source-fit real silhouette training | Explicit author-derived targets, synthetic/source-projection/mixed one-class fits and a training-only static baseline. Mixed improves aggregate proxy agreement; real-only fails on synthetic validation. | Reviewed pixel/event truth and relevant KDP evaluation. This auxiliary task does not complete the pitch's three-class model. |
-| HPC/Qiskit extensions | Separate verified CPU flow operators; no Qiskit implementation. | Bounded hardware/accuracy benchmark and a justified impurity-cluster VQE/classical comparison, as defined in the roadmap. |
+| HPC/Qiskit extensions | Verified CPU flow and an actual CPU/hybrid Vulkan experiment with retained slower GPU results; no Qiskit implementation. | Heat/coupling, physical risk interpretation and a justified impurity-cluster VQE/classical comparison, as defined in the roadmap. |
 
 ## Immediate vision work
 
@@ -84,6 +84,11 @@ detectors' rate forecasts beat persistence on two synthetic validation families
 under FFV1; the original detector's rates still lose. Use explicitly declared
 lossless synthetic input, retain baseline/failure comparisons and characterize
 real capture before real or adaptive acceptance.
+The [inclusion-resolution experiment](INCLUSION_RESOLUTION.md) now establishes
+training memorization at both inputs and 1/6 static validation inclusion matches
+at 512, with more secondary false positives and worse seed measurements. Its
+matched inclusion video event and inspectable operator cue are training-only;
+validation still lacks eligible inclusion events. No default model is promoted.
 The [short execution sequence](../roadmap.md#what-we-do-next) explains the real
 review step and the operator demonstration in plain language.
 Unreviewed proposals remain excluded from accepted real

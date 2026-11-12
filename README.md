@@ -28,6 +28,10 @@ The first [CPU/hybrid Vulkan flow comparison](docs/VULKAN_FLOW_BENCHMARK.md) pas
 fixed-domain numerical checks but runs slower on the GPU. Heat and physical risk
 validation remain open. [Additional public KDP leads](docs/PUBLIC_KDP_SOURCE_REVIEW.md)
 have not yet supplied verified growth-event training labels.
+The [inclusion diagnostic](docs/INCLUSION_RESOLUTION.md) now detects one of six
+synthetic validation inclusions and demonstrates a localized training-clip alert,
+but adds false secondary detections and worsens seed measurements. It is not
+promoted as the default model.
 
 [Event-rule supervision](docs/EVENT_SUPERVISION.md) now produces source-linked
 review proposals and connects a declared vision fixture through PID to simulated

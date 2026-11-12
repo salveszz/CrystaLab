@@ -1,0 +1,46 @@
+{
+  "schema": "crystalab_inclusion_resolution_experiment_v1",
+  "date": "2026-11-12",
+  "purpose": "Investigate the existing zero-inclusion result, then compare a larger input on the same pitch-class cohort. No new labels, final-test scoring, real accuracy or model promotion.",
+  "dataset": "data/yolo_optical_refinement_v1",
+  "dataset_manifest_sha256": "0e1ef9044b768da31da7f5d2324d9df7a5e02f373dcf678ab4c29dfd3dbf6bfa",
+  "runtime": "configs/yolov8n_seg_runtime.json",
+  "stage_1": {
+    "task": "Memorization diagnostic on the first 12 existing training rows; same images reused for trainer validation and standalone scoring. This is not held-out performance.",
+    "overfit_samples": 12,
+    "epochs": 100,
+    "batch": 4,
+    "planned_optimizer_updates": 300,
+    "image_sizes": [256, 512],
+    "initialization": "Same pinned COCO weights; no resume or warm-start",
+    "warmup_epochs": 0.0,
+    "lrf": 1.0,
+    "seed": 20261112,
+    "selection": "Score last.pt rather than a selected best checkpoint",
+    "target_size_statistics": "Training split only; no validation or test image inspection",
+    "next_stage_gate": "Run the predeclared grouped 512 comparison if either memorization fit produces at least one same-class inclusion mask match at IoU >= 0.5 and confidence >= 0.25 on its selected training images. Otherwise retain the failure and investigate supervision before another broad fit."
+  },
+  "stage_2": {
+    "task": "Full grouped fit at 512, compared with the existing fullmask 256 run on the same 44 validation images and five development clips",
+    "baseline_run": "results/vision_refinement_fullmask_v1",
+    "baseline_weights_sha256": "4969df4757f6552223506400c538084ae56284116fd737c78202859f7774e9a6",
+    "candidate_config": "configs/vision_training_inclusion_resolution_512.json",
+    "epochs": 30,
+    "planned_optimizer_updates": 630,
+    "selection": "Trainer best checkpoint, same selection procedure as historical baseline; independently score common native masks",
+    "confidence": 0.25,
+    "mask_iou_gate": 0.5,
+    "temporal_codec": "FFV1",
+    "performance": "Report seed/secondary/inclusion TP, FP and FN, seed area/overlap, all family results, negative/deadline coverage and CPU latency. More computation at 512 is explicitly allowed and reported, not treated as a fixed-compute comparison."
+  },
+  "shared_settings": {
+    "device": "cpu",
+    "threads": 2,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "mask_ratio": 1,
+    "overlap_mask": false,
+    "augmentation": "All existing geometric/color/mosaic augmentations disabled"
+  },
+  "limits": "Upsampling 256-pixel RGB adds no captured detail. It changes network/mask sampling and compute. Memorization cannot prove generalization, and synthetic validation cannot prove real KDP performance. No confidence sweep or label modification after results. All failures retained; existing final test families stay unscored."
+}

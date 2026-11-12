@@ -46,6 +46,7 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Operator forecast checkpoint](OPERATOR_FORECAST_CHECKPOINT.json) | Browser checks, independent context/receipt/process reconstruction and real shadow boundaries. |
 | [Training checkpoint](VISION_TRAINING_CHECKPOINT.json) | 264-test result, actual model hashes, synthetic development errors and remaining real/control gates. |
 | [Source-shape real training](SOURCE_SHAPE_TRAINING.md) | Published manual 3D fits become explicit silhouette proxies; fixed-budget synthetic, real-projection and mixed training with common development targets. |
+| [Inclusion resolution](INCLUSION_RESOLUTION.md) | Training learnability, a larger-input grouped fit, retained class/seed tradeoffs and a training-only localized operator cue. |
 | [Source-shape checkpoint](SOURCE_SHAPE_CHECKPOINT.json) | 66 independently reconstructed targets, three completed fits, 224 score records, retained transfer failures and 411-test regression. |
 | [Seed benchmark](VISION_BENCHMARK.md) | Identical-image OpenCV/YOLO comparison, training-only threshold calibration, invalid-measurement denominators and smoke failures. |
 | [Grouped synthetic pilot](VISION_PILOT.md) | Completed 60-image dataset, 30-epoch model, four-family development evaluation, bubble/inclusion failures and remaining gates. |
