@@ -1,11 +1,16 @@
 # Acquired real vision data
 
-The first real-data acquisition and image import are complete. **Leeds/KDP segmentation
-masks and visible-event annotations are still missing.** A separate
+The first real-data acquisition and image import are complete. **Independently
+reviewed Leeds/KDP pixel masks and visible-event annotations are still missing.** A separate
 [published-mask acquisition](PUBLISHED_CRYSTAL_MASKS.md) adds 587 real protein-crystal
 images and 4,986 source crystal/drop masks, with their original selected-object
-semantics. They are not mapped to the pitch classes. No model has been fitted
-on reviewed real labels. [Synthetic-only model fits](VISION_PILOT.md) and
+semantics. They are not mapped to the pitch classes. No pitch model has been fitted
+on independently reviewed real pixel/event labels. A separate
+[source-shape experiment](SOURCE_SHAPE_TRAINING.md) now derives 54 training and
+12 validation silhouette proxies from the authors' manual 3D fits and completes
+synthetic-only, source-projection-only and mixed fits. Its positive mixed result
+measures proxy agreement on alpha-LGA; it does not establish real defect accuracy.
+[Synthetic-only pitch-class fits](VISION_PILOT.md) and
 [learned development replay](LEARNED_VIDEO.md) exist; their real accuracy remains
 unevaluated.
 The [source registry](../configs/vision_sources.json) pins URLs, licenses, citations
@@ -141,7 +146,10 @@ valid observations; threshold 180 on the same development clip yielded 30/30.
 Both result directories remain. The final outline was visually inspected, but
 there are no reviewed mask-error metrics yet. Valid-frame counts are not accuracy.
 
-Next: establish reviewed visible-mask/event annotations and their uncertainty,
-freeze numerical performance budgets, build the optical synthetic image path,
-and evaluate YOLOv8-seg against the baseline. The [roadmap](../roadmap.md) keeps
-those gates, predictive control and the HPC/Qiskit extensions open.
+Next: establish reviewed pixel/event annotations and their uncertainty, freeze
+performance budgets and complete relevant real pitch-class evaluation. Synthetic
+YOLO fits and the separate source-fit silhouette comparison are already complete
+at their documented scopes. Current access is public datasets only; relevant KDP
+capture/action/outcome evidence must come from documented public sources or remain
+an explicit later gate. The [roadmap](../roadmap.md) keeps predictive control and
+the HPC/Qiskit extensions open.

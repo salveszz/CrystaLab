@@ -19,6 +19,12 @@ and [Real vision data](REAL_VISION_DATA.md) for actual evidence.
 The [roadmap](../roadmap.md) defines the sequence. This document turns the
 [pitch](../Pitch_KDP.pptx), especially slides 5–9, into reviewable deliverables.
 
+A separate [source-fit silhouette comparison](SOURCE_SHAPE_TRAINING.md) now uses
+54 real alpha-LGA training images with author-derived geometric targets. It does
+not supply reviewed pixel/event truth or the three pitch classes; its weights
+are refused by the pitch observer. Positive mixed proxy agreement does not close
+the real KDP or defect-evaluation gates below.
+
 ## Product path and evidence levels
 
 The intended path is video/camera -> segmentation and tracking -> visible-state

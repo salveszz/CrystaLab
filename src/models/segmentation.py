@@ -83,7 +83,7 @@ def training_options(config):
         raise ValueError(
             "Declare an integer mask ratio dividing image size and explicit boolean overlap handling"
         )
-    return dict(
+    options = dict(
         epochs=config["epochs"],
         imgsz=config["imgsz"],
         batch=config["batch"],
@@ -120,6 +120,19 @@ def training_options(config):
         mask_ratio=mask_ratio,
         overlap_mask=overlap_mask,
     )
+    for key in ("warmup_epochs", "lrf"):
+        if key in config:
+            value = config[key]
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(value)
+                or value < 0
+                or (key == "lrf" and not 0 < value <= 1)
+            ):
+                raise ValueError("Invalid explicit training schedule")
+            options[key] = float(value)
+    return options
 
 
 def local_yolo(config_dir, runtime):
@@ -155,10 +168,22 @@ def local_yolo(config_dir, runtime):
     return YOLO, versions
 
 
-def train_segmentation(dataset, config, runtime, output):
+def train_segmentation(
+    dataset, config, runtime, output, *, dataset_task="pitch_instances"
+):
     options = training_options(config)
     dataset = Path(dataset).resolve()
-    audit = audit_segmentation(dataset)
+    if dataset_task == "pitch_instances":
+        auditor = audit_segmentation
+    elif dataset_task == "source_fit_silhouette":
+        from vision.silhouette_training import audit_silhouette
+
+        auditor = audit_silhouette
+    else:
+        raise ValueError(
+            "Declare the pitch task or separate source-fit silhouette task"
+        )
+    audit = auditor(dataset)
     weights = (ROOT / runtime["local_path"]).resolve()
     if (
         runtime["architecture"] != "YOLOv8n-seg"
@@ -172,6 +197,15 @@ def train_segmentation(dataset, config, runtime, output):
         ROOT / "src/vision/training_data.py",
         ROOT / "scripts/train_vision.py",
     ]
+    if dataset_task == "source_fit_silhouette":
+        source_paths.extend(
+            ROOT / p
+            for p in [
+                "src/vision/silhouette_training.py",
+                "src/vision/source_shapes.py",
+                "src/simulation/crystal.py",
+            ]
+        )
     source_hashes = {}
     for path in source_paths:
         relative = path.relative_to(ROOT)
@@ -188,9 +222,12 @@ def train_segmentation(dataset, config, runtime, output):
         train_options=options,
         dataset_path=str(dataset),
         dataset_audit=audit,
+        dataset_task=dataset_task,
         source_sha256=source_hashes,
         evaluation_scope="training and validation only; final test split is not scored",
-        scope="Synthetic first fits establish software behavior; real performance requires independently reviewed real observations",
+        scope="Source-fitted main-crystal silhouette diagnostic; real labels are projected author 3D fits, not reviewed pixel/event boundaries; no KDP or defect-accuracy claim"
+        if dataset_task == "source_fit_silhouette"
+        else "Synthetic first fits establish software behavior; real performance requires independently reviewed real observations",
     )
     save_json(output / "manifest.json", manifest)
     started = time.perf_counter()
@@ -293,7 +330,7 @@ def train_segmentation(dataset, config, runtime, output):
             trainer_args_path=str((run_dir / "args.yaml").relative_to(output)),
             trainer_args_sha256=file_sha256(run_dir / "args.yaml"),
         )
-        if audit_segmentation(dataset) != audit:
+        if auditor(dataset) != audit:
             raise ValueError("Dataset changed during training")
         save_json(output / "manifest.json", manifest)
         return manifest

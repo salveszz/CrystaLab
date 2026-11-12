@@ -5,8 +5,17 @@
 The acquired microscope data is indexed at `data/real_vision_leeds_v1/images.jsonl`:
 2,123 real alpha-LGA images from nine runs, split 1,323/400/400 by whole source
 run/family. Original images and 79 manual shape-fit sidecars remain in the pinned
-ZIP under `data/external_vision/LGA-LEEDS-2026/`. Pixel masks and event labels are
-unavailable until annotation review. This is another material, not KDP calibration.
+ZIP under `data/external_vision/LGA-LEEDS-2026/`. Independently reviewed pixel masks
+and event labels remain unavailable. This is another material, not KDP calibration.
+
+`data/leeds_shape_proxies_v3/` separately holds 54 training and 12 validation
+silhouette targets projected from the authors' manual 3D fits. These are weak
+geometric targets rather than reviewed pixel outlines. The three
+`data/source_silhouette_*_v1/` cohorts contain 84 / 54 / 138 training images and
+the same 56 validation images (12 real proxies plus 44 synthetic images).
+The [source-shape guide](../docs/SOURCE_SHAPE_TRAINING.md) records the frozen
+three-way training comparison, source identities and limits. Final test groups
+and the six existing unreviewed annotation proposals remain separate.
 
 `data/external_vision/KDP-2026/` retains three real phase-specific KDP microscopy
 movies and supplementary methods; `ADP-NATURE-2024/` retains a separately identified

@@ -8,7 +8,11 @@ OpenCV seed baseline, real-image import, annotation tooling and the Blender
 optical smoke batch are implemented. YOLOv8-seg training and development
 evaluation now run locally on synthetic labels. The small fits do not establish
 real defect accuracy. A temperature PID software baseline now runs on a declared
-thermal fixture. Event-rule shadow proposals and a bounded fixture-to-PID pause
+thermal fixture. A separate [source-fit silhouette experiment](SOURCE_SHAPE_TRAINING.md)
+now trains with 54 real alpha-LGA images using targets projected from published
+manual 3D fits. Mixed validation proxy IoU is 0.9255 on 12 real images, with no
+independently reviewed pixel/event accuracy or pitch-class promotion. Event-rule
+shadow proposals and a bounded fixture-to-PID pause
 comparison are implemented. The [operator replay console](OPERATOR_REPLAY.md)
 adds explicit evidence review and bounded simulated pause/manual resume. Adaptive
 supervision now has a bounded [software diagnostic](ADAPTIVE_SUPERVISION.md) with
@@ -26,6 +30,7 @@ remain open.
 | Projected-area forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared synthetic validation windows. Bounded online adaptation gives 80.71 px²; real replay remains unscored shadow output. Historical original-detector comparisons retain their negative results. | Reviewed real measurements, frozen acceptance budgets and action-response evidence. The adaptive diagnostic does not beat recent rate and is not promoted for physical control. |
 | PID/adaptive software loop | PID, delayed simulated actuation, rules, four-way adaptive diagnostic and operator replay. The console now displays source-bound forecasts/state and preserves explicit suggested/manual pause reviews. | Reviewed real evidence, an action-response objective and equipment/operator validation. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
+| Source-fit real silhouette training | Explicit author-derived targets, synthetic/source-projection/mixed one-class fits and a training-only static baseline. Mixed improves aggregate proxy agreement; real-only fails on synthetic validation. | Reviewed pixel/event truth and relevant KDP evaluation. This auxiliary task does not complete the pitch's three-class model. |
 | HPC/Qiskit extensions | Separate verified CPU flow operators; no Qiskit implementation. | Bounded hardware/accuracy benchmark and a justified impurity-cluster VQE/classical comparison, as defined in the roadmap. |
 
 ## Immediate vision work

@@ -72,6 +72,11 @@ runs, three phase-specific KDP movies and one separately identified ADP movie**.
 The image index preserves 79 source manual shape fits; reviewed segmentation and
 event labels are still missing. See [real vision data](docs/REAL_VISION_DATA.md)
 for source licenses, frozen groups, local paths and import/replay commands.
+A separate [source-shape training comparison](docs/SOURCE_SHAPE_TRAINING.md) now
+uses 54 real alpha-LGA images with targets projected from the authors' manual
+3D fits. Mixed training reaches 0.9255 IoU on 12 real validation proxies, while
+real-only training misses all synthetic validation targets. These one-class fits
+are kept separate from the pitch's defect classes and reviewed pixel accuracy.
 A separate [published-mask source](docs/PUBLISHED_CRYSTAL_MASKS.md) now adds 587
 real protein-crystal images with 4,986 expert-supplied crystal/drop masks. Their
 selected-object definitions stay separate from the pitch's KDP training classes.

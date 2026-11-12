@@ -17,6 +17,10 @@ class YOLOObserver(LearnedSeedTracker):
     def __init__(self, config, run, settings_dir):
         self.run = Path(run).resolve()
         manifest, self.weights = load_run_metadata(self.run)
+        if manifest.get("dataset_task", "pitch_instances") != "pitch_instances":
+            raise ValueError(
+                "Auxiliary source-fit silhouettes cannot supply pitch instance/event classes"
+            )
         self.manifest_sha256 = file_sha256(self.run / "manifest.json")
         YOLO, versions = local_yolo(settings_dir, manifest["runtime"])
         import torch

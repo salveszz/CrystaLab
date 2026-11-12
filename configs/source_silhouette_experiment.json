@@ -1,0 +1,93 @@
+{
+  "schema": "crystalab_source_silhouette_experiment_v1",
+  "date": "2026-11-12",
+  "purpose": "First separate weakly supervised real-image main-silhouette training comparison; no pitch defect accuracy or model promotion",
+  "projection": {
+    "path": "data/leeds_shape_proxies_v3",
+    "manifest_sha256": "083d8362508904e6a666722b41e0a01f2b1d16c146bb858b529a0babedb26776",
+    "label_kind": "source_author_3d_fit_projected_silhouette_proxy",
+    "training_images": 54,
+    "validation_images": 12,
+    "final_test_images_excluded": 13
+  },
+  "cases": [
+    {
+      "mode": "synthetic_only",
+      "dataset": "data/source_silhouette_synthetic_v1",
+      "dataset_manifest_sha256": "661a44d30aa8b7ead7303339cf79a3e8f660556eb29bd115e86e2ef3ee75b5da",
+      "training_images": 84,
+      "validation_images": 56,
+      "epochs": 10,
+      "batches_per_epoch": 21,
+      "planned_optimizer_updates": 210,
+      "config": "configs/source_silhouette_train_synthetic_only.json",
+      "config_sha256": "171ae3d4bbef0042980536621dc3c464c6e40d8c1286741a68aa1d07ac83e499",
+      "run": "results/source_silhouette_fit_synthetic_only_v1"
+    },
+    {
+      "mode": "source_projection_only",
+      "dataset": "data/source_silhouette_real_projection_v1",
+      "dataset_manifest_sha256": "66c8fae7632bb730d13a322ff808c4fa0e09e8051796797dc33e079a4bc6d0d9",
+      "training_images": 54,
+      "validation_images": 56,
+      "epochs": 15,
+      "batches_per_epoch": 14,
+      "planned_optimizer_updates": 210,
+      "config": "configs/source_silhouette_train_source_projection_only.json",
+      "config_sha256": "470217fa3f8632267f5a18ee038c3f06355ff3af57d6a17160a35388b64b7c54",
+      "run": "results/source_silhouette_fit_source_projection_only_v1"
+    },
+    {
+      "mode": "mixed",
+      "dataset": "data/source_silhouette_mixed_v1",
+      "dataset_manifest_sha256": "95f4c8d8f703f97d5315312183557e996f81ba362217d0a00993d9c7e380f286",
+      "training_images": 138,
+      "validation_images": 56,
+      "epochs": 6,
+      "batches_per_epoch": 35,
+      "planned_optimizer_updates": 210,
+      "config": "configs/source_silhouette_train_mixed.json",
+      "config_sha256": "a2df4a132bcc973e125b8f6bec9c1468cc40ed1dc0c60d3effdcf34a3c8064ff",
+      "run": "results/source_silhouette_fit_mixed_v1"
+    }
+  ],
+  "selection": {
+    "evaluation_checkpoint": "last",
+    "no_validation_retuning": true,
+    "no_automatic_promotion": true,
+    "template_size": 512,
+    "baseline": "Mean of real source-projection training masks >= 0.5; no validation labels",
+    "prediction_selection": "Highest confidence instance; all misses retained as zero mask; no target-guided instance choice",
+    "equal_planned_optimizer_updates": 210,
+    "common_validation_images": 56,
+    "source_family_splits_preserved": true,
+    "final_test_scored": false
+  },
+  "inference": {
+    "imgsz": 256,
+    "confidence": 0.25,
+    "nms_iou": 0.7,
+    "maximum_detections": 100,
+    "retina_masks": true
+  },
+  "validation_scope": "12 author-shape proxy images from two alpha-LGA condition families plus 44 synthetic development images. No independent lab/KDP/pixel-gold evaluation.",
+  "scope": {
+    "real_pixel_reviews_created": 0,
+    "real_event_labels_created": 0,
+    "real_pixel_accuracy_established": false,
+    "secondary_inclusion_classes": false,
+    "physical_control": false
+  },
+  "source_sha256": {
+    "src/models/segmentation.py": "5629aa12f94cfc93ba9bc34fa9728bffbb4cbb66b5e25ab4e15e27e323ff73c9",
+    "src/models/silhouette_eval.py": "6b0763518d959b5a3002576d0423dc24855cba54cf4eb64d454ed1d013300e21",
+    "src/vision/silhouette_training.py": "776bc2a275aa12a78839b407f8be100d44779778927951756caa811e6174e867",
+    "src/vision/source_shapes.py": "46cba4ca15c59104e64d42c79398ba9069e58d1e85a21c00cd9aa290dffd7ad6",
+    "src/vision/source_shape_audit.py": "65429859ba4e464f4d89b3d8f8cff0797130582d68dc68e84a62e2e99194082a",
+    "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+    "scripts/source_silhouette.py": "89e73de1b45d250932dde8d9b5e30757e0aa2753908e790c8dd780821a10d8cb",
+    "scripts/evaluate_source_silhouette.py": "01fe7abff24c57cee64ab721c6fc940563258f7a00bfce77d300a7cf4415341d",
+    "configs/leeds_shape_projection.json": "f42ec9cb471751c03604aedefb1a545e44315e5f3e837c2c4bf18df1e7893203",
+    "configs/yolov8n_seg_runtime.json": "4db2738202dd6d2812c7618cae1c8668eb1988ee1e5d2de3977584ae7b60cf21"
+  }
+}

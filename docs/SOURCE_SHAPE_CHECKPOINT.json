@@ -1,0 +1,808 @@
+{
+  "schema": "crystalab_source_shape_training_checkpoint_v1",
+  "date": "2026-11-12",
+  "status": "separate_author_projected_real_silhouette_comparison_verified",
+  "parent_revision": "19eee27",
+  "pitch_reference": "Pitch_KDP.pptx slides 5\u20139: real plus synthetic camera images, measured shape and separately reported evaluation; secondary/inclusion/control evidence remains incomplete",
+  "user_constraint": "Public datasets only for now; no local growth rig or capture access assumed",
+  "source": {
+    "dataset_id": "LGA-LEEDS-2026",
+    "dataset_url": "https://archive.researchdata.leeds.ac.uk/1537/",
+    "doi": "10.5518/1684",
+    "material": "alpha_L_glutamic_acid",
+    "data_license": "CC BY 4.0",
+    "archive_sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+    "source_index_manifest_sha256": "c3770147fa5c1ec617411272c74244e4363091ab2ed11037ac0aa89538ef3322",
+    "manual_3d_fits_available": 79,
+    "derived_training_images": 54,
+    "derived_validation_images": 12,
+    "fitted_test_images_excluded": 13,
+    "full_test_runs_remain_reserved": true,
+    "reference_code": {
+      "repository": "https://github.com/Shape4PPD/crystalsizer3d",
+      "commit": "62cc090e09f1f794582a8099c9f230f7dcffced8",
+      "license": "CC BY-NC 4.0",
+      "cached_files": 15,
+      "git_blob_checks_passed": true,
+      "geometry_or_training_dependency": false
+    }
+  },
+  "projection": {
+    "path": "data/leeds_shape_proxies_v3",
+    "policy": "configs/leeds_shape_projection.json",
+    "label_kind": "source_author_3d_fit_projected_silhouette_proxy",
+    "pixel_reviewed": false,
+    "geometry_audit": {
+      "status": "pass",
+      "source_fits_reconstructed": 66,
+      "maximum_vertex_error_source_units": 8.275870669001703e-11,
+      "maximum_projection_error_px": 0.0,
+      "pixel_reviewed": false,
+      "final_test_scored": false,
+      "scope": "Independent geometric target reconstruction; not agreement with independently reviewed image boundaries"
+    },
+    "earlier_attempts": "results/leeds_shape_projection_attempts_v1.json",
+    "actual_human_reviews_created": 0,
+    "independent_SI_calibration": false
+  },
+  "experiment": {
+    "path": "configs/source_silhouette_experiment.json",
+    "sha256": "3d75f2ccd33ba85b882aebcdd3918faad43abe4e4c45fef631e878c3a8cb8d9e",
+    "frozen_before_training_and_validation_scoring": true,
+    "classes": [
+      "main_crystal_silhouette"
+    ],
+    "planned_updates_per_fit": 210,
+    "evaluation_checkpoint": "last",
+    "common_validation_images": 56,
+    "real_validation_families": 2,
+    "synthetic_validation_families": 6,
+    "no_validation_retuning": true,
+    "pitch_exporter_review_gate_unchanged": true,
+    "pitch_observer_rejects_auxiliary_task": true
+  },
+  "cases": [
+    {
+      "mode": "synthetic_only",
+      "dataset": "data/source_silhouette_synthetic_v1",
+      "dataset_manifest_sha256": "661a44d30aa8b7ead7303339cf79a3e8f660556eb29bd115e86e2ef3ee75b5da",
+      "training_images": 84,
+      "validation_images": 56,
+      "epochs": 10,
+      "batches_per_epoch": 21,
+      "planned_optimizer_updates": 210,
+      "config": "configs/source_silhouette_train_synthetic_only.json",
+      "config_sha256": "171ae3d4bbef0042980536621dc3c464c6e40d8c1286741a68aa1d07ac83e499",
+      "run": "results/source_silhouette_fit_synthetic_only_v1",
+      "status": "complete",
+      "training_elapsed_seconds": 668.5231353889976,
+      "cpu_threads": 2,
+      "concurrent_training": true,
+      "cuda_available": false,
+      "last_weights_sha256": "b275bc0d1b4f5badf558a24781dcc42223ed5c3bdd5ad53d6c983f591775caf1",
+      "best_weights_sha256": "71164abfac025b4acd147b73ce96b1b4a76eb3c6197afe3f55c8271aac1f0642",
+      "last_checkpoint_metrics": {
+        "all": {
+          "images": 56,
+          "families": 8,
+          "proxy_mask_iou_mean": 0.8230300214787187,
+          "proxy_mask_iou_family_macro": 0.8066765450888512,
+          "proxy_dice_mean": 0.8891571409088573,
+          "missing_predictions": 1,
+          "extra_predictions": 12,
+          "area_mae_image_fraction": 0.006728921617780413
+        },
+        "by_evidence": {
+          "real": {
+            "images": 12,
+            "families": 2,
+            "proxy_mask_iou_mean": 0.6202590466354655,
+            "proxy_mask_iou_family_macro": 0.6202590466354656,
+            "proxy_dice_mean": 0.7281829083270194,
+            "missing_predictions": 1,
+            "extra_predictions": 1,
+            "area_mae_image_fraction": 0.01787090301513672
+          },
+          "synthetic": {
+            "images": 44,
+            "families": 6,
+            "proxy_mask_iou_mean": 0.8783311964359695,
+            "proxy_mask_iou_family_macro": 0.8688157112399798,
+            "proxy_dice_mean": 0.9330592043402678,
+            "missing_predictions": 0,
+            "extra_predictions": 11,
+            "area_mae_image_fraction": 0.0036901994185014205
+          }
+        },
+        "per_family": {
+          "leeds:temperature_16": {
+            "images": 6,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.5741311014537623,
+            "proxy_mask_iou_family_macro": 0.5741311014537623,
+            "proxy_dice_mean": 0.7159428622536144,
+            "missing_predictions": 0,
+            "extra_predictions": 1,
+            "area_mae_image_fraction": 0.025000254313151043
+          },
+          "leeds:temperature_22": {
+            "images": 6,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.6663869918171689,
+            "proxy_mask_iou_family_macro": 0.6663869918171689,
+            "proxy_dice_mean": 0.7404229544004243,
+            "missing_predictions": 1,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.010741551717122396
+          },
+          "synthetic:optical_pilot_012": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.9064449894992445,
+            "proxy_mask_iou_family_macro": 0.9064449894992445,
+            "proxy_dice_mean": 0.9509242581456947,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0012766520182291667
+          },
+          "synthetic:optical_pilot_013": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.9036148308885062,
+            "proxy_mask_iou_family_macro": 0.9036148308885062,
+            "proxy_dice_mean": 0.9493653007893537,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0002644856770833333
+          },
+          "synthetic:optical_pilot_014": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.7688934094346229,
+            "proxy_mask_iou_family_macro": 0.7688934094346229,
+            "proxy_dice_mean": 0.8691913290849924,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0004170735677083333
+          },
+          "synthetic:optical_pilot_015": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.8641033575511186,
+            "proxy_mask_iou_family_macro": 0.8641033575511186,
+            "proxy_dice_mean": 0.9270700343995388,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0041656494140625
+          },
+          "synthetic:optical_temporal_003": {
+            "images": 16,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.8278254372966324,
+            "proxy_mask_iou_family_macro": 0.8278254372966324,
+            "proxy_dice_mean": 0.9026760914167687,
+            "missing_predictions": 0,
+            "extra_predictions": 11,
+            "area_mae_image_fraction": 0.008210182189941406
+          },
+          "synthetic:optical_temporal_004": {
+            "images": 16,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.942012242769754,
+            "proxy_mask_iou_family_macro": 0.942012242769754,
+            "proxy_dice_mean": 0.9701334225652966,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.000789642333984375
+          }
+        }
+      }
+    },
+    {
+      "mode": "source_projection_only",
+      "dataset": "data/source_silhouette_real_projection_v1",
+      "dataset_manifest_sha256": "66c8fae7632bb730d13a322ff808c4fa0e09e8051796797dc33e079a4bc6d0d9",
+      "training_images": 54,
+      "validation_images": 56,
+      "epochs": 15,
+      "batches_per_epoch": 14,
+      "planned_optimizer_updates": 210,
+      "config": "configs/source_silhouette_train_source_projection_only.json",
+      "config_sha256": "470217fa3f8632267f5a18ee038c3f06355ff3af57d6a17160a35388b64b7c54",
+      "run": "results/source_silhouette_fit_source_projection_only_v1",
+      "status": "complete",
+      "training_elapsed_seconds": 675.0413967779896,
+      "cpu_threads": 2,
+      "concurrent_training": true,
+      "cuda_available": false,
+      "last_weights_sha256": "0b055dc85853488727b9ea0ebcdf9700deb5fc9bc27709e57608b7dbe64000ae",
+      "best_weights_sha256": "67c4a841c60a45a70499cbcd14a5398c0e0b162b7291555a86e9745f08b5a6b0",
+      "last_checkpoint_metrics": {
+        "all": {
+          "images": 56,
+          "families": 8,
+          "proxy_mask_iou_mean": 0.1944143345564497,
+          "proxy_mask_iou_family_macro": 0.2268167236491913,
+          "proxy_dice_mean": 0.20366311791071814,
+          "missing_predictions": 44,
+          "extra_predictions": 2,
+          "area_mae_image_fraction": 0.0508333614894322
+        },
+        "by_evidence": {
+          "real": {
+            "images": 12,
+            "families": 2,
+            "proxy_mask_iou_mean": 0.9072668945967653,
+            "proxy_mask_iou_family_macro": 0.9072668945967652,
+            "proxy_dice_mean": 0.9504278835833513,
+            "missing_predictions": 0,
+            "extra_predictions": 2,
+            "area_mae_image_fraction": 0.0020475387573242188
+          },
+          "synthetic": {
+            "images": 44,
+            "families": 6,
+            "proxy_mask_iou_mean": 0.0,
+            "proxy_mask_iou_family_macro": 0.0,
+            "proxy_dice_mean": 0.0,
+            "missing_predictions": 44,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0641385858709162
+          }
+        },
+        "per_family": {
+          "leeds:temperature_16": {
+            "images": 6,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.9473231412212254,
+            "proxy_mask_iou_family_macro": 0.9473231412212254,
+            "proxy_dice_mean": 0.9728809420893896,
+            "missing_predictions": 0,
+            "extra_predictions": 1,
+            "area_mae_image_fraction": 0.001003265380859375
+          },
+          "leeds:temperature_22": {
+            "images": 6,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.8672106479723052,
+            "proxy_mask_iou_family_macro": 0.8672106479723052,
+            "proxy_dice_mean": 0.9279748250773131,
+            "missing_predictions": 0,
+            "extra_predictions": 1,
+            "area_mae_image_fraction": 0.0030918121337890625
+          },
+          "synthetic:optical_pilot_012": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.0,
+            "proxy_mask_iou_family_macro": 0.0,
+            "proxy_dice_mean": 0.0,
+            "missing_predictions": 3,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.058985392252604164
+          },
+          "synthetic:optical_pilot_013": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.0,
+            "proxy_mask_iou_family_macro": 0.0,
+            "proxy_dice_mean": 0.0,
+            "missing_predictions": 3,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.048563639322916664
+          },
+          "synthetic:optical_pilot_014": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.0,
+            "proxy_mask_iou_family_macro": 0.0,
+            "proxy_dice_mean": 0.0,
+            "missing_predictions": 3,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.07095845540364583
+          },
+          "synthetic:optical_pilot_015": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.0,
+            "proxy_mask_iou_family_macro": 0.0,
+            "proxy_dice_mean": 0.0,
+            "missing_predictions": 3,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.07066853841145833
+          },
+          "synthetic:optical_temporal_003": {
+            "images": 16,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.0,
+            "proxy_mask_iou_family_macro": 0.0,
+            "proxy_dice_mean": 0.0,
+            "missing_predictions": 16,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.06636428833007812
+          },
+          "synthetic:optical_temporal_004": {
+            "images": 16,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.0,
+            "proxy_mask_iou_family_macro": 0.0,
+            "proxy_dice_mean": 0.0,
+            "missing_predictions": 16,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.06329631805419922
+          }
+        }
+      }
+    },
+    {
+      "mode": "mixed",
+      "dataset": "data/source_silhouette_mixed_v1",
+      "dataset_manifest_sha256": "95f4c8d8f703f97d5315312183557e996f81ba362217d0a00993d9c7e380f286",
+      "training_images": 138,
+      "validation_images": 56,
+      "epochs": 6,
+      "batches_per_epoch": 35,
+      "planned_optimizer_updates": 210,
+      "config": "configs/source_silhouette_train_mixed.json",
+      "config_sha256": "a2df4a132bcc973e125b8f6bec9c1468cc40ed1dc0c60d3effdcf34a3c8064ff",
+      "run": "results/source_silhouette_fit_mixed_v1",
+      "status": "complete",
+      "training_elapsed_seconds": 666.490711335995,
+      "cpu_threads": 2,
+      "concurrent_training": true,
+      "cuda_available": false,
+      "last_weights_sha256": "e6e640a8879293307001c066eb3c686107398e50bcdfcc80b338dfee7b2a148f",
+      "best_weights_sha256": "462cd81012129c23e67d5cb001a4581436a875c1ef117ba344d7d38a0c53e6bb",
+      "last_checkpoint_metrics": {
+        "all": {
+          "images": 56,
+          "families": 8,
+          "proxy_mask_iou_mean": 0.9115851482572275,
+          "proxy_mask_iou_family_macro": 0.9041179458072119,
+          "proxy_dice_mean": 0.9535506606058265,
+          "missing_predictions": 0,
+          "extra_predictions": 5,
+          "area_mae_image_fraction": 0.003183977944510324
+        },
+        "by_evidence": {
+          "real": {
+            "images": 12,
+            "families": 2,
+            "proxy_mask_iou_mean": 0.925469991435936,
+            "proxy_mask_iou_family_macro": 0.925469991435936,
+            "proxy_dice_mean": 0.9611469084221352,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.001858075459798177
+          },
+          "synthetic": {
+            "images": 44,
+            "families": 6,
+            "proxy_mask_iou_mean": 0.9077983728448523,
+            "proxy_mask_iou_family_macro": 0.8970005972643037,
+            "proxy_dice_mean": 0.951478956655924,
+            "missing_predictions": 0,
+            "extra_predictions": 5,
+            "area_mae_image_fraction": 0.003545587713068182
+          }
+        },
+        "per_family": {
+          "leeds:temperature_16": {
+            "images": 6,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.9402275188664652,
+            "proxy_mask_iou_family_macro": 0.9402275188664652,
+            "proxy_dice_mean": 0.969137544457548,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0014565785725911458
+          },
+          "leeds:temperature_22": {
+            "images": 6,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.9107124640054068,
+            "proxy_mask_iou_family_macro": 0.9107124640054068,
+            "proxy_dice_mean": 0.9531562723867225,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0022595723470052085
+          },
+          "synthetic:optical_pilot_012": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.8945133438673091,
+            "proxy_mask_iou_family_macro": 0.8945133438673091,
+            "proxy_dice_mean": 0.9443194862593659,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0054931640625
+          },
+          "synthetic:optical_pilot_013": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.8738024806662766,
+            "proxy_mask_iou_family_macro": 0.8738024806662766,
+            "proxy_dice_mean": 0.9326478066063673,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0034027099609375
+          },
+          "synthetic:optical_pilot_014": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.9147443145077093,
+            "proxy_mask_iou_family_macro": 0.9147443145077093,
+            "proxy_dice_mean": 0.9554719682280856,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0036722819010416665
+          },
+          "synthetic:optical_pilot_015": {
+            "images": 3,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.8683959326663714,
+            "proxy_mask_iou_family_macro": 0.8683959326663714,
+            "proxy_dice_mean": 0.9295534539357027,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.008127848307291666
+          },
+          "synthetic:optical_temporal_003": {
+            "images": 16,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.9217002958504543,
+            "proxy_mask_iou_family_macro": 0.9217002958504543,
+            "proxy_dice_mean": 0.9589852630321714,
+            "missing_predictions": 0,
+            "extra_predictions": 5,
+            "area_mae_image_fraction": 0.00298309326171875
+          },
+          "synthetic:optical_temporal_004": {
+            "images": 16,
+            "families": 1,
+            "proxy_mask_iou_mean": 0.908847216027702,
+            "proxy_mask_iou_family_macro": 0.908847216027702,
+            "proxy_dice_mean": 0.9522082337035843,
+            "missing_predictions": 0,
+            "extra_predictions": 0,
+            "area_mae_image_fraction": 0.0028867721557617188
+          }
+        }
+      }
+    }
+  ],
+  "static_baseline": {
+    "training_images": 54,
+    "uses_only_real_training_source_projections": true,
+    "metrics": {
+      "all": {
+        "images": 56,
+        "families": 8,
+        "proxy_mask_iou_mean": 0.6831731808017347,
+        "proxy_mask_iou_family_macro": 0.6850089979532634,
+        "proxy_dice_mean": 0.8081540819538379,
+        "missing_predictions": 0,
+        "extra_predictions": 0,
+        "area_mae_image_fraction": 0.013593401227678572
+      },
+      "by_evidence": {
+        "real": {
+          "images": 12,
+          "families": 2,
+          "proxy_mask_iou_mean": 0.6255704766403719,
+          "proxy_mask_iou_family_macro": 0.6255704766403719,
+          "proxy_dice_mean": 0.759364689321274,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.013278961181640625
+        },
+        "synthetic": {
+          "images": 44,
+          "families": 6,
+          "proxy_mask_iou_mean": 0.6988830092093793,
+          "proxy_mask_iou_family_macro": 0.704821838390894,
+          "proxy_dice_mean": 0.8214602799445369,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.013679157603870739
+        }
+      },
+      "per_family": {
+        "leeds:temperature_16": {
+          "images": 6,
+          "families": 1,
+          "proxy_mask_iou_mean": 0.6506535273659663,
+          "proxy_mask_iou_family_macro": 0.6506535273659663,
+          "proxy_dice_mean": 0.7762199197232954,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.013512293497721354
+        },
+        "leeds:temperature_22": {
+          "images": 6,
+          "families": 1,
+          "proxy_mask_iou_mean": 0.6004874259147776,
+          "proxy_mask_iou_family_macro": 0.6004874259147776,
+          "proxy_dice_mean": 0.742509458919253,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.013045628865559896
+        },
+        "synthetic:optical_pilot_012": {
+          "images": 3,
+          "families": 1,
+          "proxy_mask_iou_mean": 0.7715016475437982,
+          "proxy_mask_iou_family_macro": 0.7715016475437982,
+          "proxy_dice_mean": 0.8709435982201125,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.008158365885416666
+        },
+        "synthetic:optical_pilot_013": {
+          "images": 3,
+          "families": 1,
+          "proxy_mask_iou_mean": 0.7505393176145883,
+          "proxy_mask_iou_family_macro": 0.7505393176145883,
+          "proxy_dice_mean": 0.857481395331372,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.0031280517578125
+        },
+        "synthetic:optical_pilot_014": {
+          "images": 3,
+          "families": 1,
+          "proxy_mask_iou_mean": 0.6644447652090874,
+          "proxy_mask_iou_family_macro": 0.6644447652090874,
+          "proxy_dice_mean": 0.7981340411897166,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.020131429036458332
+        },
+        "synthetic:optical_pilot_015": {
+          "images": 3,
+          "families": 1,
+          "proxy_mask_iou_mean": 0.6529022758104596,
+          "proxy_mask_iou_family_macro": 0.6529022758104596,
+          "proxy_dice_mean": 0.7898158170129945,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.019841512044270832
+        },
+        "synthetic:optical_temporal_003": {
+          "images": 16,
+          "families": 1,
+          "proxy_mask_iou_mean": 0.7287310333859865,
+          "proxy_mask_iou_family_macro": 0.7287310333859865,
+          "proxy_dice_mean": 0.8414956726857216,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.015537261962890625
+        },
+        "synthetic:optical_temporal_004": {
+          "images": 16,
+          "families": 1,
+          "proxy_mask_iou_mean": 0.6608119907814438,
+          "proxy_mask_iou_family_macro": 0.6608119907814438,
+          "proxy_dice_mean": 0.7956998124578439,
+          "missing_predictions": 0,
+          "extra_predictions": 0,
+          "area_mae_image_fraction": 0.012469291687011719
+        }
+      }
+    }
+  },
+  "interpretation": {
+    "mixed_highest_aggregate_proxy_agreement": true,
+    "mixed_not_best_in_every_real_family": true,
+    "source_only_missing_all_44_synthetic_targets": true,
+    "synthetic_only_below_static_real_template_on_real_mean": true,
+    "no_model_promoted": true,
+    "independent_pixel_or_KDP_accuracy_established": false
+  },
+  "verification": {
+    "regression": {
+      "status": "passed",
+      "tests": 411,
+      "subtests": 300,
+      "elapsed_seconds": 215.54,
+      "log": "/tmp/crystalab-source-silhouette-regression-v2.log",
+      "source_sha256": {
+        "src/models/segmentation.py": "5629aa12f94cfc93ba9bc34fa9728bffbb4cbb66b5e25ab4e15e27e323ff73c9",
+        "src/models/silhouette_eval.py": "6b0763518d959b5a3002576d0423dc24855cba54cf4eb64d454ed1d013300e21",
+        "src/vision/silhouette_training.py": "776bc2a275aa12a78839b407f8be100d44779778927951756caa811e6174e867",
+        "src/vision/source_shapes.py": "46cba4ca15c59104e64d42c79398ba9069e58d1e85a21c00cd9aa290dffd7ad6",
+        "src/vision/source_shape_audit.py": "65429859ba4e464f4d89b3d8f8cff0797130582d68dc68e84a62e2e99194082a",
+        "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+        "scripts/source_silhouette.py": "89e73de1b45d250932dde8d9b5e30757e0aa2753908e790c8dd780821a10d8cb",
+        "scripts/evaluate_source_silhouette.py": "01fe7abff24c57cee64ab721c6fc940563258f7a00bfce77d300a7cf4415341d",
+        "configs/leeds_shape_projection.json": "f42ec9cb471751c03604aedefb1a545e44315e5f3e837c2c4bf18df1e7893203",
+        "configs/yolov8n_seg_runtime.json": "4db2738202dd6d2812c7618cae1c8668eb1988ee1e5d2de3977584ae7b60cf21",
+        "src/models/observation.py": "882041eac79d4692bb747cc901dcd9fa1abecde66cf344caf1ad4a727e64d91f",
+        "src/models/segmentation_eval.py": "c3e6192c87d4d7ad5cdec27457e16b84bd6d78c10645317502391ede0d2e9ed0",
+        "scripts/project_source_shapes.py": "7cd40311c2b46cc88332c7a344d197b3b301bddf43f91bd84dd3e0aec0a90418",
+        "tests/test_source_shapes.py": "ee3f50068798547036dd03a2ecb6e1ad1b6034ea7448e9266a38e876ad67c3df",
+        "tests/test_silhouette_training.py": "98e08dddf298c6c378cdfa0509860ef1f5e2753646064ff64e874444f433e6dd",
+        "tests/test_silhouette_eval.py": "1d941c03facb1fc75f164846729b074e5782d60f8bf58f92e724be5766e4404e",
+        "pyproject.toml": "62ab25aed70eb8955d0b7214c30ff146136f6fda2886be9111cfc60e15c7f4b2"
+      }
+    },
+    "initial_collection_failure": {
+      "log": "/tmp/crystalab-source-silhouette-regression.log",
+      "cause": "Default discovery found a cached upstream overlay example and failed on missing wx before its helper functions ran",
+      "resolution": "pyproject.toml default testpaths=[tests]; project suite rerun passed"
+    },
+    "independent_execution": {
+      "path": "results/source_silhouette_execution_audit_v1.json",
+      "status": "pass",
+      "study_sha256": "3d75f2ccd33ba85b882aebcdd3918faad43abe4e4c45fef631e878c3a8cb8d9e",
+      "auditor_sha256": "90d3f77760a011b625dd3980e68b4cc9627fb925c6ff2f5a723f198f538bb2fc",
+      "geometry": {
+        "status": "pass",
+        "source_fits_reconstructed": 66,
+        "maximum_vertex_error_source_units": 8.275870669001703e-11,
+        "maximum_projection_error_px": 0.0,
+        "pixel_reviewed": false,
+        "final_test_scored": false,
+        "scope": "Independent geometric target reconstruction; not agreement with independently reviewed image boundaries"
+      },
+      "fits": [
+        {
+          "mode": "synthetic_only",
+          "epochs": 10,
+          "planned_optimizer_updates": 210,
+          "last_weights_sha256": "b275bc0d1b4f5badf558a24781dcc42223ed5c3bdd5ad53d6c983f591775caf1"
+        },
+        {
+          "mode": "source_projection_only",
+          "epochs": 15,
+          "planned_optimizer_updates": 210,
+          "last_weights_sha256": "0b055dc85853488727b9ea0ebcdf9700deb5fc9bc27709e57608b7dbe64000ae"
+        },
+        {
+          "mode": "mixed",
+          "epochs": 6,
+          "planned_optimizer_updates": 210,
+          "last_weights_sha256": "e6e640a8879293307001c066eb3c686107398e50bcdfcc80b338dfee7b2a148f"
+        }
+      ],
+      "common_validation_images": 56,
+      "selected_prediction_score_records": 224,
+      "metrics_reconstructed": true,
+      "training_only_template_reconstructed": true,
+      "neural_inference_rerun": false,
+      "final_test_scored": false,
+      "actual_human_reviews_created": 0,
+      "scope": "Independent source-fit geometry, selected mask scores and configured training-budget reconstruction; not independently reviewed pixel accuracy or a neural-inference re-execution"
+    },
+    "post_regression_checks": {
+      "auditor_cli_passed": true,
+      "plot_cli_passed": true,
+      "figures_visually_inspected": true,
+      "plot_manifest": "results/source_silhouette_figures_v1/manifest.json",
+      "note": "Independent execution-audit and plotting CLIs were added after the regression and run on actual artifacts; no frozen training/evaluation producer changed"
+    },
+    "real_annotation_proposals_unchanged": 6,
+    "original_annotation_bundle_files_unchanged": 13,
+    "actual_human_annotation_reviews": 0
+  },
+  "artifact_sha256": {
+    "src/models/segmentation.py": "5629aa12f94cfc93ba9bc34fa9728bffbb4cbb66b5e25ab4e15e27e323ff73c9",
+    "src/models/silhouette_eval.py": "6b0763518d959b5a3002576d0423dc24855cba54cf4eb64d454ed1d013300e21",
+    "src/vision/silhouette_training.py": "776bc2a275aa12a78839b407f8be100d44779778927951756caa811e6174e867",
+    "src/vision/source_shapes.py": "46cba4ca15c59104e64d42c79398ba9069e58d1e85a21c00cd9aa290dffd7ad6",
+    "src/vision/source_shape_audit.py": "65429859ba4e464f4d89b3d8f8cff0797130582d68dc68e84a62e2e99194082a",
+    "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+    "scripts/source_silhouette.py": "89e73de1b45d250932dde8d9b5e30757e0aa2753908e790c8dd780821a10d8cb",
+    "scripts/evaluate_source_silhouette.py": "01fe7abff24c57cee64ab721c6fc940563258f7a00bfce77d300a7cf4415341d",
+    "configs/leeds_shape_projection.json": "f42ec9cb471751c03604aedefb1a545e44315e5f3e837c2c4bf18df1e7893203",
+    "configs/yolov8n_seg_runtime.json": "4db2738202dd6d2812c7618cae1c8668eb1988ee1e5d2de3977584ae7b60cf21",
+    "src/models/observation.py": "882041eac79d4692bb747cc901dcd9fa1abecde66cf344caf1ad4a727e64d91f",
+    "src/models/segmentation_eval.py": "c3e6192c87d4d7ad5cdec27457e16b84bd6d78c10645317502391ede0d2e9ed0",
+    "scripts/project_source_shapes.py": "7cd40311c2b46cc88332c7a344d197b3b301bddf43f91bd84dd3e0aec0a90418",
+    "tests/test_source_shapes.py": "ee3f50068798547036dd03a2ecb6e1ad1b6034ea7448e9266a38e876ad67c3df",
+    "tests/test_silhouette_training.py": "98e08dddf298c6c378cdfa0509860ef1f5e2753646064ff64e874444f433e6dd",
+    "tests/test_silhouette_eval.py": "1d941c03facb1fc75f164846729b074e5782d60f8bf58f92e724be5766e4404e",
+    "pyproject.toml": "62ab25aed70eb8955d0b7214c30ff146136f6fda2886be9111cfc60e15c7f4b2",
+    "configs/source_silhouette_experiment.json": "3d75f2ccd33ba85b882aebcdd3918faad43abe4e4c45fef631e878c3a8cb8d9e",
+    "/tmp/crystalab-source-silhouette-regression-v2.log": "4be8bf8df89d6183bbd885e58eccbc4fe0fca59f88a60ae4fda773af2b980dd4",
+    "/tmp/crystalab-source-silhouette-regression.log": "b20560005b5a922a48addd4a324fc62c7c771c45b6e2ac355dc2354db2ca1ee5",
+    "/tmp/crystalab-source-silhouette-integration-unit.log": "5ed14a6d8a15a20e2e5453bb1c7d84adc3585531a7a3267bc481660acac0b78a",
+    "results/source_silhouette_execution_audit_v1.json": "9cfcf5718efe27a515c120f9d58a17a6e6d61967a0b8179eb0c086dbc64fe103",
+    "scripts/audit_source_silhouette.py": "90d3f77760a011b625dd3980e68b4cc9627fb925c6ff2f5a723f198f538bb2fc",
+    "scripts/plot_source_silhouette.py": "a054fcb33859ee9e1d12648c0af28dcb47272ae43499ed026aaca9957b0d12dd",
+    "results/leeds_shape_projection_independent_audit_v3.json": "5d8aad43232cc5b9fa5fae7260c2430fa0a44ed62eb051ba8ee0c607b77016eb",
+    "results/source_silhouette_evaluation_v1/manifest.json": "ded3a6c141807dbd1f327bb23f1c8bc3ffd6e962bf241144c5c11f4423d1daed",
+    "results/source_silhouette_evaluation_v1/scores.json": "2e2e63173c4e0691811e03ab7df72d8cd9f599dc8c7e5fbed5f956a0a6fcaef2",
+    "results/source_silhouette_evaluation_v1/metrics.json": "5f2d555426b395592e3c6674d15e59484edfd4fdf95058539b6a56198193a9b6",
+    "results/source_silhouette_evaluation_v1/real_training_mean_template.png": "f8b24f977ebf486fce9168561f0dffba9e4647c40ca0572e5ced3fceb67fad34",
+    "data/leeds_shape_proxies_v3/manifest.json": "083d8362508904e6a666722b41e0a01f2b1d16c146bb858b529a0babedb26776",
+    "data/leeds_shape_proxies_v3/records.json": "55120d0148a5db1660ae47b31d65ae6fa7bdf8daa2b400eb0cb7d771ff9c71d9",
+    "data/leeds_shape_proxies_v3/policy.json": "f42ec9cb471751c03604aedefb1a545e44315e5f3e837c2c4bf18df1e7893203",
+    "results/source_silhouette_figures_v1/proxy_comparison.png": "1b253a8b1f9276592a7d71f18af5fcd3df7f848d9de198dfa5a6fc2584f1e3c8",
+    "results/source_silhouette_figures_v1/training_projection_preview.png": "9b5a55562e746b4a6a6c71d2cb953184f7107cff9271ec1252aff5f9cbef5696",
+    "results/source_silhouette_figures_v1/manifest.json": "16751709d6934bd190a5d3a1f3033d3ee526ef4304f6f72d35fd2df7ea17b7ba",
+    "results/leeds_shape_projection_attempts_v1.json": "857fad171286216b541a2d97476ebc79cf83870089a1a942a8bfff6efa6b98b3",
+    "data/leeds_shape_proxies_v1/manifest.json": "f6827da3c869bd6deaa1b3574d7cf0d472ecb358f8080d215755ef310321cd70",
+    "data/leeds_shape_proxies_v2/manifest.json": "51a25411f023ab109483be6e8eaeab5e1e4e4320d6a9648250d007aa11aac776",
+    "configs/source_silhouette_train_synthetic_only.json": "171ae3d4bbef0042980536621dc3c464c6e40d8c1286741a68aa1d07ac83e499",
+    "data/source_silhouette_synthetic_v1/manifest.json": "661a44d30aa8b7ead7303339cf79a3e8f660556eb29bd115e86e2ef3ee75b5da",
+    "data/source_silhouette_synthetic_v1/records.json": "e4b70d5cac6b762f28c6fcff80077343c34d36f995ae9020b77c2015e6bde74b",
+    "results/source_silhouette_fit_synthetic_only_v1/manifest.json": "dcfeddffeb376f44f135eecd4d9a72b8900dd4c0bbc18fa2de03a04c2170f626",
+    "results/source_silhouette_fit_synthetic_only_v1/ultralytics/train/weights/best.pt": "71164abfac025b4acd147b73ce96b1b4a76eb3c6197afe3f55c8271aac1f0642",
+    "results/source_silhouette_fit_synthetic_only_v1/ultralytics/train/weights/last.pt": "b275bc0d1b4f5badf558a24781dcc42223ed5c3bdd5ad53d6c983f591775caf1",
+    "results/source_silhouette_fit_synthetic_only_v1/ultralytics/train/results.csv": "06bbd84c2875af267f1a784770bb21ea1de70891daa7d29f53d01de678c827ed",
+    "results/source_silhouette_fit_synthetic_only_v1/ultralytics/train/args.yaml": "757e87e89ebc8b0eda6b0c571b4196924b127a5e4f0281a45274899882507402",
+    "configs/source_silhouette_train_source_projection_only.json": "470217fa3f8632267f5a18ee038c3f06355ff3af57d6a17160a35388b64b7c54",
+    "data/source_silhouette_real_projection_v1/manifest.json": "66c8fae7632bb730d13a322ff808c4fa0e09e8051796797dc33e079a4bc6d0d9",
+    "data/source_silhouette_real_projection_v1/records.json": "010860cdda457d247d8708a150341b6a6c91126f3a74725c2a8387c7a1f70bb6",
+    "results/source_silhouette_fit_source_projection_only_v1/manifest.json": "a6aafd7842c625691fd792c740c544d2452fd5b6be426b767823645199a0eb9c",
+    "results/source_silhouette_fit_source_projection_only_v1/ultralytics/train/weights/best.pt": "67c4a841c60a45a70499cbcd14a5398c0e0b162b7291555a86e9745f08b5a6b0",
+    "results/source_silhouette_fit_source_projection_only_v1/ultralytics/train/weights/last.pt": "0b055dc85853488727b9ea0ebcdf9700deb5fc9bc27709e57608b7dbe64000ae",
+    "results/source_silhouette_fit_source_projection_only_v1/ultralytics/train/results.csv": "d2da592c6339dee93fe4c90e3d525360190fe2890f981d510d4944386f2b80db",
+    "results/source_silhouette_fit_source_projection_only_v1/ultralytics/train/args.yaml": "5480633b9933442795bb5850f89c2a8f6df5eb2b7b470466a421aa1f694b47fa",
+    "configs/source_silhouette_train_mixed.json": "a2df4a132bcc973e125b8f6bec9c1468cc40ed1dc0c60d3effdcf34a3c8064ff",
+    "data/source_silhouette_mixed_v1/manifest.json": "95f4c8d8f703f97d5315312183557e996f81ba362217d0a00993d9c7e380f286",
+    "data/source_silhouette_mixed_v1/records.json": "0ee7ff05150241631c9188410c9690941b8aae78829d9fa789133b3847059d26",
+    "results/source_silhouette_fit_mixed_v1/manifest.json": "1de55647ddcfc6f735ca18aeeca1a39894a25e48e163ecbbf30cfa6571fc829c",
+    "results/source_silhouette_fit_mixed_v1/ultralytics/train/weights/best.pt": "462cd81012129c23e67d5cb001a4581436a875c1ef117ba344d7d38a0c53e6bb",
+    "results/source_silhouette_fit_mixed_v1/ultralytics/train/weights/last.pt": "e6e640a8879293307001c066eb3c686107398e50bcdfcc80b338dfee7b2a148f",
+    "results/source_silhouette_fit_mixed_v1/ultralytics/train/results.csv": "1a7229e5bb3852436a6e470696bfa6b223e808838e486263f3d2f9c55fe8f053",
+    "results/source_silhouette_fit_mixed_v1/ultralytics/train/args.yaml": "a2f79ad1c7721f397e7695b038ff4cf9f9e4b5c3c9c17cf4c4b40367f4e9f811",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/repository.json": "4d5dfcba04d4d3d9d50a65cf5c4129551ba0634840ac43b4d52316a634f5c411",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/commit.json": "86d74f4ea4f54b7f5d30720177576fc0ac9faba1e26db7d0d268aa579ceaaaf6",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/tree.json": "ba27c2e039ded47b99947ff3ea492566333c459638a6a1d1e2e2951cefffca2d",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/source_files.json": "dbad7f4a111a0bc07db53efa8504e06e3b365d17a7d64bc0c24a1a08a66bfec1",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/extra_source_files.json": "24ae7aa4f243fda557973eeef9aa7b48caac3dc837f5e94a4d21fc373671bde8",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/app_source_files.json": "ec0d0bccd9118c1fbf9ca95c3a010da75ba7e585285f9a180c70f37d2ff0bb4e",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/LICENSE": "41003d4a74749c0220e33dd415042164b5a1093ed401f36277234f772d22d3d0",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/crystalsizer3d/projector.py": "293f06fc4b7feba7d43657fec11220e69e42e830b62ef71d30891eabc1b68887",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/crystalsizer3d/crystal.py": "525e19185ffc75b6276ade34ee32055b09fb1f873be0036ba9ef5a7180a97c55",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/app/app.py": "bee65b22386639710a789e38a5729a0a9bf0e3926ea41847cd908453387e95d9",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/scripts/overlay_test.py": "69ee22f0bcfcbb7f45240a788cac0637309d2dbb894a9a5d4574e47cdcad437c",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/app/components/image_panel.py": "0067e4d5003137c99d6d6eab1a095dc87444dc6b0b84c16b88e93f536c0976bc",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/app/components/app_frame.py": "b0f42dc78a41c76199a3edd41c5fb08d953cf26cf7d5984e4d0749a2d8b9ad2d",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/app/components/control_panel.py": "16e6c765dc56e593894d3db0d0444b3ede923d525f686bb71916e074f4376bf4",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/crystalsizer3d/util/image_scale.py": "fcaa43dbbbb68fbd5e7b628f2d9af5e8650dd24f4fd0260272e3040e9e21adfe",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/crystalsizer3d/util/image_helpers.py": "16d4eb53d36ff490d715cd0bce8417634a4f2fb7ac09650c86eba080239b4a92",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/crystalsizer3d/util/geometry.py": "0b97c0ae443b69c6915aa7a7aef4b31f8177f361f79442a104bf611303d35e8c",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/crystalsizer3d/sequence/data_loader.py": "677992346bcdb69abb517bafb0a59fef641dc8f486acde517d53e98af1bd7f0b",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/crystalsizer3d/nn/data_loader.py": "becb9c6be0cf59c75ca0d2677953ea3f19419bd802fb39b89ca97e62a0991ce8",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/crystalsizer3d/scene_components/scene.py": "5407d8da9df69d0533073c4725b50934f14e9e6e604ea8297cade900e80220d7",
+    "data/external_vision/LGA-LEEDS-2026/crystalsizer3d_source_v1/files/crystalsizer3d/scene_components/utils.py": "1eb2f66ab7fb4da7c40421d0878a12722372924f7bc17b272243555f81278f8d",
+    "data/real_vision_leeds_v1/manifest.json": "c3770147fa5c1ec617411272c74244e4363091ab2ed11037ac0aa89538ef3322",
+    "data/real_vision_leeds_v1/images.jsonl": "815d86ae34c107c8bac9863b937e212b9c776d38e665ccd7a563e944c6478421",
+    "data/external_vision/LGA-LEEDS-2026/README_ILETT_2026.txt": "b22b8d6b86e9058485c52d3666b1fdfddadd94d732d94c2dc514344e86931d14",
+    "data/annotations_leeds12_v1/annotations/12_0000.json": "57f7f6234570292f0df41275da775801b9bd715bd3c0e15c55d02a7c827302ac",
+    "data/annotations_leeds12_v1/annotations/12_0040.json": "48366d15b39ecced52871d79c3df6a2b6fc2afbc357c15b44af5be08de4eb1e0",
+    "data/annotations_leeds12_v1/annotations/12_0080.json": "db2e1edc60c7a3916fbf3d1e71cfe0e59540cad706b54bc6264547a13288fbc7",
+    "data/annotations_leeds12_v1/annotations/12_0120.json": "51489bd7d03db430b27aa0b0a6b862e7bf6e20388bf05e5664f2ee0ca2b3ad7e",
+    "data/annotations_leeds12_v1/annotations/12_0160.json": "848f3db036a61f53f8f61b92f8a1847aa6255758f6835c140c5f6a20e64a7c42",
+    "data/annotations_leeds12_v1/annotations/12_0199.json": "b22c7df70e7d07ba3e4d7f3045defae987514bb3a84f839b766d42d37c460b57",
+    "data/annotations_leeds12_v1/images/12_0000.png": "6b2676b4f0747a9d641767f2855bb3d890b64560d14bfd79194cd7739e95cf99",
+    "data/annotations_leeds12_v1/images/12_0040.png": "23502c5cf3d8d5bb9f1abfd83b4f2a5fa5a515c02aa66cc9506cc47d9fa7c205",
+    "data/annotations_leeds12_v1/images/12_0080.png": "239a98499028d7d4dab67368458a8ed410f57a71e30fdcf501f6c3b0304766ff",
+    "data/annotations_leeds12_v1/images/12_0120.png": "cdb48dee3e19e3503723e15e6c7e1be72d4b88e860d8bc3157d944a98722cc22",
+    "data/annotations_leeds12_v1/images/12_0160.png": "d094ae92ff1cdac443ed56487356725e23401652a9b1f826257065e7d16cbffb",
+    "data/annotations_leeds12_v1/images/12_0199.png": "08220c0dd973f8d72e79ca911ec18cd779b8be609fab7354e8f35d1c091e8115",
+    "data/annotations_leeds12_v1/manifest.json": "8faf7bff0b5acb667be3d88cf7429232dc1651139dfd2016feec77ff3b4ee963"
+  },
+  "scope": {
+    "real_training_targets": "Projected source-author manual 3D fits; not local AI proposals or independently reviewed pixel masks",
+    "reviewed_real_pixel_accuracy": false,
+    "real_KDP_defect_accuracy": false,
+    "secondary_inclusion_or_face_labels_supplied": false,
+    "first_hour_detection_verified": false,
+    "action_response_or_physical_benefit": false,
+    "final_test_scored": false,
+    "physical_hardware_contacted": false,
+    "automatic_promotion": false
+  },
+  "remaining": [
+    "Review pixel/event targets and uncertainty; freeze corresponding pitch-class evaluation budgets.",
+    "Gather compatible public KDP images/labels and trustworthy clocks, process/action/outcome evidence.",
+    "Complete the pitch-class synthetic-only, reviewed-real-only and mixed comparison with independent relevant real evaluation.",
+    "Support face/asymmetry/inclusion interpretation and real first-hour coverage.",
+    "Validate action-response objective; physical equipment/outcomes remain later gates under public-data-only access.",
+    "Complete bounded CPU/GPU transport and chemically justified Qiskit VQE/classical experiments."
+  ]
+}

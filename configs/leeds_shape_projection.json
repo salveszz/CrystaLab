@@ -1,0 +1,44 @@
+{
+  "schema": "crystalab_leeds_shape_projection_policy_v1",
+  "source_id": "LGA-LEEDS-2026",
+  "source_index": "data/real_vision_leeds_v1",
+  "source_index_manifest_sha256": "c3770147fa5c1ec617411272c74244e4363091ab2ed11037ac0aa89538ef3322",
+  "source_archive_sha256": "a946d8ac8b12e0184a1770eb5f3393ae3bbb0d295054803298fb01a1df3b8690",
+  "output_size": 512,
+  "include_splits": [
+    "train",
+    "validation"
+  ],
+  "reserved_test_excluded": true,
+  "label_kind": "source_author_3d_fit_projected_silhouette_proxy",
+  "pixel_reviewed": false,
+  "task": "source_fitted_main_crystal_silhouette",
+  "projection": {
+    "method": "orthographic_convex_hull",
+    "lattice": "orthorhombic_reciprocal_normals",
+    "rotation": "axis_angle_radians",
+    "depth": "mean_transformed_vertex_z",
+    "camera": "positive_z_look_at_origin_positive_y_up",
+    "field_scale": "1 / ((camera_distance - mean_vertex_z) * tan(camera_fov_degrees / 2))",
+    "image_transform": "center_square_crop_then_resize",
+    "refraction": "no_back_edge_labels; outer convex silhouette only",
+    "units": "source_model_units_not_independently_calibrated_SI",
+    "rasterization": "nearest_pixel_projected_vertices_then_integer_convex_hull_and_fill"
+  },
+  "method_reference": {
+    "paper": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13070466/",
+    "repository": "https://github.com/Shape4PPD/crystalsizer3d",
+    "commit": "62cc090e09f1f794582a8099c9f230f7dcffced8",
+    "reference_code_license": "CC BY-NC 4.0",
+    "implementation": "Independent construction using existing CrystaLab half-space geometry and standard orthographic projection; upstream code is inspected only, not imported or executed"
+  },
+  "inspection_training_sample_ids": [
+    "LGA-LEEDS-2026:12:0000",
+    "LGA-LEEDS-2026:12:0080",
+    "LGA-LEEDS-2026:12:0199",
+    "LGA-LEEDS-2026:14:0015",
+    "LGA-LEEDS-2026:14:0255",
+    "LGA-LEEDS-2026:20-R1:0000"
+  ],
+  "scope": "Derived source-fit supervision for a separate one-object silhouette experiment. No reviewed pixel/event labels, KDP defect accuracy or physical action response."
+}

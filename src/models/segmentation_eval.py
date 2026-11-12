@@ -67,6 +67,8 @@ def evaluate_development(
         Path(output).resolve(),
     )
     model_manifest, weights = load_run_metadata(run)
+    if model_manifest.get("dataset_task", "pitch_instances") != "pitch_instances":
+        raise ValueError("Use the separate source-fit silhouette evaluation contract")
     audit = audit_segmentation(dataset)
     source = json.loads((dataset / "manifest.json").read_text())
     rows = [r for r in source["records"] if r["split"] == split]

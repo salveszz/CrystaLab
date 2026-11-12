@@ -1,0 +1,16 @@
+{
+  "schema": "crystalab_yolov8_seg_train_v1",
+  "purpose": "grouped_experiment",
+  "imgsz": 256,
+  "batch": 4,
+  "threads": 2,
+  "seed": 20261112,
+  "device": "cpu",
+  "learning_rate": 0.001,
+  "mask_ratio": 1,
+  "overlap_mask": false,
+  "warmup_epochs": 0,
+  "lrf": 1,
+  "epochs": 15,
+  "description": "Explicit source-fitted main-crystal silhouette diagnostic, source_projection_only; 210 planned optimizer updates with warmup disabled, constant learning rate and last-checkpoint evaluation. Real targets are author shape projections, not reviewed pixel masks."
+}

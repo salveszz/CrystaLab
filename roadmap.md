@@ -38,6 +38,9 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 The pitch's next useful demonstration is a video of the growing crystal with
 measured outlines, supported alerts and a traceable proposed control response.
 The foundations run; dependable real detection and adaptive control are unfinished.
+The user currently has access to **public datasets only**. Prioritize documented
+public KDP images, labels, clocks and process/action records; live equipment and
+physical outcome validation remain later gates until suitable access/evidence exists.
 
 1. **Use consistent synthetic measurements and characterize real capture.** The
    [paired encoding experiment](docs/VIDEO_ENCODING.md) now verifies exact FFV1
@@ -51,9 +54,13 @@ The foundations run; dependable real detection and adaptive control are unfinish
    establishes the example answers used to train and check the model. It needs
    no specialist job title; ambiguous defects remain unresolved until someone
    with relevant knowledge can assess them. No reviews have been invented.
-3. **Run the real-data model comparison once compatible labels exist.** Expand
-   training examples across the preserved development runs, independently review
-   evaluation labels, and compare synthetic-only, real-only and mixed fits.
+3. **Complete the pitch-class comparison with reviewed labels.** A separate
+   [source-fit silhouette study](docs/SOURCE_SHAPE_TRAINING.md) now trains synthetic,
+   real-projection and mixed models on explicit weak targets. Mixed reaches 0.9255
+   IoU on 12 real proxies; real-only misses all synthetic targets. This does not
+   validate the pitch's defect classes. Expand training examples across preserved
+   development runs, independently review evaluation labels, and compare the
+   corresponding synthetic-only, real-only and mixed pitch-class fits.
    Report missed crystals, false alerts, outline error and supported event delay.
    Visible inclusions and face asymmetry remain open tasks with their own labels.
 4. **Use the operator demonstration while continuing data review.** The
@@ -88,6 +95,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies, a separate ADP movie and 587 protein-crystal images with 4,986 published crystal/drop masks. | Reviewed Leeds/KDP pixel/event labels and representative independent KDP evaluation data. Source fits are not masks; protein selected-object labels need a separate compatible task. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal source. Combined export has 84 training / 44 validation / 28 reserved images. Two new fits and development replays are complete; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
+| Real source-fit silhouette study | 66 author-shape proxies: 54 training / 12 validation. Three fixed-budget one-class fits and a static baseline; mixed real proxy IoU 0.9255 and synthetic 0.9078. Independent target/score reconstruction passes; real-only misses all synthetic targets. | Reviewed real pixel/event labels, relevant KDP coverage and the corresponding pitch-class comparison. Auxiliary weights are refused by the pitch observer; no model is promoted. |
 | Observable forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared validation windows. Online adaptation gives 80.71 px² and does not beat recent rate. Parameters update only from matured observed masks; real replay remains unscored shadow output. | Reviewed real/action-labelled trajectories, capture characterization, acceptance budgets and supported action-response objective. No action-response growth model exists. |
 | Learned perception, controllers and UI | Local training/evaluation, candidate analysis, PID/rules, operator replay and bounded adaptive pause comparison. The console now displays causal forecasts/state and preserves explicit suggested/manual duration reviews. Independent audits retain secondary misses and inclusion failures. | Review/evaluate real data, support face measurements, validate the adaptive action-response objective and characterize equipment/operator response. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
@@ -185,7 +193,8 @@ alongside each other; human review remains necessary for accepted real labels.
 6. **Write the capture and process-data checklist.** Establish available camera,
    thermostat, temperature logs, rotation/pump access and a reviewer. Plan fixed
    observation poses, scale, synchronized clocks, run origin and measured/applied
-   command logging. User-owned equipment access is currently unconfirmed.
+   command logging for a future available setup. Current user access is public
+   datasets only; do not assume a local growth rig or camera is available.
 
 Preserve the frozen Leeds validation/test runs. No visual tuning, annotation-rule
 selection or render matching on final test images. Evaluation labels need a
