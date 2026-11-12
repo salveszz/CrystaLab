@@ -6,9 +6,31 @@
 
 """Residual-checked SPD solves shared by momentum and pressure operators."""
 
+from contextlib import contextmanager
+from contextvars import ContextVar
+
 import numpy as np
 from scipy.sparse import diags
 from scipy.sparse.linalg import cg
+
+
+_PRODUCT_BACKEND = ContextVar("flow_spd_product_backend", default=None)
+
+
+@contextmanager
+def using_product_backend(backend):
+    """Scope an experimental iterative solver to this execution context.
+
+    Cached small-system direct solves retain their normal CPU path. A backend
+    failure propagates; it must never silently substitute CPU work for GPU work.
+    """
+    if not callable(getattr(backend, "solve", None)):
+        raise ValueError("Product backend must provide solve(system, rhs, guess)")
+    token = _PRODUCT_BACKEND.set(backend)
+    try:
+        yield backend
+    finally:
+        _PRODUCT_BACKEND.reset(token)
 
 
 def solve_spd(system, rhs, guess=None, direct=None):
@@ -17,6 +39,8 @@ def solve_spd(system, rhs, guess=None, direct=None):
     if direct is not None:
         answer = direct(rhs)
         status = 0
+    elif (backend := _PRODUCT_BACKEND.get()) is not None:
+        answer, status = backend.solve(system, rhs, guess)
     else:
         answer, status = cg(
             system,

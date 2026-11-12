@@ -41,6 +41,8 @@ The foundations run; dependable real detection and adaptive control are unfinish
 The user currently has access to **public datasets only**. Prioritize documented
 public KDP images, labels, clocks and process/action records; live equipment and
 physical outcome validation remain later gates until suitable access/evidence exists.
+The [additional public KDP review](docs/PUBLIC_KDP_SOURCE_REVIEW.md) retains surface
+crack/crater leads without treating them as acquired growth-event training data.
 
 1. **Use consistent synthetic measurements and characterize real capture.** The
    [paired encoding experiment](docs/VIDEO_ENCODING.md) now verifies exact FFV1
@@ -98,7 +100,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Real source-fit silhouette study | 66 author-shape proxies: 54 training / 12 validation. Three fixed-budget one-class fits and a static baseline; mixed real proxy IoU 0.9255 and synthetic 0.9078. Independent target/score reconstruction passes; real-only misses all synthetic targets. | Reviewed real pixel/event labels, relevant KDP coverage and the corresponding pitch-class comparison. Auxiliary weights are refused by the pitch observer; no model is promoted. |
 | Observable forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared validation windows. Online adaptation gives 80.71 px² and does not beat recent rate. Parameters update only from matured observed masks; real replay remains unscored shadow output. | Reviewed real/action-labelled trajectories, capture characterization, acceptance budgets and supported action-response objective. No action-response growth model exists. |
 | Learned perception, controllers and UI | Local training/evaluation, candidate analysis, PID/rules, operator replay and bounded adaptive pause comparison. The console now displays causal forecasts/state and preserves explicit suggested/manual duration reviews. Independent audits retain secondary misses and inclusion failures. | Review/evaluate real data, support face measurements, validate the adaptive action-response objective and characterize equipment/operator response. |
-| HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
+| HPC and Qiskit | A [CPU/hybrid Vulkan comparison](docs/VULKAN_FLOW_BENCHMARK.md) passes fixed-domain NS/solute accuracy checks on an actual AMD GPU; GPU stepping is about five times slower. No impurity-cluster VQE implementation. | Heat/coupling and a physically justified risk map, any further comparable GPU implementation, and the chemically justified Qiskit/classical experiment. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
 130 subtests at its source revision. The new
@@ -322,9 +324,11 @@ playback. Package the model/evaluation report, failures, commands and demo video
 The [operator replay](docs/OPERATOR_REPLAY.md) now implements video/process
 display, source-linked reviews and simulated pause/manual resume, retaining each
 result. Real-video shadow display has no process measurements or numerical
-commands. Automated fixture checks create no human review claims. Linked forecast/
-adaptive state, supported faces/asymmetry, rotation/flow actions, relevant real
-event accuracy and live equipment interaction remain open.
+commands. Automated fixture checks create no human review claims. The linked
+[forecast/adaptive view](docs/OPERATOR_FORECAST.md) is implemented with source-bound
+state and preserved manual/suggested pause review. Supported faces/asymmetry,
+rotation/flow actions, relevant real event accuracy and live equipment interaction
+remain open.
 
 A complete software demo still needs independent physical KDP runs to establish
 first-hour detection and effects on growth/quality. Start capture planning in
@@ -343,7 +347,12 @@ risk-map output. Record hardware, source identity, accuracy, memory and wall tim
 Compare a selected GPU implementation with the same CPU case. The pitch also
 requires Navier–Stokes plus heat/mass transfer: identify which couplings are
 implemented and validated, and keep the remainder open. A CPU timing or a visual
-risk map alone does not close this deliverable. GPU access remains unconfirmed.
+risk map alone does not close this deliverable. A first
+[CPU/hybrid Vulkan experiment](docs/VULKAN_FLOW_BENCHMARK.md) now runs on the local
+AMD Radeon 860M: 24 fresh-process runs pass numerical checks, with three measured
+repeats per backend/grid. GPU stepping is about five times slower at 16³–32³.
+Keep CPU as the default. The stored concentration-excess map is uncalibrated;
+heat, thermal feedback, growth and physical risk interpretation remain open.
 
 **Qiskit:** define one chemically justified small KDP reference/impurity cluster,
 including geometry, charge, spin, basis and active space. Compare VQE with a

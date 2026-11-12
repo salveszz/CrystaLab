@@ -1,7 +1,23 @@
 {
   "checked_date": "2026-11-11",
+  "review_update_date": "2026-11-12",
   "scope": "Additional public-source triage. These candidates are not acquired training data and are separate from the pinned acquired-source registry.",
   "candidates": [
+    {
+      "source_id": "KDP-SURFACE-EXN-2025",
+      "checked_date": "2026-11-12",
+      "url": "https://link.springer.com/article/10.1007/s11554-025-01654-6",
+      "repository": "https://github.com/Good-he/EXN-yolo",
+      "material": "KDP",
+      "capture": "Static surface micro-defect inspection, distinct from growth imaging through solution",
+      "access_observation": "Article preview links author repository; advertised Baidu share returned HTTP 200 extraction-code HTML form, not a dataset payload",
+      "repository_license_metadata": null,
+      "dataset_license": "not_verified",
+      "labels": "Payload and actual class map not inspected",
+      "acquired": false,
+      "local_access_report": "data/audits/kdp_candidate_access_20261112_v1/report.json",
+      "decision": "Hold as optional surface-inspection lead. No training adoption, login, purchase or contact. Overlap with the related IEEE lead is unknown. See PUBLIC_KDP_SOURCE_REVIEW.md."
+    },
     {
       "source_id": "KDP-SURFACE-IEEE-2024",
       "url": "https://ieee-dataport.org/documents/images-micro-craters-and-micro-cracks-surface-kdp-crystals",
@@ -37,5 +53,5 @@
       "decision": "Related-material auxiliary lead only. Prioritize reviewing the already acquired crystal data and KDP capture coverage before another unrelated-material acquisition."
     }
   ],
-  "remaining_target_gap": "No newly verified public source here supplies representative timestamped KDP tank-growth masks, the three pitch event labels and paired actuator-response logs. User equipment/capture access remains an open dependency."
+  "remaining_target_gap": "No newly verified public source here supplies representative timestamped KDP tank-growth masks, the three pitch event labels and paired actuator-response logs. User access is public datasets only; physical capture is a later gate pending suitable public evidence or newly available equipment."
 }

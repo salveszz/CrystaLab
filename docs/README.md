@@ -10,6 +10,7 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 |---|---|
 | [Roadmap](../roadmap.md) | Pitch requirements, actual status, immediate pilot batch and ordered perception/control/demo work, including HPC/Qiskit deliverables. |
 | [Vision MVP](VISION_MVP.md) | Capture/annotation contract, observable targets, real/synthetic splits, evaluation and control interfaces. |
+| [Public KDP source review](PUBLIC_KDP_SOURCE_REVIEW.md) | Additional surface-defect leads, observed access/license limits and remaining growth-event evidence under public-only access. |
 | [Video baseline](VISION_BASELINE.md) | Implemented file/camera observation, explicit clocks, projected seed tracking, validity events and reproducible fixture replay. |
 | [Learned video observation](LEARNED_VIDEO.md) | Verified model replay, seed role across raw labels, alternative outlines/inspection requests and hashed original-frame mapping. |
 | [Learned replay checkpoint](LEARNED_VIDEO_CHECKPOINT.json) | 284-test result, actual synthetic/real development replays, strict-prototype failures and remaining real/event/control gates. |
@@ -76,6 +77,7 @@ experiment using the frozen tabular splits, illustrative units and fixed law.
 | Physical definitions and source data | [Physical model](PHYSICAL_MODEL.md), [physical data](PHYSICAL_DATA.md), [source audit](DATA_AUDIT.json). |
 | Experimental claims and evaluation | [Real-data validation](REAL_DATA_VALIDATION.md). |
 | Canonical fixed-grid flow/solute work | [Flow model](FLOW_MODEL.md), [solute model](SOLUTE_MODEL.md), [solute checkpoint](SOLUTE_CHECKPOINT.json). |
+| CPU/hybrid GPU experiment | [Vulkan flow benchmark](VULKAN_FLOW_BENCHMARK.md), [checkpoint](VULKAN_FLOW_CHECKPOINT.json): actual AMD fp64 compute, comparable fields and a retained negative performance result. |
 | Rectilinear/focused flow operators | [Rectilinear flow](RECTILINEAR_FLOW.md), [checkpoint](RECTILINEAR_CHECKPOINT.json). |
 | Cut-cell geometry and pressure | [Pressure method](CUTCELL_PRESSURE.md), [checkpoint](CUTCELL_PRESSURE_CHECKPOINT.json). |
 | Cut-cell viscosity | [Viscosity method](CUTCELL_VISCOSITY.md), [checkpoint](CUTCELL_VISCOSITY_CHECKPOINT.json). |

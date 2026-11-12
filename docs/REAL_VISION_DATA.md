@@ -13,6 +13,9 @@ measures proxy agreement on alpha-LGA; it does not establish real defect accurac
 [Synthetic-only pitch-class fits](VISION_PILOT.md) and
 [learned development replay](LEARNED_VIDEO.md) exist; their real accuracy remains
 unevaluated.
+The [additional public KDP review](PUBLIC_KDP_SOURCE_REVIEW.md) records surface
+crack/crater leads, access attempts and missing reuse/label evidence. Those leads
+have supplied no accepted training payload and are not growth-event validation.
 The [source registry](../configs/vision_sources.json) pins URLs, licenses, citations
 and actual SHA256 values. The [compact report](REAL_VISION_DATA.json) records the
 download/decode/import evidence; raw archives remain local and Git-ignored.

@@ -1,0 +1,360 @@
+{
+  "record_kind": "bounded_software_cpu_hybrid_gpu_experiment_not_physical_growth_validation",
+  "date": "2026-11-12",
+  "base_commit": "589a474",
+  "raw_artifacts_tracked": false,
+  "study_directory": "results/vulkan_abc_solute_v2",
+  "protocol_sha256": "a0b16ccb0bfa80449f297b4c4c5bff3a2fcf7b1ab356a32b4d3f8b3447e805e8",
+  "environment": {
+    "python": "3.14.8 (main, Oct  1 2026, 00:00:00) [GCC 16.2.1 20260819 (Red Hat 16.2.1-2)]",
+    "platform": "Linux-7.2.13-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+    "packages": {
+      "numpy": "2.5.0",
+      "scipy": "1.18.0",
+      "vulkan": "1.3.275.1",
+      "cffi": "2.1.1"
+    }
+  },
+  "device": {
+    "name": "AMD Radeon 860M Graphics (RADV KRACKAN1)",
+    "vendor_id": 4098,
+    "device_id": 4372,
+    "device_type": 1,
+    "driver_version": 109060101,
+    "api_version": 4211042,
+    "queue_family": 0,
+    "shader_float64": true,
+    "binding_version": "1.3.275.1",
+    "workgroup_size": 128,
+    "memory_model": "host-visible coherent; shared UMA memory may also be CPU RAM",
+    "shader_sha256": "d31383d860d974069ae81d7ead354f904c64d728c9159061e56a39fa5e293b51",
+    "spirv_sha256": "5f8da29003632f0eaccc71c69316358cb2655ed73f6d22140503549e3d62971d"
+  },
+  "source_sha256": {
+    "src/simulation/__init__.py": "465346a50fa4b15e2ae38a5b8dc19a9c1447f2a44d8ed66c7d27147d746fb2a4",
+    "src/simulation/crystal.py": "0556c5f49c07f28b3135e51580bf264fcbdb6d85f4b73a23ef4157b4f6fedc92",
+    "src/simulation/cutcell.py": "b83d97d63f064f34af3ad502d10b726d69b526471b356a7cc98d587bfb7aed3f",
+    "src/simulation/engine.py": "751d0f5912429bd7a52b2404451971bebaa20f08b9753d24eb5685ebc91dfc20",
+    "src/simulation/flow.py": "80ab956148340124be50bb5244105192c0bb0d309420889882a9b48f5c4f6934",
+    "src/simulation/linear.py": "c74498cb59061bc8f6bf6dceffc08de3a26529d55aaa226d9a58713f16622cfc",
+    "src/simulation/material.py": "dc724208e9b208f2f1b680f3650ea20ff75905a94c307b1ed289746bc209f5a9",
+    "src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+    "src/simulation/momentum.py": "887cc8823c44571c91637e3b18909ba13c9ae74a0ed75f18e95ff038dec1c4b3",
+    "src/simulation/physics.py": "3435c217f703f11cd3a5e5d2313e41d351223210be457ae49736bd87dcdfcb79",
+    "src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+    "src/simulation/solute.py": "6a43739f5dfabe5109ddbb701fb353e0b33eb1c5367c1ba44a5872f587dfe12c",
+    "src/simulation/stokes.py": "8a0e59ab0b1d8f5379e0a50afd85c6a615292f0a82e8820797bfd037a5ec98f8",
+    "src/simulation/tank.py": "f113565e583e68dd2c84050e9d3a9218c26b8d79a37a74faf8857a91e132ce42",
+    "src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+    "src/simulation/viscosity.py": "b4ac716d35a09a6aa8ac2871f1c150115ff5d6711ca590693aedbc9cf68edd46",
+    "src/simulation/vulkan_spmv.py": "9035481a40831431ac9208e65bb608e10cde8f4640df97d4df3b4b253609fd07",
+    "scripts/benchmark_vulkan_flow.py": "c625a18c54ee9b8b65fdcbc2447bd63b395d5bec3341a2618476025416e5dc93",
+    "scripts/check_flow.py": "de9cb15d225fca650da60dc9525e9d0fcf62033b53f8c5df5149f14a87b6489b",
+    "configs/physical_reference.json": "0e6150a100cf9b36aa97becfb8f31669e5e890d7227b55569183ef31d7b32390",
+    "configs/vulkan_flow_experiment.json": "a0b16ccb0bfa80449f297b4c4c5bff3a2fcf7b1ab356a32b4d3f8b3447e805e8",
+    "pyproject.toml": "844bc4c052ed0ef0696f45f36237c94f68119c85674cdfc2a1adf66bc935fe8f"
+  },
+  "runs": {
+    "total": 24,
+    "warmup": 6,
+    "measured": 18,
+    "measured_repeats_per_backend_grid": 3,
+    "counts": [
+      16,
+      24,
+      32
+    ],
+    "steps": 4,
+    "dt_s": 0.03125,
+    "all_exit_codes_zero": true
+  },
+  "timings": [
+    {
+      "n": 16,
+      "cpu": {
+        "cold_total_s": [
+          0.07528332099900581,
+          0.07368655099708121,
+          0.07488939099130221
+        ],
+        "stepping_s": [
+          0.04162475699558854,
+          0.03987260600843001,
+          0.040266797004733235
+        ],
+        "initialization_s": [
+          0.03365725200274028,
+          0.03381297299347352,
+          0.03462151199346408
+        ],
+        "process_peak_rss_kib": [
+          94956,
+          94696,
+          95048
+        ]
+      },
+      "gpu": {
+        "cold_total_s": [
+          0.32297378798830323,
+          0.34930960700148717,
+          0.38392536900937557
+        ],
+        "stepping_s": [
+          0.1787174190103542,
+          0.19824804499512538,
+          0.21481409299303778
+        ],
+        "initialization_s": [
+          0.14425537698843982,
+          0.15106054898933508,
+          0.1691103640041547
+        ],
+        "process_peak_rss_kib": [
+          183124,
+          183400,
+          183144
+        ]
+      },
+      "cold_total_s_cpu_over_gpu_median": 0.2143925889532817,
+      "stepping_s_cpu_over_gpu_median": 0.20311321105700353
+    },
+    {
+      "n": 24,
+      "cpu": {
+        "cold_total_s": [
+          0.25095339700055774,
+          0.2338969080010429,
+          0.24724829700426199
+        ],
+        "stepping_s": [
+          0.12505870900349692,
+          0.12265489299898036,
+          0.1353531450004084
+        ],
+        "initialization_s": [
+          0.12589331599883735,
+          0.11123976099770516,
+          0.11189386900514364
+        ],
+        "process_peak_rss_kib": [
+          127452,
+          127884,
+          127472
+        ]
+      },
+      "gpu": {
+        "cold_total_s": [
+          0.7914766649919329,
+          0.8558451739954762,
+          0.8907788429933134
+        ],
+        "stepping_s": [
+          0.5718738379946444,
+          0.6244930270040641,
+          0.6479407300066669
+        ],
+        "initialization_s": [
+          0.21960183599730954,
+          0.2313505750062177,
+          0.24283670999284368
+        ],
+        "process_peak_rss_kib": [
+          182856,
+          183416,
+          183208
+        ]
+      },
+      "cold_total_s_cpu_over_gpu_median": 0.28889372110377626,
+      "stepping_s_cpu_over_gpu_median": 0.20025637372358213
+    },
+    {
+      "n": 32,
+      "cpu": {
+        "cold_total_s": [
+          0.5980621190101374,
+          0.5663988040032564,
+          0.5703357290040003
+        ],
+        "stepping_s": [
+          0.3347026090050349,
+          0.31039315700763837,
+          0.31765048899978865
+        ],
+        "initialization_s": [
+          0.26335828700393904,
+          0.25600438499532174,
+          0.25268394699378405
+        ],
+        "process_peak_rss_kib": [
+          187196,
+          187760,
+          188400
+        ]
+      },
+      "gpu": {
+        "cold_total_s": [
+          2.0084841509960825,
+          1.9562935369904153,
+          1.955335507998825
+        ],
+        "stepping_s": [
+          1.5758071780001046,
+          1.5984890539984917,
+          1.5897714290040312
+        ],
+        "initialization_s": [
+          0.43267573000048287,
+          0.3578032609948423,
+          0.36556270701112226
+        ],
+        "process_peak_rss_kib": [
+          238116,
+          238860,
+          239748
+        ]
+      },
+      "cold_total_s_cpu_over_gpu_median": 0.29153893228181466,
+      "stepping_s_cpu_over_gpu_median": 0.1998089053586729
+    }
+  ],
+  "maximum_cpu_gpu_differences": {
+    "relative_velocity_difference": 2.1117178568267238e-16,
+    "relative_pressure_difference": 2.0119168630242638e-14,
+    "concentration_difference_kg_per_m3": 8.526512829121202e-14,
+    "indicator_difference": 4.2630829422130034e-16
+  },
+  "independent_audit": {
+    "path": "results/vulkan_abc_solute_independent_audit_v2.json",
+    "status": "passed",
+    "runs_checked": 24,
+    "source_hashes_checked": 22,
+    "auditor_sha256": "eb8499959172c3db18d6ee51b63f306ec3ff3e120949137def2f8c233d4fc33f",
+    "limits": "Independent field/reference/map/mass/periodic/divergence/aggregate reconstruction. Timings and hardware dispatch counters are recorded observations, not independently remeasured. Heat/growth/physical-risk/quality validation is absent."
+  },
+  "verification": {
+    "targeted": "36 passed, 19 subtests passed in 5.08s",
+    "full": "415 passed, 305 subtests passed in 118.95s",
+    "restricted_attempt": "4 failed, 403 passed, 8 errors, 299 subtests passed: localhost and forkserver socket permission failures; preserved without weakening tests",
+    "hardware_resource_checks": "3 passed: CPU fallback refusal, budget enforcement, closed-context refusal",
+    "visual_review": [
+      "timings.png",
+      "concentration_indicator.png"
+    ]
+  },
+  "public_data_review": {
+    "guide": "docs/PUBLIC_KDP_SOURCE_REVIEW.md",
+    "new_image_label_payloads_accepted": 0,
+    "local_human_reviews_created": 0,
+    "user_access": "public datasets only",
+    "access_report": "data/audits/kdp_candidate_access_20261112_v1/report.json"
+  },
+  "interpretation": "GPU stepping is about five times slower; retain default CPU. Actual fp64 GPU products are a hybrid subset, not a fully GPU solver or GPU YOLO training. Concentration-excess indicator is not calibrated nucleation risk. No physical action/quality/yield/energy claim.",
+  "remaining_gates": [
+    "Reviewed KDP pixel and pitch-event truth; face/asymmetry/inclusion measurements",
+    "Known run-start/first-hour coverage and independent real evaluation",
+    "Physical timestamped process/actuator response and outcome comparisons",
+    "Sourced thermal properties/boundaries and verified heat/coupling",
+    "Physically justified and calibrated risk-map interpretation",
+    "Chemically justified KDP impurity-cluster Qiskit/classical experiment"
+  ],
+  "artifact_sha256": {
+    "results/vulkan_abc_solute_v2/binding_install.json": "2b916b1cb2ff1db2a06aa289077e1246855ef06459cf8662ad1dc5c07e66f494",
+    "results/vulkan_abc_solute_v2/device_capability_probe.json": "fe3ab6bf741146293e57f582d8fe18b2c43094380ef036566faaed873c08e1b5",
+    "results/vulkan_abc_solute_v2/gpu_probe.json": "b4bb611ed6202d8ed292e01612b6a74bd8b889e94b066d595974517d5eb02aa9",
+    "results/vulkan_abc_solute_v2/gpu_probe.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/manifest.json": "55f4c214eb2eb615359937ece603a00979e372df607e9784a89dd08c31d782ab",
+    "results/vulkan_abc_solute_v2/n16_measured_0_cpu/fields.npz": "edd043d46a740d207b19935f9c5b5897d8ee4e278d36e95ccd5c557c40269d33",
+    "results/vulkan_abc_solute_v2/n16_measured_0_cpu/report.json": "460bf8eaf7f5db79bba0da7bcba2180c43fa876854bfca49a98d7403b8bc01ad",
+    "results/vulkan_abc_solute_v2/n16_measured_0_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n16_measured_0_gpu/fields.npz": "1290b556f5b4bf74e8cb0c7b488dab845ea7da1ba45da226526ca87598d9c230",
+    "results/vulkan_abc_solute_v2/n16_measured_0_gpu/report.json": "f092538c0990e7e6f4a8b8d8976d11a22cb7a132db7a789bad589112a0333084",
+    "results/vulkan_abc_solute_v2/n16_measured_0_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n16_measured_1_cpu/fields.npz": "edd043d46a740d207b19935f9c5b5897d8ee4e278d36e95ccd5c557c40269d33",
+    "results/vulkan_abc_solute_v2/n16_measured_1_cpu/report.json": "db0d2cb2e0abe80e29fe7790b4c2794a0e2c486fdf048465ce492593615451f0",
+    "results/vulkan_abc_solute_v2/n16_measured_1_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n16_measured_1_gpu/fields.npz": "1290b556f5b4bf74e8cb0c7b488dab845ea7da1ba45da226526ca87598d9c230",
+    "results/vulkan_abc_solute_v2/n16_measured_1_gpu/report.json": "fb0bff9a1e15bac57619e5cbca0146e37daae66442b3351f8b961c5304886c7f",
+    "results/vulkan_abc_solute_v2/n16_measured_1_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n16_measured_2_cpu/fields.npz": "edd043d46a740d207b19935f9c5b5897d8ee4e278d36e95ccd5c557c40269d33",
+    "results/vulkan_abc_solute_v2/n16_measured_2_cpu/report.json": "007a0d9821621836ace68338675d481dfc21f48e3d326294fcdeb59ca9ba7096",
+    "results/vulkan_abc_solute_v2/n16_measured_2_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n16_measured_2_gpu/fields.npz": "1290b556f5b4bf74e8cb0c7b488dab845ea7da1ba45da226526ca87598d9c230",
+    "results/vulkan_abc_solute_v2/n16_measured_2_gpu/report.json": "4f2d9e4952ffad083595df5449c0f78b5b2c0680a855048d7aa51185462a2a70",
+    "results/vulkan_abc_solute_v2/n16_measured_2_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n16_warmup_0_cpu/fields.npz": "edd043d46a740d207b19935f9c5b5897d8ee4e278d36e95ccd5c557c40269d33",
+    "results/vulkan_abc_solute_v2/n16_warmup_0_cpu/report.json": "8a9613648215fdfb86833e52f75a8e41f10f9a3dffb1a6df47ae4d0e99eea6d1",
+    "results/vulkan_abc_solute_v2/n16_warmup_0_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n16_warmup_0_gpu/fields.npz": "1290b556f5b4bf74e8cb0c7b488dab845ea7da1ba45da226526ca87598d9c230",
+    "results/vulkan_abc_solute_v2/n16_warmup_0_gpu/report.json": "c3330532684c128a1518bdb592b766c35ea2014be281258473a13bb3358dc9af",
+    "results/vulkan_abc_solute_v2/n16_warmup_0_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n24_measured_0_cpu/fields.npz": "b1d8a4ef9576dc91dca1b6430dab8df9f6e98ecb4f64d7fc2e5b9be71f0fdcd6",
+    "results/vulkan_abc_solute_v2/n24_measured_0_cpu/report.json": "ab51ebf38157e0def39ae773117a2441b7c51329eb4c455d7c1c31854cfc4be9",
+    "results/vulkan_abc_solute_v2/n24_measured_0_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n24_measured_0_gpu/fields.npz": "6cdc01b2b691d48949efbe88e01a998cd6b464b3f7b42679b2e963bfd71c5fab",
+    "results/vulkan_abc_solute_v2/n24_measured_0_gpu/report.json": "09c1e2257c5662971605e0ceb10c501e6437ef85d4773d93acd1eea07886305b",
+    "results/vulkan_abc_solute_v2/n24_measured_0_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n24_measured_1_cpu/fields.npz": "b1d8a4ef9576dc91dca1b6430dab8df9f6e98ecb4f64d7fc2e5b9be71f0fdcd6",
+    "results/vulkan_abc_solute_v2/n24_measured_1_cpu/report.json": "254c214313f3b2b6da89afbbb40feaf66e77908e32dd3251645573f7f9a33450",
+    "results/vulkan_abc_solute_v2/n24_measured_1_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n24_measured_1_gpu/fields.npz": "6cdc01b2b691d48949efbe88e01a998cd6b464b3f7b42679b2e963bfd71c5fab",
+    "results/vulkan_abc_solute_v2/n24_measured_1_gpu/report.json": "e5f6206cad54875d7b7af4328b8376c3ffee2d96d612f1c80de8abb5516ddbda",
+    "results/vulkan_abc_solute_v2/n24_measured_1_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n24_measured_2_cpu/fields.npz": "b1d8a4ef9576dc91dca1b6430dab8df9f6e98ecb4f64d7fc2e5b9be71f0fdcd6",
+    "results/vulkan_abc_solute_v2/n24_measured_2_cpu/report.json": "eb5c547fec0cbc1da482bf090761eab765e76d34358626b59c9d6cdcfc545196",
+    "results/vulkan_abc_solute_v2/n24_measured_2_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n24_measured_2_gpu/fields.npz": "6cdc01b2b691d48949efbe88e01a998cd6b464b3f7b42679b2e963bfd71c5fab",
+    "results/vulkan_abc_solute_v2/n24_measured_2_gpu/report.json": "506f55756290c97c760a2fa020a602d8c09585bf2e41313d3c53ea5740e8ccdc",
+    "results/vulkan_abc_solute_v2/n24_measured_2_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n24_warmup_0_cpu/fields.npz": "b1d8a4ef9576dc91dca1b6430dab8df9f6e98ecb4f64d7fc2e5b9be71f0fdcd6",
+    "results/vulkan_abc_solute_v2/n24_warmup_0_cpu/report.json": "d3c80e0ff542b315d819d01aadf87d26302dbf8ad64458e23f6cf57e2d3b1ff9",
+    "results/vulkan_abc_solute_v2/n24_warmup_0_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n24_warmup_0_gpu/fields.npz": "6cdc01b2b691d48949efbe88e01a998cd6b464b3f7b42679b2e963bfd71c5fab",
+    "results/vulkan_abc_solute_v2/n24_warmup_0_gpu/report.json": "20bac0d077028400d37dcfc569015ad4eb2c0d1dd3687a34825a2a7f49c3bbe2",
+    "results/vulkan_abc_solute_v2/n24_warmup_0_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n32_measured_0_cpu/fields.npz": "f9fc0d565a65747c7346dff37b44233d419a23064a8da4438dc68734ad8e4e88",
+    "results/vulkan_abc_solute_v2/n32_measured_0_cpu/report.json": "817efe99b379aad543348258c6e2cb20d67c788ef90da16ce7254309f8889560",
+    "results/vulkan_abc_solute_v2/n32_measured_0_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n32_measured_0_gpu/fields.npz": "c9911e1692011f87cd5b532ade7b5eebc79b514e40d4f1d3a808689874ca2864",
+    "results/vulkan_abc_solute_v2/n32_measured_0_gpu/report.json": "40e382b8374a2fba8aca47e4dd370acbe91730aceeb011edfee449118ec4004e",
+    "results/vulkan_abc_solute_v2/n32_measured_0_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n32_measured_1_cpu/fields.npz": "f9fc0d565a65747c7346dff37b44233d419a23064a8da4438dc68734ad8e4e88",
+    "results/vulkan_abc_solute_v2/n32_measured_1_cpu/report.json": "da77ddaf8765f3a676ee7daa83aa171ae165f94867581e1ce0f840af98ddf119",
+    "results/vulkan_abc_solute_v2/n32_measured_1_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n32_measured_1_gpu/fields.npz": "c9911e1692011f87cd5b532ade7b5eebc79b514e40d4f1d3a808689874ca2864",
+    "results/vulkan_abc_solute_v2/n32_measured_1_gpu/report.json": "a0fc99858a922fba481d99f8728f1179a7bd8b054227daa888dd582096c69414",
+    "results/vulkan_abc_solute_v2/n32_measured_1_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n32_measured_2_cpu/fields.npz": "f9fc0d565a65747c7346dff37b44233d419a23064a8da4438dc68734ad8e4e88",
+    "results/vulkan_abc_solute_v2/n32_measured_2_cpu/report.json": "496f4e0b2a7202bf1a0667d12a48c9db1c318c4b4274ff18d41a925483abb321",
+    "results/vulkan_abc_solute_v2/n32_measured_2_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n32_measured_2_gpu/fields.npz": "c9911e1692011f87cd5b532ade7b5eebc79b514e40d4f1d3a808689874ca2864",
+    "results/vulkan_abc_solute_v2/n32_measured_2_gpu/report.json": "744c3c2c216b89ef87745bcc8010204fad2ccac1fbb413a8e98c243960ab26bc",
+    "results/vulkan_abc_solute_v2/n32_measured_2_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n32_warmup_0_cpu/fields.npz": "f9fc0d565a65747c7346dff37b44233d419a23064a8da4438dc68734ad8e4e88",
+    "results/vulkan_abc_solute_v2/n32_warmup_0_cpu/report.json": "dc438d486219f90fcbceb2ce9979bd21411c4515bc78472513e9db325eae6dba",
+    "results/vulkan_abc_solute_v2/n32_warmup_0_cpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/n32_warmup_0_gpu/fields.npz": "c9911e1692011f87cd5b532ade7b5eebc79b514e40d4f1d3a808689874ca2864",
+    "results/vulkan_abc_solute_v2/n32_warmup_0_gpu/report.json": "6b9d4d18765556419344a991908aae402efdc512075f74e5170b63a6738a81b6",
+    "results/vulkan_abc_solute_v2/n32_warmup_0_gpu.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "results/vulkan_abc_solute_v2/protocol.json": "6823545e579c2bf6d04d9b7bf8be38b1a9a82d420a3d13e8142f85afc4aa7e31",
+    "results/vulkan_abc_solute_v2/summary.json": "c32fcc7a24a38edc8c7483ce862a524b678af0783fbfefb266a0b786ebabf356",
+    "results/vulkan_abc_solute_figures_v1/concentration_indicator.pdf": "066d25acdf49aee7cecc2af4d793b78d9b5b58458bb28454ed070faf750f2fea",
+    "results/vulkan_abc_solute_figures_v1/concentration_indicator.png": "d51dd6a9ec49916336d7e6e9cb86a99d8e1bcc5b15df797a9c1e82ebc42098f7",
+    "results/vulkan_abc_solute_figures_v1/manifest.json": "3d1e19a79c39ca693f3f71541bf4c8e185c6de9e8dc8d7ceebda0d63e5fab2b6",
+    "results/vulkan_abc_solute_figures_v1/timings.pdf": "b4d55fdc31da7735a0754c92eac4886640e3b05abfb53f27499b4133b5011b01",
+    "results/vulkan_abc_solute_figures_v1/timings.png": "5740295e299ed0f46716723f973326833e550d2777081b612df4a58b9df6db61",
+    "results/vulkan_verification_logs_v1/accepted_study.log": "4d0bf1e8c1496cf221b45a062654c60ccd0f987e70c4cde4aa4ae6ddb01cdc49",
+    "results/vulkan_verification_logs_v1/failed_study.log": "f0a6c7f8293be8a566fc8b90224fd74c53e0ed7a0348756d5afc28c94e54cd1f",
+    "results/vulkan_verification_logs_v1/full_regression.log": "83061e4c046aaaff8eced88fbc8c4657dbdcaa86afc673fae53815f0dec21f35",
+    "results/vulkan_verification_logs_v1/restricted_regression.log": "33dc4376f01ac8cff73e3c3219235e90528a5ba8559dff79bf744bfdbf80f636",
+    "results/vulkan_verification_logs_v1/targeted.log": "2e93a520c8d2a7b6c3bff34d9c16b49a086d21b3f7ceb8b1e05cf1c446d80625",
+    "results/vulkan_abc_solute_independent_audit_v2.json": "9f1e3e5588a7fe0bb7c5c367e861f0d6c3edbf34ed133d4651f5bc85300ad641",
+    "results/vulkan_resource_checks_v1.json": "66ba961ef94fc37af64fd3d675c81e1a79fa3de1a4df431b3cf2d2c5d15c017a",
+    "results/vulkan_probe_attempts_v1.json": "200ea7494e9117771457421e4362164add6f0af3155cd9bc29c285cf8c201fbe",
+    "data/audits/kdp_candidate_access_20261112_v1/report.json": "570e2cc1a2aa60c642fe8e19a82d1b032e6c6e08346c808a2eb449016bd86adf",
+    "data/audits/kdp_candidate_access_20261112_v1/exn_repository.response": "2c95b8eea035709012b575fbbefeec378ca5005163dcc7d1f3672d94a09874cb",
+    "data/audits/kdp_candidate_access_20261112_v1/exn_share.response": "996bbdf874435d1cee863ef961b4690782dd958d707acf34d4ffb96baa195e5c",
+    "data/external_tools/vulkan/1.3.275.1/vulkan-1.3.275.1-py3-none-any.whl": "e1e0ddf57d3a7d19f79ebf1e192b20dbd378172b027cad4f495d961b51409586",
+    "results/vulkan_abc_solute_v1/manifest.json": "c4f1a4d854c652dc13a4c34ed77b9648a9b3adb4b35e366a82889e0ea7726690"
+  }
+}

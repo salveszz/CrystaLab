@@ -24,6 +24,10 @@ equipment verification, adaptation and live operator/equipment validation
 remain open. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
+The first [CPU/hybrid Vulkan flow comparison](docs/VULKAN_FLOW_BENCHMARK.md) passes
+fixed-domain numerical checks but runs slower on the GPU. Heat and physical risk
+validation remain open. [Additional public KDP leads](docs/PUBLIC_KDP_SOURCE_REVIEW.md)
+have not yet supplied verified growth-event training labels.
 
 [Event-rule supervision](docs/EVENT_SUPERVISION.md) now produces source-linked
 review proposals and connects a declared vision fixture through PID to simulated
