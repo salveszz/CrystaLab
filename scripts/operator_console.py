@@ -17,6 +17,7 @@ def main():
         "--policy", type=Path, default=Path("configs/event_rule_policy.json")
     )
     p.add_argument("--simulation-config", type=Path)
+    p.add_argument("--adaptive-reference", type=Path)
     p.add_argument("--prepare-only", action="store_true")
     p.add_argument("--read-only", action="store_true")
     p.add_argument("--port", type=int, default=8766)
@@ -25,10 +26,16 @@ def main():
         p.error("Port must be between 0 and 65535")
     if a.analysis is not None:
         prepare_operator_session(
-            a.analysis, a.policy, a.session, config=a.simulation_config
+            a.analysis,
+            a.policy,
+            a.session,
+            config=a.simulation_config,
+            adaptive_reference=a.adaptive_reference,
         )
-    elif a.simulation_config is not None:
-        p.error("Simulation configuration is set when preparing a new session")
+    elif a.simulation_config is not None or a.adaptive_reference is not None:
+        p.error(
+            "Simulation configuration and adaptive reference are set when preparing a new session"
+        )
     if a.prepare_only:
         return
     server = OperatorServer(a.session, port=a.port, read_only=a.read_only)

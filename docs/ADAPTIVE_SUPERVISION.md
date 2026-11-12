@@ -157,9 +157,10 @@ capture conditions differ from the fullmask synthetic reference; normalization
 is not calibrated to that domain. No real masks, defect labels or human reviews
 were created. The six existing annotation proposals remain byte-identical.
 
-The operator console still provides its existing evidence review and manual
-simulated pause/resume. Displaying this new forecast, parameter state and adaptive
-recommendation as source-bound operator context is a next integration step.
+The later [operator forecast integration](OPERATOR_FORECAST.md) now displays this
+forecast, parameter state and recommendation alongside the camera evidence.
+Explicit reviews preserve that context and distinguish suggested from manual
+pause durations. This original experiment and its checkpoint remain unchanged.
 Action-responsive growth data, reviewed real evaluation, face/asymmetry/inclusion
 coverage, real first-hour clocks, physical outcomes, HPC and Qiskit remain open.
 

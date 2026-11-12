@@ -60,9 +60,11 @@ The foundations run; dependable real detection and adaptive control are unfinish
    [replay console](docs/OPERATOR_REPLAY.md) now shows video, outlines, process
    values and proposal evidence, with explicit review, bounded simulated pause
    and manual resume. Receipts and each counterfactual response remain separate;
-   real sources stay in shadow mode. The adaptive model/policy is now connected in
-   a separate four-way software comparison. Next expose its source-bound forecast,
-   state and recommendation in the console, then validate real capture and response.
+   real sources stay in shadow mode. The adaptive model/policy has a separate
+   four-way software comparison. The [forecast view](docs/OPERATOR_FORECAST.md)
+   now displays its source-bound forecast, state and recommendation and preserves
+   that context with suggested/manual pause reviews. Next validate real capture,
+   reviewed measurements and action response.
 5. **Complete the remaining pitch evidence in order.** Evaluate an explicitly
    defined adaptive objective against persistence/PID/rules, gather relevant KDP
    runs with synchronized process/action logs and first-hour coverage, and complete
@@ -87,7 +89,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal source. Combined export has 84 training / 44 validation / 28 reserved images. Two new fits and development replays are complete; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
 | Observable forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared validation windows. Online adaptation gives 80.71 px² and does not beat recent rate. Parameters update only from matured observed masks; real replay remains unscored shadow output. | Reviewed real/action-labelled trajectories, capture characterization, acceptance budgets and supported action-response objective. No action-response growth model exists. |
-| Learned perception, controllers and UI | Local training/evaluation, candidate analysis, PID/rules, operator replay and bounded adaptive pause comparison. Adaptive state and actions are independently reconstructed; secondary misses and inclusion failures remain. | Expose forecast/adaptive state in the console, review/evaluate real data, support face measurements and characterize equipment/operator response. |
+| Learned perception, controllers and UI | Local training/evaluation, candidate analysis, PID/rules, operator replay and bounded adaptive pause comparison. The console now displays causal forecasts/state and preserves explicit suggested/manual duration reviews. Independent audits retain secondary misses and inclusion failures. | Review/evaluate real data, support face measurements, validate the adaptive action-response objective and characterize equipment/operator response. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /

@@ -14,6 +14,8 @@ from urllib.parse import urlparse
 import cv2
 
 from controllers.audit import audit_control_benchmark
+from controllers.forecast_context import ForecastContext, prepare_forecast_context
+from controllers.forecast_context_audit import audit_forecast_context
 from controllers.operator_demo import run_operator_demo, validate_reviews
 from controllers.shadow import CandidateEvidence, run_shadow
 from controllers.supervised_demo import validate_demo
@@ -27,7 +29,9 @@ read = lambda p: json.loads(Path(p).read_text())
 rows = lambda p: [json.loads(v) for v in Path(p).read_text().splitlines()]
 
 
-def prepare_operator_session(analysis, policy, output, *, config=None, qa_mode=False):
+def prepare_operator_session(
+    analysis, policy, output, *, config=None, qa_mode=False, adaptive_reference=None
+):
     source = CandidateEvidence(analysis)
     kind = source.manifest["source_info"]["evidence_kind"]
     if qa_mode and kind != "fixture":
@@ -47,6 +51,7 @@ def prepare_operator_session(analysis, policy, output, *, config=None, qa_mode=F
         reviewer_kind="automated_fixture_qa" if qa_mode else "human_self_attestation",
         simulation_available=config is not None,
         physical_hardware_contacted=False,
+        forecast_available=adaptive_reference is not None,
     )
     atomic_json(output / "manifest.json", manifest)
     try:
@@ -95,6 +100,18 @@ def prepare_operator_session(analysis, policy, output, *, config=None, qa_mode=F
             if next(video, None) is not None:
                 raise ValueError("Unmatched operator preview frames")
         atomic_json(output / "frames.json", frames)
+        if adaptive_reference is not None:
+            simulation = None if config is None else read(config)
+            prepare_forecast_context(
+                source,
+                adaptive_reference,
+                output / "forecast",
+                base_pause=60.0
+                if simulation is None
+                else simulation["pause_model_duration_s"],
+                step=1.0 if simulation is None else simulation["thermal"]["step_s"],
+            )
+            audit_forecast_context(output / "forecast", source.root)
         baseline = None
         if config is not None:
             run_operator_demo(
@@ -103,6 +120,9 @@ def prepare_operator_session(analysis, policy, output, *, config=None, qa_mode=F
                 output / "simulation_config.json",
                 [],
                 output / "runs/initial",
+                forecast_context=None
+                if adaptive_reference is None
+                else output / "forecast",
             )
             audit_control_benchmark(output / "runs/initial")
             baseline = "runs/initial"
@@ -163,6 +183,13 @@ class OperatorStore:
         self.mapping = (
             validate_demo(self.config, self.source) if self.config is not None else None
         )
+        self.forecast = (
+            ForecastContext(self.root / "forecast", self.source)
+            if self.manifest.get("forecast_available")
+            else None
+        )
+        if self.forecast is not None:
+            audit_forecast_context(self.forecast.root, self.source.root)
         self.history()
 
     def history(self):
@@ -176,6 +203,8 @@ class OperatorStore:
         ):
             if file_sha256(self.root / relative) != self.manifest["files"][relative]:
                 raise ReviewConflict("The saved operator input changed")
+        if self.forecast is not None:
+            self.forecast.verify()
         history = read(self.root / "history.json")
         reviews = []
         for entry in history["entries"]:
@@ -202,6 +231,8 @@ class OperatorStore:
                 "An incomplete review needs recovery; saved receipts were preserved"
             )
         validate_reviews(reviews, self.source, mapping=self.mapping, config=self.config)
+        if self.forecast is not None:
+            self.forecast.validate_reviews(reviews)
         for review in reviews:
             proposal = next(
                 (
@@ -274,6 +305,9 @@ class OperatorStore:
                 revision=value_sha256(history),
                 read_only=self.read_only,
                 reviewer_kind=self.manifest["reviewer_kind"],
+                forecast_note=None
+                if self.forecast is None
+                else self.forecast.manifest["calibration_note"],
                 frames=self.frames,
                 pause_default_model_s=None
                 if self.config is None
@@ -337,6 +371,21 @@ class OperatorStore:
                     None,
                 )
             current = []
+            remaining_pause = (
+                0.0
+                if process is None
+                else max(
+                    0.0,
+                    min(
+                        self.config["pause_model_duration_s"],
+                        self.config["maximum_total_pause_model_s"]
+                        - sum(
+                            a["requested_pause_duration_model_s"]
+                            for a in process["manifest"]["executions"]
+                        ),
+                    ),
+                )
+            )
             for i, entry in enumerate(self.proposals):
                 p = entry["proposal"]
                 if p["proposed_at_s"] > t:
@@ -351,15 +400,7 @@ class OperatorStore:
                 fresh = (
                     row is not None and row["supervision"]["process_feedback_usable"]
                 )
-                budget = bool(
-                    process
-                    and sum(
-                        a["requested_pause_duration_model_s"]
-                        for a in process["manifest"]["executions"]
-                    )
-                    + self.config["pause_model_duration_s"]
-                    <= self.config["maximum_total_pause_model_s"]
-                )
+                budget = remaining_pause > 0
                 can_approve = bool(
                     self.mapping
                     and budget
@@ -388,6 +429,10 @@ class OperatorStore:
                 proposals=current,
                 process=row,
                 active_pause=active,
+                forecast_context=None
+                if self.forecast is None
+                else self.forecast.frame(frame["frame_index"]),
+                maximum_pause_model_s=remaining_pause,
                 can_resume=bool(
                     active
                     and active["model_decision_time_s"] < now
@@ -429,6 +474,17 @@ class OperatorStore:
             if payload.get("acknowledged") is not True:
                 raise ValueError("Acknowledge that you reviewed this replay frame")
             frame = self.frames[index]
+            context = (
+                None
+                if self.forecast is None
+                else self.forecast.frame(frame["frame_index"])
+            )
+            if payload.get("forecast_context_sha256") != (
+                None if context is None else context["context_sha256"]
+            ):
+                raise ReviewConflict(
+                    "The displayed forecast context changed. Reload this frame."
+                )
             entry = next(
                 (
                     p
@@ -468,6 +524,8 @@ class OperatorStore:
                 pause_duration_model_s=payload.get("pause_duration_model_s"),
                 pause_review_id=payload.get("pause_review_id"),
                 physical_hardware_authorized=False,
+                forecast_context=context,
+                pause_basis=payload.get("pause_basis", "manual"),
                 previous_review_sha256=None
                 if not reviews
                 else value_sha256(reviews[-1]),
@@ -478,6 +536,12 @@ class OperatorStore:
                 mapping=self.mapping,
                 config=self.config,
             )
+            if self.forecast is not None:
+                self.forecast.validate_reviews([*reviews, review])
+            elif review["pause_basis"] != "manual":
+                raise ValueError(
+                    "A suggested pause requires displayed adaptive context"
+                )
             if review["action"] in {"approve_pause", "decline"} and any(
                 r["proposal_id"] == review["proposal_id"]
                 and r["action"] in {"approve_pause", "decline"}
@@ -497,6 +561,9 @@ class OperatorStore:
                     self.root / "simulation_config.json",
                     [*reviews, review],
                     self.root / run_path,
+                    forecast_context=None
+                    if self.forecast is None
+                    else self.forecast.root,
                 )
                 audit_control_benchmark(self.root / run_path)
             relative = f"reviews/{len(reviews) + 1:06d}.json"

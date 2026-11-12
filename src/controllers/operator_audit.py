@@ -77,6 +77,26 @@ def audit_operator_supervision(root, manifest, config):
         "operator review bytes",
     )
     reviews = json.loads((root / "reviews.json").read_text())
+    if manifest.get("forecast_context_manifest_sha256") is not None:
+        from .forecast_context_audit import audit_forecast_context
+
+        require(
+            sha256(root / "forecast_context/manifest.json")
+            == manifest["forecast_context_manifest_sha256"],
+            "operator forecast bundle identity",
+        )
+        audit_forecast_context(
+            root / "forecast_context",
+            source_root,
+            reviews,
+            base_pause=demo["pause_model_duration_s"],
+            step=config["step_s"],
+        )
+    else:
+        require(
+            all(r.get("forecast_context") is None for r in reviews),
+            "operator forecast bundle missing",
+        )
     previous_hash, previous_time, ids = None, -1, set()
     proposals = {e["proposal"]["proposal_id"]: e for e in manifest["final_proposals"]}
     for r in reviews:

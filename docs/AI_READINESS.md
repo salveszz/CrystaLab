@@ -24,7 +24,7 @@ remain open.
 | YOLOv8-seg and visible-event alerts | Pinned training/evaluation, grouped synthetic fit, seed comparison, learned seed-role replay and shared causal candidate inspection during observation or on saved masks. File-tested; bubble errors and missed inclusions remain. | Equipment timing, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
 | Projected-area forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared synthetic validation windows. Bounded online adaptation gives 80.71 px²; real replay remains unscored shadow output. Historical original-detector comparisons retain their negative results. | Reviewed real measurements, frozen acceptance budgets and action-response evidence. The adaptive diagnostic does not beat recent rate and is not promoted for physical control. |
-| PID/adaptive software loop | PID, delayed simulated actuation, rules and operator replay. A bounded adaptive gain model now updates from matured observations and chooses forecast-scaled candidate pauses in a four-way comparison. | Source-bound forecast/state display in the console, reviewed real evidence, an action-response objective and equipment/operator validation. |
+| PID/adaptive software loop | PID, delayed simulated actuation, rules, four-way adaptive diagnostic and operator replay. The console now displays source-bound forecasts/state and preserves explicit suggested/manual pause reviews. | Reviewed real evidence, an action-response objective and equipment/operator validation. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
 | HPC/Qiskit extensions | Separate verified CPU flow operators; no Qiskit implementation. | Bounded hardware/accuracy benchmark and a justified impurity-cluster VQE/classical comparison, as defined in the roadmap. |
 
@@ -36,8 +36,9 @@ The [local editor](ANNOTATION_REVIEW_UI.md) now supports native-image point edit
 uncertain drafts and explicit individual reviews, with earlier receipts retained
 when corrections need a new version. Its real read-only preview changed no files;
 actual human review receipts remain zero. The separate operator replay provides
-video/process review and manual simulated pause/resume; displaying the new
-adaptive forecast and state there remains an integration step.
+video/process review and manual simulated pause/resume; its optional
+[forecast view](OPERATOR_FORECAST.md) now displays the changing adaptive state
+and preserves that context with explicit reviews.
 An [auxiliary published-mask index](PUBLISHED_CRYSTAL_MASKS.md) now preserves 587
 real protein-crystal images and 4,986 source crystal/drop masks. Its selected-object
 task, unannotated regions and physical grouping need an explicit compatible

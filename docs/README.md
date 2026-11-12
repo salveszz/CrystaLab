@@ -41,6 +41,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Operator replay checkpoint](OPERATOR_REPLAY_CHECKPOINT.json) | Final browser/regression evidence, preserved counterfactual results, independent receipt/process reconstruction and zero human-review claims. |
 | [Adaptive supervision](ADAPTIVE_SUPERVISION.md) | Matured-only observed-area updates, forecast-scaled bounded candidate pauses, negative recent-rate comparison and four-way thermal evidence. |
 | [Adaptive checkpoint](ADAPTIVE_SUPERVISION_CHECKPOINT.json) | Frozen training reference/protocol, native update/forecast/action reconstruction, real shadow limits and 398-test regression. |
+| [Operator forecast context](OPERATOR_FORECAST.md) | Causal area/state/recommendation display and explicit suggested/manual pause reviews. |
+| [Operator forecast checkpoint](OPERATOR_FORECAST_CHECKPOINT.json) | Browser checks, independent context/receipt/process reconstruction and real shadow boundaries. |
 | [Training checkpoint](VISION_TRAINING_CHECKPOINT.json) | 264-test result, actual model hashes, synthetic development errors and remaining real/control gates. |
 | [Seed benchmark](VISION_BENCHMARK.md) | Identical-image OpenCV/YOLO comparison, training-only threshold calibration, invalid-measurement denominators and smoke failures. |
 | [Grouped synthetic pilot](VISION_PILOT.md) | Completed 60-image dataset, 30-epoch model, four-family development evaluation, bubble/inclusion failures and remaining gates. |

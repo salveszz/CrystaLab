@@ -195,7 +195,9 @@ class OperatorPauseCoordinator(PauseCoordinator):
         return result
 
 
-def run_operator_demo(analysis, policy_path, config_path, reviews, output):
+def run_operator_demo(
+    analysis, policy_path, config_path, reviews, output, *, forecast_context=None
+):
     source = CandidateEvidence(analysis)
     policy_path, config_path, output = [
         Path(p).resolve() for p in (policy_path, config_path, output)
@@ -206,7 +208,16 @@ def run_operator_demo(analysis, policy_path, config_path, reviews, output):
     )
     mapping = validate_demo(config, source)
     validate_reviews(reviews, source, mapping=mapping, config=config)
+    if forecast_context is not None:
+        from .forecast_context import ForecastContext
+
+        context = ForecastContext(forecast_context, source)
+        context.validate_reviews(reviews)
+    elif any(r.get("forecast_context") is not None for r in reviews):
+        raise ValueError("Forecast-bound reviews require their preserved context")
     output.mkdir(parents=True, exist_ok=False)
+    if forecast_context is not None:
+        shutil.copytree(context.root, output / "forecast_context")
     for path, name in (
         (config_path, "supervised_config.json"),
         (policy_path, "policy.json"),
@@ -241,6 +252,9 @@ def run_operator_demo(analysis, policy_path, config_path, reviews, output):
             r["reviewer_kind"] == "human_self_attestation" for r in reviews
         ),
         adaptive_policy_implemented=False,
+        forecast_context_manifest_sha256=None
+        if forecast_context is None
+        else context.manifest_hash,
         scope="Counterfactual operator replay and simulated thermal response; named self-attestation is not authenticated identity, historical/live action, physical calibration or defect prevention",
     )
     save_json(output / "manifest.json", manifest)
@@ -301,7 +315,7 @@ def run_operator_demo(analysis, policy_path, config_path, reviews, output):
             files={
                 str(p.relative_to(output)): sha256(p)
                 for p in output.rglob("*")
-                if p.is_file() and p.name != "manifest.json"
+                if p.is_file() and p != output / "manifest.json"
             },
         )
         save_json(output / "manifest.json", manifest)

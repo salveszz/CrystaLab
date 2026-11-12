@@ -19,6 +19,7 @@ from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication
 from check_annotation_review_ui import BrowserQA, files_snapshot
 from test_operator_console import prepare_operator_fixture
+from test_operator_forecast import prepare_forecast_fixture
 from dashboard.operator import OperatorServer, OperatorStore
 from controllers.audit import audit_control_benchmark
 
@@ -45,6 +46,14 @@ class OperatorBrowserQA(BrowserQA):
 
     def fixture(self, server):
         self.open(server)
+        forecast = server.store.forecast is not None
+        duration = (
+            60
+            if not forecast
+            else server.store.frame(13)["forecast_context"]["recommendation"][
+                "pause_model_s"
+            ]
+        )
         self.check(
             "Empty operator history and unavailable startup sensor",
             "operatorState.session.reviews.length===0 && $('sensor').textContent==='Unavailable' && $('approve').disabled",
@@ -60,9 +69,26 @@ class OperatorBrowserQA(BrowserQA):
             "Review remains explicit at a fresh ramp proposal",
             "operatorState.frame.proposals.some(p=>p.can_approve) && $('approve').disabled",
         )
+        if forecast:
+            self.check(
+                "Source-bound adaptive state and area forecast are displayed",
+                "operatorState.frame.forecast_context.state.source_frame_index===13 && $('forecast-area').textContent.includes('px²') && $('forecast-recommendation').textContent.includes('Suggested pause') && $('forecast-reference').textContent.includes(operatorState.frame.forecast_context.context_sha256)",
+            )
+            self.input("pause-duration", "61")
         self.screenshot("fixture_before_review.png")
         self.input("reviewer", "Automated browser fixture check")
         self.input("acknowledge-check", True)
+        if forecast:
+            self.check(
+                "Out-of-bounds requested duration keeps approval blocked",
+                "$('approve').disabled",
+            )
+            self.click("use-suggestion")
+            self.check(
+                "Using a suggestion fills its exact duration and requires acknowledgement",
+                f"Number($('pause-duration').value)==={duration} && operatorState.pauseBasis==='adaptive_suggestion' && !$('acknowledge-check').checked && $('approve').disabled",
+            )
+            self.input("acknowledge-check", True)
         self.check(
             "Named acknowledgement enables simulated pause", "!$('approve').disabled"
         )
@@ -79,6 +105,8 @@ class OperatorBrowserQA(BrowserQA):
         )
         self.evaluate("Image.prototype.decode=window.__qaDecode")
         self.seek(13)
+        if forecast:
+            self.click("use-suggestion")
         self.input("acknowledge-check", True)
         self.check(
             "Review re-enables only after selected frame and evidence decode",
@@ -87,8 +115,13 @@ class OperatorBrowserQA(BrowserQA):
         self.click("approve")
         self.check(
             "Saved automated receipt changes the bounded simulation",
-            "!operatorState.busy && operatorState.session.reviews.length===1 && operatorState.session.reviews[0].reviewer_kind==='automated_fixture_qa' && operatorState.session.runs[2].recipe_phase_lag_s===60",
+            f"!operatorState.busy && operatorState.session.reviews.length===1 && operatorState.session.reviews[0].reviewer_kind==='automated_fixture_qa' && operatorState.session.runs[2].recipe_phase_lag_s==={duration}",
         )
+        if forecast:
+            self.check(
+                "Receipt preserves the displayed forecast and selected suggestion",
+                "operatorState.session.reviews[0].forecast_context.context_sha256===operatorState.frame.forecast_context.context_sha256 && operatorState.session.reviews[0].pause_basis==='adaptive_suggestion'",
+            )
         self.check(
             "Accepted request, applied input and delayed response stay separate",
             "operatorState.frame.process.dispatch.effective_at_s===operatorState.frame.process.time_s+2 && operatorState.frame.process.supervision.pause_active && $('resume').disabled",
@@ -142,6 +175,7 @@ class OperatorBrowserQA(BrowserQA):
             session=str(server.store.root),
             reviews=2,
             human_reviews=0,
+            requested_pause_model_s=duration,
             final_recipe_lag_model_s=20,
         )
 
@@ -162,11 +196,21 @@ class OperatorBrowserQA(BrowserQA):
                 f"{name}: selected frame and proposal pixels finish decoding",
                 "!operatorState.loadingFrame && (!operatorState.selected || operatorState.evidenceReady===operatorState.selected)",
             )
+            if server.store.forecast is not None:
+                self.check(
+                    f"{name}: forecast matches the selected source frame",
+                    "operatorState.frame.forecast_context.source_frame_index===operatorState.frame.frame.frame_index && $('forecast-reference').textContent.includes(operatorState.frame.forecast_context.context_sha256) && !$('forecast-content').hidden",
+                )
             if not server.store.manifest["simulation_available"]:
                 self.check(
                     f"{name}: process readings remain absent",
                     "operatorState.session.chart===null && !$('process-empty').hidden && $('process-content').hidden",
                 )
+                if server.store.forecast is not None:
+                    self.check(
+                        f"{name}: real forecast stays uncalibrated shadow output",
+                        "$('forecast-note').textContent.includes('uncalibrated') && $('pause-duration-controls').hidden && $('approve').hidden && $('resume').hidden",
+                    )
             self.screenshot(name + "_readonly.png")
         finally:
             server.shutdown()
@@ -188,10 +232,15 @@ def main():
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--synthetic-session", type=Path)
     p.add_argument("--real-session", type=Path)
+    p.add_argument("--forecast-fixture", action="store_true")
     a = p.parse_args()
     output = a.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
-    fixture = prepare_operator_fixture(output)
+    fixture = (
+        prepare_forecast_fixture(output)
+        if a.forecast_fixture
+        else prepare_operator_fixture(output)
+    )
     app = QApplication.instance() or QApplication([])
     qa = OperatorBrowserQA(output)
     log = (output / "server.log").open("w")

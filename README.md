@@ -63,6 +63,9 @@ candidate-triggered simulated pauses. Its four-way comparison retains all costs
 and the negative forecast result: adaptation is worse than plain recent rate on
 the two synthetic validation families. Real shadow output issues no commands;
 physical action response and real accuracy remain unevaluated.
+The [operator forecast view](docs/OPERATOR_FORECAST.md) now shows that forecast
+and changing model state beside the video. Reviews preserve the displayed context
+and distinguish suggested pause durations from manual choices.
 
 Real observations are now local: **2,123 alpha-LGA microscope images from nine
 runs, three phase-specific KDP movies and one separately identified ADP movie**.

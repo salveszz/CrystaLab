@@ -9,8 +9,9 @@ video, proposal and earlier results remain unchanged.
 
 This implements the pitch's operator demonstration at software-replay scope.
 Real-video sessions retain shadow review without numerical commands or invented
-temperature readings. Live equipment, adaptive state/policy, face measurements,
-rotation/flow actions and real defect accuracy remain open. A replay review does
+temperature readings. Optional [forecast context](OPERATOR_FORECAST.md) now adds
+the changing adaptive state and suggested pause duration. Live equipment,
+face measurements, rotation/flow actions and real defect accuracy remain open. A replay review does
 not become a segmentation label or prove historical/physical action benefit.
 
 ## Open a prepared session
@@ -155,8 +156,9 @@ PYTHONDONTWRITEBYTECODE=1 QT_QPA_PLATFORM=offscreen \
 
 The separate [adaptive diagnostic](ADAPTIVE_SUPERVISION.md) now connects a changing
 observed-area model and forecast-scaled pause policy to a four-way PID comparison.
-Next display that source-bound forecast/state/recommendation in this console and
-retain the action-response limits. Continue actual
+The [forecast integration](OPERATOR_FORECAST.md) now displays its source-bound
+forecast/state/recommendation here and preserves it with explicit reviews.
+Retain the action-response limits. Continue actual
 real image/event review, compatible mixed training and independent KDP evidence.
 First-hour coverage, face/asymmetry/inclusions, real equipment/outcome evaluation,
 HPC and Qiskit remain explicit requirements in the [roadmap](../roadmap.md).

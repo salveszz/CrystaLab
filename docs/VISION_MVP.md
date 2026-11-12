@@ -11,6 +11,7 @@ implemented. The [adaptive diagnostic](ADAPTIVE_SUPERVISION.md) adds causal
 parameter updates and a four-way simulated pause comparison; its forecast does
 not beat recent rate. Equipment timing, reviewed real defect evaluation,
 action-response validation and physical adaptive control remain open. See
+[Operator forecast context](OPERATOR_FORECAST.md),
 [Event supervision](EVENT_SUPERVISION.md),
 [Temporal candidates](TEMPORAL_CANDIDATES.md),
 [Learned video](LEARNED_VIDEO.md), [Grouped pilot](VISION_PILOT.md), [Training](VISION_TRAINING.md), [Video baseline](VISION_BASELINE.md)

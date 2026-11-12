@@ -20,7 +20,7 @@ from vision.candidates import CandidateConfig
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def prepare_operator_fixture(root):
+def prepare_operator_fixture(root, *, adaptive_reference=None):
     generate_candidate_fixture(root / "fixture", candidate_config=CandidateConfig())
     analysis = root / "fixture_candidates"
     config = json.loads((ROOT / "configs/supervised_control_fixture.json").read_text())
@@ -36,6 +36,7 @@ def prepare_operator_fixture(root):
         session,
         config=path,
         qa_mode=True,
+        adaptive_reference=adaptive_reference,
     )
     return session
 

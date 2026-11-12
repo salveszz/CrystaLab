@@ -150,7 +150,8 @@ physical acceptance. The first [area-forecast diagnostic](AREA_FORECAST.md)
 preserves its historical negative result and unreviewed real shadow predictions.
 Continue measurement/clock calibration and capture planning.
 Use the [operator replay view](OPERATOR_REPLAY.md) for explicit review and
-simulated manual resume. Add linked forecasts/adaptive state, supported face
-measurements and equipment acknowledgment/fallback characterization.
+simulated manual resume. Its [forecast context](OPERATOR_FORECAST.md) now preserves
+the displayed adaptive state and suggested/manual duration choice with reviews.
+Continue supported face measurements and equipment acknowledgment/fallback characterization.
 Real first-hour, physical action benefit, HPC and Qiskit remain open in the
 [pitch-led roadmap](../roadmap.md).
