@@ -732,3 +732,22 @@ Those families were already used during segmentation development. Real shadow
 outputs remain unreviewed, unscored and unable to authorize actuation. The
 [checkpoint](docs/AREA_FORECAST_CHECKPOINT.json) binds all model/data identities,
 the independent audit and explicit remaining measurement/adaptation gates.
+
+## DESIGN-AL-PRECURSOR-001
+
+[Asakuma, Maeda and Fukui (2008), DOI 10.2477/jccj.H1918](https://www.jstage.jst.go.jp/article/jccj/7/1/7_H1918/_pdf),
+Section 2.2/Figure 2, motivates Al(III) aquo/phosphate precursor species for KDP
+growth solution. [Salter, Wierzbicki and Land's primary stepped-KDP manuscript](https://www.osti.gov/servlets/purl/862209)
+motivates surface Al/phosphate interaction and its distinction from simple K-site
+substitution. Source PDFs and exact hashes are preserved in
+`configs/kdp_impurity_quantum.json`.
+
+The [Al precursor solver experiment](docs/QUANTUM_IMPURITY.md) uses its own fixed,
+idealized molecular geometries and a declared small orbital-selection rule. No
+published coordinates or energies are reproduced. Six local 8-qubit VQE starts
+are independently checked against same-Hamiltonian classical results. HF already
+meets the frozen target. No geometry/basis/active-space convergence, solvent,
+KDP lattice, adsorption energy, impurity threshold or quantum advantage is
+established. The unequal-stoichiometry total energies are not reaction energies.
+The [checkpoint](docs/QUANTUM_IMPURITY_CHECKPOINT.json) retains the protocol,
+runtime, independent audits, failed attempts and software verification.

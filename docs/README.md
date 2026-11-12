@@ -8,10 +8,13 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 
 | Document | Purpose |
 |---|---|
+| [Next steps with public data](NEXT_STEPS.md) | Short execution sequence, the meaning of reviewed outlines and the remaining vision/control evidence. |
 | [Roadmap](../roadmap.md) | Pitch requirements, actual status, immediate pilot batch and ordered perception/control/demo work, including HPC/Qiskit deliverables. |
 | [Vision MVP](VISION_MVP.md) | Capture/annotation contract, observable targets, real/synthetic splits, evaluation and control interfaces. |
 | [Public KDP source review](PUBLIC_KDP_SOURCE_REVIEW.md) | Additional surface-defect leads, observed access/license limits and remaining growth-event evidence under public-only access. |
 | [KDP video index and review pack](KDP_VIDEO_DATA.md) | All 881 native source frames, preserved phase/timestamp provenance, six unreviewed sheets and independent pixel/browser checks. |
+| [Al precursor VQE/classical diagnostic](QUANTUM_IMPURITY.md) | Source-motivated hydrated clusters, frozen geometries/active spaces, six local starts, independent fermion/circuit audits, retained failures and physical chemistry limits. |
+| [Quantum experiment checkpoint](QUANTUM_IMPURITY_CHECKPOINT.json) | Exact protocol/source/runtime/artifact identities, all starts, baseline comparison and verification evidence. |
 | [Video baseline](VISION_BASELINE.md) | Implemented file/camera observation, explicit clocks, projected seed tracking, validity events and reproducible fixture replay. |
 | [Learned video observation](LEARNED_VIDEO.md) | Verified model replay, seed role across raw labels, alternative outlines/inspection requests and hashed original-frame mapping. |
 | [Learned replay checkpoint](LEARNED_VIDEO_CHECKPOINT.json) | 284-test result, actual synthetic/real development replays, strict-prototype failures and remaining real/event/control gates. |

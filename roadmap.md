@@ -35,6 +35,9 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 
 ## What we do next
 
+The [plain-language next steps](docs/NEXT_STEPS.md) summarize this sequence for
+the current public-data-only setup.
+
 The pitch's next useful demonstration is a video of the growing crystal with
 measured outlines, supported alerts and a traceable proposed control response.
 The foundations run; dependable real detection and adaptive control are unfinished.
@@ -43,6 +46,14 @@ public KDP images, labels, clocks and process/action records; live equipment and
 physical outcome validation remain later gates until suitable access/evidence exists.
 The [additional public KDP review](docs/PUBLIC_KDP_SOURCE_REVIEW.md) retains surface
 crack/crater leads without treating them as acquired growth-event training data.
+
+**Current next action:** check one native KDP image in the existing review pack,
+then finish that small development pack. In plain language, the outline is the
+example answer showing the model where the crystal ends. An event label says
+what appeared and when. Public images can supply inputs; unchecked computer
+outlines cannot establish real accuracy. If no reviewer is available, retain
+these as uncertain drafts and keep real supervised acceptance pending. Continue
+independent software/supporting experiments within their declared limits.
 
 1. **Use consistent synthetic measurements and characterize real capture.** The
    [paired encoding experiment](docs/VIDEO_ENCODING.md) now verifies exact FFV1
@@ -85,7 +96,9 @@ crack/crater leads without treating them as acquired growth-event training data.
 5. **Complete the remaining pitch evidence in order.** Evaluate an explicitly
    defined adaptive objective against persistence/PID/rules, gather relevant KDP
    runs with synchronized process/action logs and first-hour coverage, and complete
-   the bounded CPU/GPU and impurity-cluster Qiskit experiments. Physical quality,
+   remaining transport/chemistry validation. The first CPU/hybrid GPU comparison
+   and a [hydrated Al VQE/classical solver diagnostic](docs/QUANTUM_IMPURITY.md)
+   are complete within their bounded assumptions. Physical quality,
    yield and energy claims need measured outcome comparisons.
 
 The [expanded vision experiment](docs/VISION_REFINEMENT.md) is complete as a
@@ -109,7 +122,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Inclusion diagnostic | Both small fits learn three training examples. A grouped 512 fit matches 1/6 synthetic validation inclusions and the one eligible training-clip inclusion event; it also doubles secondary false instances and worsens seed measurements. A training-only operator replay preserves the localized cue without reviews or commands. | Relevant reviewed inclusion diversity/negatives, grouped real evaluation and an acceptable overall error tradeoff. No validation inclusion-event coverage or model promotion. |
 | Observable forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared validation windows. Online adaptation gives 80.71 px² and does not beat recent rate. Parameters update only from matured observed masks; real replay remains unscored shadow output. | Reviewed real/action-labelled trajectories, capture characterization, acceptance budgets and supported action-response objective. No action-response growth model exists. |
 | Learned perception, controllers and UI | Local training/evaluation, candidate analysis, PID/rules, operator replay and bounded adaptive pause comparison. The console now displays causal forecasts/state and preserves explicit suggested/manual duration reviews. Independent audits retain secondary misses and inclusion failures. | Review/evaluate real data, support face measurements, validate the adaptive action-response objective and characterize equipment/operator response. |
-| HPC and Qiskit | A [CPU/hybrid Vulkan comparison](docs/VULKAN_FLOW_BENCHMARK.md) passes fixed-domain NS/solute accuracy checks on an actual AMD GPU; GPU stepping is about five times slower. No impurity-cluster VQE implementation. | Heat/coupling and a physically justified risk map, any further comparable GPU implementation, and the chemically justified Qiskit/classical experiment. |
+| HPC and Qiskit | A [CPU/hybrid Vulkan comparison](docs/VULKAN_FLOW_BENCHMARK.md) passes fixed-domain NS/solute checks but is about five times slower on GPU. A [hydrated Al precursor experiment](docs/QUANTUM_IMPURITY.md) independently audits six 8-qubit VQE starts against the same-space classical solution. HF already meets its frozen error target. | Heat/coupling and physical risk interpretation; KDP surface/reference chemistry, geometry/basis/active-space convergence and any impurity-tolerance claim. Neither extension establishes physical control or a speedup. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
 130 subtests at its source revision. The new
@@ -370,6 +383,14 @@ Fe/Cr/Al are pitch candidates requiring chemical justification. A generic molecu
 can test the tools but cannot close this extension. Deriving an impurity tolerance
 threshold from cluster energies requires separate evidence. Keep this study
 outside the online control loop.
+The first [Al aquo/phosphate precursor diagnostic](docs/QUANTUM_IMPURITY.md) now
+implements this method comparison using source-motivated species and designed,
+fixed geometries. Six starts pass independent fermion/matrix/circuit checks;
+maximum VQE gap is 8.01e-9 Ha. Both small active spaces already meet the 1 mHa
+target at HF. This completes a local solver experiment, not a pristine-KDP versus
+solid-defect comparison. No solvent/lattice, geometry relaxation, active-space
+convergence, adsorption energy or impurity threshold is established. Do not
+subtract the two unequal-stoichiometry total energies.
 
 ## Four-week target and dependencies
 

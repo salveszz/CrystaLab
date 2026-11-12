@@ -1,0 +1,90 @@
+{
+  "schema": "crystalab_kdp_impurity_quantum_v1",
+  "experiment_id": "hydrated_al_phosphate_active_space_v1",
+  "purpose": "Local VQE versus classical diagonalization of the same small active-space Hamiltonian for KDP-relevant aqueous Al precursor clusters. No surface, bulk-defect, solution-speciation or impurity-tolerance prediction.",
+  "sources": [
+    {
+      "source_id": "ASAKUMA-KDP-2008",
+      "doi": "10.2477/jccj.H1918",
+      "url": "https://www.jstage.jst.go.jp/article/jccj/7/1/7_H1918/_pdf",
+      "local_path": "data/external_quantum/kdp_al_sources_v1/al_kdp_complexes_2008.pdf",
+      "sha256": "d32e2a8375c7d18e7be91644b6bacd905ba1e97a84dc0d82487e4c53d95c0496",
+      "use": "Section 2.2 and Figure 2 motivate hexaaqua Al(III) and hydrated phosphate complexes in KDP solution. Chemical topology only; no published coordinates or energies are reproduced."
+    },
+    {
+      "source_id": "SALTER-KDP-2004",
+      "url": "https://www.osti.gov/servlets/purl/862209",
+      "local_path": "data/external_quantum/kdp_al_sources_v1/al_kdp_step_study.pdf",
+      "sha256": "6d75f2bb2644ec2c33633b03067e0428560f5e6ccbb71aeeed5a3f894c6282b0",
+      "use": "Primary ab initio KDP stepped-surface study motivates Al/phosphate interaction and cautions against treating Al as a simple K-site replacement. Our isolated hydrated clusters do not reproduce that surface model."
+    }
+  ],
+  "cases": [
+    {"case_id": "al_hexaaqua_reference", "formula": "Al O6 H12", "charge": 3, "spin_2S": 0, "expected_electrons": 70, "role": "Hexaaqua Al(III) precursor reference; not pristine KDP"},
+    {"case_id": "al_dihydrogen_phosphate", "formula": "Al P O8 H10", "charge": 2, "spin_2S": 0, "expected_electrons": 100, "role": "Bidentate H2PO4- and four water ligands around Al(III); KDP-related impurity precursor"}
+  ],
+  "geometry": {
+    "unit": "Angstrom",
+    "source": "DESIGN-AL-PRECURSOR-001: idealized fixed coordination geometry, not measured or optimized molecular coordinates",
+    "al_oxygen_distance": 1.9,
+    "phosphate_donor_PO_distance": 1.5,
+    "phosphate_OH_PO_distance": 1.57,
+    "OH_distance": 0.96,
+    "water_HOH_angle_deg": 104.5,
+    "phosphate_POH_angle_deg": 109.0,
+    "description": "Octahedral aquo reference. The phosphate case uses a tetrahedral PO4 scaffold with two unprotonated cis donor O atoms and two terminal OH groups; four waters complete Al coordination. Hydrogen orientations are deterministic and point away from Al.",
+    "optimization": "None. Nonzero nuclear forces are reported; this experiment compares electronic solvers at the same declared geometry, not equilibrium chemistry.",
+    "minimum_any_atom_distance": 0.65
+  },
+  "electronic_structure": {
+    "basis": "6-31g*",
+    "spherical_basis": true,
+    "method": "Restricted Hartree-Fock, fixed gas-phase molecular geometry",
+    "solvation": "none",
+    "embedding": "none; no KDP surface or lattice",
+    "scf_energy_tolerance_Ha": 1e-10,
+    "scf_gradient_tolerance": 1e-7,
+    "scf_max_cycles": 100,
+    "newton_fallback_max_cycles": 50,
+    "internal_stability_required": true,
+    "threads": 2,
+    "max_memory_MB": 1024
+  },
+  "active_space": {
+    "electrons": 4,
+    "spatial_orbitals": 4,
+    "alpha_electrons": 2,
+    "beta_electrons": 2,
+    "selection": "Two occupied canonical MOs with largest Lowdin-orthogonalized donor-O valence-p weight, and two virtual MOs with largest Al valence-s/p weight. Use all water O atoms for the aquo reference and the two phosphate donor O atoms for the impurity. Ties use ascending MO index.",
+    "donor_shells": ["2p", "3p"],
+    "al_acceptor_shells": ["3s", "3p", "4s", "4p"],
+    "minimum_selected_donor_weight": 0.05,
+    "minimum_selected_acceptor_weight": 0.05,
+    "inactive_orbitals": "Remaining occupied MOs frozen doubly occupied; other virtuals excluded. Store explicit selected/core MO indices and full selection weights.",
+    "limits": "A small chemically targeted method diagnostic. Neither basis completeness nor active-space convergence is established. Absolute energies of the different-stoichiometry cases are not subtracted as adsorption or reaction energies."
+  },
+  "quantum": {
+    "mapper": "Jordan-Wigner without tapering",
+    "qubits": 8,
+    "ansatz": "Qiskit Nature UCCSD, preserve_spin=true, reps=1, Hartree-Fock initial state",
+    "estimator": "Qiskit StatevectorEstimator, precision=0, no shots/no noise/no remote provider",
+    "gradient": "Qiskit ReverseEstimatorGradient",
+    "optimizer": "SLSQP",
+    "maxiter": 200,
+    "ftol": 1e-10,
+    "seed": 20261112,
+    "initial_points": ["all zero", "normal mean 0 standard deviation 0.02", "normal mean 0 standard deviation 0.05"],
+    "selection": "Report every fixed start and choose the lowest-energy valid final state. Classical eigenvectors/energies do not initialize the ansatz or stop its optimizer."
+  },
+  "criteria": {
+    "max_qubit_vs_FCI_energy_difference_Ha": 1e-8,
+    "max_HF_determinant_vs_SCF_difference_Ha": 1e-7,
+    "max_matrix_hermiticity_error": 1e-10,
+    "max_variational_below_reference_Ha": 1e-8,
+    "target_VQE_energy_gap_Ha": 0.001,
+    "max_particle_number_error": 1e-8,
+    "max_VQE_spin_squared": 0.01,
+    "max_exact_spin_squared": 1e-7
+  },
+  "interpretation": "Frozen before molecular calculations. Report convergence, Pauli/circuit resources, CPU time and memory with all failures. This is classical simulation of a quantum algorithm, not quantum hardware or a speedup benchmark. No ppm threshold, surface adsorption energy, growth rate, controller command or quality label is produced."
+}

@@ -31,7 +31,7 @@ remain open.
 | PID/adaptive software loop | PID, delayed simulated actuation, rules, four-way adaptive diagnostic and operator replay. The console now displays source-bound forecasts/state and preserves explicit suggested/manual pause reviews. | Reviewed real evidence, an action-response objective and equipment/operator validation. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
 | Source-fit real silhouette training | Explicit author-derived targets, synthetic/source-projection/mixed one-class fits and a training-only static baseline. Mixed improves aggregate proxy agreement; real-only fails on synthetic validation. | Reviewed pixel/event truth and relevant KDP evaluation. This auxiliary task does not complete the pitch's three-class model. |
-| HPC/Qiskit extensions | Verified CPU flow and an actual CPU/hybrid Vulkan experiment with retained slower GPU results; no Qiskit implementation. | Heat/coupling, physical risk interpretation and a justified impurity-cluster VQE/classical comparison, as defined in the roadmap. |
+| HPC/Qiskit extensions | Verified CPU flow and a slower CPU/hybrid Vulkan experiment. An independently audited [Al aquo/phosphate VQE/classical diagnostic](QUANTUM_IMPURITY.md) has six valid 8-qubit starts; HF already meets its frozen energy target. | Heat/coupling and physical risk interpretation; KDP surface/reference chemistry, geometry/basis/active-space convergence and any impurity threshold. The solver check supplies no real vision labels or physical control evidence. |
 
 ## Immediate vision work
 
