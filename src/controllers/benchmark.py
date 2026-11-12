@@ -143,9 +143,11 @@ def summarize(rows):
 
 
 def run_scenario(config, scenario, method, output, *, target_provider=None):
-    if method not in {"fixed_recipe", "pid", "rule_supervised"}:
+    if method not in {"fixed_recipe", "pid", "rule_supervised", "adaptive_supervised"}:
         raise ValueError("Unsupported control comparison method")
-    if (method == "rule_supervised") != (target_provider is not None):
+    if (method in {"rule_supervised", "adaptive_supervised"}) != (
+        target_provider is not None
+    ):
         raise ValueError("A supervised method needs its explicit target provider")
     output.mkdir()
     limits, pid_config = ActuatorLimits(**config["limits"]), PIDConfig(**config["pid"])
@@ -234,7 +236,7 @@ def run_scenario(config, scenario, method, output, *, target_provider=None):
                         "Supervised target is outside declared process limits"
                     )
             manual = in_interval(scenario["manual_intervals"], now)
-            if method in {"pid", "rule_supervised"}:
+            if method in {"pid", "rule_supervised", "adaptive_supervised"}:
                 decision = pid.update(
                     now,
                     target,
@@ -257,7 +259,9 @@ def run_scenario(config, scenario, method, output, *, target_provider=None):
                 )
             last_output = decision["output_K"]
             evidence = (f"{run_id}:recipe:{index:06d}",) + (
-                (observation.sample_id,) if method in {"pid", "rule_supervised"} else ()
+                (observation.sample_id,)
+                if method in {"pid", "rule_supervised", "adaptive_supervised"}
+                else ()
             )
             if supervision is not None:
                 evidence += tuple(supervision["evidence_ids"])

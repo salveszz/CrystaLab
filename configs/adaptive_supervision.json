@@ -1,0 +1,19 @@
+{
+  "schema": "crystalab_adaptive_area_policy_v1",
+  "description": "Software diagnostic: update a bounded projected-area gain model from matured observed masks; scale a reviewed new-crystal recipe pause by positive forecast growth relative to a training-only reference. No action-response or physical quality model.",
+  "horizon_source_s": 0.25,
+  "maximum_gap_source_s": 0.5,
+  "maximum_age_source_s": 0.5,
+  "initial_coefficient": 1.0,
+  "coefficient_min": 0.0,
+  "coefficient_max": 3.0,
+  "prior_precision": 3.0,
+  "forgetting_factor": 0.95,
+  "error_ema_alpha": 0.2,
+  "minimum_matured_updates": 3,
+  "maximum_error_ratio": 3.0,
+  "reference_positive_gain_quantile": 0.9,
+  "minimum_reference_relative_gain": 0.001,
+  "minimum_pause_model_s": 15.0,
+  "maximum_pause_model_s": 60.0
+}

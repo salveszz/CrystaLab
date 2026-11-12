@@ -8,18 +8,24 @@ temperature PID plus an adaptive supervisor, and traceable actions with an
 operator involved. The intended actions are temperature-ramp changes, rotation
 and circulation. The demonstration must identify its material and evidence level.
 
-**The next milestone is a reviewed real-image/event pilot and an explicit adaptive
-forecast/state policy.** Candidate decisions, temperature PID, event-rule shadow
-proposals and a bounded fixture-to-PID pause are implemented. A first projected-area
-forecast diagnostic exposes current-mask bias and fails to beat future-area
-persistence on four shared development windows. Resolve the measurement/trajectory
-gate, define the adaptive objective and compare it with the current baselines. Real review and equipment
-characterization can progress alongside this software work.
+**The next milestone is reviewed real-image/event evidence and validation of the
+adaptive objective/action response.** Candidate decisions, temperature PID,
+event-rule proposals, operator replay and bounded adaptive software pauses are
+implemented. The first projected-area forecast diagnostic exposed current-mask
+bias and failed to beat future-area persistence on four shared development
+windows. Reviewed measurements and action-responsive trajectories remain the
+gates for a physically useful adaptive objective. Real review and equipment
+characterization can progress alongside software integration.
 The original MJPG diagnostic confirms the persistence advantage on 28 shared
 validation windows. The later paired encoding experiment verifies lossless input
 and finds that the expanded detectors' rate forecasts beat persistence on those
 two synthetic validation families. Real accuracy, action response and the
 live operator/equipment validation remain open.
+The [adaptive software diagnostic](docs/ADAPTIVE_SUPERVISION.md) now implements
+causal parameter updates and forecast-scaled bounded pauses, with a four-way PID
+comparison. Its 80.71 px² shared validation forecast error is worse than plain
+recent rate's 77.00 px². Shorter simulated pauses establish recipe-delay behavior;
+the fixed video cannot establish defect-prevention benefit. No model is promoted.
 Preserve the simulation and growth dataset as supporting assets. New CFD work or
 an XGBoost benchmark does not close the perception/control requirements.
 
@@ -54,8 +60,9 @@ The foundations run; dependable real detection and adaptive control are unfinish
    [replay console](docs/OPERATOR_REPLAY.md) now shows video, outlines, process
    values and proposal evidence, with explicit review, bounded simulated pause
    and manual resume. Receipts and each counterfactual response remain separate;
-   real sources stay in shadow mode. Next connect a declared forecast and changing
-   adaptive state/policy, then validate relevant real capture and equipment behavior.
+   real sources stay in shadow mode. The adaptive model/policy is now connected in
+   a separate four-way software comparison. Next expose its source-bound forecast,
+   state and recommendation in the console, then validate real capture and response.
 5. **Complete the remaining pitch evidence in order.** Evaluate an explicitly
    defined adaptive objective against persistence/PID/rules, gather relevant KDP
    runs with synchronized process/action logs and first-hour coverage, and complete
@@ -79,8 +86,8 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies, a separate ADP movie and 587 protein-crystal images with 4,986 published crystal/drop masks. | Reviewed Leeds/KDP pixel/event labels and representative independent KDP evaluation data. Source fits are not masks; protein selected-object labels need a separate compatible task. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal source. Combined export has 84 training / 44 validation / 28 reserved images. Two new fits and development replays are complete; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
-| Observable forecast | Paired MJPG/FFV1 comparisons with three frozen detectors. Lossless fullmask recent-rate future-area MAE is 77.00 px² versus persistence 116.18 px² on 28 shared windows from two validation families. Original-detector rates still lose under FFV1. | Gather reviewed real/action-labelled trajectories, characterize capture encoding, freeze budgets and define adaptive forecast/state policy. No action-response model exists. |
-| Learned perception, controllers and UI | Local training/evaluation, expanded synthetic comparisons, candidate analysis, PID/rules and explicit process records. The operator replay console adds evidence review, bounded simulated pause/manual resume and preserved results. Secondary misses and inclusion failures remain. | Real evaluation, equipment timing, face measurements, linked forecast/adaptive policy and live equipment/operator validation. |
+| Observable forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared validation windows. Online adaptation gives 80.71 px² and does not beat recent rate. Parameters update only from matured observed masks; real replay remains unscored shadow output. | Reviewed real/action-labelled trajectories, capture characterization, acceptance budgets and supported action-response objective. No action-response growth model exists. |
+| Learned perception, controllers and UI | Local training/evaluation, candidate analysis, PID/rules, operator replay and bounded adaptive pause comparison. Adaptive state and actions are independently reconstructed; secondary misses and inclusion failures remain. | Expose forecast/adaptive state in the console, review/evaluate real data, support face measurements and characterize equipment/operator response. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
@@ -274,7 +281,11 @@ any missing KDP material, first-hour, event or negative-time coverage.
    Its calibrated rate does not beat future-area persistence; do not promote it
    as validated adaptive control. Review measurement bias and collect longer
    trajectories, including action responses when action-conditioned forecasting
-   is intended. The changing adaptive state/policy remains unfinished.
+   is intended. The later [adaptive diagnostic](docs/ADAPTIVE_SUPERVISION.md) now
+   updates a bounded coefficient from matured observed masks and scales candidate
+   pause duration using its forecast/error state. Its fixed experiment loses to
+   plain recent rate. The source video has no response to thermal commands;
+   an action-response objective and physical benefit remain unfinished.
 4. Compare fixed recipe, PID-only, rule-supervised and adaptive variants. Existing
    growth data may support a bounded forecast study, but its idealized 3D inputs
    need a validated adapter before use with camera measurements. Scripted anomalies

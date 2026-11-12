@@ -1,0 +1,147 @@
+{
+  "schema": "crystalab_adaptive_experiment_v1",
+  "date": "2026-11-12",
+  "purpose": "Causal observed-area adaptation and forecast-scaled candidate pause in a four-way thermal software comparison; no physical promotion",
+  "cohort": {
+    "path": "results/vision_codec_fullmask_ffv1_v1/cohort",
+    "manifest_sha256": "a4ca15d0493b9579e8f7395205f842911763dc69f9947a24877b2aa562352e08",
+    "training_families": [
+      "optical_temporal_000",
+      "optical_temporal_001",
+      "optical_temporal_002"
+    ],
+    "validation_families": [
+      "optical_temporal_003",
+      "optical_temporal_004"
+    ]
+  },
+  "reference": {
+    "path": "results/adaptive_area_reference_v1",
+    "manifest_sha256": "4056984df34ced02ddb17a844257fc093fde9560199a50ca5fe7a5de4a74a4d9",
+    "reference_sha256": "d71f4463266ae0d9acef4313831d0278602b171959ec1f7b6aaf86b0c4ab852e",
+    "positive_relative_gain_reference": 0.041140729991069755,
+    "initial_error_ratio": 0.14257363658802355,
+    "gain_samples": 45,
+    "error_samples": 42
+  },
+  "adaptive_policy": {
+    "path": "configs/adaptive_supervision.json",
+    "sha256": "df654a448c0c633c587134779cc67d885711a63a544af445f84cac5c8c65d1be"
+  },
+  "candidate_policy": {
+    "path": "configs/event_rule_policy.json",
+    "sha256": "94eb650df60058f1b3290a4dc4e22603e9c0b321aff70ceade6c1daa716e9b19"
+  },
+  "baseline_forecast": {
+    "path": "results/area_forecast_fit_v3/model.json",
+    "sha256": "890aaa74929aa1a15df71c12ead7deac0efabb5f7ed2d4fd7f5243abf168b78b"
+  },
+  "forecast_evaluation_output": "results/adaptive_area_evaluation_v1",
+  "control_cases": [
+    {
+      "scene_id": "optical_temporal_000",
+      "split": "train",
+      "analysis": "results/vision_codec_fullmask_ffv1_v1/candidates/optical_temporal_000",
+      "candidate_manifest_sha256": "2ee5cb4e2a2ae8936eeef981bc4e326dff57f37c8cbba59c5da836efb34956fb",
+      "observation_manifest_sha256": "d0d82e19c379ae3d2d43e798c658630b2446c27956e7632820a484eb7bc2cecb",
+      "configuration": "results/adaptive_study_inputs_v1/optical_temporal_000.json",
+      "configuration_sha256": "56abee47e39b7955531e3ec1b0ce294e4480c31f33490b4935b3b6ff58f7bbd5",
+      "output": "results/adaptive_control_optical_temporal_000_v1"
+    },
+    {
+      "scene_id": "optical_temporal_001",
+      "split": "train",
+      "analysis": "results/vision_codec_fullmask_ffv1_v1/candidates/optical_temporal_001",
+      "candidate_manifest_sha256": "8db91818f906f116e27d01d79596769b56902b809ab95f979b5594cc6c2fd2ba",
+      "observation_manifest_sha256": "0c37dcafb1fadfe1c528756149e17316c92dd728b22eb98ce4636df351c63dd0",
+      "configuration": "results/adaptive_study_inputs_v1/optical_temporal_001.json",
+      "configuration_sha256": "338ce630a2efd18fc224521ca896d108e8bdf7fa13c3cb755396854387c3e292",
+      "output": "results/adaptive_control_optical_temporal_001_v1"
+    },
+    {
+      "scene_id": "optical_temporal_002",
+      "split": "train",
+      "analysis": "results/vision_codec_fullmask_ffv1_v1/candidates/optical_temporal_002",
+      "candidate_manifest_sha256": "5210e179b2d649f717d81b9ced4f42323a4efca6fb0679ff82eda4ec02332b84",
+      "observation_manifest_sha256": "06e538cbc9892ba6443296031c12867109985e72d3db2db19db0bfc9b8d690a9",
+      "configuration": "results/adaptive_study_inputs_v1/optical_temporal_002.json",
+      "configuration_sha256": "a318c032533bb46a0bf795c81a005b2ab766bec8c8975d7d87527a8986acbdd6",
+      "output": "results/adaptive_control_optical_temporal_002_v1"
+    },
+    {
+      "scene_id": "optical_temporal_003",
+      "split": "validation",
+      "analysis": "results/vision_codec_fullmask_ffv1_v1/candidates/optical_temporal_003",
+      "candidate_manifest_sha256": "8c67470710550b42574cb4a6f576090d71b5846533004b545a11849aa8b3cc34",
+      "observation_manifest_sha256": "8a47fd7a386c96a75283b90aaada222dbafbc13843d3a514bdf3c382de877583",
+      "configuration": "results/adaptive_study_inputs_v1/optical_temporal_003.json",
+      "configuration_sha256": "8f0c2c2ecd4db4bb38ea5546803d842b703b867c523e1f5975c43d8abe44a196",
+      "output": "results/adaptive_control_optical_temporal_003_v1"
+    },
+    {
+      "scene_id": "optical_temporal_004",
+      "split": "validation",
+      "analysis": "results/vision_codec_fullmask_ffv1_v1/candidates/optical_temporal_004",
+      "candidate_manifest_sha256": "0bfdad44b5087f83ee9626a4311bd54311645990472ee7551f20a35c5140ea5f",
+      "observation_manifest_sha256": "9001991bf09a7a62d144477f7627685ac5b8344a139fb20c6b9d3d0d42c1298f",
+      "configuration": "results/adaptive_study_inputs_v1/optical_temporal_004.json",
+      "configuration_sha256": "acb8997ea2c43ab35f0a80439b88cad23c0c6cd2a726f668f9f63cfa2e7c8f14",
+      "output": "results/adaptive_control_optical_temporal_004_v1"
+    }
+  ],
+  "real_shadow": {
+    "path": "/home/salves/dev/CrystaLab/results/leeds_pilot12_stream_v1",
+    "manifest_sha256": "f97377d777cbd7413f8d501efae86f48723d945719930d70439eb9d99ffe58a6",
+    "output": "results/adaptive_area_real_shadow_v1",
+    "accuracy_labels_available": false,
+    "numerical_commands_allowed": false
+  },
+  "source_sha256": {
+    "src/models/adaptive_area.py": "9ac52ae08395557fa9250c61a5e779a0325311ddd1b951525845cb9260dea18a",
+    "src/models/adaptive_area_run.py": "36fcabe10f34cb047952c5271771a612ed64e072d5cd5040d2e3f7d60d63e884",
+    "src/controllers/adaptive_demo.py": "7dff7ab1276e12a7562a1ae20a1e556f41b43ea90f3b997af0f402512eaac033",
+    "src/controllers/adaptive_audit.py": "318b5e545a7e64d630f2fe3b1bd0975f01be432cc61dc9a0d78c375a3e8cac04",
+    "src/controllers/benchmark.py": "cdc3eec75fff3e4e20fd0f65bf9b8d45560a83e010d9e3807b3a9aae3c355640",
+    "src/controllers/audit.py": "fdf707c720b1ff70590e4921d677077ac44b9c2bb54dd30fc1f2306185c8b8e8",
+    "scripts/adaptive_area.py": "becfe1ce35ed143898e11e41aa198d856c0d0b44e98d2a72275deea41495f82b",
+    "scripts/run_adaptive_control.py": "acee06ce287992376bed083be977603f3fc975e59e72c8c425c7299fcdf81599"
+  },
+  "objective": "After a fresh newly visible crystal candidate, scale a bounded recipe-pause review by positive short-horizon projected growth divided by a training-only reference. Withhold automatic fixture authorization if history, observed-error state, view, source coverage or feedback is unusable. Recipe delay is a cost; no defect-prevention utility is established.",
+  "adaptation": {
+    "initial_coefficient": 1,
+    "update": "Forgetting-weighted normalized least squares using only matured observed-mask increments; bounded coefficient and EW absolute observed forecast error.",
+    "no_proxy_labels_in_online_update": true,
+    "no_cross_run_parameter_carry": true,
+    "validation_updates": "Prequential: only observations already received in that validation run; no future or evaluation-label updates."
+  },
+  "comparisons": {
+    "forecast_methods": [
+      "persistence",
+      "recent_rate",
+      "train_mean_fraction",
+      "calibrated_recent_rate",
+      "adaptive_recent_rate"
+    ],
+    "control_methods": [
+      "fixed_recipe",
+      "pid",
+      "rule_supervised",
+      "adaptive_supervised"
+    ],
+    "frozen_old_forecast_parameters": true,
+    "shared_window_comparison_required": true,
+    "retain_startup_missing_inspection_and_all_failures": true,
+    "report_nominal_and_changed_target_error_and_recipe_lag": true,
+    "video_growth_exceedance_does_not_change_with_thermal_actions": true
+  },
+  "scope": {
+    "new_yolo_training": false,
+    "actual_human_reviews_created": 0,
+    "final_test_scored": false,
+    "real_actuation": false,
+    "physical_growth_clock": false,
+    "automatic_model_promotion": false,
+    "physical_operating_limits_or_quality_benefit_established": false
+  },
+  "selection": "Report the fixed experiment including negative forecast results, withheld actions and costs. Do not tune this protocol on its validation results or claim real/physical acceptance."
+}

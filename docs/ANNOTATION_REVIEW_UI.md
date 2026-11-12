@@ -8,8 +8,10 @@ the pitch's camera model.
 
 This is a still-image annotation tool. The separate
 [operator replay console](OPERATOR_REPLAY.md) now adds video/process display,
-proposal review and simulated pause/manual resume. Adaptive decisions and live
-equipment/operator validation remain open.
+proposal review and simulated pause/manual resume. A separate
+[adaptive software diagnostic](ADAPTIVE_SUPERVISION.md) now compares changing
+forecast state and bounded pauses. Displaying that context in the console and
+validating live equipment/operator response remain open.
 The six existing Leeds run-12 proposals still have **zero actual human reviews**.
 They are alpha-LGA development images; they do not establish KDP accuracy.
 

@@ -1,13 +1,16 @@
 # Vision and control MVP contract
 
-Status: pilot tooling on 2026-11-11. The file/camera adapter, OpenCV seed baseline,
+Status: software diagnostics on 2026-11-12. The file/camera adapter, OpenCV seed baseline,
 real-image importer, annotation workflow and optical renderer exist. Real review
 remains open. The 60-image grouped synthetic cohort, 30-epoch YOLOv8-seg fit and
 development comparison are complete. Learned replay now preserves seed role,
 uncertainty and source-frame mapping. Saved-replay candidate tracking/evaluation
 now retains inspection evidence and also runs during single-pass observation.
-Temperature PID and event-rule shadow/fixture integration are implemented;
-equipment timing, real defect evaluation and adaptive control remain open. See
+Temperature PID, event-rule shadow/fixture integration and operator replay are
+implemented. The [adaptive diagnostic](ADAPTIVE_SUPERVISION.md) adds causal
+parameter updates and a four-way simulated pause comparison; its forecast does
+not beat recent rate. Equipment timing, reviewed real defect evaluation,
+action-response validation and physical adaptive control remain open. See
 [Event supervision](EVENT_SUPERVISION.md),
 [Temporal candidates](TEMPORAL_CANDIDATES.md),
 [Learned video](LEARNED_VIDEO.md), [Grouped pilot](VISION_PILOT.md), [Training](VISION_TRAINING.md), [Video baseline](VISION_BASELINE.md)
@@ -162,6 +165,12 @@ The first [projected-area diagnostic](AREA_FORECAST.md) now has causal optical
 histories and separate proxy labels. Its rate calibration fails to improve on
 future-area persistence over four shared development windows; current-area bias
 and longer trajectory coverage remain gates before promotion.
+The later [lossless comparison](VIDEO_ENCODING.md) improves those measurement
+conditions. The [adaptive diagnostic](ADAPTIVE_SUPERVISION.md) now updates a
+bounded coefficient from matured observed masks and scales eligible candidate
+pauses, with fixed recipe/PID/rule/adaptive comparisons. It loses to plain recent
+rate on its two synthetic validation families. No action-responsive growth or
+physical objective has been validated; parameter learning is not defect prevention.
 Do not insert the current tabular model's idealized 3D inputs into a camera path
 without an independently validated measurement adapter.
 

@@ -7,9 +7,17 @@ persistence has lower future-area error. The [checkpoint](AREA_FORECAST_CHECKPOI
 retains the actual model/data identities, comparison and regression evidence.
 
 This supplies the first observable forecast experiment for the pitch's adaptive
-supervisor. It does not implement that adaptive policy or an action-conditioned
-forecast. The existing three-frame optical scenes contain no temperature/action
-responses. Real masks, physical time and forecast accuracy remain unreviewed.
+supervisor. This historical experiment does not implement that adaptive policy or
+an action-conditioned forecast. The existing three-frame optical scenes contain
+no temperature/action responses. Real masks, physical time and forecast accuracy
+remain unreviewed.
+
+Later work verifies [lossless optical replay](VIDEO_ENCODING.md) and evaluates a
+[bounded adaptive model/policy](ADAPTIVE_SUPERVISION.md) on longer clips. Its
+online forecast has 80.71 px² shared validation MAE versus recent rate 77.00 and
+persistence 116.18. That software diagnostic retains the negative comparison
+with recent rate and does not establish an action-response or physical benefit.
+The original model, scores and checkpoint below remain unchanged.
 
 ## Data, horizon and causal inputs
 

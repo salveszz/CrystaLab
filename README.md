@@ -57,6 +57,13 @@ Real-video sessions retain shadow review without invented process readings or
 commands. Actual human label/operator reviews remain zero; browser checks use
 clearly identified automated fixture receipts.
 
+The [adaptive supervisor diagnostic](docs/ADAPTIVE_SUPERVISION.md) now updates a
+bounded forecast coefficient from newly observed mask outcomes and scales
+candidate-triggered simulated pauses. Its four-way comparison retains all costs
+and the negative forecast result: adaptation is worse than plain recent rate on
+the two synthetic validation families. Real shadow output issues no commands;
+physical action response and real accuracy remain unevaluated.
+
 Real observations are now local: **2,123 alpha-LGA microscope images from nine
 runs, three phase-specific KDP movies and one separately identified ADP movie**.
 The image index preserves 79 source manual shape fits; reviewed segmentation and

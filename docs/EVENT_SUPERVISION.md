@@ -140,13 +140,14 @@ rehashed record that falsely advances recipe phase through a pause.
 
 ## Next pitch work
 
-Specify an observable short-horizon forecast, its causal history, objective,
-changing adaptive state/policy and permitted actions. Compare it with persistence
-and the implemented rule baseline using appropriately grouped evidence. A fixed
-candidate-to-pause rule is not the adaptive-agent deliverable. Continue reviewed
-real mask/event coverage. The first [area-forecast diagnostic](AREA_FORECAST.md)
-preserves a negative future-area baseline comparison and unreviewed real shadow
-predictions; measurement bias and longer trajectories need attention before promotion.
+The [adaptive software diagnostic](ADAPTIVE_SUPERVISION.md) now specifies an
+observable short-horizon forecast, causal parameter updates and bounded
+forecast-scaled pauses. Its grouped comparison retains a negative result against
+plain recent-rate forecasting; four thermal variants show recipe-delay behavior
+without action-responsive growth or physical benefit. Continue reviewed real
+mask/event coverage and define a supported action-response objective before
+physical acceptance. The first [area-forecast diagnostic](AREA_FORECAST.md)
+preserves its historical negative result and unreviewed real shadow predictions.
 Continue measurement/clock calibration and capture planning.
 Use the [operator replay view](OPERATOR_REPLAY.md) for explicit review and
 simulated manual resume. Add linked forecasts/adaptive state, supported face

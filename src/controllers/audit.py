@@ -239,6 +239,7 @@ def audit_control_benchmark(path):
             "crystalab_temperature_benchmark_run_v1",
             "crystalab_supervised_control_demo_v1",
             "crystalab_operator_control_demo_v1",
+            "crystalab_adaptive_control_demo_v1",
         }
         and manifest["status"] == "complete",
         "completed temperature experiment required",
@@ -246,7 +247,7 @@ def audit_control_benchmark(path):
     inventory = {
         str(p.relative_to(root))
         for p in root.rglob("*")
-        if p.is_file() and p.name != "manifest.json"
+        if p.is_file() and p != root / "manifest.json"
     }
     require(inventory == set(manifest["files"]), "artifact inventory changed")
     for name, digest in manifest["files"].items():
@@ -270,6 +271,7 @@ def audit_control_benchmark(path):
     supervised = manifest["schema"] in {
         "crystalab_supervised_control_demo_v1",
         "crystalab_operator_control_demo_v1",
+        "crystalab_adaptive_control_demo_v1",
     }
     if manifest["schema"] == "crystalab_operator_control_demo_v1":
         from .operator_audit import audit_operator_supervision
@@ -280,8 +282,16 @@ def audit_control_benchmark(path):
     actions, source_root, source_manifest = (
         supervision_auditor(root, manifest, config) if supervised else ([], None, None)
     )
+    adaptive = manifest["schema"] == "crystalab_adaptive_control_demo_v1"
+    adaptive_actions = []
+    if adaptive:
+        from .adaptive_audit import audit_adaptive_supervision
+
+        adaptive_actions = audit_adaptive_supervision(root, manifest, config)
     methods = (
-        ["fixed_recipe", "pid", "rule_supervised"]
+        ["fixed_recipe", "pid", "rule_supervised", "adaptive_supervised"]
+        if adaptive
+        else ["fixed_recipe", "pid", "rule_supervised"]
         if supervised
         else ["fixed_recipe", "pid"]
     )
@@ -295,6 +305,9 @@ def audit_control_benchmark(path):
         "comparison identities",
     )
     for run in manifest["runs"]:
+        method_actions = (
+            adaptive_actions if run["method"] == "adaptive_supervised" else actions
+        )
         scenario = next(s for s in config["scenarios"] if s["id"] == run["scenario"])
         rows = json_rows(local(root, run["records_path"]))
         commands = json_rows(local(root, run["commands_path"]))
@@ -315,18 +328,18 @@ def audit_control_benchmark(path):
                 "row identity",
             )
             target = reference_target(config["recipe"], now)
-            if run["method"] == "rule_supervised":
+            if run["method"] in {"rule_supervised", "adaptive_supervised"}:
                 near(row["nominal_recipe_setpoint_K"], target, "nominal recipe target")
                 phase = now - sum(
                     max(
                         0.0,
                         min(now, a["pause_until_model_s"]) - a["model_decision_time_s"],
                     )
-                    for a in actions
+                    for a in method_actions
                 )
                 near(row["supervision"]["recipe_phase_s"], phase, "paused recipe phase")
                 target = reference_target(config["recipe"], phase)
-                for action in actions:
+                for action in method_actions:
                     if action["model_decision_time_s"] <= now:
                         require(
                             action["proposal_id"] in row["proposal"]["evidence_ids"]
@@ -502,7 +515,7 @@ def audit_control_benchmark(path):
                 and row["physical_hardware_contacted"] is False,
                 "evidence scope",
             )
-            if run["method"] in {"pid", "rule_supervised"}:
+            if run["method"] in {"pid", "rule_supervised", "adaptive_supervised"}:
                 require(
                     sensor["sample_id"] in proposal["evidence_ids"]
                     and decision["feedback_sample_id"] == sensor["sample_id"],

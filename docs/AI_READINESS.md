@@ -11,7 +11,10 @@ real defect accuracy. A temperature PID software baseline now runs on a declared
 thermal fixture. Event-rule shadow proposals and a bounded fixture-to-PID pause
 comparison are implemented. The [operator replay console](OPERATOR_REPLAY.md)
 adds explicit evidence review and bounded simulated pause/manual resume. Adaptive
-supervision and physical control remain open.
+supervision now has a bounded [software diagnostic](ADAPTIVE_SUPERVISION.md) with
+matured observed-area updates and a four-way thermal comparison. It does not beat
+plain recent-rate forecasting. Physical control and an action-response objective
+remain open.
 
 ## Readiness gates
 
@@ -20,8 +23,8 @@ supervision and physical control remain open.
 | Video baseline and image-data pipeline | File/camera adapter, baseline/learned replay, original-frame mapping, real-image index, six editable proposals and audited 18-frame smoke / 60-image grouped optical datasets. | Human pixel/event review, clock/measurement checks and relevant real coverage. |
 | YOLOv8-seg and visible-event alerts | Pinned training/evaluation, grouped synthetic fit, seed comparison, learned seed-role replay and shared causal candidate inspection during observation or on saved masks. File-tested; bubble errors and missed inclusions remain. | Equipment timing, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
-| Projected-area forecast | Grouped optical replay cohort, causal area histories, training-only calibration, startup-aware baseline comparison and unscored real shadow predictions. | Current-area bias/label review, longer trajectories, frozen acceptance budgets and action-response evidence before adaptive action claims. Calibration does not beat future-area persistence on the four shared development windows. |
-| PID/adaptive software loop | Explicit process records, bounded PID, delayed simulated actuator, thermal comparisons and event rules. Operator replay now preserves explicit reviews, bounded pause/manual resume and separate audited counterfactual results. | Linked observable forecast and changing adaptive state/policy, grouped comparison and equipment/operator response evidence. |
+| Projected-area forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared synthetic validation windows. Bounded online adaptation gives 80.71 px²; real replay remains unscored shadow output. Historical original-detector comparisons retain their negative results. | Reviewed real measurements, frozen acceptance budgets and action-response evidence. The adaptive diagnostic does not beat recent rate and is not promoted for physical control. |
+| PID/adaptive software loop | PID, delayed simulated actuation, rules and operator replay. A bounded adaptive gain model now updates from matured observations and chooses forecast-scaled candidate pauses in a four-way comparison. | Source-bound forecast/state display in the console, reviewed real evidence, an action-response objective and equipment/operator validation. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
 | HPC/Qiskit extensions | Separate verified CPU flow operators; no Qiskit implementation. | Bounded hardware/accuracy benchmark and a justified impurity-cluster VQE/classical comparison, as defined in the roadmap. |
 
@@ -32,8 +35,9 @@ checkpointed. Next show the six existing outline proposals for review.
 The [local editor](ANNOTATION_REVIEW_UI.md) now supports native-image point edits,
 uncertain drafts and explicit individual reviews, with earlier receipts retained
 when corrections need a new version. Its real read-only preview changed no files;
-actual human review receipts remain zero. It does not complete the video/process
-operator display or adaptive/manual control interface.
+actual human review receipts remain zero. The separate operator replay provides
+video/process review and manual simulated pause/resume; displaying the new
+adaptive forecast and state there remains an integration step.
 An [auxiliary published-mask index](PUBLISHED_CRYSTAL_MASKS.md) now preserves 587
 real protein-crystal images and 4,986 source crystal/drop masks. Its selected-object
 task, unannotated regions and physical grouping need an explicit compatible

@@ -153,8 +153,10 @@ PYTHONDONTWRITEBYTECODE=1 QT_QPA_PLATFORM=offscreen \
   --real-session results/operator_real_v2
 ```
 
-Next connect a declared forecast and changing adaptive state/policy, compare it
-against persistence/PID/rules and retain action-response limits. Continue actual
+The separate [adaptive diagnostic](ADAPTIVE_SUPERVISION.md) now connects a changing
+observed-area model and forecast-scaled pause policy to a four-way PID comparison.
+Next display that source-bound forecast/state/recommendation in this console and
+retain the action-response limits. Continue actual
 real image/event review, compatible mixed training and independent KDP evidence.
 First-hour coverage, face/asymmetry/inclusions, real equipment/outcome evaluation,
 HPC and Qiskit remain explicit requirements in the [roadmap](../roadmap.md).
