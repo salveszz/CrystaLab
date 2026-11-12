@@ -9,7 +9,9 @@ optical smoke batch are implemented. YOLOv8-seg training and development
 evaluation now run locally on synthetic labels. The small fits do not establish
 real defect accuracy. A temperature PID software baseline now runs on a declared
 thermal fixture. Event-rule shadow proposals and a bounded fixture-to-PID pause
-comparison are implemented; adaptive supervision and physical control remain open.
+comparison are implemented. The [operator replay console](OPERATOR_REPLAY.md)
+adds explicit evidence review and bounded simulated pause/manual resume. Adaptive
+supervision and physical control remain open.
 
 ## Readiness gates
 
@@ -19,7 +21,7 @@ comparison are implemented; adaptive supervision and physical control remain ope
 | YOLOv8-seg and visible-event alerts | Pinned training/evaluation, grouped synthetic fit, seed comparison, learned seed-role replay and shared causal candidate inspection during observation or on saved masks. File-tested; bubble errors and missed inclusions remain. | Equipment timing, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
 | Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
 | Projected-area forecast | Grouped optical replay cohort, causal area histories, training-only calibration, startup-aware baseline comparison and unscored real shadow predictions. | Current-area bias/label review, longer trajectories, frozen acceptance budgets and action-response evidence before adaptive action claims. Calibration does not beat future-area persistence on the four shared development windows. |
-| PID/adaptive software loop | Explicit process records, bounded PID, delayed simulated actuator, thermal comparisons, event-rule shadow proposals and an audited fixture-to-PID recipe pause with explicit scripted authorization. | Observable forecast and changing adaptive state/policy, grouped comparison, operator view and equipment-specific response/timeout evidence. |
+| PID/adaptive software loop | Explicit process records, bounded PID, delayed simulated actuator, thermal comparisons and event rules. Operator replay now preserves explicit reviews, bounded pause/manual resume and separate audited counterfactual results. | Linked observable forecast and changing adaptive state/policy, grouped comparison and equipment/operator response evidence. |
 | Physical KDP growth/control | Structural references, aggregate summaries and three acquired phase-specific microscopy clips. | Reviewed trajectories/conditions, relevant calibration, equipment/response characterization and independent experiments. |
 | HPC/Qiskit extensions | Separate verified CPU flow operators; no Qiskit implementation. | Bounded hardware/accuracy benchmark and a justified impurity-cluster VQE/classical comparison, as defined in the roadmap. |
 

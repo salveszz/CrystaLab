@@ -1,0 +1,499 @@
+{
+  "schema": "crystalab_operator_replay_checkpoint_v1",
+  "date": "2026-11-12",
+  "status": "software_operator_replay_verified",
+  "pitch_reference": "Pitch_KDP.pptx slides 5\u20137 and 9: operator involvement, traceable video evidence, proposed actions and PID response",
+  "implementation": {
+    "local_only": true,
+    "default_url": "http://127.0.0.1:8766",
+    "allowed_review_actions": [
+      "acknowledge",
+      "decline",
+      "approve_pause",
+      "resume_recipe"
+    ],
+    "real_evidence_mode": "shadow_review_without_process_readings_or_numerical_commands",
+    "simulated_action_scope": "explicit source-bound counterfactual replay; no physical growth-time mapping",
+    "controls": {
+      "pause_model_seconds_per_request": 60,
+      "maximum_reserved_model_seconds": 120,
+      "target_seconds_per_source_second": 100
+    },
+    "review_context": [
+      "source_manifest_sha256",
+      "operator_session_manifest_sha256",
+      "displayed_frame_sha256",
+      "proposal_evidence_image_sha256",
+      "proposal_sha256",
+      "source_frame_index",
+      "source_time_s",
+      "clock_id",
+      "reviewer_kind",
+      "acknowledged",
+      "recorded_at_utc",
+      "previous_review_sha256"
+    ],
+    "image_readiness": "Selected frame and proposal images must decode before review controls enable; stale/cancelled loads cannot advance the displayed clock.",
+    "preserved_result_states": true,
+    "physical_hardware_contacted": false,
+    "adaptive_policy_implemented": false
+  },
+  "verification": {
+    "status": "passed",
+    "pytest_tests": 388,
+    "pytest_subtests": 280,
+    "elapsed_seconds": 113.56,
+    "log_sha256": "425d62a7c150fbb53545e196650ab4f6e90030956f83716d5c72ec66b169ef0b",
+    "python_source_sha256": {
+      "src/controllers/supervision.py": "49754e33425986e3916a4cdb00947d8ca80b2ad9be69e4b8b4387266a19ed878",
+      "src/controllers/supervised_demo.py": "48946da30494732b203d3d3db208bf4c7ee7880f469beffd10e1cb20ee9058ec",
+      "src/controllers/audit.py": "b6a416232b5b03bb7c14a4cd79e6291ca28eca3dfcff15832a03f82bdcf4e980",
+      "src/controllers/operator_demo.py": "cfd735e74fa88326b66f814c3eb8c0855c923eb755f094de0fc56621d708c81a",
+      "src/controllers/operator_audit.py": "5e0f9d546438463337f97ecdf29a8ca278f92226bbd9bfe2687a61a2da3f2acc",
+      "src/dashboard/operator.py": "9d5f234909de9ec0376d99d1250df5c2725e254f30b271a631b07c198e95e9aa",
+      "scripts/operator_console.py": "f48b968af7765fd61a997308bd4f5c8f0c6af0bedaf2bb41945f1c7b4076973a",
+      "tests/test_operator_console.py": "633c8ff5697c83e1981f79a2199218c937f7d30071b440859fd9b82027ec994d"
+    },
+    "pytest_command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "browser_checks": 19,
+    "browser_check_names": [
+      "Empty operator history and unavailable startup sensor",
+      "Play advances recorded source frames",
+      "Review remains explicit at a fresh ramp proposal",
+      "Named acknowledgement enables simulated pause",
+      "Delayed frame pixels keep review blocked and the displayed clock unchanged",
+      "Review re-enables only after selected frame and evidence decode",
+      "Saved automated receipt changes the bounded simulation",
+      "Accepted request, applied input and delayed response stay separate",
+      "Moving to another frame clears review acknowledgement",
+      "Active pause can be manually resumed",
+      "Manual resume produces a new immutable result",
+      "Seeking before saved decisions cannot create retrospective approval",
+      "Localized inclusion evidence is displayed",
+      "Mobile document has no horizontal page overflow",
+      "synthetic: source and controls remain read-only",
+      "synthetic: selected frame and proposal pixels finish decoding",
+      "real: source and controls remain read-only",
+      "real: selected frame and proposal pixels finish decoding",
+      "real: process readings remain absent"
+    ],
+    "browser_errors": [],
+    "browser_engine": "offscreen QtWebEngine",
+    "pyside6_version": "6.11.2",
+    "browser_source_sha256": {
+      "src/dashboard/static/operator.html": "555360ddb107df26ce40a2a38b115852eddf3b79c19901a80b141445643bfd5e",
+      "src/dashboard/static/operator.css": "0e00e59de11ce4ed4791cae68605b641d7d8162f9c2d22c1d63e8a00435527f1",
+      "src/dashboard/static/operator.js": "0de64376336c01dfa1a56830b961dfe9538eb3e3f64fa5b82cecd2b5441b6d58",
+      "tests/check_operator_console_ui.py": "abbf59ff721439ccf92c2b099c1abd32c1f64a81f9f8b23551752e2ec296aca9",
+      "tests/check_annotation_review_ui.py": "393b5a2eff0e1167a6781236c4d005010ca8f25bf1ccf3fa68ec88f073ef2df7"
+    },
+    "connected_browser_available": false,
+    "connected_browser_limit": "CUA_REPL_ENABLED_SURFACES was unavailable; installed optional offscreen browser used instead, with fixture server in a separate process.",
+    "node_syntax_check": "node --check src/dashboard/static/operator.js",
+    "independent_cached_frames": 94,
+    "independent_process_records": 7212,
+    "source_frame_pixel_native_area_and_review_context_reconstruction": true,
+    "read_only_preview_evidence": {
+      "synthetic": {
+        "session": "/home/salves/dev/CrystaLab/results/operator_synthetic_v2",
+        "files_unchanged": 64,
+        "source_files_unchanged": 22,
+        "human_reviews_created": 0
+      },
+      "real": {
+        "session": "/home/salves/dev/CrystaLab/results/operator_real_v2",
+        "files_unchanged": 49,
+        "source_files_unchanged": 9,
+        "human_reviews_created": 0
+      }
+    },
+    "qa_servers_stopped": true
+  },
+  "actual_executions": {
+    "fixture": {
+      "session": "results/operator_ui_check_v7/operator",
+      "manifest_sha256": "89dd8a2aa558573d5c3e4da415100571e28dbb0253407c900c4a7e183f3fecae",
+      "history_sha256": "b5eee60278b80e44650f24bd945d687574cc4318a56deca91d887184177f1a41",
+      "source_manifest_sha256": "b69bf2bfd9411e1e960e8d5821ee1b73cbf0dac253183823489e0c8648cd5c73",
+      "frames": 48,
+      "human_reviews_created": 0,
+      "automated_fixture_reviews": 2,
+      "pixel_and_source_frame_mapping_reconstructed": true,
+      "native_seed_area_reconstructed": true,
+      "result_states": [
+        {
+          "path": "runs/initial",
+          "manifest_sha256": "0af3f053493bf3b9919ca7d760bf4748f0e755de35106e298034e28583a5f742",
+          "reviews": 0,
+          "executions": [],
+          "manual_resumptions": [],
+          "runs": [
+            {
+              "method": "fixed_recipe",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.18734932257089018,
+                "sample_rmse_K": 0.19200416928943095,
+                "trapezoidal_IAE_K_s": 112.4927786167352,
+                "maximum_above_target_K": 0.20832849673962528,
+                "maximum_below_target_K": 0.0,
+                "requested_input_total_variation_K": 2.0,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 0,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.18734932257089018,
+              "recipe_phase_lag_s": 0.0
+            },
+            {
+              "method": "pid",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.010532106225083621,
+                "sample_rmse_K": 0.01881611501284073,
+                "trapezoidal_IAE_K_s": 6.328461584357683,
+                "maximum_above_target_K": 0.061376815593234824,
+                "maximum_below_target_K": 0.008725386945457103,
+                "requested_input_total_variation_K": 13.823790522581817,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 1,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.010532106225083621,
+              "recipe_phase_lag_s": 0.0
+            },
+            {
+              "method": "rule_supervised",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.010532106225083621,
+                "sample_rmse_K": 0.01881611501284073,
+                "trapezoidal_IAE_K_s": 6.328461584357683,
+                "maximum_above_target_K": 0.061376815593234824,
+                "maximum_below_target_K": 0.008725386945457103,
+                "requested_input_total_variation_K": 13.823790522581817,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 1,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.010532106225083621,
+              "recipe_phase_lag_s": 0.0
+            }
+          ]
+        },
+        {
+          "path": "runs/review_000001_533f272a",
+          "manifest_sha256": "ba41737e630ac98a42a925458bf758493b2cc49c53fdf78794af609aa57fe083",
+          "reviews": 1,
+          "executions": [
+            {
+              "proposal_id": "candidate_policy_fixture_v1:proposal:000002",
+              "proposal_sha256": "c8480e82aa1d19be178b9611e29e5a80120d2bcba09f8592d56aa4c2ce4b5559",
+              "decision_id": "candidate_policy_fixture_v1:operator_review:000001",
+              "review_receipt_sha256": "ca2631832db8952e82b089bb05388cd476235a1ab85b5b113e17fc75db3200bd",
+              "source_decision_time_s": 1.3,
+              "model_decision_time_s": 130.0,
+              "requested_pause_duration_model_s": 60.0,
+              "requested_pause_until_model_s": 190.0,
+              "pause_until_model_s": 190.0,
+              "pause_duration_model_s": 60.0,
+              "held_recipe_phase_s": 130.0,
+              "sensor_sample_id": "vision_pause_fixture:rule_supervised:sensor:000129",
+              "basis": "automated_fixture_qa",
+              "operator_reviewed": false,
+              "physical_hardware_authorized": false
+            }
+          ],
+          "manual_resumptions": [],
+          "runs": [
+            {
+              "method": "fixed_recipe",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.18734932257089018,
+                "sample_rmse_K": 0.19200416928943095,
+                "trapezoidal_IAE_K_s": 112.4927786167352,
+                "maximum_above_target_K": 0.20832849673962528,
+                "maximum_below_target_K": 0.0,
+                "requested_input_total_variation_K": 2.0,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 0,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.18734932257089018,
+              "recipe_phase_lag_s": 0.0
+            },
+            {
+              "method": "pid",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.010532106225083621,
+                "sample_rmse_K": 0.01881611501284073,
+                "trapezoidal_IAE_K_s": 6.328461584357683,
+                "maximum_above_target_K": 0.061376815593234824,
+                "maximum_below_target_K": 0.008725386945457103,
+                "requested_input_total_variation_K": 13.823790522581817,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 1,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.010532106225083621,
+              "recipe_phase_lag_s": 0.0
+            },
+            {
+              "method": "rule_supervised",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.019101469066129934,
+                "sample_rmse_K": 0.027684103251947464,
+                "trapezoidal_IAE_K_s": 11.478663978511946,
+                "maximum_above_target_K": 0.061376815593234824,
+                "maximum_below_target_K": 0.06323232487920905,
+                "requested_input_total_variation_K": 13.839498047151608,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 1,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.15121675594223358,
+              "recipe_phase_lag_s": 60.0
+            }
+          ]
+        },
+        {
+          "path": "runs/review_000002_2c41a83a",
+          "manifest_sha256": "f18aa01741874cc31ceb016d6709a15021b97bc37decc989c37e1adf33dda632",
+          "reviews": 2,
+          "executions": [
+            {
+              "proposal_id": "candidate_policy_fixture_v1:proposal:000002",
+              "proposal_sha256": "c8480e82aa1d19be178b9611e29e5a80120d2bcba09f8592d56aa4c2ce4b5559",
+              "decision_id": "candidate_policy_fixture_v1:operator_review:000001",
+              "review_receipt_sha256": "ca2631832db8952e82b089bb05388cd476235a1ab85b5b113e17fc75db3200bd",
+              "source_decision_time_s": 1.3,
+              "model_decision_time_s": 130.0,
+              "requested_pause_duration_model_s": 60.0,
+              "requested_pause_until_model_s": 190.0,
+              "pause_until_model_s": 150.0,
+              "pause_duration_model_s": 20.0,
+              "held_recipe_phase_s": 130.0,
+              "sensor_sample_id": "vision_pause_fixture:rule_supervised:sensor:000129",
+              "basis": "automated_fixture_qa",
+              "operator_reviewed": false,
+              "physical_hardware_authorized": false
+            }
+          ],
+          "manual_resumptions": [
+            {
+              "review_id": "candidate_policy_fixture_v1:operator_review:000002",
+              "pause_review_id": "candidate_policy_fixture_v1:operator_review:000001",
+              "model_time_s": 150.0,
+              "source_time_s": 1.5,
+              "sensor_sample_id": "vision_pause_fixture:rule_supervised:sensor:000149",
+              "review_receipt_sha256": "a74bdb996f3d673e62e252eed50e95de5bf4375ed91159e882a0c5d4edc96a91",
+              "operator_reviewed": false,
+              "physical_hardware_authorized": false
+            }
+          ],
+          "runs": [
+            {
+              "method": "fixed_recipe",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.18734932257089018,
+                "sample_rmse_K": 0.19200416928943095,
+                "trapezoidal_IAE_K_s": 112.4927786167352,
+                "maximum_above_target_K": 0.20832849673962528,
+                "maximum_below_target_K": 0.0,
+                "requested_input_total_variation_K": 2.0,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 0,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.18734932257089018,
+              "recipe_phase_lag_s": 0.0
+            },
+            {
+              "method": "pid",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.010532106225083621,
+                "sample_rmse_K": 0.01881611501284073,
+                "trapezoidal_IAE_K_s": 6.328461584357683,
+                "maximum_above_target_K": 0.061376815593234824,
+                "maximum_below_target_K": 0.008725386945457103,
+                "requested_input_total_variation_K": 13.823790522581817,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 1,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.010532106225083621,
+              "recipe_phase_lag_s": 0.0
+            },
+            {
+              "method": "rule_supervised",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.012319484740080324,
+                "sample_rmse_K": 0.02069644313327089,
+                "trapezoidal_IAE_K_s": 7.402677858309488,
+                "maximum_above_target_K": 0.061376815593234824,
+                "maximum_below_target_K": 0.05097939422296349,
+                "requested_input_total_variation_K": 13.827620049156849,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 1,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.05548795385966739,
+              "recipe_phase_lag_s": 20.0
+            }
+          ]
+        }
+      ]
+    },
+    "synthetic": {
+      "session": "results/operator_synthetic_v2",
+      "manifest_sha256": "5d10d5c8179edbf5f4bfb05bc4e2b8116814be16d905a4e80a6e6bfd3a1f1b69",
+      "history_sha256": "17ef9e3518db857675cfb3c6ca3365652dcd52d50290929c0f16700f509cbe5b",
+      "source_manifest_sha256": "8c67470710550b42574cb4a6f576090d71b5846533004b545a11849aa8b3cc34",
+      "frames": 16,
+      "human_reviews_created": 0,
+      "automated_fixture_reviews": 0,
+      "pixel_and_source_frame_mapping_reconstructed": true,
+      "native_seed_area_reconstructed": true,
+      "result_states": [
+        {
+          "path": "runs/initial",
+          "manifest_sha256": "739367268be1c05e70a865ad678d517f550bbc87ffdf17f1e6ba66c9d754e0bc",
+          "reviews": 0,
+          "executions": [],
+          "manual_resumptions": [],
+          "runs": [
+            {
+              "method": "fixed_recipe",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.18734932257089018,
+                "sample_rmse_K": 0.19200416928943095,
+                "trapezoidal_IAE_K_s": 112.4927786167352,
+                "maximum_above_target_K": 0.20832849673962528,
+                "maximum_below_target_K": 0.0,
+                "requested_input_total_variation_K": 2.0,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 0,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.18734932257089018,
+              "recipe_phase_lag_s": 0.0
+            },
+            {
+              "method": "pid",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.010532106225083621,
+                "sample_rmse_K": 0.01881611501284073,
+                "trapezoidal_IAE_K_s": 6.328461584357683,
+                "maximum_above_target_K": 0.061376815593234824,
+                "maximum_below_target_K": 0.008725386945457103,
+                "requested_input_total_variation_K": 13.823790522581817,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 1,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.010532106225083621,
+              "recipe_phase_lag_s": 0.0
+            },
+            {
+              "method": "rule_supervised",
+              "metrics": {
+                "samples": 601,
+                "sample_mae_K": 0.010532106225083621,
+                "sample_rmse_K": 0.01881611501284073,
+                "trapezoidal_IAE_K_s": 6.328461584357683,
+                "maximum_above_target_K": 0.061376815593234824,
+                "maximum_below_target_K": 0.008725386945457103,
+                "requested_input_total_variation_K": 13.823790522581817,
+                "saturated_steps": 0,
+                "rate_limited_steps": 0,
+                "fallback_steps": 1,
+                "scripted_manual_steps": 0,
+                "invalid_observation_steps": 1
+              },
+              "nominal_recipe_sample_mae_K": 0.010532106225083621,
+              "recipe_phase_lag_s": 0.0
+            }
+          ]
+        }
+      ]
+    },
+    "real": {
+      "session": "results/operator_real_v2",
+      "manifest_sha256": "c35f8b0b9d7cbd1b962bda47570afa52a942193510aacc00a2016255b2613a6e",
+      "history_sha256": "f8c44e67370b34627d9ca2729b8ed32860f0d0347397cf267e7f5fbb2055f5c0",
+      "source_manifest_sha256": "1a3d8ae396b6d01f18b545b49545544d0eb3439b769c0f094ba66b6c7622d437",
+      "frames": 30,
+      "human_reviews_created": 0,
+      "automated_fixture_reviews": 0,
+      "pixel_and_source_frame_mapping_reconstructed": true,
+      "native_seed_area_reconstructed": true,
+      "result_states": []
+    }
+  },
+  "artifact_sha256": {
+    "results/operator_ui_check_v7/browser_report.json": "584c941a7c9eb3b894907e1ad85152ebbacbdf69f317441f089ff12d78ac85db",
+    "results/operator_execution_audit_v2.json": "39abfefca1066053eeceedde3392f5b87c7992fab2eee1537d3e52a63783a52c",
+    "results/audit_operator_replay_v2.py": "98287f899640e963c372be3ea9a46d7e2d37366cd151f3fd9a128b19b24aba76",
+    "configs/operator_optical_demo.json": "2e97617258ff927f8d2b728aa1e7b61ad62520693f101f671ee5c0fa970c8eb5",
+    "results/operator_ui_check_v7/operator/manifest.json": "89dd8a2aa558573d5c3e4da415100571e28dbb0253407c900c4a7e183f3fecae",
+    "results/operator_ui_check_v7/operator/history.json": "b5eee60278b80e44650f24bd945d687574cc4318a56deca91d887184177f1a41",
+    "results/operator_ui_check_v7/operator/runs/initial/manifest.json": "0af3f053493bf3b9919ca7d760bf4748f0e755de35106e298034e28583a5f742",
+    "results/operator_ui_check_v7/operator/runs/review_000001_533f272a/manifest.json": "ba41737e630ac98a42a925458bf758493b2cc49c53fdf78794af609aa57fe083",
+    "results/operator_ui_check_v7/operator/runs/review_000002_2c41a83a/manifest.json": "f18aa01741874cc31ceb016d6709a15021b97bc37decc989c37e1adf33dda632",
+    "results/operator_synthetic_v2/manifest.json": "5d10d5c8179edbf5f4bfb05bc4e2b8116814be16d905a4e80a6e6bfd3a1f1b69",
+    "results/operator_synthetic_v2/history.json": "17ef9e3518db857675cfb3c6ca3365652dcd52d50290929c0f16700f509cbe5b",
+    "results/operator_synthetic_v2/runs/initial/manifest.json": "739367268be1c05e70a865ad678d517f550bbc87ffdf17f1e6ba66c9d754e0bc",
+    "results/operator_real_v2/manifest.json": "c35f8b0b9d7cbd1b962bda47570afa52a942193510aacc00a2016255b2613a6e",
+    "results/operator_real_v2/history.json": "f8c44e67370b34627d9ca2729b8ed32860f0d0347397cf267e7f5fbb2055f5c0",
+    "results/operator_ui_check_v7/fixture_after_resume.png": "9da1d8f3d4f2d965e8f472d60da2390b392573d29216d608affefe2383397bc2",
+    "results/operator_ui_check_v7/fixture_before_review.png": "031becbe92b43d2aa48365aa25303b4f704acf662f8db3454b4d2d4f253f6848",
+    "results/operator_ui_check_v7/fixture_mobile.png": "ca2744c96159315aef20ff6267393c1010f5d8cd0a606385ea8668e57e5f1397",
+    "results/operator_ui_check_v7/real_readonly.png": "a60b5fb2688b1c11a582f611b388500bf9e95340a92022900fe8596c31fd885f",
+    "results/operator_ui_check_v7/synthetic_readonly.png": "8b44d207e66b8c4cb203b99ff382a7ac968afd4478a760482fdd3f3338888027"
+  },
+  "actual_human_operator_reviews": 0,
+  "actual_human_annotation_reviews": 0,
+  "real_annotation_proposals_unchanged": 6,
+  "automated_fixture_reviews": 2,
+  "fixture_initial_pause_model_s": 60,
+  "fixture_pause_start_model_s": 130,
+  "fixture_manual_resume_model_s": 150,
+  "fixture_actual_pause_model_s": 20,
+  "scope": "Software replay and independent artifact/process verification only. No authenticated identity, live hardware authorization, prospective reaction-time, real defect accuracy or quality-benefit claim.",
+  "remaining": [
+    "Reviewed real image/event labels, compatible mixed training and independent KDP/first-hour evaluation.",
+    "Link declared forecast and changing adaptive state/policy; compare with persistence/PID/rules with supported action-response evidence.",
+    "Supported faces/asymmetry/inclusion coverage and rotation/flow proposals or actions at their declared evidence level.",
+    "Equipment response, physical outcomes, CPU/GPU benchmark and justified Qiskit/classical comparison."
+  ]
+}

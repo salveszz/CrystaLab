@@ -6,8 +6,10 @@ software fixture connects an explicitly scripted pause decision through temperat
 PID to delayed simulated actuation. This implements the rule baseline in roadmap
 Batch 4, with actual results in the [checkpoint](EVENT_SUPERVISION_CHECKPOINT.json).
 
-The adaptive forecast/state policy, operator interface, supported face asymmetry
-and physical action-response evidence remain unfinished. These rules react to
+The [operator replay interface](OPERATOR_REPLAY.md) now supports explicit reviews
+and bounded simulated pause/manual resume, retaining separate results. Adaptive
+forecast/state policy, supported face asymmetry and physical action-response
+evidence remain unfinished. These rules react to
 visible candidates; they do not predict events before visibility. Real labels
 remain unreviewed and the source detector's bubble/inclusion errors remain.
 
@@ -146,7 +148,8 @@ real mask/event coverage. The first [area-forecast diagnostic](AREA_FORECAST.md)
 preserves a negative future-area baseline comparison and unreviewed real shadow
 predictions; measurement bias and longer trajectories need attention before promotion.
 Continue measurement/clock calibration and capture planning.
-Add an operator view with actual review/override input, supported projected
-growth/face measurements and equipment acknowledgment/fallback characterization.
+Use the [operator replay view](OPERATOR_REPLAY.md) for explicit review and
+simulated manual resume. Add linked forecasts/adaptive state, supported face
+measurements and equipment acknowledgment/fallback characterization.
 Real first-hour, physical action benefit, HPC and Qiskit remain open in the
 [pitch-led roadmap](../roadmap.md).

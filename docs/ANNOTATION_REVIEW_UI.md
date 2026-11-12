@@ -6,8 +6,10 @@ moves points where necessary, and records a review for that image. No code revie
 is involved. These checked outlines can then become real segmentation labels for
 the pitch's camera model.
 
-This is a still-image annotation tool. The video/process display, event review,
-adaptive decisions and manual control interface from the pitch remain open.
+This is a still-image annotation tool. The separate
+[operator replay console](OPERATOR_REPLAY.md) now adds video/process display,
+proposal review and simulated pause/manual resume. Adaptive decisions and live
+equipment/operator validation remain open.
 The six existing Leeds run-12 proposals still have **zero actual human reviews**.
 They are alpha-LGA development images; they do not establish KDP accuracy.
 

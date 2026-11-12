@@ -20,8 +20,8 @@ non-seed identities, persistent inspection evidence and independently scored
 synthetic errors. The same decisions now run during single-pass observation.
 The [temperature PID baseline](docs/TEMPERATURE_CONTROL.md) now runs with explicit
 sensor/command records and audited simulated-plant comparisons. Real review,
-equipment verification, adaptation and the operator
-demo remain open. See the
+equipment verification, adaptation and live operator/equipment validation
+remain open. See the
 [roadmap](roadmap.md) and [Vision MVP contract](docs/VISION_MVP.md). The tabular
 growth benchmark is supporting work; HPC and Qiskit have separate extension gates.
 
@@ -49,6 +49,13 @@ input against original pixels. With fixed expanded detectors, recent-rate
 forecasts beat persistence on the same two synthetic validation families. This
 resolves a synthetic replay discrepancy; real camera encoding, labels and adaptive
 control still need their own evaluation.
+
+The [operator replay console](docs/OPERATOR_REPLAY.md) now combines video,
+native measurements, proposal evidence and process records. Explicit reviews can
+pause and manually resume a bounded simulated recipe, with separate saved results.
+Real-video sessions retain shadow review without invented process readings or
+commands. Actual human label/operator reviews remain zero; browser checks use
+clearly identified automated fixture receipts.
 
 Real observations are now local: **2,123 alpha-LGA microscope images from nine
 runs, three phase-specific KDP movies and one separately identified ADP movie**.

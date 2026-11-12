@@ -37,6 +37,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Expanded vision checkpoint](VISION_REFINEMENT_CHECKPOINT.json) | Model/config identities, family results, independent mask/event/formula audits and 378-test regression. |
 | [Video encoding](VIDEO_ENCODING.md) | Paired fixed-model MJPG/FFV1 replays, decoded-pixel/native-mask equality, event regressions and shared-window forecast results. |
 | [Video encoding checkpoint](VIDEO_ENCODING_CHECKPOINT.json) | Six run identities, 480-frame/1,800-record independent audits, retained failures and 381-test regression. |
+| [Operator replay](OPERATOR_REPLAY.md) | Synchronized video/process/proposal view, explicit source/pixel-bound reviews and bounded simulated pause/manual resume. |
+| [Operator replay checkpoint](OPERATOR_REPLAY_CHECKPOINT.json) | Final browser/regression evidence, preserved counterfactual results, independent receipt/process reconstruction and zero human-review claims. |
 | [Training checkpoint](VISION_TRAINING_CHECKPOINT.json) | 264-test result, actual model hashes, synthetic development errors and remaining real/control gates. |
 | [Seed benchmark](VISION_BENCHMARK.md) | Identical-image OpenCV/YOLO comparison, training-only threshold calibration, invalid-measurement denominators and smoke failures. |
 | [Grouped synthetic pilot](VISION_PILOT.md) | Completed 60-image dataset, 30-epoch model, four-family development evaluation, bubble/inclusion failures and remaining gates. |

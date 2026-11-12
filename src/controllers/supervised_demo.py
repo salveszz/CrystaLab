@@ -126,7 +126,7 @@ class PauseCoordinator:
                 ),
             )
 
-    def __call__(self, now, nominal, observation):
+    def advance(self, now, observation):
         interval = now - self.previous_time
         if interval < 0:
             raise ValueError("Model clock cannot reverse")
@@ -144,6 +144,11 @@ class PauseCoordinator:
             <= self.config["thermal"]["pid"]["maximum_feedback_age_s"]
         )
         source_available = source_now <= self.packets[-1].observed_at_s + 1e-12
+        return source_now, feedback_usable, source_available
+
+    def __call__(self, now, nominal, observation):
+        source_now, feedback_usable, source_available = self.advance(now, observation)
+        current_time = self.supervisor.time_s
         for key, entry in self.supervisor.proposals.items():
             proposal = entry["proposal"]
             if (
@@ -197,6 +202,9 @@ class PauseCoordinator:
                     execution=action,
                 ),
             )
+        return self.result(now, nominal, source_now, feedback_usable, source_available)
+
+    def result(self, now, nominal, source_now, feedback_usable, source_available):
         recipe = self.config["thermal"]["recipe"]
         target = float(
             np.interp(

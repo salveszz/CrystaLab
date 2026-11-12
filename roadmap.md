@@ -19,7 +19,7 @@ The original MJPG diagnostic confirms the persistence advantage on 28 shared
 validation windows. The later paired encoding experiment verifies lossless input
 and finds that the expanded detectors' rate forecasts beat persistence on those
 two synthetic validation families. Real accuracy, action response and the
-operator demonstration remain open.
+live operator/equipment validation remain open.
 Preserve the simulation and growth dataset as supporting assets. New CFD work or
 an XGBoost benchmark does not close the perception/control requirements.
 
@@ -50,10 +50,12 @@ The foundations run; dependable real detection and adaptive control are unfinish
    evaluation labels, and compare synthetic-only, real-only and mixed fits.
    Report missed crystals, false alerts, outline error and supported event delay.
    Visible inclusions and face asymmetry remain open tasks with their own labels.
-4. **Build the operator demonstration alongside data review.** Show video, crystal
-   outline, process values, alert evidence and proposed action. Record operator
-   approval/override separately from simulated command and response. Connect the
-   existing PID/rule components before evaluating a changing adaptive state/policy.
+4. **Use the operator demonstration while continuing data review.** The
+   [replay console](docs/OPERATOR_REPLAY.md) now shows video, outlines, process
+   values and proposal evidence, with explicit review, bounded simulated pause
+   and manual resume. Receipts and each counterfactual response remain separate;
+   real sources stay in shadow mode. Next connect a declared forecast and changing
+   adaptive state/policy, then validate relevant real capture and equipment behavior.
 5. **Complete the remaining pitch evidence in order.** Evaluate an explicitly
    defined adaptive objective against persistence/PID/rules, gather relevant KDP
    runs with synchronized process/action logs and first-hour coverage, and complete
@@ -78,7 +80,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal source. Combined export has 84 training / 44 validation / 28 reserved images. Two new fits and development replays are complete; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
 | Observable forecast | Paired MJPG/FFV1 comparisons with three frozen detectors. Lossless fullmask recent-rate future-area MAE is 77.00 px² versus persistence 116.18 px² on 28 shared windows from two validation families. Original-detector rates still lose under FFV1. | Gather reviewed real/action-labelled trajectories, characterize capture encoding, freeze budgets and define adaptive forecast/state policy. No action-response model exists. |
-| Learned perception, controllers and UI | Local training/evaluation, expanded synthetic comparisons, candidate analysis, explicit process records, PID, thermal tests, event-rule shadow proposals and scripted fixture-to-PID integration. Still-image annotation UI exists; secondary misses and inclusion failures remain. | Real evaluation, equipment timing, face measurements, adaptive forecast/policy and the video/process/action operator demonstration. |
+| Learned perception, controllers and UI | Local training/evaluation, expanded synthetic comparisons, candidate analysis, PID/rules and explicit process records. The operator replay console adds evidence review, bounded simulated pause/manual resume and preserved results. Secondary misses and inclusion failures remain. | Real evaluation, equipment timing, face measurements, linked forecast/adaptive policy and live equipment/operator validation. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
@@ -294,6 +296,13 @@ Show normal growth, each supported pitch event and an invalid/uncertain view.
 Demonstrate ramp review/pause, rotation/circulation review and inclusion marking
 at the available evidence level. Preserve original clocks and label accelerated
 playback. Package the model/evaluation report, failures, commands and demo video.
+
+The [operator replay](docs/OPERATOR_REPLAY.md) now implements video/process
+display, source-linked reviews and simulated pause/manual resume, retaining each
+result. Real-video shadow display has no process measurements or numerical
+commands. Automated fixture checks create no human review claims. Linked forecast/
+adaptive state, supported faces/asymmetry, rotation/flow actions, relevant real
+event accuracy and live equipment interaction remain open.
 
 A complete software demo still needs independent physical KDP runs to establish
 first-hour detection and effects on growth/quality. Start capture planning in

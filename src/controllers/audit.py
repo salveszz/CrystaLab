@@ -238,6 +238,7 @@ def audit_control_benchmark(path):
         in {
             "crystalab_temperature_benchmark_run_v1",
             "crystalab_supervised_control_demo_v1",
+            "crystalab_operator_control_demo_v1",
         }
         and manifest["status"] == "complete",
         "completed temperature experiment required",
@@ -266,9 +267,18 @@ def audit_control_benchmark(path):
     limits = config["limits"]
     count = round(duration / dt) + 1
     reports = []
-    supervised = manifest["schema"] == "crystalab_supervised_control_demo_v1"
+    supervised = manifest["schema"] in {
+        "crystalab_supervised_control_demo_v1",
+        "crystalab_operator_control_demo_v1",
+    }
+    if manifest["schema"] == "crystalab_operator_control_demo_v1":
+        from .operator_audit import audit_operator_supervision
+
+        supervision_auditor = audit_operator_supervision
+    else:
+        supervision_auditor = audit_supervision
     actions, source_root, source_manifest = (
-        audit_supervision(root, manifest, config) if supervised else ([], None, None)
+        supervision_auditor(root, manifest, config) if supervised else ([], None, None)
     )
     methods = (
         ["fixed_recipe", "pid", "rule_supervised"]

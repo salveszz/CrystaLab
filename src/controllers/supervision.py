@@ -340,6 +340,55 @@ class RuleSupervisor:
         view is required to authorize a ramp proposal. Real shadow proposals cannot
         enter this simulation dispatch path.
         """
+        return self._simulation_decision(
+            proposal_id,
+            proposal_sha256=proposal_sha256,
+            decision=decision,
+            decision_id=decision_id,
+            at_s=at_s,
+        )
+
+    def decide_from_operator_replay(self, review):
+        """Bind an explicit replay review to simulation, preserving its provenance."""
+        if (
+            review.get("schema") != "crystalab_operator_replay_review_v1"
+            or review.get("acknowledged") is not True
+            or review.get("run_id") != self.run_id
+            or review.get("clock_id") != self.clock_id
+            or review.get("evidence_kind") != self.evidence_kind
+            or review.get("physical_hardware_authorized") is not False
+            or review.get("reviewer_kind")
+            not in {"human_self_attestation", "automated_fixture_qa"}
+            or review.get("action") not in {"approve_pause", "decline"}
+            or not isinstance(review.get("reviewer"), str)
+            or not review["reviewer"].strip()
+        ):
+            raise ValueError("An explicit source-bound replay review is required")
+        if (
+            review["reviewer_kind"] == "automated_fixture_qa"
+            and self.evidence_kind != "fixture"
+        ):
+            raise ValueError("Automated review QA is restricted to fixture evidence")
+        receipt = self._simulation_decision(
+            review["proposal_id"],
+            proposal_sha256=review["proposal_sha256"],
+            decision="authorize" if review["action"] == "approve_pause" else "decline",
+            decision_id=review["review_id"],
+            at_s=review["source_time_s"],
+        )
+        receipt.update(
+            basis="operator_replay_self_attestation"
+            if review["reviewer_kind"] == "human_self_attestation"
+            else "automated_fixture_qa",
+            operator_reviewed=review["reviewer_kind"] == "human_self_attestation",
+            review_receipt_sha256=value_sha256(review),
+            reviewer_kind=review["reviewer_kind"],
+        )
+        return receipt
+
+    def _simulation_decision(
+        self, proposal_id, *, proposal_sha256, decision, decision_id, at_s
+    ):
         identifier(decision_id, "simulation decision ID")
         if decision_id in self.decision_ids:
             raise ValueError("Simulation decision IDs must be unique")
