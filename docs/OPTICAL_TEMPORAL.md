@@ -10,6 +10,10 @@ The protocol and [frozen experiment](../configs/optical_temporal_experiment.json
 were saved before rendering or scoring. The existing detector, forecast parameters,
 confidence, candidate policy and matching convention remain fixed. No new model
 is fitted or promoted by this diagnostic.
+The later [expanded-detector](VISION_REFINEMENT.md) and
+[paired encoding](VIDEO_ENCODING.md) experiments keep this historical run intact.
+The latter adds decoded-pixel-verified FFV1 and separate MJPG controls; the
+original omitted-codec experiment continues to mean MJPG.
 
 ## Cohort and construction
 

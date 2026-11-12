@@ -17,11 +17,12 @@ def main():
     p.add_argument("--scene", required=True)
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--display-fps", type=float, default=4.0)
+    p.add_argument("--codec", choices=("MJPG", "FFV1"), default="MJPG")
     a = p.parse_args()
     print(
         json.dumps(
             export_optical_sequence(
-                a.source, a.scene, a.output, display_fps=a.display_fps
+                a.source, a.scene, a.output, display_fps=a.display_fps, codec=a.codec
             ),
             indent=2,
         )

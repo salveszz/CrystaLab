@@ -44,6 +44,11 @@ two further fits on 84 images and checks the same 44 validation images. It impro
 seed outlines and some false alerts, while retaining secondary misses, missed
 inclusions and a PNG/video measurement discrepancy. The [next steps](roadmap.md#what-we-do-next)
 prioritize consistent measurements, six real-image reviews and the operator demo.
+A [paired encoding check](docs/VIDEO_ENCODING.md) now verifies lossless FFV1
+input against original pixels. With fixed expanded detectors, recent-rate
+forecasts beat persistence on the same two synthetic validation families. This
+resolves a synthetic replay discrepancy; real camera encoding, labels and adaptive
+control still need their own evaluation.
 
 Real observations are now local: **2,123 alpha-LGA microscope images from nine
 runs, three phase-specific KDP movies and one separately identified ADP movie**.

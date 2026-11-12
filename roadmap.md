@@ -15,8 +15,11 @@ forecast diagnostic exposes current-mask bias and fails to beat future-area
 persistence on four shared development windows. Resolve the measurement/trajectory
 gate, define the adaptive objective and compare it with the current baselines. Real review and equipment
 characterization can progress alongside this software work.
-The longer synthetic diagnostic now confirms the persistence advantage on 28
-shared validation windows and exposes remaining false alerts/inclusion coverage.
+The original MJPG diagnostic confirms the persistence advantage on 28 shared
+validation windows. The later paired encoding experiment verifies lossless input
+and finds that the expanded detectors' rate forecasts beat persistence on those
+two synthetic validation families. Real accuracy, action response and the
+operator demonstration remain open.
 Preserve the simulation and growth dataset as supporting assets. New CFD work or
 an XGBoost benchmark does not close the perception/control requirements.
 
@@ -30,11 +33,12 @@ The pitch's next useful demonstration is a video of the growing crystal with
 measured outlines, supported alerts and a traceable proposed control response.
 The foundations run; dependable real detection and adaptive control are unfinished.
 
-1. **Make the camera measurements consistent.** The expanded synthetic fits now
-   reduce some errors, but PNG images and encoded video produce substantially
-   different area estimates. Compare lossless and MJPG observation with frozen
-   weights, then choose and freeze the measurement path. Keep persistence as the
-   forecast baseline; the current rate forecast still loses to it.
+1. **Use consistent synthetic measurements and characterize real capture.** The
+   [paired encoding experiment](docs/VIDEO_ENCODING.md) now verifies exact FFV1
+   input and matches native-image predictions. Use explicitly declared FFV1 for
+   subsequent synthetic inputs. Expanded-detector rates beat persistence on two
+   synthetic validation families; retain persistence and the original detector's
+   negative result. Characterize the real camera's encoding before real acceptance.
 2. **Check six real images before labeling many more.** Show the computer's outline
    on each existing training image. A person corrects the outline and marks
    uncertainty. An event label adds what appeared and when. This small review
@@ -73,7 +77,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies, a separate ADP movie and 587 protein-crystal images with 4,986 published crystal/drop masks. | Reviewed Leeds/KDP pixel/event labels and representative independent KDP evaluation data. Source fits are not masks; protein selected-object labels need a separate compatible task. |
 | Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
 | Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal source. Combined export has 84 training / 44 validation / 28 reserved images. Two new fits and development replays are complete; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
-| Observable forecast | Frozen comparisons with the original and two expanded detectors. The fullmask run has calibrated future-area MAE 273.37 px² versus persistence 201.00 px² on 28 shared validation windows. All three rate-based comparisons lose to persistence. | Resolve PNG/video measurement sensitivity, gather relevant real/action-labelled trajectories, freeze budgets and define adaptive forecast/state policy. No action-response model exists. |
+| Observable forecast | Paired MJPG/FFV1 comparisons with three frozen detectors. Lossless fullmask recent-rate future-area MAE is 77.00 px² versus persistence 116.18 px² on 28 shared windows from two validation families. Original-detector rates still lose under FFV1. | Gather reviewed real/action-labelled trajectories, characterize capture encoding, freeze budgets and define adaptive forecast/state policy. No action-response model exists. |
 | Learned perception, controllers and UI | Local training/evaluation, expanded synthetic comparisons, candidate analysis, explicit process records, PID, thermal tests, event-rule shadow proposals and scripted fixture-to-PID integration. Still-image annotation UI exists; secondary misses and inclusion failures remain. | Real evaluation, equipment timing, face measurements, adaptive forecast/policy and the video/process/action operator demonstration. |
 | HPC and Qiskit | CPU numerical reference work exists. No GPU benchmark or impurity-cluster VQE implementation. | Both bounded extension experiments and their reports. |
 

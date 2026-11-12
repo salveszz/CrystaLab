@@ -4,7 +4,10 @@ Two new 30-epoch YOLOv8n-seg fits reduce some synthetic errors but leave a
 tradeoff: standard mask supervision gives fewer false video alerts, while
 full-resolution separate masks give better image-weighted seed measurements.
 Neither detects the validation inclusions or beats area persistence with the
-existing forecast. No default model or control policy was promoted.
+existing forecast on its MJPG replay. No default model or control policy was promoted.
+The subsequent [paired encoding experiment](VIDEO_ENCODING.md) reproduces those
+MJPG results, verifies exact FFV1 input and finds lower-than-persistence rate
+errors for the two expanded detectors on the same two validation families.
 
 The [frozen experiment](../configs/vision_refinement_experiment.json) was written
 before fitting. The [checkpoint](VISION_REFINEMENT_CHECKPOINT.json) retains actual
@@ -81,7 +84,7 @@ so training-clip events cannot be reported as validation success.
 |---|---:|---:|---:|
 | Crystal events TP / FP / FN | 1 / 1 / 0 | 1 / 0 / 0 | 1 / 1 / 0 |
 | Complete usable crystal deadlines matched / eligible | 1 / 1 | 1 / 1 | 1 / 1 |
-| Annotated usable crystal-negative source seconds | 4.75 | 4.75 | 4.75 |
+| Annotated usable crystal-negative source seconds | 3.50 | 4.75 | 4.75 |
 | Valid seed observations / 32 frames | 32 | 31 | 32 |
 
 There is only one positive validation crystal event and no eligible validation

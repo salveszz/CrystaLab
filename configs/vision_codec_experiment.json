@@ -1,0 +1,120 @@
+{
+  "schema": "crystalab_vision_codec_experiment_v1",
+  "date": "2026-11-12",
+  "purpose": "Isolate input encoding in frozen development observation, event and area-forecast behavior before adaptation",
+  "source": {
+    "path": "data/synthetic_vision_temporal_v1",
+    "manifest_sha256": "1ab084b9eed4f0d9a46ab77ea7b549ee8b70041df112af2ac3410c4be0ebba0f",
+    "protocol_sha256": "00e0066919e2535c4017e8b14209060933c9bbac1ec45b7d5cbbb87ab7009e4e"
+  },
+  "base_experiment": {
+    "path": "configs/optical_temporal_experiment.json",
+    "sha256": "5ed568500950e666bc0f80f8c3b62b1ab3baefe68cebe3f6588514934b895ce7"
+  },
+  "models": [
+    {
+      "name": "pilot",
+      "run": "results/vision_training_pilot_v1",
+      "model_manifest_sha256": "6ce66979f40c76bbd83e7b5394b70e0f67cf09e45a5b8b0d5e9eed77d2ef69f6",
+      "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+      "experiments": [
+        {
+          "codec": "MJPG",
+          "path": "results/vision_codec_pilot_mjpg_experiment_v1.json",
+          "sha256": "865c55647577c05d3e3d5627df7b4256ce167d90ef9718e34343f2889fa3b917",
+          "output": "results/vision_codec_pilot_mjpg_v1"
+        },
+        {
+          "codec": "FFV1",
+          "path": "results/vision_codec_pilot_ffv1_experiment_v1.json",
+          "sha256": "0354133bb930c81da06c0fb0b28fe71e14f1c7c86523811363abeb01e37d771c",
+          "output": "results/vision_codec_pilot_ffv1_v1"
+        }
+      ]
+    },
+    {
+      "name": "standard",
+      "run": "results/vision_refinement_standard_v1",
+      "model_manifest_sha256": "3b6107ec915c6c5373495cee126085543b7c53fd961899ff48bf594d4b55fdc3",
+      "weights_sha256": "345cda0c88e25570fd6f67d3c3cb2f3742926552fbfa3006ef469972700dd435",
+      "experiments": [
+        {
+          "codec": "MJPG",
+          "path": "results/vision_codec_standard_mjpg_experiment_v1.json",
+          "sha256": "e98afa541075db9f871be3d1817829df9fc92e938111688b6d37ba99d862b184",
+          "output": "results/vision_codec_standard_mjpg_v1"
+        },
+        {
+          "codec": "FFV1",
+          "path": "results/vision_codec_standard_ffv1_experiment_v1.json",
+          "sha256": "b0ad50edb3a90c7d4124109a022aa6f2953a6a4078f2105fb50a5604a116276c",
+          "output": "results/vision_codec_standard_ffv1_v1"
+        }
+      ]
+    },
+    {
+      "name": "fullmask",
+      "run": "results/vision_refinement_fullmask_v1",
+      "model_manifest_sha256": "5fb2aede6c703116f24ce798b89bc5f559f7f84448cd68ab0983f0a01c6a045d",
+      "weights_sha256": "4969df4757f6552223506400c538084ae56284116fd737c78202859f7774e9a6",
+      "experiments": [
+        {
+          "codec": "MJPG",
+          "path": "results/vision_codec_fullmask_mjpg_experiment_v1.json",
+          "sha256": "a51bccfbf2e6af5243af6b59ea2ecee5bf6ee35978bf886c5c374601336c90e6",
+          "output": "results/vision_codec_fullmask_mjpg_v1"
+        },
+        {
+          "codec": "FFV1",
+          "path": "results/vision_codec_fullmask_ffv1_experiment_v1.json",
+          "sha256": "0a680590b04b19ac1f78768a94058bba931ea9b8e552c73a49c16d1697f0fb22",
+          "output": "results/vision_codec_fullmask_ffv1_v1"
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "src/vision/optical_sequence.py": "deae1fb2bf2ac362dd74fa57f67aef78c10f7668218b0ffda39d9db73f94efbc",
+    "src/vision/area_forecast_data.py": "fea31866c9b0b2678d36be240d0df1d52b9acf2680f971bf55d9879314dccdba",
+    "src/vision/temporal_diagnostic.py": "d8442d7c8276cd8f762bce0dfdce6c7a33da66255c0b4a2fd9c837826e652953",
+    "scripts/export_optical_sequence.py": "2a8b5aea67960c48f7fd16325961192959e68564b14b0bae548c8c4fe9876eb6",
+    "scripts/prepare_area_forecasts.py": "84f10d0411ad215e7910341bbc5ba2f2a31273529f55728b5280ee311c6056e2"
+  },
+  "comparison": {
+    "development_clips": 5,
+    "training_clips": 3,
+    "validation_clips": 2,
+    "frames_per_clip": 16,
+    "display_fps": 4.0,
+    "event_iou_gate": 0.5,
+    "maximum_event_delay_source_s": 1.0,
+    "forecast_horizon_source_s": 0.25,
+    "required": [
+      "Decode every frame against the source; require FFV1 exact pixels and report MJPG differences.",
+      "Compare FFV1 raw instances with saved native-PNG validation predictions and separately retain seed-component extraction/invalidity.",
+      "Report training/validation event matches, false inspections, negative and usable deadline coverage.",
+      "Compare future-area and gain errors on each available method and the joint windows shared across encodings and models; retain missing/inspection exclusions.",
+      "Retain original detector and forecast bytes, source test exclusion and hashes; do not refit or tune in this comparison."
+    ]
+  },
+  "native_validation_predictions": {
+    "pilot": {
+      "path": "results/vision_refinement_pilot_eval_v1",
+      "manifest_sha256": "d98f0de36e15d49226c7300c0f2416a9707598bdd987bcb7a9947c6bcf54d0c1"
+    },
+    "standard": {
+      "path": "results/vision_refinement_standard_eval_v1",
+      "manifest_sha256": "baaa2fb23c8820bb8b104aab1e37f33d6cd34e6310be92bde9a9f686320fdaa8"
+    },
+    "fullmask": {
+      "path": "results/vision_refinement_fullmask_eval_v1",
+      "manifest_sha256": "94fcbdbd71b1d27240a26318a2e265acf76e3185ba43cb78c3727fa431743479"
+    }
+  },
+  "real_labels_used": 0,
+  "final_test_scored": false,
+  "new_training": false,
+  "automatic_model_promotion": false,
+  "physical_actuation_allowed": false,
+  "interpretation": "MJPG versus exact decoded FFV1 with identical model, source, role association, candidate policy and old forecast parameters. Synthetic development evidence does not establish real KDP accuracy, physical clock or action benefit."
+}

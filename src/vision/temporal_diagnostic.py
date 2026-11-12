@@ -20,6 +20,7 @@ from vision.area_forecast_data import audit_cohort, json_rows, prepare_cohort
 from vision.candidate_replay import analyze_candidates
 from vision.candidates import CandidateConfig, KINDS
 from vision.event_evaluation import build_optical_annotations, score_candidate_events
+from vision.optical_sequence import validate_sequence_codec
 from vision.training_data import save_json
 from vision.video import file_sha256
 
@@ -159,6 +160,7 @@ def run_temporal_diagnostic(source, experiment_path, output):
     ]
     experiment = json.loads(experiment_path.read_text())
     experiment_hash = file_sha256(experiment_path)
+    sequence_codec = validate_sequence_codec(experiment.get("sequence_codec", "MJPG"))
     if (
         experiment.get("schema") != "crystalab_optical_temporal_diagnostic_v1"
         or experiment["display_fps"] != 4.0
@@ -208,6 +210,8 @@ def run_temporal_diagnostic(source, experiment_path, output):
         ROOT / "src/vision/candidate_replay.py",
         ROOT / "src/vision/candidates.py",
         ROOT / "src/models/area_forecast_run.py",
+        ROOT / "src/vision/optical_sequence.py",
+        ROOT / "src/vision/area_forecast_data.py",
     ]
     source_hashes = snapshot(output, paths)
     manifest = dict(
@@ -224,6 +228,7 @@ def run_temporal_diagnostic(source, experiment_path, output):
         numerical_actuator_commands=0,
         operator_reviews_created=0,
         physical_time_mapping=None,
+        sequence_codec=sequence_codec,
     )
     save_json(output / "manifest.json", manifest)
     try:
@@ -234,6 +239,7 @@ def run_temporal_diagnostic(source, experiment_path, output):
             ROOT / experiment["observer"]["path"],
             ROOT / experiment["area_forecast"]["path"],
             cohort,
+            sequence_codec=sequence_codec,
         )
         forecast = evaluate_frozen_cohort(
             cohort, model_path, output / "frozen_forecast"

@@ -35,6 +35,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Vision training](VISION_TRAINING.md) | Audited YOLO polygon adapter, pinned local training/evaluation, synthetic first fits and retained detection failures. |
 | [Expanded vision comparison](VISION_REFINEMENT.md) | Two 84-image fits, common 44-image validation, split event/forecast results and PNG/video measurement sensitivity. |
 | [Expanded vision checkpoint](VISION_REFINEMENT_CHECKPOINT.json) | Model/config identities, family results, independent mask/event/formula audits and 378-test regression. |
+| [Video encoding](VIDEO_ENCODING.md) | Paired fixed-model MJPG/FFV1 replays, decoded-pixel/native-mask equality, event regressions and shared-window forecast results. |
+| [Video encoding checkpoint](VIDEO_ENCODING_CHECKPOINT.json) | Six run identities, 480-frame/1,800-record independent audits, retained failures and 381-test regression. |
 | [Training checkpoint](VISION_TRAINING_CHECKPOINT.json) | 264-test result, actual model hashes, synthetic development errors and remaining real/control gates. |
 | [Seed benchmark](VISION_BENCHMARK.md) | Identical-image OpenCV/YOLO comparison, training-only threshold calibration, invalid-measurement denominators and smoke failures. |
 | [Grouped synthetic pilot](VISION_PILOT.md) | Completed 60-image dataset, 30-epoch model, four-family development evaluation, bubble/inclusion failures and remaining gates. |

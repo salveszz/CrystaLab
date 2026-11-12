@@ -66,8 +66,12 @@ The [expanded synthetic fits](VISION_REFINEMENT.md) improve native seed overlap
 and reduce some false secondary detections, with two new secondary misses and
 zero of six validation inclusions detected. Standard has fewer video false alerts;
 fullmask has better image-weighted seed measurements. PNG and encoded-video area
-estimates differ substantially. Compare lossless and MJPG input before refitting
-forecasts or treating improved still-image scores as stable growth measurements.
+estimates differ substantially. The [paired encoding check](VIDEO_ENCODING.md)
+now verifies exact FFV1 frames and native raw predictions. The two expanded
+detectors' rate forecasts beat persistence on two synthetic validation families
+under FFV1; the original detector's rates still lose. Use explicitly declared
+lossless synthetic input, retain baseline/failure comparisons and characterize
+real capture before real or adaptive acceptance.
 The [short execution sequence](../roadmap.md#what-we-do-next) explains the real
 review step and the operator demonstration in plain language.
 Unreviewed proposals remain excluded from accepted real

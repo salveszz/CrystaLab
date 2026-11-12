@@ -18,6 +18,7 @@ def main():
     parser.add_argument("--model-run", type=Path)
     parser.add_argument("--observer-config", type=Path)
     parser.add_argument("--forecast-config", type=Path)
+    parser.add_argument("--sequence-codec", choices=("MJPG", "FFV1"), default="MJPG")
     parser.add_argument("--audit", action="store_true")
     args = parser.parse_args()
     if args.audit:
@@ -39,6 +40,7 @@ def main():
             args.observer_config,
             args.forecast_config,
             args.output,
+            sequence_codec=args.sequence_codec,
         )
         result = {
             key: result[key]

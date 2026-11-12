@@ -1,0 +1,1379 @@
+{
+  "schema": "crystalab_video_encoding_checkpoint_v1",
+  "date": "2026-11-12",
+  "status": "paired_synthetic_development_diagnostic_complete",
+  "pitch_reference": "Pitch_KDP.pptx slides 5\u20137; consistent camera measurements before event/forecast/adaptive control claims",
+  "source": {
+    "path": "data/synthetic_vision_temporal_v1",
+    "manifest_sha256": "1ab084b9eed4f0d9a46ab77ea7b549ee8b70041df112af2ac3410c4be0ebba0f",
+    "protocol_sha256": "00e0066919e2535c4017e8b14209060933c9bbac1ec45b7d5cbbb87ab7009e4e"
+  },
+  "study_sha256": "3f52844975683ddbb22499e5c1e282b5a726a4e8bb296460eeab747b31dce694",
+  "models": [
+    {
+      "name": "pilot",
+      "run": "results/vision_training_pilot_v1",
+      "model_manifest_sha256": "6ce66979f40c76bbd83e7b5394b70e0f67cf09e45a5b8b0d5e9eed77d2ef69f6",
+      "weights_sha256": "579b43ebd39e0a287192c877cd86a303cfba64d27521487242f6cc62cc8764bb",
+      "experiments": [
+        {
+          "codec": "MJPG",
+          "path": "results/vision_codec_pilot_mjpg_experiment_v1.json",
+          "sha256": "865c55647577c05d3e3d5627df7b4256ce167d90ef9718e34343f2889fa3b917",
+          "output": "results/vision_codec_pilot_mjpg_v1"
+        },
+        {
+          "codec": "FFV1",
+          "path": "results/vision_codec_pilot_ffv1_experiment_v1.json",
+          "sha256": "0354133bb930c81da06c0fb0b28fe71e14f1c7c86523811363abeb01e37d771c",
+          "output": "results/vision_codec_pilot_ffv1_v1"
+        }
+      ]
+    },
+    {
+      "name": "standard",
+      "run": "results/vision_refinement_standard_v1",
+      "model_manifest_sha256": "3b6107ec915c6c5373495cee126085543b7c53fd961899ff48bf594d4b55fdc3",
+      "weights_sha256": "345cda0c88e25570fd6f67d3c3cb2f3742926552fbfa3006ef469972700dd435",
+      "experiments": [
+        {
+          "codec": "MJPG",
+          "path": "results/vision_codec_standard_mjpg_experiment_v1.json",
+          "sha256": "e98afa541075db9f871be3d1817829df9fc92e938111688b6d37ba99d862b184",
+          "output": "results/vision_codec_standard_mjpg_v1"
+        },
+        {
+          "codec": "FFV1",
+          "path": "results/vision_codec_standard_ffv1_experiment_v1.json",
+          "sha256": "b0ad50edb3a90c7d4124109a022aa6f2953a6a4078f2105fb50a5604a116276c",
+          "output": "results/vision_codec_standard_ffv1_v1"
+        }
+      ]
+    },
+    {
+      "name": "fullmask",
+      "run": "results/vision_refinement_fullmask_v1",
+      "model_manifest_sha256": "5fb2aede6c703116f24ce798b89bc5f559f7f84448cd68ab0983f0a01c6a045d",
+      "weights_sha256": "4969df4757f6552223506400c538084ae56284116fd737c78202859f7774e9a6",
+      "experiments": [
+        {
+          "codec": "MJPG",
+          "path": "results/vision_codec_fullmask_mjpg_experiment_v1.json",
+          "sha256": "a51bccfbf2e6af5243af6b59ea2ecee5bf6ee35978bf886c5c374601336c90e6",
+          "output": "results/vision_codec_fullmask_mjpg_v1"
+        },
+        {
+          "codec": "FFV1",
+          "path": "results/vision_codec_fullmask_ffv1_experiment_v1.json",
+          "sha256": "0a680590b04b19ac1f78768a94058bba931ea9b8e552c73a49c16d1697f0fb22",
+          "output": "results/vision_codec_fullmask_ffv1_v1"
+        }
+      ]
+    }
+  ],
+  "cases": {
+    "pilot_mjpg": {
+      "codec": "MJPG",
+      "run_manifest_sha256": "3f6a140d4be0666f8f4cb5d3300327e952cf7e21c340de8827ea01069c526838",
+      "frames_independently_decoded": 80,
+      "exact_pixel_frames": 0,
+      "mean_absolute_channel_difference": 1.6847808837890625,
+      "native_validation_raw_instance_frames_exactly_matched": 0,
+      "historical_mjpg_metrics_reproduced": true,
+      "measurements_by_family": {
+        "optical_temporal_000": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 58.0625,
+          "area_mae_on_valid_frames": 107.9375,
+          "mean_excluded_disconnected_prediction_pixels": 0.25
+        },
+        "optical_temporal_001": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 540.125,
+          "area_mae_on_valid_frames": 540.125,
+          "mean_excluded_disconnected_prediction_pixels": 9.625
+        },
+        "optical_temporal_002": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 171.8125,
+          "area_mae_on_valid_frames": 171.8125,
+          "mean_excluded_disconnected_prediction_pixels": 2.5625
+        },
+        "optical_temporal_003": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 382.3125,
+          "area_mae_on_valid_frames": 382.3125,
+          "mean_excluded_disconnected_prediction_pixels": 6.6875
+        },
+        "optical_temporal_004": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 314.0,
+          "area_mae_on_valid_frames": 314.0,
+          "mean_excluded_disconnected_prediction_pixels": 0.9375
+        }
+      },
+      "events_by_split": {
+        "train": {
+          "clips": 3,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 2,
+              "fp": 2,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "observable_deadline_eligible": 2,
+              "observable_deadline_matched": 2,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 2.5,
+              "false_events_in_negative_intervals": 2,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": 0.0,
+              "sum_of_clip_negative_source_seconds": 8.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        },
+        "validation": {
+          "clips": 2,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 1,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 3.5,
+              "false_events_in_negative_intervals": 1,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "observable_deadline_eligible": 0,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": null,
+              "sum_of_clip_negative_source_seconds": 7.5,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        }
+      },
+      "origin_confusion": {
+        "appeared_after_clear_view -> appeared_after_clear_view": 1,
+        "present_at_first_usable_frame -> present_at_first_usable_frame": 1,
+        "appeared_after_clear_view -> appeared_after_unknown_interval": 1
+      },
+      "joint_validation_forecast_metrics": {
+        "persistence": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 248.03571428571428,
+          "gain_mae_px2": 98.60714285714286,
+          "future_area_family_macro_mae_px2": 248.03571428571428
+        },
+        "recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 350.82142857142856,
+          "gain_mae_px2": 92.10714285714286,
+          "future_area_family_macro_mae_px2": 350.82142857142856
+        },
+        "train_mean_fraction": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 563.809597507149,
+          "gain_mae_px2": 221.5238832214346,
+          "future_area_family_macro_mae_px2": 563.809597507149
+        },
+        "calibrated_recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 339.70784996075423,
+          "gain_mae_px2": 82.9687385066889,
+          "future_area_family_macro_mae_px2": 339.70784996075423
+        }
+      },
+      "validation_forecast_availability": {
+        "persistence": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        }
+      },
+      "mean_current_area_bias_on_forecast_cuts_by_family": {
+        "optical_temporal_000": 66.66666666666667,
+        "optical_temporal_001": 551.8,
+        "optical_temporal_002": 165.86666666666667,
+        "optical_temporal_003": 359.3333333333333,
+        "optical_temporal_004": 322.2
+      },
+      "independently_checked_matches": 3
+    },
+    "pilot_ffv1": {
+      "codec": "FFV1",
+      "run_manifest_sha256": "37855209522a0c0938bdc638aaa94fe844faaf4fa1e56d49dd30500be4d7b6dd",
+      "frames_independently_decoded": 80,
+      "exact_pixel_frames": 80,
+      "mean_absolute_channel_difference": 0.0,
+      "native_validation_raw_instance_frames_exactly_matched": 32,
+      "historical_mjpg_metrics_reproduced": null,
+      "measurements_by_family": {
+        "optical_temporal_000": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": -205.0,
+          "area_mae_on_valid_frames": 205.0,
+          "mean_excluded_disconnected_prediction_pixels": 0.75
+        },
+        "optical_temporal_001": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 348.875,
+          "area_mae_on_valid_frames": 348.875,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        },
+        "optical_temporal_002": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 50.1875,
+          "area_mae_on_valid_frames": 50.1875,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        },
+        "optical_temporal_003": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 150.625,
+          "area_mae_on_valid_frames": 158.25,
+          "mean_excluded_disconnected_prediction_pixels": 13.5
+        },
+        "optical_temporal_004": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 36.25,
+          "area_mae_on_valid_frames": 46.625,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        }
+      },
+      "events_by_split": {
+        "train": {
+          "clips": 3,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.5,
+              "recall": 0.5,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 1,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 3.25,
+              "false_events_in_negative_intervals": 1,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": 0.0,
+              "sum_of_clip_negative_source_seconds": 8.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        },
+        "validation": {
+          "clips": 2,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 1,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 3.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "observable_deadline_eligible": 0,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": null,
+              "sum_of_clip_negative_source_seconds": 7.5,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        }
+      },
+      "origin_confusion": {
+        "present_at_first_usable_frame -> present_at_first_usable_frame": 1,
+        "appeared_after_clear_view -> appeared_after_clear_view": 1
+      },
+      "joint_validation_forecast_metrics": {
+        "persistence": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 87.03571428571429,
+          "gain_mae_px2": 98.60714285714286,
+          "future_area_family_macro_mae_px2": 87.03571428571428
+        },
+        "recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 165.42857142857142,
+          "gain_mae_px2": 108.35714285714286,
+          "future_area_family_macro_mae_px2": 165.42857142857144
+        },
+        "train_mean_fraction": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 287.2740175609594,
+          "gain_mae_px2": 203.63116041810227,
+          "future_area_family_macro_mae_px2": 287.27401756095935
+        },
+        "calibrated_recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 153.79331061175648,
+          "gain_mae_px2": 99.87527669299644,
+          "future_area_family_macro_mae_px2": 153.79331061175648
+        }
+      },
+      "validation_forecast_availability": {
+        "persistence": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        }
+      },
+      "mean_current_area_bias_on_forecast_cuts_by_family": {
+        "optical_temporal_000": -195.53333333333333,
+        "optical_temporal_001": 360.2,
+        "optical_temporal_002": 49.13333333333333,
+        "optical_temporal_003": 130.4,
+        "optical_temporal_004": 40.93333333333333
+      },
+      "independently_checked_matches": 2
+    },
+    "standard_mjpg": {
+      "codec": "MJPG",
+      "run_manifest_sha256": "ee0cbcc64c8a408298ddf45ccd2bef52e2a8a06d27ed72e3bb67fffbd5cba36f",
+      "frames_independently_decoded": 80,
+      "exact_pixel_frames": 0,
+      "mean_absolute_channel_difference": 1.6847808837890625,
+      "native_validation_raw_instance_frames_exactly_matched": 0,
+      "historical_mjpg_metrics_reproduced": true,
+      "measurements_by_family": {
+        "optical_temporal_000": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 241.375,
+          "area_mae_on_valid_frames": 241.375,
+          "mean_excluded_disconnected_prediction_pixels": 0.5625
+        },
+        "optical_temporal_001": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 149.0,
+          "area_mae_on_valid_frames": 149.0,
+          "mean_excluded_disconnected_prediction_pixels": 0.6875
+        },
+        "optical_temporal_002": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 340.375,
+          "area_mae_on_valid_frames": 340.375,
+          "mean_excluded_disconnected_prediction_pixels": 23.0
+        },
+        "optical_temporal_003": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 15,
+          "inspection_frames": 1,
+          "area_bias_on_valid_frames": 319.8666666666667,
+          "area_mae_on_valid_frames": 322.8,
+          "mean_excluded_disconnected_prediction_pixels": 63.06666666666667
+        },
+        "optical_temporal_004": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 280.4375,
+          "area_mae_on_valid_frames": 280.4375,
+          "mean_excluded_disconnected_prediction_pixels": 0.1875
+        }
+      },
+      "events_by_split": {
+        "train": {
+          "clips": 3,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "observable_deadline_eligible": 2,
+              "observable_deadline_matched": 2,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 4.5,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": 0.0,
+              "sum_of_clip_negative_source_seconds": 8.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        },
+        "validation": {
+          "clips": 2,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 1,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 4.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "observable_deadline_eligible": 0,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": null,
+              "sum_of_clip_negative_source_seconds": 7.25,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        }
+      },
+      "origin_confusion": {
+        "appeared_after_clear_view -> appeared_after_clear_view": 2,
+        "present_at_first_usable_frame -> present_at_first_usable_frame": 1
+      },
+      "joint_validation_forecast_metrics": {
+        "persistence": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 233.35714285714286,
+          "gain_mae_px2": 98.60714285714286,
+          "future_area_family_macro_mae_px2": 233.35714285714286
+        },
+        "recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 349.64285714285717,
+          "gain_mae_px2": 173.60714285714286,
+          "future_area_family_macro_mae_px2": 349.6428571428571
+        },
+        "train_mean_fraction": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 512.9090274894369,
+          "gain_mae_px2": 218.23045606086546,
+          "future_area_family_macro_mae_px2": 512.9090274894369
+        },
+        "calibrated_recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 334.1445332292146,
+          "gain_mae_px2": 156.58457509650475,
+          "future_area_family_macro_mae_px2": 334.1445332292145
+        }
+      },
+      "validation_forecast_availability": {
+        "persistence": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        }
+      },
+      "mean_current_area_bias_on_forecast_cuts_by_family": {
+        "optical_temporal_000": 245.6,
+        "optical_temporal_001": 149.4,
+        "optical_temporal_002": 340.0,
+        "optical_temporal_003": 319.8666666666667,
+        "optical_temporal_004": 282.26666666666665
+      },
+      "independently_checked_matches": 3
+    },
+    "standard_ffv1": {
+      "codec": "FFV1",
+      "run_manifest_sha256": "29e26b7f58d90428f7824c67c021298e489ba9958b542a4747f9217dd9c8e851",
+      "frames_independently_decoded": 80,
+      "exact_pixel_frames": 80,
+      "mean_absolute_channel_difference": 0.0,
+      "native_validation_raw_instance_frames_exactly_matched": 32,
+      "historical_mjpg_metrics_reproduced": null,
+      "measurements_by_family": {
+        "optical_temporal_000": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 119.5625,
+          "area_mae_on_valid_frames": 119.5625,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        },
+        "optical_temporal_001": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 107.375,
+          "area_mae_on_valid_frames": 107.375,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        },
+        "optical_temporal_002": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 52.875,
+          "area_mae_on_valid_frames": 54.75,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        },
+        "optical_temporal_003": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": -50.5,
+          "area_mae_on_valid_frames": 82.375,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        },
+        "optical_temporal_004": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 60.6875,
+          "area_mae_on_valid_frames": 72.0625,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        }
+      },
+      "events_by_split": {
+        "train": {
+          "clips": 3,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "observable_deadline_eligible": 2,
+              "observable_deadline_matched": 2,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 4.5,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": 0.0,
+              "sum_of_clip_negative_source_seconds": 8.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        },
+        "validation": {
+          "clips": 2,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 1,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 4.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "observable_deadline_eligible": 0,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": null,
+              "sum_of_clip_negative_source_seconds": 7.5,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        }
+      },
+      "origin_confusion": {
+        "appeared_after_clear_view -> appeared_after_clear_view": 2,
+        "present_at_first_usable_frame -> present_at_first_usable_frame": 1
+      },
+      "joint_validation_forecast_metrics": {
+        "persistence": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 123.42857142857143,
+          "gain_mae_px2": 98.60714285714286,
+          "future_area_family_macro_mae_px2": 123.42857142857142
+        },
+        "recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 104.82142857142857,
+          "gain_mae_px2": 60.0,
+          "future_area_family_macro_mae_px2": 104.82142857142858
+        },
+        "train_mean_fraction": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 221.90495977039797,
+          "gain_mae_px2": 198.73178602994878,
+          "future_area_family_macro_mae_px2": 221.90495977039797
+        },
+        "calibrated_recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 105.03245057261306,
+          "gain_mae_px2": 59.76632806777007,
+          "future_area_family_macro_mae_px2": 105.03245057261307
+        }
+      },
+      "validation_forecast_availability": {
+        "persistence": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        }
+      },
+      "mean_current_area_bias_on_forecast_cuts_by_family": {
+        "optical_temporal_000": 124.86666666666666,
+        "optical_temporal_001": 106.06666666666666,
+        "optical_temporal_002": 57.4,
+        "optical_temporal_003": -32.06666666666667,
+        "optical_temporal_004": 67.4
+      },
+      "independently_checked_matches": 3
+    },
+    "fullmask_mjpg": {
+      "codec": "MJPG",
+      "run_manifest_sha256": "e77851e94a5503f154518ec665f954f9d9f62a2e8f596f511942240f72b45ef7",
+      "frames_independently_decoded": 80,
+      "exact_pixel_frames": 0,
+      "mean_absolute_channel_difference": 1.6847808837890625,
+      "native_validation_raw_instance_frames_exactly_matched": 0,
+      "historical_mjpg_metrics_reproduced": true,
+      "measurements_by_family": {
+        "optical_temporal_000": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 218.1875,
+          "area_mae_on_valid_frames": 218.1875,
+          "mean_excluded_disconnected_prediction_pixels": 3.875
+        },
+        "optical_temporal_001": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 127.8125,
+          "area_mae_on_valid_frames": 127.8125,
+          "mean_excluded_disconnected_prediction_pixels": 8.375
+        },
+        "optical_temporal_002": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 352.375,
+          "area_mae_on_valid_frames": 352.375,
+          "mean_excluded_disconnected_prediction_pixels": 10.1875
+        },
+        "optical_temporal_003": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 209.625,
+          "area_mae_on_valid_frames": 209.625,
+          "mean_excluded_disconnected_prediction_pixels": 51.625
+        },
+        "optical_temporal_004": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 338.25,
+          "area_mae_on_valid_frames": 338.25,
+          "mean_excluded_disconnected_prediction_pixels": 18.0625
+        }
+      },
+      "events_by_split": {
+        "train": {
+          "clips": 3,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "observable_deadline_eligible": 2,
+              "observable_deadline_matched": 2,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 4.5,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": 0.0,
+              "sum_of_clip_negative_source_seconds": 8.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        },
+        "validation": {
+          "clips": 2,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.5,
+              "recall": 1.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 1,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 4.75,
+              "false_events_in_negative_intervals": 1,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "observable_deadline_eligible": 0,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": null,
+              "sum_of_clip_negative_source_seconds": 7.5,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        }
+      },
+      "origin_confusion": {
+        "appeared_after_clear_view -> appeared_after_clear_view": 2,
+        "present_at_first_usable_frame -> present_at_first_usable_frame": 1
+      },
+      "joint_validation_forecast_metrics": {
+        "persistence": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 201.0,
+          "gain_mae_px2": 98.60714285714286,
+          "future_area_family_macro_mae_px2": 201.0
+        },
+        "recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 283.25,
+          "gain_mae_px2": 83.85714285714286,
+          "future_area_family_macro_mae_px2": 283.25
+        },
+        "train_mean_fraction": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 487.7069448099996,
+          "gain_mae_px2": 216.5998019528567,
+          "future_area_family_macro_mae_px2": 487.7069448099996
+        },
+        "calibrated_recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 273.37156705804335,
+          "gain_mae_px2": 76.59997973763123,
+          "future_area_family_macro_mae_px2": 273.37156705804335
+        }
+      },
+      "validation_forecast_availability": {
+        "persistence": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        }
+      },
+      "mean_current_area_bias_on_forecast_cuts_by_family": {
+        "optical_temporal_000": 216.13333333333333,
+        "optical_temporal_001": 130.66666666666666,
+        "optical_temporal_002": 329.93333333333334,
+        "optical_temporal_003": 201.6,
+        "optical_temporal_004": 339.93333333333334
+      },
+      "independently_checked_matches": 3
+    },
+    "fullmask_ffv1": {
+      "codec": "FFV1",
+      "run_manifest_sha256": "a0825f323e47a56bd9a5edadc5a7466863c1361fb92ed71e5849a9d72b7bea4b",
+      "frames_independently_decoded": 80,
+      "exact_pixel_frames": 80,
+      "mean_absolute_channel_difference": 0.0,
+      "native_validation_raw_instance_frames_exactly_matched": 32,
+      "historical_mjpg_metrics_reproduced": null,
+      "measurements_by_family": {
+        "optical_temporal_000": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 43.1875,
+          "area_mae_on_valid_frames": 43.1875,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        },
+        "optical_temporal_001": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 26.5,
+          "area_mae_on_valid_frames": 26.625,
+          "mean_excluded_disconnected_prediction_pixels": 0.375
+        },
+        "optical_temporal_002": {
+          "split": "train",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 35.6875,
+          "area_mae_on_valid_frames": 35.6875,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        },
+        "optical_temporal_003": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": -38.0625,
+          "area_mae_on_valid_frames": 48.8125,
+          "mean_excluded_disconnected_prediction_pixels": 0.125
+        },
+        "optical_temporal_004": {
+          "split": "validation",
+          "frames": 16,
+          "valid_seed_frames": 16,
+          "inspection_frames": 0,
+          "area_bias_on_valid_frames": 25.5625,
+          "area_mae_on_valid_frames": 40.4375,
+          "mean_excluded_disconnected_prediction_pixels": 0.0
+        }
+      },
+      "events_by_split": {
+        "train": {
+          "clips": 3,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "observable_deadline_eligible": 2,
+              "observable_deadline_matched": 2,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 4.5,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 1,
+              "precision": null,
+              "recall": 0.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": 0.0,
+              "sum_of_clip_negative_source_seconds": 8.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        },
+        "validation": {
+          "clips": 2,
+          "per_kind": {
+            "crystal_candidate": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "observable_deadline_eligible": 1,
+              "observable_deadline_matched": 1,
+              "observable_deadline_recall": 1.0,
+              "sum_of_clip_negative_source_seconds": 4.75,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            },
+            "inclusion_candidate": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null,
+              "observable_deadline_eligible": 0,
+              "observable_deadline_matched": 0,
+              "observable_deadline_recall": null,
+              "sum_of_clip_negative_source_seconds": 7.5,
+              "false_events_in_negative_intervals": 0,
+              "physical_negative_seconds": null,
+              "false_alerts_per_physical_hour": null
+            }
+          }
+        }
+      },
+      "origin_confusion": {
+        "appeared_after_clear_view -> appeared_after_clear_view": 2,
+        "present_at_first_usable_frame -> present_at_first_usable_frame": 1
+      },
+      "joint_validation_forecast_metrics": {
+        "persistence": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 116.17857142857143,
+          "gain_mae_px2": 98.60714285714286,
+          "future_area_family_macro_mae_px2": 116.17857142857142
+        },
+        "recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 77.0,
+          "gain_mae_px2": 44.714285714285715,
+          "future_area_family_macro_mae_px2": 77.0
+        },
+        "train_mean_fraction": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 193.79720180450107,
+          "gain_mae_px2": 197.58291609021535,
+          "future_area_family_macro_mae_px2": 193.79720180450104
+        },
+        "calibrated_recent_rate": {
+          "samples": 28,
+          "families": 2,
+          "future_area_mae_px2": 78.54998672421253,
+          "gain_mae_px2": 45.82499273318568,
+          "future_area_family_macro_mae_px2": 78.54998672421253
+        }
+      },
+      "validation_forecast_availability": {
+        "persistence": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        },
+        "train_mean_fraction": {
+          "labelled_windows": 30,
+          "prediction_coverage": 1.0,
+          "unavailable_reasons": {},
+          "all_available_samples": 30
+        },
+        "calibrated_recent_rate": {
+          "labelled_windows": 30,
+          "prediction_coverage": 0.9333333333333333,
+          "unavailable_reasons": {
+            "insufficient_history": 2
+          },
+          "all_available_samples": 28
+        }
+      },
+      "mean_current_area_bias_on_forecast_cuts_by_family": {
+        "optical_temporal_000": 43.06666666666667,
+        "optical_temporal_001": 28.333333333333332,
+        "optical_temporal_002": 35.733333333333334,
+        "optical_temporal_003": -28.866666666666667,
+        "optical_temporal_004": 28.266666666666666
+      },
+      "independently_checked_matches": 3
+    }
+  },
+  "joint_validation_window_ids": [
+    "optical_temporal_003:1->optical_temporal_003:2",
+    "optical_temporal_003:10->optical_temporal_003:11",
+    "optical_temporal_003:11->optical_temporal_003:12",
+    "optical_temporal_003:12->optical_temporal_003:13",
+    "optical_temporal_003:13->optical_temporal_003:14",
+    "optical_temporal_003:14->optical_temporal_003:15",
+    "optical_temporal_003:2->optical_temporal_003:3",
+    "optical_temporal_003:3->optical_temporal_003:4",
+    "optical_temporal_003:4->optical_temporal_003:5",
+    "optical_temporal_003:5->optical_temporal_003:6",
+    "optical_temporal_003:6->optical_temporal_003:7",
+    "optical_temporal_003:7->optical_temporal_003:8",
+    "optical_temporal_003:8->optical_temporal_003:9",
+    "optical_temporal_003:9->optical_temporal_003:10",
+    "optical_temporal_004:1->optical_temporal_004:2",
+    "optical_temporal_004:10->optical_temporal_004:11",
+    "optical_temporal_004:11->optical_temporal_004:12",
+    "optical_temporal_004:12->optical_temporal_004:13",
+    "optical_temporal_004:13->optical_temporal_004:14",
+    "optical_temporal_004:14->optical_temporal_004:15",
+    "optical_temporal_004:2->optical_temporal_004:3",
+    "optical_temporal_004:3->optical_temporal_004:4",
+    "optical_temporal_004:4->optical_temporal_004:5",
+    "optical_temporal_004:5->optical_temporal_004:6",
+    "optical_temporal_004:6->optical_temporal_004:7",
+    "optical_temporal_004:7->optical_temporal_004:8",
+    "optical_temporal_004:8->optical_temporal_004:9",
+    "optical_temporal_004:9->optical_temporal_004:10"
+  ],
+  "comparisons": {
+    "training_clips": 3,
+    "validation_clips": 2,
+    "frames_per_clip": 16,
+    "all_models_and_encodings_share_validation_windows": 28,
+    "no_new_fit": true,
+    "no_threshold_change": true,
+    "no_forecast_recalibration": true,
+    "frozen_old_parameters": {
+      "development_clips": 5,
+      "training_clips": 3,
+      "validation_clips": 2,
+      "frames_per_clip": 16,
+      "display_fps": 4.0,
+      "event_iou_gate": 0.5,
+      "maximum_event_delay_source_s": 1.0,
+      "forecast_horizon_source_s": 0.25,
+      "required": [
+        "Decode every frame against the source; require FFV1 exact pixels and report MJPG differences.",
+        "Compare FFV1 raw instances with saved native-PNG validation predictions and separately retain seed-component extraction/invalidity.",
+        "Report training/validation event matches, false inspections, negative and usable deadline coverage.",
+        "Compare future-area and gain errors on each available method and the joint windows shared across encodings and models; retain missing/inspection exclusions.",
+        "Retain original detector and forecast bytes, source test exclusion and hashes; do not refit or tune in this comparison."
+      ]
+    },
+    "physical_time_mapping": null
+  },
+  "verification": {
+    "status": "passed",
+    "pytest_tests": 381,
+    "pytest_subtests": 274,
+    "elapsed_seconds": 139.41,
+    "log_sha256": "bdc9e4f5ef147cdc7206ccb1cc47c06cb4abd56d4a900edf83a45f200d654b25",
+    "source_sha256": {
+      "src/vision/optical_sequence.py": "deae1fb2bf2ac362dd74fa57f67aef78c10f7668218b0ffda39d9db73f94efbc",
+      "src/vision/area_forecast_data.py": "fea31866c9b0b2678d36be240d0df1d52b9acf2680f971bf55d9879314dccdba",
+      "src/vision/temporal_diagnostic.py": "d8442d7c8276cd8f762bce0dfdce6c7a33da66255c0b4a2fd9c837826e652953",
+      "scripts/export_optical_sequence.py": "2a8b5aea67960c48f7fd16325961192959e68564b14b0bae548c8c4fe9876eb6",
+      "scripts/prepare_area_forecasts.py": "84f10d0411ad215e7910341bbc5ba2f2a31273529f55728b5280ee311c6056e2",
+      "tests/test_optical_sequence.py": "c4771711815d00634c8987b952e3f1a7b1d96bf77e1799692e025c8ac0c9aa4f"
+    },
+    "pytest_command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MPLCONFIGDIR=/tmp/crystalab-review-mpl .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "synthetic_source_frames_decoded_independently": 480,
+    "lossless_frames_exact": 240,
+    "native_png_prediction_frames_exactly_matched": 96,
+    "temporal_observations_checked": 480,
+    "causal_windows_checked": 450,
+    "forecast_records_checked": 1800,
+    "independent_native_event_mask_and_forecast_reconstruction": true,
+    "artifact_hashes_checked": 3202,
+    "opencv_version": "4.13.0",
+    "opencv_build_information_sha256": "135d485f88966de24cd6773e6ce441e76cc29a16d334673798e7a2c8bae92a77",
+    "concurrent_jobs": "Six independent two-thread replay jobs; regression overlapped. Timing is not an inference-latency or codec-throughput acceptance benchmark."
+  },
+  "artifact_sha256": {
+    "configs/vision_codec_experiment.json": "3f52844975683ddbb22499e5c1e282b5a726a4e8bb296460eeab747b31dce694",
+    "results/vision_codec_pairing_audit_v1.json": "9e5bf18ebe27a23baed92711df8db4c0ecfca1da757259623954a33694ca1e17",
+    "results/vision_codec_pilot_mjpg_v1/manifest.json": "3f6a140d4be0666f8f4cb5d3300327e952cf7e21c340de8827ea01069c526838",
+    "results/vision_codec_pilot_mjpg_v1/experiment.json": "865c55647577c05d3e3d5627df7b4256ce167d90ef9718e34343f2889fa3b917",
+    "results/vision_codec_pilot_mjpg_temporal_audit_v1.json": "22547736191f0c8f8c3d7b173ded8c5775f2c022bbe1f5cd96334481bc29387a",
+    "results/vision_codec_pilot_ffv1_v1/manifest.json": "37855209522a0c0938bdc638aaa94fe844faaf4fa1e56d49dd30500be4d7b6dd",
+    "results/vision_codec_pilot_ffv1_v1/experiment.json": "0354133bb930c81da06c0fb0b28fe71e14f1c7c86523811363abeb01e37d771c",
+    "results/vision_codec_pilot_ffv1_temporal_audit_v1.json": "222a30f3b1a746b5382ff961a1f0c590cb2ab7a6a0604a435bc97936ad417d8e",
+    "results/vision_codec_standard_mjpg_v1/manifest.json": "ee0cbcc64c8a408298ddf45ccd2bef52e2a8a06d27ed72e3bb67fffbd5cba36f",
+    "results/vision_codec_standard_mjpg_v1/experiment.json": "e98afa541075db9f871be3d1817829df9fc92e938111688b6d37ba99d862b184",
+    "results/vision_codec_standard_mjpg_temporal_audit_v1.json": "85cd33320c6ee8de7e2a6a75e2f63e211e21bbc711971d82634646579cf8ab2e",
+    "results/vision_codec_standard_ffv1_v1/manifest.json": "29e26b7f58d90428f7824c67c021298e489ba9958b542a4747f9217dd9c8e851",
+    "results/vision_codec_standard_ffv1_v1/experiment.json": "b0ad50edb3a90c7d4124109a022aa6f2953a6a4078f2105fb50a5604a116276c",
+    "results/vision_codec_standard_ffv1_temporal_audit_v1.json": "2f9ac0711bda7adfc5c4ef1258dcf31d542744fa27fbc09f68c9490c78ab7f9d",
+    "results/vision_codec_fullmask_mjpg_v1/manifest.json": "e77851e94a5503f154518ec665f954f9d9f62a2e8f596f511942240f72b45ef7",
+    "results/vision_codec_fullmask_mjpg_v1/experiment.json": "a51bccfbf2e6af5243af6b59ea2ecee5bf6ee35978bf886c5c374601336c90e6",
+    "results/vision_codec_fullmask_mjpg_temporal_audit_v1.json": "748e4c5ceef0202d86f84346dc8a95a6602a80cdc952ec2ef3c36cca597ffbf9",
+    "results/vision_codec_fullmask_ffv1_v1/manifest.json": "a0825f323e47a56bd9a5edadc5a7466863c1361fb92ed71e5849a9d72b7bea4b",
+    "results/vision_codec_fullmask_ffv1_v1/experiment.json": "0a680590b04b19ac1f78768a94058bba931ea9b8e552c73a49c16d1697f0fb22",
+    "results/vision_codec_fullmask_ffv1_temporal_audit_v1.json": "29a9e668cafe6ef9ff74c863f47e9e5911a0706892a51af7ed5727982a8e33a0",
+    "results/vision_codec_pilot_mjpg_experiment_v1.json": "865c55647577c05d3e3d5627df7b4256ce167d90ef9718e34343f2889fa3b917",
+    "results/vision_codec_pilot_ffv1_experiment_v1.json": "0354133bb930c81da06c0fb0b28fe71e14f1c7c86523811363abeb01e37d771c",
+    "results/vision_codec_standard_mjpg_experiment_v1.json": "e98afa541075db9f871be3d1817829df9fc92e938111688b6d37ba99d862b184",
+    "results/vision_codec_standard_ffv1_experiment_v1.json": "b0ad50edb3a90c7d4124109a022aa6f2953a6a4078f2105fb50a5604a116276c",
+    "results/vision_codec_fullmask_mjpg_experiment_v1.json": "a51bccfbf2e6af5243af6b59ea2ecee5bf6ee35978bf886c5c374601336c90e6",
+    "results/vision_codec_fullmask_ffv1_experiment_v1.json": "0a680590b04b19ac1f78768a94058bba931ea9b8e552c73a49c16d1697f0fb22",
+    "results/audit_vision_codec_temporal_v1.py": "b97b6c01937dfb77cb0f14c570dafcb2538cb2b649aa414cb7c53d8662b5020c",
+    "results/audit_vision_codec_pairing_v1.py": "54d7600c13893773ce4f132a141d52f76ba35473192c7ac6b0eea9699d130bd5"
+  },
+  "decision": "Use explicitly declared, decoded-pixel-verified FFV1 for subsequent synthetic measurement experiments. Retain MJPG comparisons and characterize real capture compression separately. No global detector, forecast or adaptive-action promotion.",
+  "remaining": [
+    "Reviewed real image/event labels and independent real/KDP evaluation, including first-hour and negative-hour clocks.",
+    "Compatible mixed-data training and inclusion coverage; seed silhouettes do not complete faces/asymmetry.",
+    "Operator video/process/proposal/override demonstration and an explicitly changing adaptive state/policy with action-response evidence.",
+    "Equipment response, physical outcomes, CPU/GPU benchmark and justified Qiskit/classical comparison."
+  ],
+  "real_labels_used": 0,
+  "final_test_scored": false,
+  "automatic_model_promotion": false,
+  "numerical_actuator_commands": 0,
+  "operator_reviews_created": 0
+}

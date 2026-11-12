@@ -8,13 +8,62 @@ import math
 from pathlib import Path
 
 import cv2
+import numpy as np
 
 from rendering.optical import audit_optical
 from vision.training_data import save_json
 from vision.video import file_sha256
 
 
-def export_optical_sequence(source, scene_id, output, *, display_fps=4.0):
+def validate_sequence_codec(codec):
+    if type(codec) is not str or codec not in {"MJPG", "FFV1"}:
+        raise ValueError("Declare MJPG or lossless FFV1 sequence encoding")
+    return codec
+
+
+def verify_sequence_pixels(source, mapping, video, *, codec):
+    """Decode every frame; FFV1 must reproduce original BGR pixels exactly."""
+    validate_sequence_codec(codec)
+    capture = cv2.VideoCapture(str(video))
+    try:
+        if not capture.isOpened():
+            raise OSError("Encoded sequence cannot be decoded")
+        tag = int(capture.get(cv2.CAP_PROP_FOURCC))
+        reported_fourcc = "".join(chr((tag >> (8 * i)) & 255) for i in range(4))
+        actual_codec = reported_fourcc.upper()
+        if actual_codec != codec:
+            raise ValueError("Encoded sequence codec differs from requested codec")
+        total_error, values, maximum, changed = 0, 0, 0, 0
+        for row in mapping:
+            ok, decoded = capture.read()
+            original = cv2.imread(str(source / row["source_image_path"]))
+            if not ok or original is None or decoded.shape != original.shape:
+                raise ValueError("Encoded sequence frame count or dimensions differ")
+            difference = np.abs(decoded.astype(np.int16) - original.astype(np.int16))
+            frame_maximum = int(difference.max())
+            if codec == "FFV1" and frame_maximum:
+                raise ValueError("Lossless FFV1 sequence changed original pixels")
+            total_error += int(difference.sum())
+            values += difference.size
+            maximum = max(maximum, frame_maximum)
+            changed += int(frame_maximum > 0)
+        if capture.read()[0]:
+            raise ValueError("Encoded sequence has extra frames")
+        return dict(
+            decoded_frames=len(mapping),
+            actual_codec=actual_codec,
+            reported_fourcc=reported_fourcc,
+            exact_pixel_match=changed == 0,
+            frames_with_pixel_changes=changed,
+            maximum_absolute_channel_difference=maximum,
+            mean_absolute_channel_difference=total_error / values if values else None,
+        )
+    finally:
+        capture.release()
+
+
+def export_optical_sequence(source, scene_id, output, *, display_fps=4.0, codec="MJPG"):
+    codec = validate_sequence_codec(codec)
     if (
         isinstance(display_fps, bool)
         or not math.isfinite(display_fps)
@@ -47,6 +96,7 @@ def export_optical_sequence(source, scene_id, output, *, display_fps=4.0):
         family_id=rows[0]["family_id"],
         split=rows[0]["split"],
         display_fps=display_fps,
+        codec=codec,
         scope="Synthetic development video; no physical-time conversion or event/control truth",
     )
     save_json(output / "manifest.json", manifest)
@@ -66,12 +116,12 @@ def export_optical_sequence(source, scene_id, output, *, display_fps=4.0):
                 shape = (width, height)
                 writer = cv2.VideoWriter(
                     str(output / "sequence.avi"),
-                    cv2.VideoWriter_fourcc(*"MJPG"),
+                    cv2.VideoWriter_fourcc(*codec),
                     display_fps,
                     shape,
                 )
                 if not writer.isOpened():
-                    raise OSError("MJPG video writer unavailable")
+                    raise OSError(f"{codec} video writer unavailable")
                 if not cv2.imwrite(str(output / "first_frame.png"), image):
                     raise OSError("Cannot save source preview")
             elif shape != (width, height):
@@ -92,6 +142,9 @@ def export_optical_sequence(source, scene_id, output, *, display_fps=4.0):
             )
         writer.release()
         writer = None
+        pixel_verification = verify_sequence_pixels(
+            source, mapping, output / "sequence.avi", codec=codec
+        )
         (output / "frame_map.jsonl").write_text(
             "".join(json.dumps(row, allow_nan=False) + "\n" for row in mapping)
         )
@@ -105,7 +158,9 @@ def export_optical_sequence(source, scene_id, output, *, display_fps=4.0):
             source_dataset=str(source),
             source_manifest_sha256=source_hash,
             frame_map_sha256=file_sha256(output / "frame_map.jsonl"),
-            derivative="PNG frames MJPG encoded at original dimensions; no source frame duplication",
+            derivative=f"PNG frames {codec} encoded at original dimensions; no source frame duplication",
+            sequence_codec=codec,
+            sequence_pixel_verification=pixel_verification,
             timing="Display FPS only. Synthetic geometry steps are not physical seconds.",
             optical_quality=None,
             physical_defect_response=None,
@@ -121,6 +176,7 @@ def export_optical_sequence(source, scene_id, output, *, display_fps=4.0):
             frames=len(rows),
             width=shape[0],
             height=shape[1],
+            pixel_verification=pixel_verification,
             files={
                 p.name: file_sha256(p)
                 for p in output.iterdir()

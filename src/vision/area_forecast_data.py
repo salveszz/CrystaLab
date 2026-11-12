@@ -15,7 +15,7 @@ import numpy as np
 
 from models.area_forecast import AreaEstimate, AreaForecastConfig, AreaTrend, FEATURES
 from vision.learned import LearnedObservationConfig
-from vision.optical_sequence import export_optical_sequence
+from vision.optical_sequence import export_optical_sequence, validate_sequence_codec
 from vision.replay import replay
 from vision.training_data import safe_path, save_json
 from vision.video import file_sha256, VideoReader
@@ -191,10 +191,13 @@ def make_samples(source, config, optical, original_rows, output):
     return samples
 
 
-def prepare_cohort(optical, model_run, observer_path, forecast_path, output):
+def prepare_cohort(
+    optical, model_run, observer_path, forecast_path, output, *, sequence_codec="MJPG"
+):
     from models.observation import YOLOObserver
     from rendering.optical import audit_optical
 
+    sequence_codec = validate_sequence_codec(sequence_codec)
     optical, model_run, observer_path, forecast_path, output = [
         Path(p).resolve()
         for p in (optical, model_run, observer_path, forecast_path, output)
@@ -231,6 +234,7 @@ def prepare_cohort(optical, model_run, observer_path, forecast_path, output):
         Path(__file__),
         ROOT / "src/models/area_forecast.py",
         ROOT / "scripts/prepare_area_forecasts.py",
+        ROOT / "src/vision/optical_sequence.py",
     ]:
         relative = path.relative_to(ROOT)
         target = output / "source_snapshot" / relative
@@ -246,6 +250,7 @@ def prepare_cohort(optical, model_run, observer_path, forecast_path, output):
         forecast_config_sha256=forecast_hash,
         source_sha256=source_hashes,
         model_run=str(model_run),
+        sequence_codec=sequence_codec,
         scenes=scenes,
         scope="Synthetic development area forecast examples; no test scoring, physical clock or action-response model",
         label_semantics="optical emission proxy",
@@ -258,7 +263,9 @@ def prepare_cohort(optical, model_run, observer_path, forecast_path, output):
     try:
         for scene in scenes:
             sequence = output / "sequences" / scene
-            export_optical_sequence(optical, scene, sequence, display_fps=4.0)
+            export_optical_sequence(
+                optical, scene, sequence, display_fps=4.0, codec=sequence_codec
+            )
             folder = output / "observations" / scene
 
             def factory(path):
