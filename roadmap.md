@@ -50,8 +50,11 @@ crack/crater leads without treating them as acquired growth-event training data.
    subsequent synthetic inputs. Expanded-detector rates beat persistence on two
    synthetic validation families; retain persistence and the original detector's
    negative result. Characterize the real camera's encoding before real acceptance.
-2. **Check six real images before labeling many more.** Show the computer's outline
-   on each existing training image. A person corrects the outline and marks
+2. **Check one real KDP outline, then the small pack.** The
+   [KDP review pack](docs/KDP_VIDEO_DATA.md) now preserves six native frames from
+   the acquired public movies, with phase/timing context, two uncertain outlines
+   and four manual sheets. All 881 frames are indexed in one development family.
+   The original six Leeds proposals remain available. A person corrects the outline and marks
    uncertainty. An event label adds what appeared and when. This small review
    establishes the example answers used to train and check the model. It needs
    no specialist job title; ambiguous defects remain unresolved until someone
@@ -100,7 +103,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Tabular growth data | 360 episodes / 1,080 audited samples, frozen grouped splits and no quality labels. | Optional supporting forecast benchmark. These are not camera-training examples. |
 | Video observation | Baseline/learned file/camera adapters, explicit clocks, seed role/uncertainty, raw masks, mapped source frames and candidate identities/inspection events during observation or on saved masks. | Reviewed real event accuracy and live equipment verification. Integrated decisions were tested on files; candidates are not confirmed defects. |
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies, a separate ADP movie and 587 protein-crystal images with 4,986 published crystal/drop masks. | Reviewed Leeds/KDP pixel/event labels and representative independent KDP evaluation data. Source fits are not masks; protein selected-object labels need a separate compatible task. |
-| Annotation tooling | Six editable seed proposals from training run 12, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved review revisions. | Zero actual human review receipts. A person must inspect and correct labels before accepted real training export. |
+| Annotation tooling | Six Leeds proposals and six native KDP sheets, source-linked phase/display clocks, previews, guarded review/export and a local polygon editor with uncertain drafts and preserved revisions. All 881 public KDP frames have a native-pixel index. | Zero actual human reviews. Resolve clipping, co-seeded identities and uncertain boundaries before accepted real training export; obtain independent real evaluation groups. |
 | Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal source. Combined export has 84 training / 44 validation / 28 reserved images. Two new fits and development replays are complete; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
 | Real source-fit silhouette study | 66 author-shape proxies: 54 training / 12 validation. Three fixed-budget one-class fits and a static baseline; mixed real proxy IoU 0.9255 and synthetic 0.9078. Independent target/score reconstruction passes; real-only misses all synthetic targets. | Reviewed real pixel/event labels, relevant KDP coverage and the corresponding pitch-class comparison. Auxiliary weights are refused by the pitch observer; no model is promoted. |
 | Inclusion diagnostic | Both small fits learn three training examples. A grouped 512 fit matches 1/6 synthetic validation inclusions and the one eligible training-clip inclusion event; it also doubles secondary false instances and worsens seed measurements. A training-only operator replay preserves the localized cue without reviews or commands. | Relevant reviewed inclusion diversity/negatives, grouped real evaluation and an acceptable overall error tradeoff. No validation inclusion-event coverage or model promotion. |

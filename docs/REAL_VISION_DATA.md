@@ -19,6 +19,10 @@ have supplied no accepted training payload and are not growth-event validation.
 The [source registry](../configs/vision_sources.json) pins URLs, licenses, citations
 and actual SHA256 values. The [compact report](REAL_VISION_DATA.json) records the
 download/decode/import evidence; raw archives remain local and Git-ignored.
+The [KDP frame index/review pack](KDP_VIDEO_DATA.md) now makes all 881 movie frames
+traceable and prepares six native annotation sheets with phase/timing context.
+Two contain uncertain outline drafts; four need manual outlines. None is reviewed
+or accepted as real training truth. All three clips stay in one development family.
 
 ## What is actually present
 

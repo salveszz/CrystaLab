@@ -73,10 +73,24 @@ function refreshSession(){
   refreshControls();
 }
 async function reloadSummary(){state.session=await api("/api/session");refreshSession();}
+function renderSourceContext(){
+  const source=state.current.source;$("source-context").hidden=!source.phase_context;
+  if(!source.phase_context)return;
+  $("source-context-title").textContent=`${source.caption_id || "Movie"} · Published source context`;
+  $("source-phase").textContent=source.phase_context;
+  const clocks=[];
+  if(Number.isFinite(source.display_elapsed_s))clocks.push(`Display ${source.display_elapsed_s.toFixed(3)} s`);
+  if(Number.isFinite(source.published_speedup_relative_elapsed_s))clocks.push(`Published-speed-up estimate ${source.published_speedup_relative_elapsed_s.toFixed(3)} s since clip start`);
+  clocks.push("Acquisition timestamps unavailable; growth-run start unknown.");
+  $("source-clock").textContent=clocks.join(" · ");
+  $("source-provenance").textContent=[source.license,source.original_video_file,source.caption_page?`Caption ${source.caption_page}`:null].filter(Boolean).join(" · ");
+  const article=$("source-paper");article.hidden=true;article.removeAttribute("href");
+  if(typeof source.source_url==="string" && /^https?:\/\//.test(source.source_url)){article.href=source.source_url;article.hidden=false;}
+}
 async function load(index,payload=null){
   state.loaded=false;$("image-loading").hidden=false;state.index=index;state.current=payload || await api(`/api/sample/${index}`);state.doc=copy(state.current.annotation);state.saved=copy(state.doc);state.history=[];state.selected=0;state.vertex=null;state.drawing=[];state.tool="edit";$("viewport").classList.remove("pan");
   $("ack").checked=false;$("empty-reviewed").checked=false;$("sample-name").textContent=state.current.source.sample_id;$("source-label").textContent=`Run ${state.current.source.run_id} · Source frame ${state.current.source.frame_index}`;
-  populateFields();refreshSession();
+  populateFields();refreshSession();renderSourceContext();
   const image=new Image();await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error("The original image could not be loaded."));image.src=state.current.image_url+"?version="+state.current.revision;});
   if(image.naturalWidth!==state.doc.imageWidth || image.naturalHeight!==state.doc.imageHeight)throw new Error("The image dimensions differ from the annotation.");
   state.image=image;state.loaded=true;$("image-loading").hidden=true;focusOutline();refreshControls();

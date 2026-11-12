@@ -15,6 +15,10 @@ now preserves that context with explicit reviews. Live equipment/operator
 response validation remains open.
 The six existing Leeds run-12 proposals still have **zero actual human reviews**.
 They are alpha-LGA development images; they do not establish KDP accuracy.
+The [KDP pack](KDP_VIDEO_DATA.md) now adds six native frames, two uncertain drafts
+and four manual sheets from the acquired public movies. Its source panel preserves
+published phase context, display/inferred clocks and unknown growth-run origin.
+The KDP pack also has zero actual human reviews.
 
 ## Open the existing proposals
 

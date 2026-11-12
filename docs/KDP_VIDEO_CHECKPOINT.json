@@ -1,0 +1,204 @@
+{
+  "record_kind": "public_real_video_development_index_and_unreviewed_annotation_preparation",
+  "date": "2026-11-12",
+  "base_commit": "331a7be",
+  "raw_artifacts_tracked": false,
+  "source_id": "KDP-2026",
+  "license": "CC BY-NC 3.0",
+  "source_protocol_sha256": "f87bbcf26cf4187a003ce8d20657e0920521ee38a231569044fb986e89e7e90f",
+  "source_sha256": {
+    "configs/kdp_video_import.json": "f87bbcf26cf4187a003ce8d20657e0920521ee38a231569044fb986e89e7e90f",
+    "configs/vision_sources.json": "f57fb33759c7796087d00dccba03233d876ae479f5dad0ea2411d798614e2cfc",
+    "src/vision/real_video.py": "d96c087db30112225968d3c29055a79be6b2875335b417e099935560222408e9",
+    "src/vision/annotations.py": "dfef4b2c146a9c6086c8cf0c4d14d035802ba918a8499ed297f6b32dff4e4e57",
+    "src/dashboard/static/review.html": "7c3560987636919da9f902920d1798b71e89703b6477d0394974c6ce85c66905",
+    "src/dashboard/static/review.css": "1fa89cd7ec7a2a983a53ca5c751cde5f09b7d63a72fb066abc58d896b1f01f7f",
+    "src/dashboard/static/review.js": "0ee162450550589c55dab60a837156c16f4ff91a91178a7e72f06e91bd0c80bd",
+    "scripts/import_real_video.py": "cc5b9e091936d79cbf551778edcbb6c021f49cefdc6e26b3e15123f993baaa08",
+    "scripts/audit_kdp_review_pack.py": "a2d5f7305cbb882b889540df23687808bbe092161a98a0bc741c462534605ecc",
+    "tests/test_real_video.py": "ba3b00ceaffe1f89d221b1aa7d4bb3bf801a12a4df15c23f6e3db91f9c5b1b21",
+    "tests/check_annotation_review_ui.py": "0907601d650ad9033cdacdecfdb9b49f94e119a39ba28b9e47035c8f9bfb8ba8"
+  },
+  "index": {
+    "path": "data/real_vision_kdp_v2",
+    "frames": 881,
+    "clips": 3,
+    "families": 1,
+    "split": "training_development_only",
+    "frame_index_sha256": "59f44c23fc918aee0a1cbeb5a1e2a16926d716c84c40128f2e433d370ae24bf4",
+    "native_decoder": {
+      "python": "3.14.8",
+      "opencv": "4.13.0",
+      "numpy": "2.5.0",
+      "ffprobe": "ffprobe version 8.1.3 Copyright (c) 2007-2026 the FFmpeg developers"
+    },
+    "initial_v1_frame_bytes_equal": true
+  },
+  "clips": [
+    {
+      "clip_id": "KDP_S1",
+      "frames": 306,
+      "display_end_s": 10.166666666666666,
+      "published_speedup_relative_end_s": 142.33333333333331,
+      "phase_context": "Defective seed transitioning in a solution supersaturated relative to stable tetragonal KDP"
+    },
+    {
+      "clip_id": "KDP_S2",
+      "frames": 286,
+      "display_end_s": 9.5,
+      "published_speedup_relative_end_s": 237.5,
+      "phase_context": "Co-seeded monoclinic and tetragonal fibers, slight undersaturation relative to monoclinic KDP"
+    },
+    {
+      "clip_id": "KDP_S3",
+      "frames": 289,
+      "display_end_s": 9.6,
+      "published_speedup_relative_end_s": 144.0,
+      "phase_context": "Co-seeded monoclinic and tetragonal fibers, published 4.18 percent supersaturation relative to monoclinic KDP"
+    }
+  ],
+  "bundle": {
+    "path": "data/annotations_kdp_v1",
+    "native_images": 6,
+    "uncertain_polygon_drafts": 2,
+    "unknown_manual_sheets": 4,
+    "actual_human_reviews": 0,
+    "accepted_training_labels": 0,
+    "native_pixels_preserved": true,
+    "blank_sheets_are_negatives": false,
+    "unreviewed_export_refused": "No explicitly reviewed annotations; proposals cannot be exported as truth"
+  },
+  "independent_audit": {
+    "status": "passed",
+    "frames_independently_checked": 881,
+    "clips": [
+      {
+        "clip_id": "KDP_S1",
+        "frames": 306,
+        "display_end_s": 10.166666666666666,
+        "published_speedup_relative_end_s": 142.33333333333331,
+        "phase_context": "Defective seed transitioning in a solution supersaturated relative to stable tetragonal KDP"
+      },
+      {
+        "clip_id": "KDP_S2",
+        "frames": 286,
+        "display_end_s": 9.5,
+        "published_speedup_relative_end_s": 237.5,
+        "phase_context": "Co-seeded monoclinic and tetragonal fibers, slight undersaturation relative to monoclinic KDP"
+      },
+      {
+        "clip_id": "KDP_S3",
+        "frames": 289,
+        "display_end_s": 9.6,
+        "published_speedup_relative_end_s": 144.0,
+        "phase_context": "Co-seeded monoclinic and tetragonal fibers, published 4.18 percent supersaturation relative to monoclinic KDP"
+      }
+    ],
+    "native_annotation_images": 6,
+    "uncertain_polygon_drafts": 2,
+    "unknown_empty_sheets": 4,
+    "actual_reviews": 0,
+    "independent_cli_decoder_images": 6,
+    "dependency_families": 1,
+    "accepted_pixel_or_event_labels": 0,
+    "protocol_sha256": "f87bbcf26cf4187a003ce8d20657e0920521ee38a231569044fb986e89e7e90f",
+    "index_manifest_sha256": "95e672b76e631502f2a69ba621a477bbece67a9c5791ef17cf7a58a331cef30a",
+    "bundle_manifest_sha256": "1b8f4eae77526608a98bc403fa76d59f35b3724994fac4d86dfea8da578f493d",
+    "auditor_sha256": "a2d5f7305cbb882b889540df23687808bbe092161a98a0bc741c462534605ecc",
+    "limits": "All frame pixels and PTS reconstructed independently from original media with OpenCV/ffprobe; six selected PNGs also match an independent FFmpeg CLI decode. No physical acquisition clock, empirical mask accuracy, annotation review or control outcome verified."
+  },
+  "verification": {
+    "regression": "422 passed, 307 subtests passed in 113.15s",
+    "targeted": "5 passed, 2 subtests passed in 1.23s",
+    "browser_checks": 29,
+    "browser_real_bundle_unchanged": true,
+    "browser_servers_stopped": true,
+    "actual_human_reviews_created": 0,
+    "legacy_leeds_bundle": {
+      "path": "/home/salves/dev/CrystaLab/data/annotations_leeds12_v1",
+      "files_checked": 13,
+      "unchanged": true
+    },
+    "visual_review": [
+      "supplement S8 captions",
+      "native nine-frame source contact sheet",
+      "first uncertain outline preview",
+      "real read-only desktop/mobile browser"
+    ]
+  },
+  "limits": [
+    "Original media were already acquired; these are indexed/selected derivatives, not new independent experiments",
+    "All three phase-specific clips remain one conservative development family",
+    "No reviewed pixel/event truth, source event-negative intervals or real evaluation cohort",
+    "Presentation time and published-speedup estimate do not establish acquisition timestamps or growth-run start",
+    "No pixel scale, first-hour membership, sensor/action logs or quality outcomes",
+    "No training, model promotion, author contact, purchase or push performed"
+  ],
+  "remaining_gates": [
+    "Actual review/correction of supported visible targets and uncertainties",
+    "Freeze suitable class/visibility rules, whole-source evaluation groups and budgets",
+    "Mixed pitch-class training after reviewed labels, with separate real evaluation",
+    "Face/asymmetry, action-response, first-hour and physical outcomes",
+    "Remaining thermal/risk HPC and justified Qiskit/classical comparison"
+  ],
+  "artifact_sha256": {
+    "data/annotations_kdp_v1/annotations/KDP_S1_000000.json": "008bd8e5078811fbbfcdb90070fd976abbff59eab71d9cbc535f11839aa40c4d",
+    "data/annotations_kdp_v1/annotations/KDP_S1_000305.json": "4782667aba92f8f610506b0e217a3fc28a18eb456ded19ee21befcf21ec817c3",
+    "data/annotations_kdp_v1/annotations/KDP_S2_000000.json": "b033466868d9bc391ababbd25d2f2a8e7d603b1625a2be8a91db5218d220ea79",
+    "data/annotations_kdp_v1/annotations/KDP_S2_000285.json": "96f439e8b6c7ded53ca488a9c501477a6d3956690f129755a31d9c59cd7b7ee4",
+    "data/annotations_kdp_v1/annotations/KDP_S3_000000.json": "9f0475f898fce44cd55e4d3316a16a8337626d13003bc50e5e6ff25e5c684a17",
+    "data/annotations_kdp_v1/annotations/KDP_S3_000288.json": "4448cd7caa72642d04355fd9ffaff85233313566c71a2fc88718cf6e1cbb815f",
+    "data/annotations_kdp_v1/images/KDP_S1_000000.png": "88692f25427b9f1742392005322f6310e0d07ee241143aa3c49d1e5a04a5b471",
+    "data/annotations_kdp_v1/images/KDP_S1_000305.png": "ac56d1926d22e0b75e3970bd13447bba360a2ea8e57dc626c1e77b5b32a5354e",
+    "data/annotations_kdp_v1/images/KDP_S2_000000.png": "3c4de861e8c883a3857fd42280b8b58fba8855bef9ab6324ae755147b195cdf2",
+    "data/annotations_kdp_v1/images/KDP_S2_000285.png": "c1bd0bfd95a63d2718fa6206bcf82b8a263251e807d0975c179b59387a623606",
+    "data/annotations_kdp_v1/images/KDP_S3_000000.png": "13333dc7717883b11b4781ed18ed1020a7474e99e273f5693f04a2d04cf82ef0",
+    "data/annotations_kdp_v1/images/KDP_S3_000288.png": "2c30c9cbef76691a87e6b1a66fe67f9e98cff67a5c493a5df0e811e607c40b91",
+    "data/annotations_kdp_v1/manifest.json": "1b8f4eae77526608a98bc403fa76d59f35b3724994fac4d86dfea8da578f493d",
+    "data/external_vision/KDP-2026/d5ra09916a1.pdf": "ef362635ba68880acf398ca14d9880b23dbb89e202ecacd8c080e93a8ab735d2",
+    "data/external_vision/KDP-2026/d5ra09916a2.mov": "05f40dca1d31f89e06df7fbb3c10a558b5f2ad1d797ef1670a80e4da7735cd7a",
+    "data/external_vision/KDP-2026/d5ra09916a3.mov": "9741f0c9a296ff6cb76461f70f2e90222a30f71d4e485191207f4f1c0dfd297c",
+    "data/external_vision/KDP-2026/d5ra09916a4.mov": "562974edc8e05788afa1709ced9434452bed83b04a0fc33da4075b2a338b79ba",
+    "data/real_vision_kdp_v1/frames.jsonl": "59f44c23fc918aee0a1cbeb5a1e2a16926d716c84c40128f2e433d370ae24bf4",
+    "data/real_vision_kdp_v1/manifest.json": "066abcce6cf8680fd26be3cd0a3de3c54716ded47c63f59ba9d0f80e93c0f74e",
+    "data/real_vision_kdp_v2/frames.jsonl": "59f44c23fc918aee0a1cbeb5a1e2a16926d716c84c40128f2e433d370ae24bf4",
+    "data/real_vision_kdp_v2/manifest.json": "95e672b76e631502f2a69ba621a477bbece67a9c5791ef17cf7a58a331cef30a",
+    "data/real_vision_kdp_v2/protocol.json": "f87bbcf26cf4187a003ce8d20657e0920521ee38a231569044fb986e89e7e90f",
+    "data/real_vision_kdp_v2/source_snapshot/real_video.py": "d96c087db30112225968d3c29055a79be6b2875335b417e099935560222408e9",
+    "results/kdp_annotation_browser_v1/real_read_only_desktop.png": "e7b596d5fa579d0a4be5cef01136f18dce9c6e6f603671fc8e95a1149dd35393",
+    "results/kdp_annotation_browser_v1/real_read_only_full_image.png": "8f4a574ad48c85b7cc85fb5ed6fbc5a57f2a7346bfa1b8464e4145f71be16e2f",
+    "results/kdp_annotation_browser_v1/real_read_only_mobile.png": "689c7fe86b4a28210a24f5a4327f3ac0db20b78b4db54eee3ce40e0e67ba329c",
+    "results/kdp_annotation_browser_v1/report.json": "ac8793a5556ad75a17f7bce798a5689e876781c0e9bc7517df3c0e6ecb768872",
+    "results/kdp_annotation_previews_v1/KDP_S1_000000.png": "21d110bf784a07e04269583ad9740fa92d367755767e150babd144453bd396f9",
+    "results/kdp_annotation_previews_v1/KDP_S1_000305.png": "b7ada937aeb1150cc315725a5f7f769ad98ff1f262612bd8f2f8c306eb24c5bc",
+    "results/kdp_annotation_previews_v1/KDP_S2_000000.png": "382d422cd3307a21c3a3a8577897aa097225a5c7cf259e7ad0aa1e8328ae0d34",
+    "results/kdp_annotation_previews_v1/KDP_S2_000285.png": "686c3e4df4f9bde650460d26d94f52ea1cedc07e7531f8a5a4cf1959d35fcbda",
+    "results/kdp_annotation_previews_v1/KDP_S3_000000.png": "3b9b9281af81606e05a3954f63a74b308263cb0c1ae06103f94743d5f4f5b5a2",
+    "results/kdp_annotation_previews_v1/KDP_S3_000288.png": "d6176331c0b6baf5a13b782993fba1878008fe9f917a559138b2f52781a853c8",
+    "results/kdp_annotation_previews_v1/manifest.json": "6b55e4b79c35f6ea46b08303f5a991bfcfa886612adf3c08ae289ce7337fdac7",
+    "results/kdp_cross_decoder_v1.json": "db5334e3f15bafc6f9cfe2cb92a993646e8c5fc27825f47336368546cd8467bf",
+    "results/kdp_import_execution_v2/audit.log": "09915f8c717198d9e6a973cb058b5898306c854f31f750995a47c9904df9efc3",
+    "results/kdp_import_execution_v2/bundle.log": "d72917b50405bd67e31fc73059c551d861a21867d48e6808abe5dbe5eb2d3c00",
+    "results/kdp_import_execution_v2/index.log": "b3882c28d15416b32dd8d33ab0799f50473622d8ee7b744366d732f7a1a67225",
+    "results/kdp_import_execution_v2/manifest.json": "36f38b261f7aaf3ccf511540a0bad3aaedbea89cccae802a04d6602e7f20397d",
+    "results/kdp_review_pack_auditor_v1.py": "e7f33dec249996a3d62e9828c1a76e48371edea749c061be6fcbaa990ad133bb",
+    "results/kdp_review_pack_independent_audit_v1.json": "74bd6da872a424785eecc0ee126e3a0983cf6e0c53e2a0f934fe21e9a05ee8e0",
+    "results/kdp_review_pack_independent_audit_v2.json": "3197b2e2b9d21305c37634fb9f8cd67df290822e33eef4866aab3e2e9367057b",
+    "results/kdp_verification_logs_v1/browser.log": "e340e0a2585f4fac64798807d6fa79d50bbf7904335ab13393992d09e674ecd2",
+    "results/kdp_verification_logs_v1/independent_audit.log": "9432c3c5251dec5bdd94fe45be65e891c52fb7e21945c077ced3996e1225c590",
+    "results/kdp_verification_logs_v1/initial_import.log": "b3882c28d15416b32dd8d33ab0799f50473622d8ee7b744366d732f7a1a67225",
+    "results/kdp_verification_logs_v1/regression.log": "bc7f760312b32daa262578dc3cd64c72103215451caa51a3b593dc1ffa702e17",
+    "results/kdp_verification_logs_v1/targeted.log": "2d2a43130d6f99bd72103aa91f0c99115c7e1bf24708ad027313c0c69c3e8996",
+    "results/kdp_development_inspection_v1/d5ra09916a2_0000.png": "88692f25427b9f1742392005322f6310e0d07ee241143aa3c49d1e5a04a5b471",
+    "results/kdp_development_inspection_v1/d5ra09916a2_0153.png": "4278006e1911eba12c9f767e7aa952a091ff4a9641189633539dee9b144902d8",
+    "results/kdp_development_inspection_v1/d5ra09916a2_0305.png": "ac56d1926d22e0b75e3970bd13447bba360a2ea8e57dc626c1e77b5b32a5354e",
+    "results/kdp_development_inspection_v1/d5ra09916a3_0000.png": "3c4de861e8c883a3857fd42280b8b58fba8855bef9ab6324ae755147b195cdf2",
+    "results/kdp_development_inspection_v1/d5ra09916a3_0143.png": "2547fd207f841fbce12af970275eab15ed68d40f0f40767a716ad24122e74449",
+    "results/kdp_development_inspection_v1/d5ra09916a3_0285.png": "c1bd0bfd95a63d2718fa6206bcf82b8a263251e807d0975c179b59387a623606",
+    "results/kdp_development_inspection_v1/d5ra09916a4_0000.png": "13333dc7717883b11b4781ed18ed1020a7474e99e273f5693f04a2d04cf82ef0",
+    "results/kdp_development_inspection_v1/d5ra09916a4_0144.png": "46ae94e627b96c86891c0f67d25ee311f7a4c2ed0c7711a2b3ef079e7ecabb66",
+    "results/kdp_development_inspection_v1/d5ra09916a4_0288.png": "2c30c9cbef76691a87e6b1a66fe67f9e98cff67a5c493a5df0e811e607c40b91",
+    "results/kdp_development_inspection_v1/contact.png": "d0ddce34645111cc5f82e5dbe813a25a947e3d593ab5b3210f16036be14cdfc5",
+    "results/kdp_development_inspection_v1/inspection.json": "3db50f644733330e5278712f11536f9b1e2c35df12e86c1033105b016557eeba"
+  }
+}

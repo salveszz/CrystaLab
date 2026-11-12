@@ -150,6 +150,17 @@ class BrowserQA:
             "Initial proposals are unreviewed; review/export disabled",
             "state.session.reviewed===0 && $('review').disabled && $('export').disabled && state.doc.shapes.length===1",
         )
+        self.evaluate("(()=>{Object.assign(state.current.source,{phase_context:'Fixture phase <b>literal text</b>',caption_id:'S1',display_elapsed_s:1.25,published_speedup_relative_elapsed_s:17.5,license:'FIXTURE ONLY',source_url:'javascript:void(0)'});renderSourceContext();return true;})()")
+        self.check(
+            "Phase context is literal text and unsafe article links remain hidden",
+            "!$('source-context').hidden && $('source-phase').textContent==='Fixture phase <b>literal text</b>' && !$('source-phase').querySelector('b') && $('source-paper').hidden",
+        )
+        self.check(
+            "Source display and inferred elapsed time stay distinct from acquisition/run clocks",
+            "$('source-clock').textContent.includes('Display 1.250 s') && $('source-clock').textContent.includes('17.500 s since clip start') && $('source-clock').textContent.includes('growth-run start unknown')",
+        )
+        self.evaluate("(()=>{for(const key of ['phase_context','caption_id','display_elapsed_s','published_speedup_relative_elapsed_s','license','source_url'])delete state.current.source[key];renderSourceContext();return true;})()")
+        self.check("Sources without phase metadata retain the existing workspace", "$('source-context').hidden")
         self.screenshot("fixture_desktop.png")
         initial = self.evaluate("state.doc.shapes[0].points[0]")
         destination = [initial[0] + 8, initial[1] + 4]
@@ -275,14 +286,29 @@ class BrowserQA:
         self.click("fit-image")
         self.check(
             "Original real image dimensions remain native",
-            "state.image.naturalWidth===2880 && state.image.naturalHeight===2160",
+            "state.image.naturalWidth===state.current.source.image_width && state.image.naturalHeight===state.current.source.image_height",
         )
+        if self.evaluate("Boolean(state.current.source.phase_context)"):
+            self.check(
+                "Real phase, license and unknown physical clock are displayed",
+                "!$('source-context').hidden && $('source-phase').textContent===state.current.source.phase_context && $('source-provenance').textContent.includes(state.current.source.license) && $('source-clock').textContent.includes('growth-run start unknown')",
+            )
         self.screenshot("real_read_only_full_image.png")
         self.click("next")
         self.check(
             "Read-only preview can navigate real proposals",
             "!state.busy && state.index===1 && state.loaded && state.current.review===null",
         )
+        if self.evaluate("Boolean(state.current.source.phase_context)"):
+            for index in range(2,self.evaluate("state.session.samples.length")):
+                self.click("next")
+                self.check(
+                    f"Native source context follows real frame {index}",
+                    f"!state.busy && state.index==={index} && state.loaded && $('source-phase').textContent===state.current.source.phase_context && state.image.naturalWidth===state.current.source.image_width && $('review').disabled",
+                )
+            self.view.resize(390,844)
+            self.check("Real source context fits the mobile viewport", "document.documentElement.scrollWidth<=window.innerWidth+1")
+            self.screenshot("real_read_only_mobile.png")
         if self.page.errors:
             raise AssertionError(self.page.errors)
 

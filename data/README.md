@@ -23,6 +23,11 @@ ADP movie. Source licenses, clocks, integrity checks and import/replay commands
 are in [Real vision data](../docs/REAL_VISION_DATA.md) and the
 [source registry](../configs/vision_sources.json). These raw acquisitions and
 generated indexes remain Git-ignored. A fresh clone must fetch/index them.
+`data/real_vision_kdp_v2/frames.jsonl` now indexes all 881 native KDP movie frames,
+with source pixel hashes, presentation clocks and one conservative study family.
+`data/annotations_kdp_v1/` contains six native annotation sheets (two uncertain
+outlines and four manual sheets), with zero accepted reviews. See the
+[KDP review-pack guide](../docs/KDP_VIDEO_DATA.md) for import, clock limits and review.
 
 `data/published_masks_chimp_v1/images.jsonl` separately indexes 587 real
 protein-crystal images and 4,986 published crystal/drop instance masks. Original

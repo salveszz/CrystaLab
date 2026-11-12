@@ -51,6 +51,11 @@ experiment; it is not automatically imported as KDP seed/secondary/inclusion tru
 A reviewed outline is an image boundary that a person has checked and
 corrected; it is distinct from the computer's initial suggestion. An event label
 records what became visible and when, such as a secondary crystal appearing.
+The [public KDP pack](KDP_VIDEO_DATA.md) now adds six native annotation sheets,
+with phase and display-clock context, from an audited 881-frame index. Two outlines
+are uncertain drafts and four sheets need manual outlines. All remain unreviewed;
+the three clips stay together in one development family, with unknown run-start
+and first-hour membership.
 
 Then expand a small development pilot across the existing training families,
 including difficult views and contiguous candidate-event/negative periods. Freeze

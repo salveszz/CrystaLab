@@ -383,7 +383,7 @@ def preview_bundle(bundle_path, output, *, max_width=960):
     output.mkdir(parents=True, exist_ok=False)
     previews = []
     for sample in bundle["samples"]:
-        annotation = _validated_annotation(root, sample)
+        annotation = _validated_annotation(root, sample, allow_uncertain=True)
         image = cv2.imread(str(root / sample["image_path"]))
         h, w = image.shape[:2]
         width = min(w, max_width)
