@@ -1,6 +1,6 @@
 # Vision and control MVP contract
 
-Status: software diagnostics on 2026-11-12. The file/camera adapter, OpenCV seed baseline,
+Status: software diagnostics on 2026-11-13. The file/camera adapter, OpenCV seed baseline,
 real-image importer, annotation workflow and optical renderer exist. Real review
 remains open. The 60-image grouped synthetic cohort, 30-epoch YOLOv8-seg fit and
 development comparison are complete. Learned replay now preserves seed role,
@@ -71,6 +71,14 @@ Begin with a fixed view and comparable poses. Calibration must account for the
 intended measurement through vessel/solution; retain pixel measurements where a
 physical conversion is unsupported. Rotation requires pose-aware comparison or a
 fixed observation pose. Apparent width changes alone cannot identify asymmetry.
+
+The first [anchored projected-edge diagnostic](PROJECTED_EDGES.md) now tests this
+precondition with RGB-derived reference registration and silhouette supports.
+It shows identical images from unequal anchored advance and symmetric expansion
+plus translation. External attachment/pose/visibility assertions supply the
+distinction in the fixture; they are not automatic camera predictions. Six real
+KDP sheets remain unavailable for this measurement. Supported face identification,
+real accuracy and operator/action integration remain open.
 
 ## Observable targets and pitch responses
 

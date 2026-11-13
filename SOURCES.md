@@ -763,3 +763,26 @@ The [source guide](docs/KDP_GEL_DATA.md) and [checkpoint](docs/KDP_GEL_CHECKPOIN
 retain sparse published clocks, uncertain review sheets and raw-camera/label/
 control limitations. No actual human review, automatic class mapping or model
 training is claimed for these panels.
+
+## DESIGN-PROJECTED-EDGE-001
+
+`configs/projected_edge_diagnostic.json` declares the coloured planar references,
+anchor, source-clock windows, raster budgets and review thresholds for a bounded
+measurement experiment. These are fixture design assumptions, not KDP optics,
+physical facet rates, reviewed camera labels or accepted real performance limits.
+
+The [projected-edge report](docs/PROJECTED_EDGES.md) preserves the actual 96-frame
+RGB/threshold-mask diagnostic, independent similarity/support/decision audit,
+growth-versus-translation counterexample and six real-source refusals. External
+attachment, object pose and visibility assertions are prerequisites; the fixture
+construction supplies them without claiming human review or automatic inference.
+No physical command or current operator-console integration is provided.
+
+OpenCV's [limited affine transform documentation](https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html)
+describes the planar four-degree-of-freedom transformation class. Its
+[PnP documentation](https://docs.opencv.org/4.13.0/d5/d1f/calib3d_solvePnP.html)
+describes the separate calibrated 3D/object-to-image pose problem. These primary
+method references do not validate through-solution imaging or the external
+preconditions. The [checkpoint](docs/PROJECTED_EDGES_CHECKPOINT.json) retains
+source/artifact identities and verification, including the initial equality-boundary
+audit failure and unchanged nominal thresholds.

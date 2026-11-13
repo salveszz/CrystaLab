@@ -11,6 +11,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Next steps with public data](NEXT_STEPS.md) | Short execution sequence, the meaning of reviewed outlines and the remaining vision/control evidence. |
 | [Roadmap](../roadmap.md) | Pitch requirements, actual status, immediate pilot batch and ordered perception/control/demo work, including HPC/Qiskit deliverables. |
 | [Vision MVP](VISION_MVP.md) | Capture/annotation contract, observable targets, real/synthetic splits, evaluation and control interfaces. |
+| [Anchored projected edges](PROJECTED_EDGES.md) | Conditional silhouette advance, reference registration, identical-image ambiguity, 96-frame diagnostic and explicit real-data refusals. |
+| [Projected-edge checkpoint](PROJECTED_EDGES_CHECKPOINT.json) | Frozen inputs, independent SVD/pixel/decision audit, retained round-off failure and regression verification. |
 | [Public KDP source review](PUBLIC_KDP_SOURCE_REVIEW.md) | Additional surface-defect leads, observed access/license limits and remaining growth-event evidence under public-only access. |
 | [KDP video index and review pack](KDP_VIDEO_DATA.md) | All 881 native source frames, preserved phase/timestamp provenance, six unreviewed sheets and independent pixel/browser checks. |
 | [KDP gel-growth publication panels](KDP_GEL_DATA.md) | A second KDP study: nine source-bound image crops, uncertain review sheets, sparse published clocks and independent decoder/provenance checks. |

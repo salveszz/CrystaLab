@@ -42,6 +42,9 @@ establish real detection accuracy.
    action-response objective remain open. First-hour detection needs a trusted
    growth-start clock; control benefit needs synchronized measured/applied actions
    and subsequent observations. Continue looking for suitable public evidence.
+   The [edge diagnostic](PROJECTED_EDGES.md) now shows why a stable reference,
+   known pose and attachment evidence are needed. Its constructed-image result
+   does not supply real face labels or real accuracy.
 6. **Keep the supporting experiments bounded.** The CPU/hybrid GPU flow comparison
    and the first Al-precursor VQE/classical diagnostic are recorded. Heat/coupling,
    physical risk maps, converged KDP surface chemistry and impurity thresholds

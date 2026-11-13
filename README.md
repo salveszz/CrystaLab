@@ -42,6 +42,10 @@ or invented acquisition/run-start clocks.
 A [second KDP study](docs/KDP_GEL_DATA.md) adds nine small published microscopy
 panels with a source-bound review pack. Their gel/specimen domains, publication
 marks and sparse clocks remain explicit; all labels are still unreviewed.
+An [anchored projected-edge diagnostic](docs/PROJECTED_EDGES.md) now verifies a
+conditional measurement method on constructed images. It requires attachment
+and pose evidence; the real KDP sheets currently produce no qualified edge
+measurements. Visible-face identification and physical control remain open.
 The [inclusion diagnostic](docs/INCLUSION_RESOLUTION.md) now detects one of six
 synthetic validation inclusions and demonstrates a localized training-clip alert,
 but adds false secondary detections and worsens seed measurements. It is not

@@ -1,4 +1,4 @@
-# CrystaLab roadmap — 2026-11-12
+# CrystaLab roadmap — 2026-11-13
 
 ## Goal and order of work
 
@@ -120,6 +120,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal source. Combined export has 84 training / 44 validation / 28 reserved images. Two new fits and development replays are complete; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
 | Real source-fit silhouette study | 66 author-shape proxies: 54 training / 12 validation. Three fixed-budget one-class fits and a static baseline; mixed real proxy IoU 0.9255 and synthetic 0.9078. Independent target/score reconstruction passes; real-only misses all synthetic targets. | Reviewed real pixel/event labels, relevant KDP coverage and the corresponding pitch-class comparison. Auxiliary weights are refused by the pitch observer; no model is promoted. |
 | Inclusion diagnostic | Both small fits learn three training examples. A grouped 512 fit matches 1/6 synthetic validation inclusions and the one eligible training-clip inclusion event; it also doubles secondary false instances and worsens seed measurements. A training-only operator replay preserves the localized cue without reviews or commands. | Relevant reviewed inclusion diversity/negatives, grouped real evaluation and an acceptable overall error tradeoff. No validation inclusion-event coverage or model promotion. |
+| Projected edge advance | A [reference/edge diagnostic](docs/PROJECTED_EDGES.md) audits 96 constructed RGB frames, two naive baselines, pose/reference refusals and an identical-image growth/translation ambiguity. Camera-motion imbalance is at most 0.2401 px; six real sheets produce no qualified measurements. | Source-supported attachment/pose/visibility, calibrated optics, reviewed edges/faces, learned-mask evaluation and operator integration. External fixture assertions are not automatic pose recognition or real accuracy. |
 | Observable forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared validation windows. Online adaptation gives 80.71 px² and does not beat recent rate. Parameters update only from matured observed masks; real replay remains unscored shadow output. | Reviewed real/action-labelled trajectories, capture characterization, acceptance budgets and supported action-response objective. No action-response growth model exists. |
 | Learned perception, controllers and UI | Local training/evaluation, candidate analysis, PID/rules, operator replay and bounded adaptive pause comparison. The console now displays causal forecasts/state and preserves explicit suggested/manual duration reviews. Independent audits retain secondary misses and inclusion failures. | Review/evaluate real data, support face measurements, validate the adaptive action-response objective and characterize equipment/operator response. |
 | HPC and Qiskit | A [CPU/hybrid Vulkan comparison](docs/VULKAN_FLOW_BENCHMARK.md) passes fixed-domain NS/solute checks but is about five times slower on GPU. A [hydrated Al precursor experiment](docs/QUANTUM_IMPURITY.md) independently audits six 8-qubit VQE starts against the same-space classical solution. HF already meets its frozen error target. | Heat/coupling and physical risk interpretation; KDP surface/reference chemistry, geometry/basis/active-space convergence and any impurity-tolerance claim. Neither extension establishes physical control or a speedup. |
@@ -268,6 +269,11 @@ alone cannot close the KDP detection requirement.
   Verify camera/equipment timing separately; current integrated runs use files.
 - Measure projected growth from comparable views. Add visible-face/edge annotations
   or a justified measurement method before claiming face-specific asymmetry.
+  The [anchored projected-edge diagnostic](docs/PROJECTED_EDGES.md) now measures
+  directional silhouette supports in a registered image frame and emits one
+  review-only fixture proposal. It preserves an exact growth/translation ambiguity
+  and requires external attachment/pose assertions. The six real KDP sheets lack
+  those inputs; visible-face identification and real/asymmetry evaluation remain open.
 - Implement persistent secondary-candidate alerts, supported asymmetry decisions
   and localized inclusion alerts. Glare, bubbles and poor views must be represented
   in evaluation; uncertainty requests operator inspection.
