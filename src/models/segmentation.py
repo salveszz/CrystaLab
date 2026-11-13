@@ -132,6 +132,10 @@ def training_options(config):
             ):
                 raise ValueError("Invalid explicit training schedule")
             options[key] = float(value)
+    if "max_det" in config:
+        if type(config["max_det"]) is not int or config["max_det"] < 1:
+            raise ValueError("Maximum detections must be a positive integer")
+        options["max_det"] = config["max_det"]
     return options
 
 
@@ -179,6 +183,10 @@ def train_segmentation(
         from vision.silhouette_training import audit_silhouette
 
         auditor = audit_silhouette
+    elif dataset_task == "published_selected_protein_instances":
+        from vision.published_mask_training import audit_training
+
+        auditor = audit_training
     else:
         raise ValueError(
             "Declare the pitch task or separate source-fit silhouette task"
@@ -206,6 +214,15 @@ def train_segmentation(
                 "src/simulation/crystal.py",
             ]
         )
+    if dataset_task == "published_selected_protein_instances":
+        source_paths.extend(
+            ROOT / p
+            for p in [
+                "src/vision/published_mask_training.py",
+                "src/vision/published_masks.py",
+                "scripts/chimp_mask_pilot.py",
+            ]
+        )
     source_hashes = {}
     for path in source_paths:
         relative = path.relative_to(ROOT)
@@ -225,7 +242,9 @@ def train_segmentation(
         dataset_task=dataset_task,
         source_sha256=source_hashes,
         evaluation_scope="training and validation only; final test split is not scored",
-        scope="Source-fitted main-crystal silhouette diagnostic; real labels are projected author 3D fits, not reviewed pixel/event boundaries; no KDP or defect-accuracy claim"
+        scope="Author-selected protein crystal/drop masks only; source membership retained, physical run grouping unknown. No KDP, seed, defect, exhaustive-negative or control claim."
+        if dataset_task == "published_selected_protein_instances"
+        else "Source-fitted main-crystal silhouette diagnostic; real labels are projected author 3D fits, not reviewed pixel/event boundaries; no KDP or defect-accuracy claim"
         if dataset_task == "source_fit_silhouette"
         else "Synthetic first fits establish software behavior; real performance requires independently reviewed real observations",
     )

@@ -54,3 +54,28 @@ rectangle measurements and a process-log lead. They are useful for reviewing
 observable trajectories and possible action-response development, while retaining
 their material, clock, scale and single-study limits. They are not an additional
 KDP cohort, reviewed KDP masks or evidence that a KDP action prevents defects.
+
+## Additional public leads checked — 2026-11-13
+
+- [Lee et al., 2016 KDP droplet nucleation](https://pmc.ncbi.nlm.nih.gov/articles/PMC5137746/)
+  links three supplementary movies. The current official S3 listing for
+  `PMC5137746.` returned zero keys; version-1 metadata returned 404. No movie
+  payload or applicable training-reuse terms were verified. This remains a lead,
+  not acquired training data; it does not establish universal inaccessibility.
+- [Jiang et al., 2022 Mask R-CNN study](https://ieeexplore.ieee.org/document/9902343/)
+  uses beta-L-glutamic acid, not KDP. No new KDP image/label payload was verified.
+- [OpenCrystalData's primary description](https://www.sciencedirect.com/science/article/pii/S2772508124000127)
+  identifies cephalexin impurity, agrochemical, polystyrene and wollastonite/LGA
+  tasks. Those are not a newly verified KDP mask dataset; no payload was added.
+
+Response bytes/status/hashes remain in
+`data/audits/kdp_public_discovery_20261113_v1` and
+`data/audits/kdp_public_discovery_20261113_v2`. The legacy PMC OA service returned
+404; [official documentation](https://pmc.ncbi.nlm.nih.gov/tools/oa-service/)
+confirms its 2026 retirement. Current bucket listing, rather than that old
+endpoint alone, establishes the recorded empty distribution result. No login,
+purchase, author contact or access-control bypass was used.
+
+While KDP outline review remains pending, the separate [published-mask pilot](PUBLISHED_MASK_PILOT.md)
+now trains with existing author labels. Its protein task and poor crystal result
+are retained; it supplies no KDP labels or model promotion.

@@ -109,6 +109,9 @@ are kept separate from the pitch's defect classes and reviewed pixel accuracy.
 A separate [published-mask source](docs/PUBLISHED_CRYSTAL_MASKS.md) now adds 587
 real protein-crystal images with 4,986 expert-supplied crystal/drop masks. Their
 selected-object definitions stay separate from the pitch's KDP training classes.
+A [real-mask pilot](docs/PUBLISHED_MASK_PILOT.md) now trains on 61 images with
+those published labels. It matches only 8/74 selected validation crystals;
+the negative result is retained and the auxiliary model is not promoted.
 A separate [CrystalCV acquisition](docs/CRYSTALCV_DATA.md) now preserves 27,652
 distinct uncontoured perovskite image arrays, 54 published rectangle measurements
 and an infusion/growth log. The [process audit](docs/CRYSTALCV_PROCESS.md) now

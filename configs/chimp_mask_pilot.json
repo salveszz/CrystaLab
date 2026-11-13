@@ -1,0 +1,37 @@
+{
+  "schema": "crystalab_chimp_selected_mask_pilot_v1",
+  "task": "published_selected_protein_instances",
+  "source_index": "data/published_masks_chimp_v1",
+  "source_manifest_sha256": "266406359f70fb7fa5cbc63927b2da943938b91822aa05fd4735510bc85350c8",
+  "source_index_sha256": "0aba1168d4e51dd33ab21b45d782eece04d98476a86518dac05aba7e41395cba",
+  "classes": ["crystal", "drop"],
+  "class_semantics": "Author-selected interesting/mountable protein crystals and drops. Other unannotated crystals are not exhaustive generic negatives. No seed/secondary/inclusion mapping.",
+  "selection": {
+    "datasets": ["vmxi", "xchem"],
+    "train_per_dataset": 32,
+    "validation_per_dataset": 16,
+    "hash_prefix": "chimp-selected-mask-pilot-v1|",
+    "rule": "Ascending SHA256(prefix + sample_id), separately within original author split and source dataset; select before conversion checks. Do not replace rejected images."
+  },
+  "polygon_export": {
+    "minimum_native_iou": 0.95,
+    "policy": "One nondegenerate external contour per source instance, small holes filled with measured loss. Reject the complete image if any object cannot be represented; retain original masks and rejection details, never convert unsupported objects into negatives."
+  },
+  "evaluation": {
+    "checkpoint": "last",
+    "imgsz": 512,
+    "confidence": 0.25,
+    "nms_iou": 0.7,
+    "max_det": 512,
+    "retina_masks": true,
+    "match_iou": 0.5,
+    "matching": "Class-wise maximum total native-mask IoU assignment; retain matches above fixed threshold. Report source-selected targets, unmatched predictions and misses separately.",
+    "selection_scope": "Author-validation image pilot only; physical run/plate grouping unknown, not an independent KDP evaluation.",
+    "baseline": "No comparative improvement claim in this first real-pixel-label fit. Training/validation scores describe only the declared source-selected task."
+  },
+  "pitch_class_mapping": null,
+  "independent_KDP_evaluation_groups": 0,
+  "new_human_review_receipts": 0,
+  "model_promoted": false,
+  "physical_command": null
+}

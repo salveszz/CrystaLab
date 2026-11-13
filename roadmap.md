@@ -38,6 +38,11 @@ order. HPC and Qiskit remain explicit pitch deliverables with bounded experiment
 The [plain-language next steps](docs/NEXT_STEPS.md) summarize this sequence for
 the current public-data-only setup.
 
+A separate [published-mask pilot](docs/PUBLISHED_MASK_PILOT.md) now runs real
+pixel-label training on 61 protein images and scores 32 author-validation images.
+It matches 8/74 selected crystals and 27/30 drops. Its weak crystal result is
+retained, with no KDP mapping or model promotion; relevant KDP review remains next.
+
 The pitch's next useful demonstration is a video of the growing crystal with
 measured outlines, supported alerts and a traceable proposed control response.
 The foundations run; dependable real detection and adaptive control are unfinished.

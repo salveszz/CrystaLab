@@ -50,6 +50,11 @@ An [auxiliary published-mask index](PUBLISHED_CRYSTAL_MASKS.md) now preserves 58
 real protein-crystal images and 4,986 source crystal/drop masks. Its selected-object
 task, unannotated regions and physical grouping need an explicit compatible
 experiment; it is not automatically imported as KDP seed/secondary/inclusion truth.
+A later [published-mask training pilot](PUBLISHED_MASK_PILOT.md) now fits 61
+real images and independently audits 32 validation images under that separate
+selected-object task. It matches 8/74 selected crystals; the weak result is
+retained and the model is refused by the pitch observer. This completes a bounded
+real pixel-label fit, not relevant KDP accuracy or independent physical validation.
 A reviewed outline is an image boundary that a person has checked and
 corrected; it is distinct from the computer's initial suggestion. An event label
 records what became visible and when, such as a secondary crystal appearing.

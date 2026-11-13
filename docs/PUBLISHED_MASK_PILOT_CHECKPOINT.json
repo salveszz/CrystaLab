@@ -1,0 +1,273 @@
+{
+  "record_kind": "first_author_selected_real_protein_pixel_label_pilot_not_KDP_training_or_validation",
+  "date": "2026-11-13",
+  "base_commit": "872ac1f",
+  "source_sha256": {
+    "configs/chimp_mask_pilot.json": "a2a9d51e6a8712bfaaf75f8fc79d51caddaaa4a47ffd8b2adbc7bf27348acae1",
+    "configs/chimp_mask_pilot_train.json": "37b8603d82f0c08cc26ae6f4b2a9d66a1b7bbd0090d375bf896a219d6f297492",
+    "src/vision/published_mask_training.py": "e6350f845076eba7b1a6d3fd232ff4849c99fbbf972cfbe60c32e92b17756b1f",
+    "src/models/segmentation.py": "c1cee303e2f37ea0e7a8e1e6130563885fa38bd6cdef4f579af1f07b673ec29a",
+    "scripts/chimp_mask_pilot.py": "dbae10e45969b35d225ce2904247d254162e9ab66cc392e5e46c16723405ddbd",
+    "scripts/evaluate_chimp_pilot.py": "af1c3f0938eddda591c5fc81c3d926354206a1aee20ba914328a958b19af72b6",
+    "scripts/audit_chimp_pilot.py": "95154cad853e576e01cbafe96dc0bd40665d5575de698bb3e878dafe907b90fd",
+    "tests/test_published_mask_training.py": "367ca17a80ac16d3ec3477f1ca19c02b09c6dd6b610f8ec0f2d8e6fb36f49a2b",
+    "docs/PUBLISHED_MASK_PILOT.md": "e865428968e194db55e6d50c49b17de5bf4ac9843a9b639dcaf7743c36728a40",
+    "docs/PUBLISHED_CRYSTAL_MASKS.md": "6f39f411e7529e3168062bbe5a078c220bee62962e6e59942d787a3f1bad6107",
+    "docs/README.md": "71e692874cb3d51687249c00ec46dd0ef148657a587141af8ef5e81941aaf695",
+    "README.md": "219c6b9435778a5afe2d0891633977d5fc1f79498ed67b4431c3717e4c1a03a5",
+    "roadmap.md": "7160bad8a7b9ec6a990f63ea36c6fd58afbe3923d31cb87a96a84c20b252c905",
+    "docs/AI_READINESS.md": "ca67239427fb1a00626b58c3b4d8c7925deccbb8117454f2c78259dc3822c244",
+    "docs/PUBLIC_KDP_SOURCE_REVIEW.md": "045bd8f35844364f076a3771144f5369c60b2aab59b14c4d8d760ee8372faf88",
+    "SOURCES.md": "54f286ae2801f94312791bfe95e9a88220016ad817b889052b628a23363c0957"
+  },
+  "protocol_sha256": "a2a9d51e6a8712bfaaf75f8fc79d51caddaaa4a47ffd8b2adbc7bf27348acae1",
+  "training_config_sha256": "37b8603d82f0c08cc26ae6f4b2a9d66a1b7bbd0090d375bf896a219d6f297492",
+  "protocols_frozen_before_training": true,
+  "dataset": "data/chimp_selected_mask_pilot_v1",
+  "dataset_manifest_sha256": "927c35ff9802f1c014b8107f55d4b454eeafed59d3c1d1b077356c3ef89ac167",
+  "training_run": "results/chimp_selected_mask_train_v1",
+  "training_run_manifest_sha256": "c6c61e059ac754a39608556d4cd1383505a7cc545d9a81554cb1a09c02fe8a7a",
+  "last_weights_sha256": "3a403fc68bac82d4a3ffc6dce31c50e8e74e258f4277fdf6fbef1f7dae11a529",
+  "training_seconds": 264.9734701499983,
+  "original_mask_evaluation": {
+    "dataset_audit": {
+      "status": "passed",
+      "task": "published_selected_protein_instances",
+      "classes": [
+        "crystal",
+        "drop"
+      ],
+      "selected_images": 96,
+      "eligible_by_split": {
+        "train": 61,
+        "validation": 32
+      },
+      "rejected_images": 3,
+      "eligible_masks_by_class": {
+        "drop": 85,
+        "crystal": 602
+      },
+      "source_manifest_sha256": "266406359f70fb7fa5cbc63927b2da943938b91822aa05fd4735510bc85350c8",
+      "independent_KDP_evaluation_groups": 0,
+      "actual_human_reviews_created": 0
+    },
+    "total_images": 93,
+    "metrics": {
+      "train": {
+        "images": 61,
+        "classes": {
+          "crystal": {
+            "selected_targets": 528,
+            "predictions": 342,
+            "matched_selected_targets": 240,
+            "missed_selected_targets": 288,
+            "unmatched_predictions": 102,
+            "selected_target_recall": 0.45454545454545453,
+            "source_task_precision": 0.7017543859649122,
+            "matched_mean_native_iou": 0.7394319948966286
+          },
+          "drop": {
+            "selected_targets": 55,
+            "predictions": 66,
+            "matched_selected_targets": 55,
+            "missed_selected_targets": 0,
+            "unmatched_predictions": 11,
+            "selected_target_recall": 1.0,
+            "source_task_precision": 0.8333333333333334,
+            "matched_mean_native_iou": 0.9311360242736123
+          }
+        }
+      },
+      "validation": {
+        "images": 32,
+        "classes": {
+          "crystal": {
+            "selected_targets": 74,
+            "predictions": 75,
+            "matched_selected_targets": 8,
+            "missed_selected_targets": 66,
+            "unmatched_predictions": 67,
+            "selected_target_recall": 0.10810810810810811,
+            "source_task_precision": 0.10666666666666667,
+            "matched_mean_native_iou": 0.7362604534576864
+          },
+          "drop": {
+            "selected_targets": 30,
+            "predictions": 36,
+            "matched_selected_targets": 27,
+            "missed_selected_targets": 3,
+            "unmatched_predictions": 9,
+            "selected_target_recall": 0.9,
+            "source_task_precision": 0.75,
+            "matched_mean_native_iou": 0.8928033830315035
+          }
+        }
+      }
+    },
+    "per_source_validation": {
+      "vmxi": {
+        "images": 16,
+        "classes": {
+          "crystal": {
+            "selected_targets": 18,
+            "predictions": 50,
+            "matched_selected_targets": 3,
+            "missed_selected_targets": 15,
+            "unmatched_predictions": 47,
+            "selected_target_recall": 0.16666666666666666,
+            "source_task_precision": 0.06,
+            "matched_mean_native_iou": 0.7546049405460241
+          },
+          "drop": {
+            "selected_targets": 16,
+            "predictions": 20,
+            "matched_selected_targets": 13,
+            "missed_selected_targets": 3,
+            "unmatched_predictions": 7,
+            "selected_target_recall": 0.8125,
+            "source_task_precision": 0.65,
+            "matched_mean_native_iou": 0.8694043909174565
+          }
+        }
+      },
+      "xchem": {
+        "images": 16,
+        "classes": {
+          "crystal": {
+            "selected_targets": 56,
+            "predictions": 25,
+            "matched_selected_targets": 5,
+            "missed_selected_targets": 51,
+            "unmatched_predictions": 20,
+            "selected_target_recall": 0.08928571428571429,
+            "source_task_precision": 0.2,
+            "matched_mean_native_iou": 0.7252537612046839
+          },
+          "drop": {
+            "selected_targets": 14,
+            "predictions": 16,
+            "matched_selected_targets": 14,
+            "missed_selected_targets": 0,
+            "unmatched_predictions": 2,
+            "selected_target_recall": 1.0,
+            "source_task_precision": 0.875,
+            "matched_mean_native_iou": 0.9145310185659756
+          }
+        }
+      }
+    },
+    "source_empty_annotation_images": {
+      "train": 6,
+      "validation": 4
+    },
+    "independent_KDP_evaluation_groups": 0,
+    "new_human_review_receipts": 0,
+    "model_promoted": false,
+    "physical_command": null
+  },
+  "independent_audit": {
+    "passed": true,
+    "source_images": 96,
+    "source_masks_verified": 781,
+    "eligible_images_scored": 93,
+    "minimum_independent_polygon_iou": 0.9988172678888232,
+    "fixed_neural_replays": 4,
+    "metrics": {
+      "train": {
+        "crystal": {
+          "targets": 528,
+          "matched": 240,
+          "unmatched_predictions": 102
+        },
+        "drop": {
+          "targets": 55,
+          "matched": 55,
+          "unmatched_predictions": 11
+        }
+      },
+      "validation": {
+        "crystal": {
+          "targets": 74,
+          "matched": 8,
+          "unmatched_predictions": 67
+        },
+        "drop": {
+          "targets": 30,
+          "matched": 27,
+          "unmatched_predictions": 9
+        }
+      }
+    },
+    "protocol_sha256": "a2a9d51e6a8712bfaaf75f8fc79d51caddaaa4a47ffd8b2adbc7bf27348acae1",
+    "auditor_sha256": "95154cad853e576e01cbafe96dc0bd40665d5575de698bb3e878dafe907b90fd",
+    "evaluation_manifest_sha256": "376ffd1324aa372e6129ba3e9cf25b5304bd12d308cb75215fd87f78cc567772",
+    "last_weights_sha256": "3a403fc68bac82d4a3ffc6dce31c50e8e74e258f4277fdf6fbef1f7dae11a529",
+    "independent_KDP_evaluation_groups": 0,
+    "model_promoted": false,
+    "physical_command": null
+  },
+  "pitch_observer_guard": {
+    "refused": true,
+    "reason": "Auxiliary source-fit silhouettes cannot supply pitch instance/event classes",
+    "task": "published_selected_protein_instances",
+    "physical_command": null
+  },
+  "verification": {
+    "full_regression_tests": 511,
+    "subtests": 323,
+    "seconds": 114.96,
+    "log": "results/chimp_selected_mask_evidence_v1/crystalab-chimp-pilot-regression-v1.log",
+    "ruff_selected_errors": "passed",
+    "ruff_format": "passed",
+    "native_source_prediction_views_visually_inspected": 4
+  },
+  "source_data_scope": "Author-selected protein crystals/drops. Original author split retained; physical run grouping unknown. Three images excluded without replacement for disconnected masks; original masks preserved.",
+  "model_promoted": false,
+  "physical_command": null,
+  "independent_KDP_evaluation_groups": 0,
+  "local_human_review_receipts_added": 0,
+  "next_step": "Relevant reviewed KDP boundaries/events and independent data remain required. Investigate source-mask pilot misses only within its declared task; do not promote it as the pitch detector.",
+  "historical_completed_source_commits": {
+    "process_audit": "3aaa80f",
+    "observable_forecast": "872ac1f"
+  },
+  "artifact_sha256": {
+    "data/audits/kdp_public_discovery_20261113_v1/pnas_cloud_metadata.body": "51eaaa27743daf497bbdb8e7c52e8c52a04daa86975ba099c7da472834c22957",
+    "data/audits/kdp_public_discovery_20261113_v1/pnas_cloud_metadata.json": "51f780af34a549c16095e8869822dcdfeb1df8f2c35b705f087c308cdbd3cd72",
+    "data/audits/kdp_public_discovery_20261113_v1/pnas_oa_record.body": "b5fb83cb2b8ad48a2f396403ea0879574b02d5206c9570bd1d798df50340f9a6",
+    "data/audits/kdp_public_discovery_20261113_v1/pnas_oa_record.json": "4db3298886351b85d980f3f1a3cd6ed7aff7e24264de09c5a4b0ea59c574ddaa",
+    "data/audits/kdp_public_discovery_20261113_v1/report.json": "9d69995a7fdf6efab77a8badd9ce69cb0a78b1ac3e246777775fcfadc5b8ddf3",
+    "data/audits/kdp_public_discovery_20261113_v1/wu_figshare_discovery.body": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "data/audits/kdp_public_discovery_20261113_v1/wu_figshare_discovery.json": "16d83db30538284855e7488f1c0155c97185654cd5bdf071afffb816b4315ca5",
+    "data/audits/kdp_public_discovery_20261113_v2/report.json": "7ce60b70073383e87d88c59ca8cff889f4054de056cec5adac5915135a5662f5",
+    "data/audits/kdp_public_discovery_20261113_v2/s3_listing.xml": "c4b100563fc7b74e6781ce08243d6fd31334ecb1d6bc5da8b199979021738e0b",
+    "data/chimp_selected_mask_pilot_v1/dataset.yaml": "4b56cd3d8116cac6d9b5475a2e6e8fc82c3f568ed7ab679d8c553cf2a3261e05",
+    "data/chimp_selected_mask_pilot_v1/manifest.json": "927c35ff9802f1c014b8107f55d4b454eeafed59d3c1d1b077356c3ef89ac167",
+    "data/chimp_selected_mask_pilot_v1/protocol.json": "a2a9d51e6a8712bfaaf75f8fc79d51caddaaa4a47ffd8b2adbc7bf27348acae1",
+    "data/chimp_selected_mask_pilot_v1/records.json": "a331193604d71ab336ef2b0c6a698c69d814fbe2c188035e827ebf6e14d05c9d",
+    "results/chimp_pitch_observer_guard_v1.json": "0f96081621819ab8f4b4eab5f7c32eda740d8e189d16a93004e49a81379317f2",
+    "results/chimp_selected_mask_evaluation_v1/evaluator_snapshot.py": "af1c3f0938eddda591c5fc81c3d926354206a1aee20ba914328a958b19af72b6",
+    "results/chimp_selected_mask_evaluation_v1/manifest.json": "376ffd1324aa372e6129ba3e9cf25b5304bd12d308cb75215fd87f78cc567772",
+    "results/chimp_selected_mask_evaluation_v1/report.json": "3da1d96c2398507a748d4413863ef0dca14d72ef908783ba407fa2a06ca3e2c5",
+    "results/chimp_selected_mask_evaluation_v1/scores.json": "6c8c7985a10fa0438e460002bbde7d5ba3da0877ac83ce190853e1a436e20c50",
+    "results/chimp_selected_mask_evidence_v1/crystalab-chimp-pilot-audit-v1.log": "f94388ed99d007f93c88c0f9f3d821b4c7d83e1acd81e539cef52b6b163a0c12",
+    "results/chimp_selected_mask_evidence_v1/crystalab-chimp-pilot-evaluate-v1.log": "dfc9ac19669928c2b806eb9a75e7007338348382990f0d22aa3d76af1e7a5a93",
+    "results/chimp_selected_mask_evidence_v1/crystalab-chimp-pilot-regression-v1.log": "62f4706969e7a23f2ffa2b4f4653a0c91f532d4166fdddae40247366d5411b54",
+    "results/chimp_selected_mask_independent_audit_v1.json": "57b7e1bb6cc7e81326b4cb748b1647b895d9192d11ef08753d1f1d8f6543c390",
+    "results/chimp_selected_mask_inspection_v1/inspection_snapshot.py": "9bdfa87434cdf966e98fa28830a7b15c373f5358755934200ff0b3a839c5a27d",
+    "results/chimp_selected_mask_inspection_v1/native_inspection.png": "7adb002e754f45e6117950934fee7de9551d4e9657bb68806b7077cbe3d102f1",
+    "results/chimp_selected_mask_inspection_v1/selected.json": "9c63d278cb92861e1e20ee20afa681a19e534e350fcda928c60a70a9980b3555",
+    "results/chimp_selected_mask_train_v1/manifest.json": "c6c61e059ac754a39608556d4cd1383505a7cc545d9a81554cb1a09c02fe8a7a",
+    "results/chimp_selected_mask_train_v1/settings/Ultralytics/settings.json": "4c1bad6f16dcd93b3d43116d44c5985375848e541c8d04914a8162730ccbcb7d",
+    "results/chimp_selected_mask_train_v1/source_snapshot/scripts/chimp_mask_pilot.py": "dbae10e45969b35d225ce2904247d254162e9ab66cc392e5e46c16723405ddbd",
+    "results/chimp_selected_mask_train_v1/source_snapshot/scripts/train_vision.py": "ce5d910d2b108169817994617da581ce59d2adc28c587cdef020cd2de2e89132",
+    "results/chimp_selected_mask_train_v1/source_snapshot/src/models/segmentation.py": "c1cee303e2f37ea0e7a8e1e6130563885fa38bd6cdef4f579af1f07b673ec29a",
+    "results/chimp_selected_mask_train_v1/source_snapshot/src/vision/published_mask_training.py": "0fdaef5f3d15ef01b7dfd9456e58ff5749be39da4f9efebc505984da829cfd16",
+    "results/chimp_selected_mask_train_v1/source_snapshot/src/vision/published_masks.py": "7a3ef831422833984c813c9a75b9894c6299baa855a16951c7efe23e255d1812",
+    "results/chimp_selected_mask_train_v1/source_snapshot/src/vision/training_data.py": "110d4fc5b35f69408c4e8293e86a4f8597692865daa17799edec7aa573ec136a",
+    "results/chimp_selected_mask_train_v1/ultralytics/train/args.yaml": "33c4b06ab1ac365bea327fc7182dc9f4230c098808a96370484a5c3f619b64cf",
+    "results/chimp_selected_mask_train_v1/ultralytics/train/results.csv": "e29b136388e4dccad877d1609fa750e1fc11cbb1ec05e1a93985bdaa1f4cb539",
+    "results/chimp_selected_mask_train_v1/ultralytics/train/weights/best.pt": "a370a77b32faa784eedcf834dcfa0787faa2434a53576ace57ccad5c585e0bf5",
+    "results/chimp_selected_mask_train_v1/ultralytics/train/weights/last.pt": "3a403fc68bac82d4a3ffc6dce31c50e8e74e258f4277fdf6fbef1f7dae11a529"
+  }
+}

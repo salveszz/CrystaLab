@@ -1,0 +1,17 @@
+{
+  "schema": "crystalab_yolov8_seg_train_v1",
+  "purpose": "grouped_experiment",
+  "imgsz": 512,
+  "batch": 4,
+  "threads": 2,
+  "seed": 20261113,
+  "device": "cpu",
+  "learning_rate": 0.001,
+  "mask_ratio": 1,
+  "overlap_mask": false,
+  "warmup_epochs": 0,
+  "lrf": 1,
+  "epochs": 15,
+  "max_det": 512,
+  "description": "Fixed-budget pilot on author-selected protein crystal/drop pixel labels. Preserve original author membership; physical run grouping unknown. Report last checkpoint, no hyperparameter search or KDP promotion."
+}

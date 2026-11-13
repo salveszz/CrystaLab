@@ -38,6 +38,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [Public observable forecast comparison](CRYSTALCV_FORECAST.md) | Prefix-only ridge fits with/without process features, disjoint later blocks, recent-rate advantage and retained negative result. |
 | [Public forecast checkpoint](CRYSTALCV_FORECAST_CHECKPOINT.json) | Frozen model protocol, all 2,050 independently reconstructed predictions, source snapshots and verification. |
 | [Published crystal masks](PUBLISHED_CRYSTAL_MASKS.md) | Acquired CHiMP real image/mask index, streamed native masks, author membership and selected protein-crystal semantics. |
+| [Published-mask training pilot](PUBLISHED_MASK_PILOT.md) | Real source pixel-label fit, original-mask evaluation, independent replay and poor selected-crystal validation result; no KDP mapping. |
+| [Published-mask pilot checkpoint](PUBLISHED_MASK_PILOT_CHECKPOINT.json) | Frozen protocols, dataset/weight identities, independent native audit and regression evidence. |
 | [Published-mask checkpoint](PUBLISHED_MASKS_CHECKPOINT.json) | Exact acquisition/import identities, full source reconstruction, regression and six training-image inspection records. |
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |
 | [Local image review](ANNOTATION_REVIEW_UI.md) | Native-image polygon editor, uncertain drafts, explicit per-image review, preserved revisions and accepted-subset export. |

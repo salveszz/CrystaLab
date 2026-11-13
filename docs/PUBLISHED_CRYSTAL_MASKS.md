@@ -11,7 +11,9 @@ This is an auxiliary source for a separately declared segmentation experiment.
 It is not automatically combined with the pitch's three-class training dataset.
 The six Leeds outline proposals still need actual human review, and independent
 KDP evaluation remains open. No new real-data training or accuracy result is
-claimed by this acquisition.
+claimed by this acquisition. The later [published-mask pilot](PUBLISHED_MASK_PILOT.md)
+now trains with the source classes preserved. It has weak selected-crystal
+validation performance and is not promoted or mapped into the pitch classes.
 
 ## Actual contents and audit
 
