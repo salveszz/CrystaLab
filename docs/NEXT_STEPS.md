@@ -46,10 +46,11 @@ establish real detection accuracy.
    known pose and attachment evidence are needed. Its constructed-image result
    does not supply real face labels or real accuracy.
 6. **Keep the supporting experiments bounded.** The CPU/hybrid GPU flow comparison
-   and the first Al-precursor VQE/classical diagnostic are recorded. Heat/coupling,
-   physical risk maps, converged KDP surface chemistry and impurity thresholds
-   remain open. These experiments support the pitch; they do not replace the
-   camera/data/control work.
+   and the first Al-precursor VQE/classical diagnostic are recorded. A separate
+   [heat/solute/buoyancy component](THERMAL_TRANSPORT.md) now passes manufactured
+   numerical checks. KDP thermal calibration, physical risk maps, converged KDP
+   surface chemistry and impurity thresholds remain open. These experiments
+   support the pitch; they do not replace the camera/data/control work.
 
 If no reviewer is available yet, keep the real-label gate pending and continue
 work whose evidence is already available. Do not call uncertain drafts accepted

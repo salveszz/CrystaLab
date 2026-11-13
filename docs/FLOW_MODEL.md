@@ -152,8 +152,12 @@ domain dimensions. The momentum checkpoint's full suite passed 122 tests.
 
 Uniform/rectilinear grids, fixed aligned solids and constant properties are the
 current scope. Oblique cut faces, moving/growing
-solids, deformable free surfaces, turbulence closures, thermal transport
-and buoyancy remain unsupported. Passive solute transport now uses this
+solids, deformable free surfaces and turbulence closures remain unsupported.
+The separate [heat/solute/buoyancy wrapper](THERMAL_TRANSPORT.md) now adds sensible
+heat, external thermal walls and small-density-perturbation feedback, verified
+with numerical test properties. This momentum component retains constant
+reference density; real KDP thermal calibration remains open.
+Passive solute transport now uses this
 component's native face volume fluxes; see [SOLUTE_MODEL.md](SOLUTE_MODEL.md).
 The original growth demo
 still uses its conservative displacement approximation; it has not quietly

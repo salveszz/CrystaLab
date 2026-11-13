@@ -85,6 +85,7 @@ experiment using the frozen tabular splits, illustrative units and fixed law.
 | Physical definitions and source data | [Physical model](PHYSICAL_MODEL.md), [physical data](PHYSICAL_DATA.md), [source audit](DATA_AUDIT.json). |
 | Experimental claims and evaluation | [Real-data validation](REAL_DATA_VALIDATION.md). |
 | Canonical fixed-grid flow/solute work | [Flow model](FLOW_MODEL.md), [solute model](SOLUTE_MODEL.md), [solute checkpoint](SOLUTE_CHECKPOINT.json). |
+| Coupled heat/solute/buoyancy | [Thermal transport](THERMAL_TRANSPORT.md), [checkpoint](THERMAL_CHECKPOINT.json): manufactured-solution convergence, wall heat budgets and explicit physical-data limits. |
 | CPU/hybrid GPU experiment | [Vulkan flow benchmark](VULKAN_FLOW_BENCHMARK.md), [checkpoint](VULKAN_FLOW_CHECKPOINT.json): actual AMD fp64 compute, comparable fields and a retained negative performance result. |
 | Rectilinear/focused flow operators | [Rectilinear flow](RECTILINEAR_FLOW.md), [checkpoint](RECTILINEAR_CHECKPOINT.json). |
 | Cut-cell geometry and pressure | [Pressure method](CUTCELL_PRESSURE.md), [checkpoint](CUTCELL_PRESSURE_CHECKPOINT.json). |

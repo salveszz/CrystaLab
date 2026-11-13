@@ -1,97 +1,43 @@
-# HOW THIS FILE WORKS
-# Carry C [kg KDP/m3 solution] on the fixed uniform or rectilinear SI flow grid.
-# Actual cell volumes, face areas and center distances define every transfer.
-# Linear slopes use physical distances and actual donor-to-face offsets.
-# Each independent open
-# face transfers one signed solute mass between its two neighboring liquid cells.
-# Donor advection plus centered diffusion supplies a positive low-order update.
-# Limited linear reconstruction supplies an advective correction; paired flux
-# budgets bound it by local concentration extrema without clipping solved fields.
-# SSP RK2 combines two such conservative Euler stages. Explicit diffusion and
-# advection share an outgoing-rate timestep limit and automatic subcycling.
-# FlowSoluteSimulation advances momentum and carries solute with the average of
-# the old/new divergence-free face fluxes. Geometry/density/properties remain fixed;
-# there is no heat, buoyancy, interfacial uptake or calibrated crystal growth here.
-
-"""Conservative, bounded SI solute transport on a fixed staggered flow grid."""
-
-import math
+# FILE PURPOSE: Carry KDP mass concentration on the fixed SI flow grid.
+# Shared transport numerics live in scalar.py; this wrapper retains concentration
+# bounds, kg mass accounting and the existing flow/solute API.
+"""Passive solute and synchronized isothermal flow/mass transport."""
 
 import numpy as np
 
 from .flow import IncompressibleFlow
+from .scalar import ConservativeScalarTransport
 from .units import finite_number
 
 
-class SoluteTransport:
-    """Passive advection-diffusion using the flow's native volume fluxes.
-
-    ``advance`` holds its supplied fluxes fixed and advances only the solute.
-    Use FlowSoluteSimulation to advance momentum and solute together. Diffusivity
-    defaults to the sourced fluid property; an explicit override is useful for
-    numerical tests, including pure advection. Concentration is per solution
-    volume, distinct from the illustrative growth engine's carrier-volume basis.
-    """
+class SoluteTransport(ConservativeScalarTransport):
+    """KDP concentration [kg/m3 solution], distinct from carrier-volume labels."""
 
     def __init__(self, flow, concentration_kg_per_m3, *, diffusivity_m2_per_s=None):
         if not isinstance(flow, IncompressibleFlow):
             raise ValueError("Solute transport requires IncompressibleFlow")
-        self.flow = flow
-        self.diffusivity_m2_per_s = finite_number(
-            flow.properties.solute_diffusivity_m2_per_s
-            if diffusivity_m2_per_s is None
-            else diffusivity_m2_per_s,
-            "diffusivity_m2_per_s",
-            nonnegative=True,
+        super().__init__(
+            flow,
+            concentration_kg_per_m3,
+            diffusivity_m2_per_s=(
+                flow.properties.solute_diffusivity_m2_per_s
+                if diffusivity_m2_per_s is None
+                else diffusivity_m2_per_s
+            ),
         )
-        self._fluid = flow.fluid.copy()
-        self._spacing = flow.spacing.copy()
-        self._edges = tuple(e.copy() for e in flow.grid.edges)
-        self._active = np.flatnonzero(self._fluid)
-        if not len(self._active):
-            raise ValueError("Solute transport requires liquid cells")
-        lookup = np.full(flow.shape, -1, dtype=int)
-        lookup.flat[self._active] = np.arange(len(self._active))
-        self._volumes = flow.cell_volumes[self._fluid].copy()
-        coordinates = np.array(np.unravel_index(self._active, flow.shape))
-        self._widths = np.array([w[ix] for w, ix in zip(flow.grid.widths, coordinates)])
-        left, right, axes, conductance = [], [], [], []
-        self._faces = []
-        # Component.cells omits the duplicate periodic end face. Each connection
-        # therefore appears exactly once, including connections across a seam.
-        for component in flow.components:
-            hi = component.cells.copy()
-            lo = hi.copy()
-            lo[:, component.axis] -= 1
-            if flow.periodic[component.axis]:
-                lo[:, component.axis] %= flow.shape[component.axis]
-            left.append(lookup[tuple(lo.T)])
-            right.append(lookup[tuple(hi.T)])
-            axes.append(np.full(len(hi), component.axis))
-            conductance.append(
-                self.diffusivity_m2_per_s
-                * flow.grid.face_areas[component.axis][tuple(hi.T)]
-                / flow.grid.pressure_distances[component.axis][hi[:, component.axis]]
-            )
-            self._faces.append(tuple(component.cells.T))
-        self._i, self._j = np.concatenate(left), np.concatenate(right)
-        self._axes = np.concatenate(axes)
-        self._conductance = np.concatenate(conductance)
-        self._neighbors = np.full((3, 2, len(self._active)), -1, dtype=int)
-        self._distances = np.ones((3, 2, len(self._active)))
-        for axis in range(3):
-            select = self._axes == axis
-            i, j = self._i[select], self._j[select]
-            self._neighbors[axis, 1, i] = j
-            self._neighbors[axis, 0, j] = i
-            distance = 0.5 * (self._widths[axis, i] + self._widths[axis, j])
-            self._distances[axis, 1, i] = distance
-            self._distances[axis, 0, j] = distance
-        self.concentration = self._field(concentration_kg_per_m3)
-        self.time_s = flow.time_s
-        self.initial_mass_kg = self.mass_kg
-        self.substeps = 0
-        self.limited_face_stages = 0
+        self.initial_mass_kg = self.initial_integral
+
+    @property
+    def concentration(self):
+        return self.values
+
+    @concentration.setter
+    def concentration(self, value):
+        self.values = value
+
+    @property
+    def mass_kg(self):
+        return self.volume_integral
 
     def _field(self, value):
         raw = np.asarray(value)
@@ -109,176 +55,6 @@ class SoluteTransport:
             raise ValueError("Concentration must satisfy 0 <= C < solution density")
         field[~self._fluid] = 0.0
         return field
-
-    @property
-    def mass_kg(self):
-        return float(np.sum(self.concentration[self._fluid] * self._volumes))
-
-    def _fluxes(self, supplied=None):
-        flow = self.flow
-        if (
-            not np.array_equal(flow.fluid, self._fluid)
-            or not np.array_equal(flow.spacing, self._spacing)
-            or any(
-                not np.array_equal(e, previous)
-                for e, previous in zip(flow.grid.edges, self._edges)
-            )
-        ):
-            raise ValueError("Solute geometry must remain fixed")
-        fields = flow.volume_fluxes_m3_per_s() if supplied is None else supplied
-        if len(fields) != 3:
-            raise ValueError("Supply three staggered volume fluxes in x/y/z order")
-        checked = []
-        for value, component in zip(fields, flow.components):
-            if np.iscomplexobj(value):
-                raise ValueError("Volume fluxes must be real")
-            field = np.asarray(value, dtype=float)
-            if field.shape != component.mask.shape or not np.isfinite(field).all():
-                raise ValueError("Volume fluxes must be finite and match flow faces")
-            checked.append(field)
-        scale = max(float(abs(f).max(initial=0)) for f in checked)
-        tolerance = 1e-12 * max(scale, np.finfo(float).tiny)
-        for field, component in zip(checked, flow.components):
-            if np.max(abs(field[~component.mask]), initial=0) > tolerance:
-                raise ValueError("Volume flux crosses a blocked wall or solid face")
-            if flow.periodic[component.axis] and not np.allclose(
-                np.take(field, 0, axis=component.axis),
-                np.take(field, -1, axis=component.axis),
-                rtol=0,
-                atol=tolerance,
-            ):
-                raise ValueError("Periodic volume-flux end faces must agree")
-        flux = np.concatenate([f[ix] for f, ix in zip(checked, self._faces)])
-        divergence = self._balance(flux)
-        if np.max(abs(divergence), initial=0) > 1e-9 * max(scale, np.finfo(float).tiny):
-            raise ValueError("Solute advection requires divergence-free volume fluxes")
-        return flux
-
-    def _balance(self, transfer):
-        """Net mass/volume entering each cell; opposite signs share one value."""
-        return np.bincount(
-            self._j, weights=transfer, minlength=len(self._active)
-        ) - np.bincount(self._i, weights=transfer, minlength=len(self._active))
-
-    def _euler(self, old, flux, dt):
-        i, j, volume = self._i, self._j, self._volumes
-        donor = np.where(flux >= 0, old[i], old[j])
-        low_flux = flux * donor + self._conductance * (old[i] - old[j])
-        low = old + self._balance(dt * low_flux) / volume
-        slopes = np.zeros((3, len(old)))
-        lower, upper = old.copy(), old.copy()
-        for axis, (left, right) in enumerate(self._neighbors):
-            a, b = old[np.maximum(left, 0)], old[np.maximum(right, 0)]
-            a, b = np.where(left >= 0, a, old), np.where(right >= 0, b, old)
-            lower = np.minimum(lower, np.minimum(a, b))
-            upper = np.maximum(upper, np.maximum(a, b))
-            backward = (old - a) / self._distances[axis, 0]
-            forward = (b - old) / self._distances[axis, 1]
-            slopes[axis] = np.where(
-                backward * forward > 0,
-                np.sign(backward)
-                * np.minimum(
-                    abs(0.5 * (backward + forward)),
-                    np.minimum(2 * abs(backward), 2 * abs(forward)),
-                ),
-                0.0,
-            )
-        # Antidiffusive mass, positive left -> right. Diffusion is already in the
-        # low-order update. Limit total incoming/outgoing corrections jointly in
-        # all three directions, rather than limiting each face independently.
-        donor_offset = np.where(
-            flux >= 0,
-            0.5 * self._widths[self._axes, i] * slopes[self._axes, i],
-            -0.5 * self._widths[self._axes, j] * slopes[self._axes, j],
-        )
-        reconstructed = np.clip(
-            donor + donor_offset, np.minimum(old[i], old[j]), np.maximum(old[i], old[j])
-        )
-        correction = dt * flux * (reconstructed - donor)
-        positive, negative = np.maximum(correction, 0), np.maximum(-correction, 0)
-        incoming = np.bincount(j, positive, len(old)) + np.bincount(
-            i, negative, len(old)
-        )
-        outgoing = np.bincount(i, positive, len(old)) + np.bincount(
-            j, negative, len(old)
-        )
-        add, remove = np.ones(len(old)), np.ones(len(old))
-        np.divide(
-            np.maximum(upper - low, 0) * volume,
-            incoming,
-            out=add,
-            where=incoming > 0,
-        )
-        np.divide(
-            np.maximum(low - lower, 0) * volume,
-            outgoing,
-            out=remove,
-            where=outgoing > 0,
-        )
-        add, remove = np.minimum(add, 1), np.minimum(remove, 1)
-        limiter = np.where(
-            correction >= 0,
-            np.minimum(remove[i], add[j]),
-            np.minimum(add[i], remove[j]),
-        )
-        answer = low + self._balance(limiter * correction) / volume
-        limited = int(np.count_nonzero((limiter < 1) & (correction != 0)))
-        return answer, limited
-
-    def advance(self, dt_s, *, volume_fluxes_m3_per_s=None, max_substep_s=None):
-        """Advance passive solute, subcycling both RK stages under the same CFL.
-
-        A failed validation/update leaves the stored scalar and time unchanged.
-        Supplied volume fluxes are checked, never projected or silently zeroed.
-        """
-        dt = finite_number(dt_s, "dt_s", positive=True)
-        maximum = (
-            dt
-            if max_substep_s is None
-            else finite_number(max_substep_s, "max_substep_s", positive=True)
-        )
-        flux = self._fluxes(volume_fluxes_m3_per_s)
-        old = self._field(self.concentration).flat[self._active].copy()
-        rate = (
-            (
-                np.bincount(
-                    self._i,
-                    np.maximum(flux, 0) + self._conductance,
-                    len(old),
-                )
-                + np.bincount(
-                    self._j,
-                    np.maximum(-flux, 0) + self._conductance,
-                    len(old),
-                )
-            )
-            / self._volumes
-        ).max(initial=0)
-        count = math.ceil(dt / min(maximum, 0.45 / rate if rate else maximum))
-        sub_dt = dt / count
-        initial_min, initial_max = old.min(), old.max()
-        tolerance = 3e-12 * max(float(initial_max), 1.0)
-        limited = 0
-        for _ in range(count):
-            stage, first = self._euler(old, flux, sub_dt)
-            stage, second = self._euler(stage, flux, sub_dt)
-            old = 0.5 * old + 0.5 * stage
-            if (
-                not np.isfinite(old).all()
-                or old.min() < initial_min - tolerance
-                or old.max() > initial_max + tolerance
-            ):
-                raise ArithmeticError(
-                    "Solute transport violated its concentration bounds"
-                )
-            limited += first + second
-        result = np.zeros(self.flow.shape)
-        result.flat[self._active] = old
-        self.concentration = result
-        self.time_s += dt
-        self.substeps += count
-        self.limited_face_stages += limited
-        return self.measurements()
 
     def measurements(self):
         values = self.concentration[self._fluid]

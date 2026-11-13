@@ -1,0 +1,60 @@
+{
+  "purpose": "DESIGN-THERMAL-001: numerical verification, not calibrated KDP or risk training labels",
+  "fluid": {
+    "temperature_K": 303.15,
+    "molality_mol_per_kg_water": 0.0,
+    "density_kg_per_m3": 1000.0,
+    "dynamic_viscosity_Pa_s": 0.001,
+    "solute_diffusivity_m2_per_s": 5e-8,
+    "source_id": "DESIGN-THERMAL-001"
+  },
+  "heat": {
+    "heat_capacity_J_per_kg_K": 4000.0,
+    "conductivity_W_per_m_K": 0.4,
+    "reference_temperature_K": 303.15,
+    "source_id": "DESIGN-THERMAL-001"
+  },
+  "buoyancy": {
+    "thermal_expansion_per_K": 0.0002,
+    "solutal_expansion_m3_per_kg": 0.0008,
+    "reference_temperature_K": 303.15,
+    "reference_concentration_kg_per_m3": 200.0,
+    "gravity_m_per_s2": [0.0, 0.0, -9.81],
+    "maximum_density_perturbation_fraction": 0.05,
+    "source_id": "DESIGN-THERMAL-001"
+  },
+  "length_m": 0.01,
+  "shear": {
+    "counts_xyz": [16, 4, 4],
+    "duration_s": 1.0,
+    "timesteps_s": [0.1, 0.05, 0.025, 0.0125],
+    "temperature_amplitude_K": 1.0,
+    "concentration_amplitude_kg_per_m3": 0.1
+  },
+  "wall_conduction": {
+    "counts_x": [8, 16, 32],
+    "duration_s": 10.0,
+    "max_substep_s": 0.05,
+    "left_temperature_K": 300.0,
+    "right_temperature_K": 310.0,
+    "sine_amplitude_K": 1.0
+  },
+  "mixing": {
+    "counts_xyz": [8, 8, 8],
+    "duration_s": 0.25,
+    "max_dt_s": 0.0125,
+    "initial_ABC_speed_m_per_s": 0.0001,
+    "temperature_amplitude_K": 0.5,
+    "concentration_amplitude_kg_per_m3": 0.2
+  },
+  "acceptance": {
+    "shear_temporal_error_ratio_min": 1.8,
+    "shear_temporal_error_ratio_max": 2.2,
+    "shear_finest_relative_velocity_error_max": 0.004,
+    "wall_finest_rms_error_K_max": 0.001,
+    "heat_budget_residual_J_max": 1e-9,
+    "solute_mass_drift_kg_max": 1e-13,
+    "scaled_divergence_max": 1e-8,
+    "mixing_buoyancy_velocity_difference_m_per_s_min": 1e-6
+  }
+}

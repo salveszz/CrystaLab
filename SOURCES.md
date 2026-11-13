@@ -786,3 +786,25 @@ method references do not validate through-solution imaging or the external
 preconditions. The [checkpoint](docs/PROJECTED_EDGES_CHECKPOINT.json) retains
 source/artifact identities and verification, including the initial equality-boundary
 audit failure and unchanged nominal thresholds.
+
+## DESIGN-THERMAL-001
+
+`configs/thermal_verification.json` declares constant rho, viscosity, thermal
+capacity/conductivity, solute diffusivity and thermal/solutal expansion for
+manufactured numerical tests. These are project design inputs, not measurements
+of KDP solution. The [thermal report](docs/THERMAL_TRANSPORT.md) records actual
+heat/solute/Boussinesq coupling, nine saved numerical cases, first-order coupling
+convergence, wall grid refinement, budgets and a separate native-field audit.
+The [checkpoint](docs/THERMAL_CHECKPOINT.json) binds sources, artifacts and tests.
+No real-image labels, physical risk labels or control improvement follows from
+these fields. The earlier GPU benchmark retains its original isothermal scope.
+
+The [Eisenschmidt thesis landing page, DOI 10.25673/12279](https://opendata.uni-halle.de/handle/1981185920/12338)
+and the [MPG file endpoint](https://pure.mpg.de/pubman/item/item_2636003_6/component/file_3007907/Eisenschmidt-2018_A_Cyclic_Growth-Dissolution_Process.pdf)
+were considered as potential public physical-data sources. On the recorded
+retrievals the MPG file returned 403, while the Halle landing page/bitstream
+returned bot-challenge HTML. Response files/hashes and acquisition records are
+retained under `data/external/KDP-EISENSCHMIDT-2018`; no usable PDF or accepted
+thermal-property/growth-table transcription was acquired. Indexed text remains
+a discovery lead. No challenge was bypassed and no values from it enter the
+thermal protocol or accepted training data.

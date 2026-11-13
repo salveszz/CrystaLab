@@ -1,0 +1,228 @@
+{
+  "record_kind": "fixed_domain_constant_property_heat_solute_boussinesq_numerical_verification_not_KDP_calibration",
+  "date": "2026-11-13",
+  "base_commit": "3ec9340",
+  "raw_artifacts_tracked": false,
+  "source_sha256": {
+    "configs/thermal_verification.json": "f6f70e476c898e049311a24f5775fc8c92cf79e284662f457c39cb05c6b86c08",
+    "src/simulation/scalar.py": "ce0b8c3b0fb210dbe10a8bc4301a29f792872dd0e1d89be471c4b31b39fecc6b",
+    "src/simulation/solute.py": "ae34c446b35d69fed8036b9e03ad0a42f64388a3b061ba11c574b47e14d459ab",
+    "src/simulation/thermal.py": "bde8a571ef0780869d2fae55e4c4fb40d26e016a46938ebb2c905299ddd05809",
+    "scripts/check_thermal.py": "67851b33e8e7a939c8128d6d22fa94da7ae9b9bd90750f8ec8f6836876eec2a5",
+    "scripts/audit_thermal.py": "98a7f8b931cf14ce7387ce2e49be2e9a6f4da634999e0a46644ed1d38e6ebd52",
+    "scripts/plot_thermal.py": "1482a23f48343952cdfeb7f0bb9c999963a455e167ca99ead093785e88be2824",
+    "tests/test_thermal.py": "8fb1b4e795fbbd4addd3621b64d5239418d4cd4a26a22f08b0875ce720074b85",
+    "docs/THERMAL_TRANSPORT.md": "6db83ca221e35978f3235c193a5e5c64b1db922305af25948293b5494ac86956",
+    "README.md": "ad15afe8e66791de65b9ed8fa4575688d544db092acc496f8b3a494fd06c313b",
+    "docs/README.md": "7ea2763e2a14d2b97afde7ac10e0da6427df1504a4bd69c17b6781cd13223212",
+    "docs/NEXT_STEPS.md": "c36cfd6b5da9ce36baa794aeedb07fec05d76072276a02b5c501ef2471b4e9f8",
+    "docs/FLOW_MODEL.md": "94843676720920960501a4b5119e7e656741404bcb5be1cd687d48bd5822f8e0",
+    "docs/AI_READINESS.md": "45808873eeb02480e2e866d5181c84013b9e9e0ccd40dbca99d64c7a31199d84",
+    "roadmap.md": "8ddfca5eb97e8b92961c44645d529cd4d4bdc83182f73a69833ed18b0f28dc03",
+    "SOURCES.md": "7e442e0d000b62f981b915f92681d7e3e0f5559c96ccb62844c87260bd0c1702"
+  },
+  "protocol_sha256": "f6f70e476c898e049311a24f5775fc8c92cf79e284662f457c39cb05c6b86c08",
+  "accepted_run": "results/thermal_verification_v2",
+  "accepted_manifest_sha256": "05dab9e6f04b418f5dede328cf285235b623a94d6e1dac7f7005b887db2bd57b",
+  "checks": {
+    "first_order_coupling": true,
+    "shear_finest_accuracy": true,
+    "wall_refinement": true,
+    "heat_budgets": true,
+    "solute_budgets": true,
+    "incompressibility": true,
+    "buoyancy_feedback": true
+  },
+  "shear_relative_velocity_errors": [
+    0.01297204945455609,
+    0.006565249447087314,
+    0.003302821028295266,
+    0.0016565095674292774
+  ],
+  "shear_time_error_ratios": [
+    1.975865434985346,
+    1.9877702699732205,
+    1.9938436174692804
+  ],
+  "wall_rms_errors_K": [
+    0.0008037283354540119,
+    0.0002025901801327892,
+    5.075341941691087e-05
+  ],
+  "mixing_velocity_difference_m_per_s": 0.000339439486318022,
+  "independent_audit": {
+    "path": "results/thermal_independent_audit_v2.json",
+    "sha256": "2eda604068c5227a7e70130bbda831f095da4ef5328195e16b54f4dbd4a2902a",
+    "passed": true,
+    "imports_producer_or_simulation": false
+  },
+  "verification": {
+    "full_suite": {
+      "passed": 457,
+      "subtests_passed": 323,
+      "elapsed_s": 116.64,
+      "log": "results/thermal_evidence_v1/crystalab-thermal-regression-v1.log"
+    },
+    "targeted": {
+      "passed": 29,
+      "subtests_passed": 14,
+      "elapsed_s": 3.75,
+      "log": "results/thermal_evidence_v1/crystalab-thermal-targeted-v3.log"
+    },
+    "legacy_solute_identical_updates": 6,
+    "native_archives_identical_between_runs": 9,
+    "ruff_error_checks": "E9,F63,F7,F82 passed",
+    "figure_inspected": "results/thermal_figures_v2/thermal_verification.png"
+  },
+  "retained_attempts": [
+    "targeted v1: two periodic duplicate-end-field failures; corrected returned acceleration seam, no threshold changes",
+    "targeted v2/v3: passed",
+    "study and audit v1: passed; v2 captures formatted producer and strengthened audit, unchanged numerical arrays/protocol",
+    "figure v1: crowded logarithmic x tick labels; v2 inspected after explicit tick labels",
+    "public thesis PDF retrieval: MPG403 and Halle challenge HTML; no accepted source values"
+  ],
+  "environment": {
+    "python": "3.14.8 (main, Oct  1 2026, 00:00:00) [GCC 16.2.1 20260819 (Red Hat 16.2.1-2)]",
+    "numpy": "2.5.0",
+    "scipy": "1.18.0",
+    "platform": "Linux-7.2.13-200.fc44.x86_64-x86_64-with-glibc2.43",
+    "started_unix_s": 1794584840.406699
+  },
+  "logs": [
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-solute-refactor-v1.log",
+      "sha256": "394d46b26fdbc57d2815f8ecce2a584eebf4ba42bb8ac283d6cc7d83d7f37245"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-targeted-v1.log",
+      "sha256": "f8c969b2c54a0222028624399bfd84da0f59e88612780b0013dd080b12beaaf1"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-targeted-v2.log",
+      "sha256": "1484d5b24ab6974bf409ed4cdf62bd014635011a60e1d554c6da9e85d939b580"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-targeted-v3.log",
+      "sha256": "89da9fc2c7335a06c6454940458c20287b34e444850b2e56f9fe351c3f8caba5"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-study-v1.log",
+      "sha256": "03e277fe910e007ac58a1b0a169c96411cfdbf3b63d2d767474be17091925383"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-study-v2.log",
+      "sha256": "93fcf4562f80177920728f8699d06017825abbc003c4b1641fbc4a006492a668"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-audit-v1.log",
+      "sha256": "9409478fd84ab8ba62aa2df33f96c08ae03b27f5eb030add07af769cb3783158"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-audit-v2.log",
+      "sha256": "2eda604068c5227a7e70130bbda831f095da4ef5328195e16b54f4dbd4a2902a"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-plot-v1.log",
+      "sha256": "dbfb4e54f1323c60829cb35144b7265dbec6d20fc09ad85d4a7ed7af109c6dcf"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-plot-v2.log",
+      "sha256": "4f25dff859bd5c0f5729bf6df45654bf30a4a5eec5435cd6b5dbdae0ba5905ac"
+    },
+    {
+      "path": "results/thermal_evidence_v1/crystalab-thermal-regression-v1.log",
+      "sha256": "209f296dd3b59a1797c985265a1b3d67a351998e618fab6726f8b201c5d5e021"
+    }
+  ],
+  "artifact_sha256": {
+    "results/thermal_verification_v1/environment.json": "519a61fdca32db0015e55d42f5c48f6e3273d76706d052eb95b771b911f9236c",
+    "results/thermal_verification_v1/manifest.json": "227eed8b57bf391de3f70b462e6a4afa0d2e98310f8409b3c350f17ac7f4ff6b",
+    "results/thermal_verification_v1/mixing_buoyancy_false.npz": "9f8f54baf5bfd0a8748d6faeecff29cccb8585ffd4fb04d03c9961445b4c972d",
+    "results/thermal_verification_v1/mixing_buoyancy_true.npz": "f5ef5a52de1b1e0e3f7b87993398f8ee3183754dc4ef7b0141aa73b61dfacc0b",
+    "results/thermal_verification_v1/protocol.json": "f6f70e476c898e049311a24f5775fc8c92cf79e284662f457c39cb05c6b86c08",
+    "results/thermal_verification_v1/report.json": "634581294cb07eeb3c9f35d9c8393607726f37577aff7d0171d8a1b748c7c57c",
+    "results/thermal_verification_v1/shear_dt_0.0125.npz": "6bae947b9f3cb7d56261c6cc34ccfd20990aaf9126ac6bf776d6c1509fefeccd",
+    "results/thermal_verification_v1/shear_dt_0.025.npz": "c39a86dd8fc51ce8190f68ef7e46cd5f84d903ae1d79c2a54f04a88324589f1a",
+    "results/thermal_verification_v1/shear_dt_0.05.npz": "b435bae3bd75b28d5472f8476565ce2930ff2b9e8acde740db492ce1a27778ed",
+    "results/thermal_verification_v1/shear_dt_0.1.npz": "71ea780ee5ddf933894caab00475f4e1ce80ddb593d3b305409ecb02128edf7d",
+    "results/thermal_verification_v1/source/configs/thermal_verification.json": "f6f70e476c898e049311a24f5775fc8c92cf79e284662f457c39cb05c6b86c08",
+    "results/thermal_verification_v1/source/scripts/check_thermal.py": "8e52b33f23b5aa9762f306e37df3a22eedfff6864e1eb2af8ab593329b03bf6d",
+    "results/thermal_verification_v1/source/src/simulation/flow.py": "80ab956148340124be50bb5244105192c0bb0d309420889882a9b48f5c4f6934",
+    "results/thermal_verification_v1/source/src/simulation/linear.py": "c74498cb59061bc8f6bf6dceffc08de3a26529d55aaa226d9a58713f16622cfc",
+    "results/thermal_verification_v1/source/src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+    "results/thermal_verification_v1/source/src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+    "results/thermal_verification_v1/source/src/simulation/scalar.py": "a4fc317661c96ff55a9d351519ddfeb3621aebbc30c5b328d2bf9962e53f23ff",
+    "results/thermal_verification_v1/source/src/simulation/solute.py": "f9cc85e059930384b3e29d5a5d7c361018c57bb2745b3205ae0ec7c21c7fea68",
+    "results/thermal_verification_v1/source/src/simulation/thermal.py": "c31c9c574e0e3d3713111f49203c6dcda013433f1054941b6e71068cf56f0ebb",
+    "results/thermal_verification_v1/source/src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+    "results/thermal_verification_v1/wall_nx_16.npz": "e34a0bb17c05ab5990d92101f7c3308fdc4098dc99f42d6924e73059f91b6fae",
+    "results/thermal_verification_v1/wall_nx_32.npz": "b504d045a8de5998e5cd6b2ffa793584b46d839a54d8572b75ed2d949622f323",
+    "results/thermal_verification_v1/wall_nx_8.npz": "2a2a29da4078375a2b09dc68780c6321c2dbd7083c53f8e92748e0700d4c4bf8",
+    "results/thermal_verification_v2/environment.json": "33eb730f05d2c8286e1a63890aaa23735bcab9189045883c55efbdb29a331916",
+    "results/thermal_verification_v2/manifest.json": "05dab9e6f04b418f5dede328cf285235b623a94d6e1dac7f7005b887db2bd57b",
+    "results/thermal_verification_v2/mixing_buoyancy_false.npz": "9f8f54baf5bfd0a8748d6faeecff29cccb8585ffd4fb04d03c9961445b4c972d",
+    "results/thermal_verification_v2/mixing_buoyancy_true.npz": "f5ef5a52de1b1e0e3f7b87993398f8ee3183754dc4ef7b0141aa73b61dfacc0b",
+    "results/thermal_verification_v2/protocol.json": "f6f70e476c898e049311a24f5775fc8c92cf79e284662f457c39cb05c6b86c08",
+    "results/thermal_verification_v2/report.json": "af4bee440330eb940a53dcd49e4dbe22d2599a19ebed901a067192137fdd882b",
+    "results/thermal_verification_v2/shear_dt_0.0125.npz": "6bae947b9f3cb7d56261c6cc34ccfd20990aaf9126ac6bf776d6c1509fefeccd",
+    "results/thermal_verification_v2/shear_dt_0.025.npz": "c39a86dd8fc51ce8190f68ef7e46cd5f84d903ae1d79c2a54f04a88324589f1a",
+    "results/thermal_verification_v2/shear_dt_0.05.npz": "b435bae3bd75b28d5472f8476565ce2930ff2b9e8acde740db492ce1a27778ed",
+    "results/thermal_verification_v2/shear_dt_0.1.npz": "71ea780ee5ddf933894caab00475f4e1ce80ddb593d3b305409ecb02128edf7d",
+    "results/thermal_verification_v2/source/configs/thermal_verification.json": "f6f70e476c898e049311a24f5775fc8c92cf79e284662f457c39cb05c6b86c08",
+    "results/thermal_verification_v2/source/scripts/check_thermal.py": "67851b33e8e7a939c8128d6d22fa94da7ae9b9bd90750f8ec8f6836876eec2a5",
+    "results/thermal_verification_v2/source/src/simulation/flow.py": "80ab956148340124be50bb5244105192c0bb0d309420889882a9b48f5c4f6934",
+    "results/thermal_verification_v2/source/src/simulation/linear.py": "c74498cb59061bc8f6bf6dceffc08de3a26529d55aaa226d9a58713f16622cfc",
+    "results/thermal_verification_v2/source/src/simulation/mesh.py": "c5d3cc152e94acaf2021422ff3a0113b9d7058080443c2f52bdf67a22b627eb9",
+    "results/thermal_verification_v2/source/src/simulation/pressure.py": "f5beaaa0b8864f184589cce4e5a93e7f525504cf16cd55272df69a7beb509972",
+    "results/thermal_verification_v2/source/src/simulation/scalar.py": "ce0b8c3b0fb210dbe10a8bc4301a29f792872dd0e1d89be471c4b31b39fecc6b",
+    "results/thermal_verification_v2/source/src/simulation/solute.py": "ae34c446b35d69fed8036b9e03ad0a42f64388a3b061ba11c574b47e14d459ab",
+    "results/thermal_verification_v2/source/src/simulation/thermal.py": "bde8a571ef0780869d2fae55e4c4fb40d26e016a46938ebb2c905299ddd05809",
+    "results/thermal_verification_v2/source/src/simulation/units.py": "fc6147019552b30f482292c7b7bed80cad3ea04c0c50d8c878f849533e8a5bee",
+    "results/thermal_verification_v2/wall_nx_16.npz": "e34a0bb17c05ab5990d92101f7c3308fdc4098dc99f42d6924e73059f91b6fae",
+    "results/thermal_verification_v2/wall_nx_32.npz": "b504d045a8de5998e5cd6b2ffa793584b46d839a54d8572b75ed2d949622f323",
+    "results/thermal_verification_v2/wall_nx_8.npz": "2a2a29da4078375a2b09dc68780c6321c2dbd7083c53f8e92748e0700d4c4bf8",
+    "results/thermal_figures_v1/source.json": "9635a48e5703f9c152f5aa0e0b9146d426c6d1c0aa26179ec09e66f3ba03b909",
+    "results/thermal_figures_v1/thermal_verification.png": "5d7f7a2844e3e6d8621f5c27acca7e50bc9362a571a047adc24a6a1af76fc7a0",
+    "results/thermal_figures_v1/thermal_verification.svg": "6b35d77806d61f0a468258bff5222c602f8852732f52f8c54227c92ba5d457c8",
+    "results/thermal_figures_v2/source.json": "2f530e5f37a6f4a67d2afc23f6eb8f4a89dfdb655471f952caf14bffe1ff6936",
+    "results/thermal_figures_v2/thermal_verification.png": "4428bfde501a6a27b20843a66963583739ea5141b2af6b74181495062e183516",
+    "results/thermal_figures_v2/thermal_verification.svg": "a7818d1fff48dd18e8adf4ca8476f44735473b900974c528987f676ecfd7f125",
+    "results/thermal_evidence_v1/crystalab-thermal-audit-v1.log": "9409478fd84ab8ba62aa2df33f96c08ae03b27f5eb030add07af769cb3783158",
+    "results/thermal_evidence_v1/crystalab-thermal-audit-v2.log": "2eda604068c5227a7e70130bbda831f095da4ef5328195e16b54f4dbd4a2902a",
+    "results/thermal_evidence_v1/crystalab-thermal-plot-v1.log": "dbfb4e54f1323c60829cb35144b7265dbec6d20fc09ad85d4a7ed7af109c6dcf",
+    "results/thermal_evidence_v1/crystalab-thermal-plot-v2.log": "4f25dff859bd5c0f5729bf6df45654bf30a4a5eec5435cd6b5dbdae0ba5905ac",
+    "results/thermal_evidence_v1/crystalab-thermal-regression-v1.log": "209f296dd3b59a1797c985265a1b3d67a351998e618fab6726f8b201c5d5e021",
+    "results/thermal_evidence_v1/crystalab-thermal-solute-refactor-v1.log": "394d46b26fdbc57d2815f8ecce2a584eebf4ba42bb8ac283d6cc7d83d7f37245",
+    "results/thermal_evidence_v1/crystalab-thermal-study-v1.log": "03e277fe910e007ac58a1b0a169c96411cfdbf3b63d2d767474be17091925383",
+    "results/thermal_evidence_v1/crystalab-thermal-study-v2.log": "93fcf4562f80177920728f8699d06017825abbc003c4b1641fbc4a006492a668",
+    "results/thermal_evidence_v1/crystalab-thermal-targeted-v1.log": "f8c969b2c54a0222028624399bfd84da0f59e88612780b0013dd080b12beaaf1",
+    "results/thermal_evidence_v1/crystalab-thermal-targeted-v2.log": "1484d5b24ab6974bf409ed4cdf62bd014635011a60e1d554c6da9e85d939b580",
+    "results/thermal_evidence_v1/crystalab-thermal-targeted-v3.log": "89da9fc2c7335a06c6454940458c20287b34e444850b2e56f9fe351c3f8caba5",
+    "data/external/KDP-EISENSCHMIDT-2018/acquisition_v1.json": "c523773a6322c45b32441938e3ec3d086de1c604c31b4064705a9c155beeca17",
+    "data/external/KDP-EISENSCHMIDT-2018/acquisition_v2.json": "5aee01de6a83f73353d1abf37328f6336c7fb9dcbf5b18cecca46b643b1cb05d",
+    "data/external/KDP-EISENSCHMIDT-2018/bitstream_response.html": "58e944e30b27e9fed9609e7366084da6c2e7199683a2c335cd7b18ecacab14e7",
+    "data/external/KDP-EISENSCHMIDT-2018/repository.html": "204dbfb9e6cb0b2d7aec4bbaae4da6dde3f711949a7c831f586e92272589241c",
+    "results/thermal_independent_audit_v1.json": "9409478fd84ab8ba62aa2df33f96c08ae03b27f5eb030add07af769cb3783158",
+    "results/thermal_independent_audit_v2.json": "2eda604068c5227a7e70130bbda831f095da4ef5328195e16b54f4dbd4a2902a",
+    "results/thermal_solute_compatibility_v1.json": "10daa3fa31ae1bdc5072fbebecb44c1d9f4ebc824d75fcc09b0c4ff99e1cde5e"
+  },
+  "open_gates": [
+    "reviewed real KDP outlines/events and independent evaluation groups",
+    "calibrated heat/expansion properties at compatible temperature and composition",
+    "measured thermal walls and flow forcing, independent coupled-flow validation",
+    "surface uptake/growth/latent heat, solid conduction and moving interfaces",
+    "a comparable CPU/GPU coupled benchmark and physical risk/outcome interpretation",
+    "source-supported faces, clocks, action response and real control validation"
+  ],
+  "claims": {
+    "real_KDP_properties": false,
+    "real_image_accuracy": false,
+    "physical_risk_labels": false,
+    "growth_coupling": false,
+    "new_GPU_comparison": false,
+    "control_benefit": false,
+    "human_reviews_added": 0,
+    "model_promoted": false,
+    "default_growth_or_controller_changed": false
+  }
+}

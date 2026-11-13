@@ -123,7 +123,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Projected edge advance | A [reference/edge diagnostic](docs/PROJECTED_EDGES.md) audits 96 constructed RGB frames, two naive baselines, pose/reference refusals and an identical-image growth/translation ambiguity. Camera-motion imbalance is at most 0.2401 px; six real sheets produce no qualified measurements. | Source-supported attachment/pose/visibility, calibrated optics, reviewed edges/faces, learned-mask evaluation and operator integration. External fixture assertions are not automatic pose recognition or real accuracy. |
 | Observable forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared validation windows. Online adaptation gives 80.71 px² and does not beat recent rate. Parameters update only from matured observed masks; real replay remains unscored shadow output. | Reviewed real/action-labelled trajectories, capture characterization, acceptance budgets and supported action-response objective. No action-response growth model exists. |
 | Learned perception, controllers and UI | Local training/evaluation, candidate analysis, PID/rules, operator replay and bounded adaptive pause comparison. The console now displays causal forecasts/state and preserves explicit suggested/manual duration reviews. Independent audits retain secondary misses and inclusion failures. | Review/evaluate real data, support face measurements, validate the adaptive action-response objective and characterize equipment/operator response. |
-| HPC and Qiskit | A [CPU/hybrid Vulkan comparison](docs/VULKAN_FLOW_BENCHMARK.md) passes fixed-domain NS/solute checks but is about five times slower on GPU. A [hydrated Al precursor experiment](docs/QUANTUM_IMPURITY.md) independently audits six 8-qubit VQE starts against the same-space classical solution. HF already meets its frozen error target. | Heat/coupling and physical risk interpretation; KDP surface/reference chemistry, geometry/basis/active-space convergence and any impurity-tolerance claim. Neither extension establishes physical control or a speedup. |
+| HPC and Qiskit | A [CPU/hybrid Vulkan comparison](docs/VULKAN_FLOW_BENCHMARK.md) passes fixed-domain NS/solute checks but is about five times slower on GPU. Separate [heat/solute/buoyancy verification](docs/THERMAL_TRANSPORT.md) passes numerical convergence and budgets with declared test properties. A [hydrated Al precursor experiment](docs/QUANTUM_IMPURITY.md) independently audits six 8-qubit VQE starts against the same-space classical solution. HF already meets its frozen error target. | KDP thermal calibration, independent coupled-flow evidence, coupled CPU/GPU comparison and physical risk interpretation; KDP surface/reference chemistry, geometry/basis/active-space convergence and any impurity-tolerance claim. Neither extension establishes physical control or a speedup. |
 
 The historical [vision checkpoint](docs/VISION_CHECKPOINT.json) records 244 tests /
 130 subtests at its source revision. The new
@@ -379,8 +379,13 @@ risk map alone does not close this deliverable. A first
 [CPU/hybrid Vulkan experiment](docs/VULKAN_FLOW_BENCHMARK.md) now runs on the local
 AMD Radeon 860M: 24 fresh-process runs pass numerical checks, with three measured
 repeats per backend/grid. GPU stepping is about five times slower at 16³–32³.
-Keep CPU as the default. The stored concentration-excess map is uncalibrated;
-heat, thermal feedback, growth and physical risk interpretation remain open.
+Keep CPU as the default. The stored concentration-excess map is uncalibrated.
+The separate [thermal verification](docs/THERMAL_TRANSPORT.md) now implements
+heat/solute transport and Boussinesq feedback, with nine numerical cases and an
+independent native-field audit. All constants are declared test designs;
+compatible KDP properties and boundary/flow measurements remain to be verified.
+This is not a new coupled GPU timing comparison. Interfacial growth, physical
+risk interpretation and outcome validation remain open.
 
 **Qiskit:** define one chemically justified small KDP reference/impurity cluster,
 including geometry, charge, spin, basis and active space. Compare VQE with a
