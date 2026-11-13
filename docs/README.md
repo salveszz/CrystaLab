@@ -35,6 +35,8 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 | [CrystalCV checkpoint](CRYSTALCV_CHECKPOINT.json) | Exact acquisition/index identities, independent pixel/CSV coverage, retained attempts and verification. |
 | [CrystalCV process audit](CRYSTALCV_PROCESS.md) | Original workbook/CSV agreement, source clocks, future-dependent smoothing, delayed command availability and 463 development proxy examples. |
 | [Process checkpoint](CRYSTALCV_PROCESS_CHECKPOINT.json) | Frozen V2 protocol, original reference provenance, independent native/candidate reconstruction and regression evidence; superseded V1 retained. |
+| [Public observable forecast comparison](CRYSTALCV_FORECAST.md) | Prefix-only ridge fits with/without process features, disjoint later blocks, recent-rate advantage and retained negative result. |
+| [Public forecast checkpoint](CRYSTALCV_FORECAST_CHECKPOINT.json) | Frozen model protocol, all 2,050 independently reconstructed predictions, source snapshots and verification. |
 | [Published crystal masks](PUBLISHED_CRYSTAL_MASKS.md) | Acquired CHiMP real image/mask index, streamed native masks, author membership and selected protein-crystal semantics. |
 | [Published-mask checkpoint](PUBLISHED_MASKS_CHECKPOINT.json) | Exact acquisition/import identities, full source reconstruction, regression and six training-image inspection records. |
 | [Real annotation workflow](ANNOTATIONS.md) | Editable proposals, inspection previews, explicit review receipts and accepted polygon export. |

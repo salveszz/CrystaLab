@@ -1,0 +1,52 @@
+{
+  "schema": "crystalab_public_observable_forecast_v1",
+  "source_id": "CRYSTALCV-ZENODO-2026",
+  "material": "MAPbBr3",
+  "dependency_family_id": "crystalcv_perovskite_study_2026",
+  "source_export": "results/crystalcv_process_audit_v2",
+  "source_manifest_sha256": "6e0d80b4e75136902c270cb9620117572faa4cc1529a36b406b69a2de2d40ec6",
+  "source_candidates_sha256": "2ce9b048a23b6e9afdc1a24aaf0fd2d1d32aad985f6fbb0ff13ea58357e91274",
+  "source_independent_audit": "results/crystalcv_process_independent_audit_v2.json",
+  "source_independent_audit_sha256": "f00d5ba2307b31adec0366be87c72caba22d265d291043b39aa9e4d2ec4f26da",
+  "nominal_horizon_s": 1800,
+  "target": "future unreviewed threshold-contour sqrt-area in pixels minus current sqrt-area",
+  "input_whitelist": [
+    "current_contour_area_px2",
+    "current_sqrt_area_px",
+    "trailing_sqrt_area_rate_px_per_h",
+    "reported_infusion_rate_ml_per_h",
+    "trailing_reported_infusion_mean_ml_per_h"
+  ],
+  "cohorts": [
+    {"name": "train_prefix", "minimum_cutoff_s": 3600, "maximum_cutoff_s": 86400},
+    {"name": "later_block_1", "minimum_cutoff_s": 94500, "maximum_cutoff_s": 115200},
+    {"name": "later_block_2", "minimum_cutoff_s": 122400, "maximum_cutoff_s": 142200}
+  ],
+  "split_rule": "Fixed chronological cutoffs. Require disjoint complete image/log supports across all cohort pairs, and all training targets available before either later block.",
+  "models": [
+    {"name": "ridge_vision", "features": ["current_contour_area_px2", "current_sqrt_area_px", "trailing_sqrt_area_rate_px_per_h"]},
+    {"name": "ridge_with_process", "features": ["current_contour_area_px2", "current_sqrt_area_px", "trailing_sqrt_area_rate_px_per_h", "reported_infusion_rate_ml_per_h", "trailing_reported_infusion_mean_ml_per_h"]}
+  ],
+  "ridge": {
+    "alpha": 1.0,
+    "objective": "sum squared gain errors + alpha times squared standardized non-intercept coefficients",
+    "standardization": "training-prefix population mean/std only; zero std replaced by 1",
+    "intercept_penalized": false,
+    "prediction_clipping": null,
+    "hyperparameter_search": false
+  },
+  "baselines": ["persistence", "recent_rate", "train_mean_gain"],
+  "baseline_horizon": "Use fixed nominal 1800 seconds; future target filename time is not an input.",
+  "metrics": ["MAE_px", "RMSE_px", "signed_error_px", "p95_absolute_error_px"],
+  "correlation_diagnostic": "Greedy earliest-cutoff subset with strictly disjoint complete time supports within each cohort; report its IDs and scores without treating windows as independent physical runs.",
+  "descriptive_improvement_rule": "A model must beat recent-rate MAE in both later blocks, on both all windows and each disjoint-support subset. This is descriptive only, never a physical promotion gate.",
+  "claims": {
+    "study_families": 1,
+    "independent_evaluation_groups": 0,
+    "reviewed_ground_truth": false,
+    "KDP_accuracy": null,
+    "causal_action_effect": null,
+    "physical_command": null,
+    "model_promoted": false
+  }
+}

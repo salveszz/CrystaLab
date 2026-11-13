@@ -115,6 +115,9 @@ and an infusion/growth log. The [process audit](docs/CRYSTALCV_PROCESS.md) now
 prepares 463 past-only candidates from 482 images, excluding future-dependent
 smoothing and same-cycle post-image commands. Physical scale, reviewed KDP labels
 and independent action-response evaluation remain open.
+The [first public observable forecast comparison](docs/CRYSTALCV_FORECAST.md)
+now trains two small models on the first 24 recorded hours. Recent rate beats
+both on two later blocks; the negative result is preserved and no model is promoted.
 The [local review editor](docs/ANNOTATION_REVIEW_UI.md) now lets a person correct
 the six proposed outlines, save uncertain drafts and record individual reviews.
 The [annotation workflow](docs/ANNOTATIONS.md) exports only explicitly reviewed

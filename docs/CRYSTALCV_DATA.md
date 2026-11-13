@@ -150,9 +150,10 @@ done
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/audit_crystalcv.py --index data/real_vision_crystalcv_new --protocol configs/crystalcv_vision_import.json --output results/crystalcv_audit_new.json --merge-inputs results/crystalcv_shards_new/shard_*.json
 ```
 
-Next, use the [audited candidate contract](CRYSTALCV_PROCESS.md) for a frozen
-within-run persistence/rate/learned forecast comparison, preserving temporal
-support separation and process-feature ablation. Independently reviewed KDP masks/events,
+The [frozen forecast comparison](CRYSTALCV_FORECAST.md) now trains two small
+prefix-only models on the [audited candidate contract](CRYSTALCV_PROCESS.md).
+Recent rate beats both on two later blocks; no model is promoted. Next prioritize
+broader independent trajectories and reviewed observations. Reviewed KDP masks/events,
 representative KDP evaluation, faces, first-hour coverage and physical outcomes
 remain separate requirements under the [pitch contract](VISION_MVP.md). The
 current pitch detector, forecasts, PID and operator controls are unchanged.

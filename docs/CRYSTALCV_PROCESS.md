@@ -129,15 +129,12 @@ MPLCONFIGDIR=/tmp/crystalab-matplotlib .venv/bin/python scripts/plot_crystalcv_p
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q tests/test_process_series.py tests/test_crystalcv_data.py
 ```
 
-The next bounded experiment should compare persistence, trailing rate and a small
-learned forecast with/without available process features. Freeze its development
-protocol first. Use a chronological prefix and later blocks, with disjoint full
-input/target supports. Allow for the one-hour history, half-hour horizon, up to
-30 seconds of target lateness and the preceding held-state log row; verify the
-actual source image/log IDs are disjoint across boundaries. Fit preprocessing
-using the training prefix only. Call results within-run development diagnostics, not independent
-physical validation. Command/growth associations from this closed-loop run do
-not establish the effect of choosing a different command.
+The [frozen forecast comparison](CRYSTALCV_FORECAST.md) is now complete. It trains
+on 275 prefix windows and scores 69/66 windows in two later blocks, with disjoint
+full supports. Recent rate beats both ridge models, including the model with
+available process features. Both fail the predeclared descriptive improvement
+rule and remain unpromoted. These are within-run proxy results; command/growth
+associations do not establish the effect of choosing a different command.
 
 In parallel, continue the small public KDP outline/event review and seek suitably
 licensed independent KDP evidence. Real pitch-class segmentation, visible faces,

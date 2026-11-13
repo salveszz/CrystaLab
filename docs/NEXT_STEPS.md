@@ -29,10 +29,10 @@ establish real detection accuracy.
    The [CrystalCV source](CRYSTALCV_DATA.md) also adds perovskite growth images,
    published rectangle measurements and a process log. Its [process audit](CRYSTALCV_PROCESS.md)
    now prepares 463 past-only forecasting candidates, excluding retrospective
-   smoothing and delaying post-image command values. Next compare persistence,
-   trailing rate and a small learned forecast using chronological development
-   blocks with disjoint histories/targets. Keep this perovskite experiment separate
-   from KDP accuracy and physical action-effect claims.
+   smoothing and delaying post-image command values. The [fixed forecast comparison](CRYSTALCV_FORECAST.md)
+   now finds recent rate better than either ridge model on both later blocks.
+   Keep that baseline and seek broader trajectories with reliable action timing;
+   this single perovskite run does not validate KDP accuracy or control benefit.
 3. **Compare models fairly.** Use compatible reviewed labels to compare
    synthetic-only, real-only and mixed YOLOv8-seg training. Freeze the evaluation
    rules and independent real groups before scoring. Report outline error, missed
