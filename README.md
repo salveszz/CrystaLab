@@ -111,8 +111,10 @@ real protein-crystal images with 4,986 expert-supplied crystal/drop masks. Their
 selected-object definitions stay separate from the pitch's KDP training classes.
 A separate [CrystalCV acquisition](docs/CRYSTALCV_DATA.md) now preserves 27,652
 distinct uncontoured perovskite image arrays, 54 published rectangle measurements
-and a candidate infusion/growth log. Annotated displays, duplicate source folders,
-timing/scale questions and KDP task differences remain explicit.
+and an infusion/growth log. The [process audit](docs/CRYSTALCV_PROCESS.md) now
+prepares 463 past-only candidates from 482 images, excluding future-dependent
+smoothing and same-cycle post-image commands. Physical scale, reviewed KDP labels
+and independent action-response evaluation remain open.
 The [local review editor](docs/ANNOTATION_REVIEW_UI.md) now lets a person correct
 the six proposed outlines, save uncertain drafts and record individual reviews.
 The [annotation workflow](docs/ANNOTATIONS.md) exports only explicitly reviewed

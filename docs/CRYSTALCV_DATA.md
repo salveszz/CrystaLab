@@ -91,12 +91,14 @@ apply the current thermal example's time/scale conversion to this run. Other
 folders also contain tracking files whose names refer to different runs. No
 automatic table-to-image association is made merely from a parent directory.
 
-The process/image endpoint times are compatible, but per-image synchronization,
-unit/calibration meaning, online versus later smoothing, and the meaning of
-reported infusion rate still need checking. No measured pump-flow sensor,
-command acknowledgment or time-resolved temperature sensor has been verified.
-Treat this as a candidate action-response development source, not an accepted
-physical response model or reviewed crystal-quality labels.
+The separate [process/image audit](CRYSTALCV_PROCESS.md) now matches all 482 image
+times to source log seconds and exports 463 past-only development candidates.
+Original workbook values match all 28,811 CSV rows. The audit finds future-dependent
+saved smoothing and same-cycle post-image command values; V2 excludes the former
+and delays command availability until the next source row. Physical scale remains
+unverified, so targets stay in pixels. No measured pump-flow sensor, command
+acknowledgment or time-resolved temperature sensor has been verified. These are
+unreviewed observation proxies, not accepted KDP masks or a physical response policy.
 
 ## Tools, verification and reproduction
 
@@ -148,9 +150,9 @@ done
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/audit_crystalcv.py --index data/real_vision_crystalcv_new --protocol configs/crystalcv_vision_import.json --output results/crystalcv_audit_new.json --merge-inputs results/crystalcv_shards_new/shard_*.json
 ```
 
-Next, audit the candidate process/image synchronization and causal fields, define
-the compatible observable target, and review source/run dependencies before an
-action-response development experiment. Independently reviewed KDP masks/events,
+Next, use the [audited candidate contract](CRYSTALCV_PROCESS.md) for a frozen
+within-run persistence/rate/learned forecast comparison, preserving temporal
+support separation and process-feature ablation. Independently reviewed KDP masks/events,
 representative KDP evaluation, faces, first-hour coverage and physical outcomes
 remain separate requirements under the [pitch contract](VISION_MVP.md). The
 current pitch detector, forecasts, PID and operator controls are unchanged.

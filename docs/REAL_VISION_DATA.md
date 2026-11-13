@@ -21,6 +21,10 @@ uncontoured perovskite image arrays, 54 published manual rectangle measurements,
 automatic tracking tables and an infusion/growth-log lead. Its source roles,
 duplicate folders, clocks and scale semantics remain separate; these are not
 accepted KDP masks or a validated action-response model.
+The separate [process audit](CRYSTALCV_PROCESS.md) now reconstructs 482 image/log
+associations and 463 past-only pixel-proxy forecasting candidates. It identifies
+future-dependent smoothing and delays post-image command fields; physical scale,
+reviewed targets and independent evaluation remain open.
 The [source registry](../configs/vision_sources.json) pins URLs, licenses, citations
 and actual SHA256 values. The [compact report](REAL_VISION_DATA.json) records the
 download/decode/import evidence; raw archives remain local and Git-ignored.

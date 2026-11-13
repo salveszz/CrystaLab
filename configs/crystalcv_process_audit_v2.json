@@ -1,0 +1,111 @@
+{
+  "schema": "crystalab_crystalcv_process_audit_v2",
+  "source_id": "CRYSTALCV-ZENODO-2026",
+  "material": "MAPbBr3",
+  "dependency_family_id": "crystalcv_perovskite_study_2026",
+  "source_index_manifest_sha256": "1b49b5df1a476caa26d3f4aa3a5525b76389b9fbc332f85202fc0fdaebf108a0",
+  "archive_id": "bulk",
+  "archive_sha256": "8f6ce6f4360b1ee791f1d3ac184bec97616ac9234a43769cd51ff4b0e56f4572",
+  "image_directory": "Source_datasets/1_BulkAnalysis/MA/A_230326_0.1mmh/raw-images",
+  "expected_images": 482,
+  "series_member": "Source_datasets/1_BulkAnalysis/MA/A_230326_0.1mmh/2023-03-26 data_data.csv",
+  "series_sha256": "837cf1f7bd1180432a785c9cfedc1687843cfb8c0403445b8b637ef3d8a84b94",
+  "expected_series_rows": 28811,
+  "original_workbook": {
+    "local_file": "data/external_vision/FRC-NATURE-2024/source_evidence_v1/Data/00_FRC-excels/230326_A_0.1gr48hrapprox.xlsx",
+    "sha256": "3b8bca53405d4639abe6d3ea77fc73944f9339c930ee6cf35e5158f70b2e8c6c",
+    "source_url": "https://github.com/Yuki-Haruta/2024NatureSynthesis-FRC/blob/main/Data/00_FRC-excels/230326_A_0.1gr48hrapprox.xlsx",
+    "scope": "Reference only, not an additional training cohort; repository reuse terms unverified"
+  },
+  "source_code_sha256": {
+    "data/external_vision/FRC-NATURE-2024/source_evidence_v1/for-CrystalGrowth/FRC.ipynb": "b6b0189f69ad0e8e005d790ecf4e137a245c34cb95fc137d5588219c0d42de26",
+    "data/external_vision/FRC-NATURE-2024/source_evidence_v1/for-CrystalGrowth/pyFRC.py": "b4c0106efb8308901495fde4fb482cf546b289d7a2e5df2c5f639ae42fea44e5"
+  },
+  "clock": {
+    "log_hours_decimals": 6,
+    "integer_second_roundtrip_tolerance_s": 0.00180001,
+    "origin_offset_assumed_s": 0,
+    "maximum_asof_age_s": 6,
+    "semantics": "Source code uses one monotonic elapsed clock and integer-second timestamps. Per-row/image consistency is tested; hardware synchronization and run start remain unverified.",
+    "reported_rate_availability": "A row is available only at the next source row timestamp; source code computes/appends the row command after that row image. This is an ordering bound, not a pump acknowledgement."
+  },
+  "image_measurement": {
+    "lower_RGB": [
+      50,
+      0,
+      0
+    ],
+    "upper_RGB": [
+      255,
+      60,
+      255
+    ],
+    "threshold_source": "Original workbook Parameters!F8:F9",
+    "analysis_circle_xy": [
+      540,
+      540
+    ],
+    "analysis_radius_px": 427,
+    "roi_source": "Acquired posthoc config, not a verified original acquisition mask",
+    "selection": "largest first then nearest previous centroid",
+    "maximum_centroid_step_px": 20,
+    "enhancement": null,
+    "pixel_metric": "OpenCV contour area, not a reviewed visible silhouette",
+    "human_review": false
+  },
+  "log_scale_diagnostic": {
+    "calibration_prefix_s": 21600,
+    "estimator": "median(contour_area_px2 / source_log_area_mm2) in prefix only",
+    "physical_calibration_verified": false,
+    "sidecar_reported_scale": 0.0375,
+    "hypotheses": [
+      "area_divisor",
+      "linear_mm_per_px"
+    ]
+  },
+  "smoothing_diagnostic": {
+    "candidate_polynomial_order": 2,
+    "candidate_effective_window": 505,
+    "derivation": "Recorded length 28811; published SGs helper and smth_para=500 branch imply floor(28811/floor(28811/500))=505. Deployed parameters are absent; exact reconstruction is a test, not assumed.",
+    "exact_match_tolerance_mm": 1e-10,
+    "perturbation_cutoff_row": 5000,
+    "perturbation_delta_mm": 0.5
+  },
+  "candidate_samples": {
+    "history_s": 3600,
+    "horizon_s": 1800,
+    "target_lateness_s": 30,
+    "minimum_history_images": 4,
+    "allowed_input_fields": [
+      "current_contour_area_px2",
+      "current_sqrt_area_px",
+      "trailing_sqrt_area_rate_px_per_h",
+      "reported_infusion_rate_ml_per_h",
+      "trailing_reported_infusion_mean_ml_per_h"
+    ],
+    "excluded_log_input_fields": [
+      "Smoothed Length (mm)",
+      "Smoothed Growth Rate (mm/h)",
+      "Growth Rate (mm/h)",
+      "Est-Mass (g)",
+      "e(t)",
+      "de/dt"
+    ],
+    "target": "future threshold-contour sqrt-area in pixels",
+    "split": "development",
+    "independent_labels": false,
+    "independent_evaluation_groups": 0,
+    "reported_rate_availability": "next_source_row"
+  },
+  "claims": {
+    "physical_command": null,
+    "new_model_fit": false,
+    "KDP_mapping": null,
+    "mask_ground_truth": null
+  },
+  "supersedes": {
+    "protocol_file": "configs/crystalcv_process_audit.json",
+    "sha256": "ca76f7b646b6beb340a3cd5e22957406d7224eaf0218ce9569771f813a56f66a",
+    "reason": "v1 matches report timestamps but can expose same-cycle post-image pump commands"
+  }
+}

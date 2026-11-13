@@ -95,3 +95,10 @@ measurements. Keep uncontoured images, automatic displays and published manual
 references separate, and preserve exact-pixel dependencies before any training
 split. The large archives use `scripts/acquire_crystalcv.py` with their pinned
 protocol; they are not loaded by the general small-file download path.
+
+`results/crystalcv_process_audit_v2/` contains 482 automatic contour observations
+and 463 past-only development candidates from one source run. The [process guide](../docs/CRYSTALCV_PROCESS.md)
+records exact original workbook agreement, retrospective-field exclusion and
+next-row command availability. Targets stay in pixels and unreviewed. Original
+FRC workbook/controller files under `external_vision/FRC-NATURE-2024/` are read-only
+lineage references, with unverified repository reuse terms; they add no training cohort.

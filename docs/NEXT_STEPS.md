@@ -27,9 +27,12 @@ establish real detection accuracy.
    candidates. They retain their small resolution, source marks and separate
    domain; actual reviews and an independent evaluation cohort are still needed.
    The [CrystalCV source](CRYSTALCV_DATA.md) also adds perovskite growth images,
-   published rectangle measurements and a candidate process log. Audit its
-   synchronization, causal fields and source dependencies before a separate
-   action-response development experiment; keep KDP labels and evaluation open.
+   published rectangle measurements and a process log. Its [process audit](CRYSTALCV_PROCESS.md)
+   now prepares 463 past-only forecasting candidates, excluding retrospective
+   smoothing and delaying post-image command values. Next compare persistence,
+   trailing rate and a small learned forecast using chronological development
+   blocks with disjoint histories/targets. Keep this perovskite experiment separate
+   from KDP accuracy and physical action-effect claims.
 3. **Compare models fairly.** Use compatible reviewed labels to compare
    synthetic-only, real-only and mixed YOLOv8-seg training. Freeze the evaluation
    rules and independent real groups before scoring. Report outline error, missed

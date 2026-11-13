@@ -827,3 +827,18 @@ and physical interpretation limits. The [checkpoint](docs/CRYSTALCV_CHECKPOINT.j
 binds import, independent reconstruction and retained attempts. No source software
 was executed, no labels were renamed as KDP classes, and no new model or control
 benefit is claimed.
+
+## FRC-NATURE-2024 reference lineage
+
+[Haruta et al., DOI 10.1038/s44160-024-00576-8](https://www.nature.com/articles/s44160-024-00576-8)
+and the [original code/data repository](https://github.com/Yuki-Haruta/2024NatureSynthesis-FRC)
+explain the source experiment behind the CrystalCV infusion/image subset.
+Selected workbook/controller files were acquired by immutable Git blob IDs and
+verified with both Git blob SHA1 and SHA256. The [reference provenance](docs/FRC_REFERENCE_PROVENANCE.json)
+records the exact files. Repository license metadata is absent; these files are
+read-only lineage references, not a separately adopted training cohort or copied
+runtime. The existing CC BY 4.0 Zenodo image/CSV subset remains the candidate source.
+The [process guide](docs/CRYSTALCV_PROCESS.md) records workbook/CSV equality,
+source statement order, retrospective smoothing and V2's next-row availability
+bound. Original code was inspected but never executed/imported; no pump,
+camera or notification calls were made.
