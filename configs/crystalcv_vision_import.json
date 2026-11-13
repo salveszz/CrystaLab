@@ -1,0 +1,138 @@
+{
+  "schema": "crystalab_crystalcv_protocol_v1",
+  "source_id": "CRYSTALCV-ZENODO-2026",
+  "citation": "Sandor and Saidaminov (2026), CrystalCV, DOI 10.1039/D6DD00140H; Sandor, Zenodo V1 data DOI 10.5281/zenodo.19140132 and software DOI 10.5281/zenodo.20655010",
+  "attribution": "Nicholas Sandor / University of Victoria; preserve CC BY 4.0 attribution and derivative records; no endorsement implied",
+  "license_id": "cc-by-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "dependency_family_id": "crystalcv_perovskite_study_2026",
+  "split": "development",
+  "pitch_class_mapping": null,
+  "maximum_member_bytes": 134217728,
+  "maximum_expanded_bytes": 8589934592,
+  "maximum_image_pixels": 8000000,
+  "archives": [
+    {
+      "archive_id": "software",
+      "record_id": 20655010,
+      "doi": "10.5281/zenodo.20655010",
+      "filename": "CrystalCV.zip",
+      "bytes": 253384719,
+      "md5": "b43d54363bfb756b833ff2c5c62104c7",
+      "sha256": "6895827cfd79ad198219164c2d84e63cc8a6bc059c7b3c7c4cceef499a4c1d48",
+      "download_url": "https://zenodo.org/api/records/20655010/files/CrystalCV.zip/content",
+      "metadata_filename": "software_metadata.json",
+      "metadata_sha256": "22de3452e45ca073a0acfd47465cf4fb5adf15903a6c0db03fd93e8482a610e8",
+      "metadata_snapshot": "docs/CRYSTALCV_SOFTWARE_METADATA_20261113.json",
+      "raw_image_path_prefixes": [
+        "CrystalCV/Source_datasets/"
+      ],
+      "material_rules": [
+        {
+          "path_component": "Cs",
+          "material": "CsPbBr3"
+        },
+        {
+          "path_component": "MA",
+          "material": "MAPbBr3"
+        },
+        {
+          "path_component": "2_ThermalCycle",
+          "material": "MAPbBr3"
+        },
+        {
+          "path_component": "3_FAPBI3 Tracking",
+          "material": "FAPbI3"
+        },
+        {
+          "path_component": "Manual Verification Annotated",
+          "material": "MAPbBr3"
+        }
+      ],
+      "table_roles": {}
+    },
+    {
+      "archive_id": "bulk",
+      "record_id": 19140132,
+      "doi": "10.5281/zenodo.19140132",
+      "filename": "Crystallization_CaseStudydata.zip",
+      "bytes": 6717870074,
+      "md5": "7833cfb2a3e2eb6450eeb1718ad329aa",
+      "sha256": "8f6ce6f4360b1ee791f1d3ac184bec97616ac9234a43769cd51ff4b0e56f4572",
+      "download_url": "https://zenodo.org/api/records/19140132/files/Crystallization_CaseStudydata.zip/content",
+      "metadata_filename": "dataset_metadata.json",
+      "metadata_sha256": "dd4ee28de5c7cbddcf442d214dcdf83a5f91e9b47aa07bd9e07933ff0448d7cd",
+      "metadata_snapshot": "docs/CRYSTALCV_DATA_METADATA_20261113.json",
+      "raw_image_path_prefixes": [
+        "Source_datasets/"
+      ],
+      "material_rules": [
+        {
+          "path_component": "Cs",
+          "material": "CsPbBr3"
+        },
+        {
+          "path_component": "MA",
+          "material": "MAPbBr3"
+        },
+        {
+          "path_component": "2_ThermalCycle",
+          "material": "MAPbBr3"
+        },
+        {
+          "path_component": "3_FAPBI3 Tracking",
+          "material": "FAPbI3"
+        },
+        {
+          "path_component": "Manual Verification Annotated",
+          "material": "MAPbBr3"
+        }
+      ],
+      "table_roles": {
+        "Source_datasets/1_BulkAnalysis/MA/A_230326_0.1mmh/2023-03-26 data_data.csv": "reported_control_and_vision_derived_series",
+        "Source_datasets/1_BulkAnalysis/MA/A_230326_0.1mmh/2023-03-26 data_parameters.csv": "reported_experiment_parameters"
+      }
+    }
+  ],
+  "manual_archive_id": "software",
+  "manual_table_member": "CrystalCV/Figures/SI_ACC_TEST.csv",
+  "thermal_image_directory": "CrystalCV/Source_datasets/2_ThermalCycle",
+  "manual_image_directory": "CrystalCV/Figures/Manual Verification Annotated",
+  "author_scale_px2_per_mm2": 79.26,
+  "scale_semantics": "Source declaration in FigureSupp.py; not independently physically calibrated here",
+  "thermal_nominal_frame_interval_s": 600,
+  "clock_semantics": "Filename clock retained separately from frame_index times 600 seconds; growth-run origin and process/image clock alignment unverified",
+  "reported_actions": [
+    {
+      "evidence_kind": "primary_article_section_3_2_prose",
+      "source_url": "https://pubs.rsc.org/en/content/articlehtml/2026/dd/d6dd00140h",
+      "clock_id": "article_reported_crystallization_elapsed",
+      "off_start_s": 91800,
+      "heat_reapplied_s": 96600,
+      "origin_alignment_to_filename_clock": null,
+      "sensor_temperature_K": null,
+      "command_acknowledgement": null,
+      "physical_command": null
+    },
+    {
+      "evidence_kind": "archived_author_figure_script_interval_annotation",
+      "source_archive_id": "software",
+      "source_member": "CrystalCV/Figures/FigureSet2.py",
+      "clock_id": "author_nominal_tracking_minutes",
+      "off_start_s": 92400,
+      "heat_reapplied_s": 97200,
+      "origin_alignment_to_filename_clock": null,
+      "sensor_temperature_K": null,
+      "command_acknowledgement": null,
+      "physical_command": null
+    }
+  ],
+  "interpretation_limits": [
+    "Manual published rectangle areas are scalar measurements, not silhouette/inclusion masks",
+    "Do not fit on annotated display pixels or treat automatic output as human truth",
+    "No automatic tracking-file to image-run association; stale/mismatched output names occur in source folders",
+    "Processed/smoothed fields need a causality audit before predictor inputs",
+    "Filename timing does not certify growth-run origin or first-hour event coverage",
+    "Single perovskite thermal-cycle report is not a KDP action policy or independent action-benefit comparison"
+  ]
+}

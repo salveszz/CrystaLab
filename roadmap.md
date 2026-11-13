@@ -46,6 +46,12 @@ public KDP images, labels, clocks and process/action records; live equipment and
 physical outcome validation remain later gates until suitable access/evidence exists.
 The [additional public KDP review](docs/PUBLIC_KDP_SOURCE_REVIEW.md) retains surface
 crack/crater leads without treating them as acquired growth-event training data.
+A separate [CrystalCV acquisition](docs/CRYSTALCV_DATA.md) now adds 27,652 distinct
+uncontoured perovskite image arrays, 54 published manual rectangle measurements
+and a candidate infusion/growth series with 482 source images. Inspect its
+clock/scale and causal-field semantics before an action-response development
+experiment. Related/duplicate source folders and the other material remain
+explicit; it does not supply KDP masks or validated KDP action response.
 
 **Current next action:** check one native KDP image in the existing review pack,
 then finish that small development pack. In plain language, the outline is the
@@ -116,6 +122,7 @@ records 378 tests / 269 subtests and independent mask/event/forecast audits.
 | Tabular growth data | 360 episodes / 1,080 audited samples, frozen grouped splits and no quality labels. | Optional supporting forecast benchmark. These are not camera-training examples. |
 | Video observation | Baseline/learned file/camera adapters, explicit clocks, seed role/uncertainty, raw masks, mapped source frames and candidate identities/inspection events during observation or on saved masks. | Reviewed real event accuracy and live equipment verification. Integrated decisions were tested on files; candidates are not confirmed defects. |
 | Real vision sources | 2,123 alpha-LGA images from nine runs, 79 source 3D shape fits, three phase-specific KDP movies, nine small panels from a separate [KDP gel-growth study](docs/KDP_GEL_DATA.md), a separate ADP movie and 587 protein-crystal images with 4,986 published crystal/drop masks. | Reviewed Leeds/KDP pixel/event labels and representative independent KDP evaluation data. Source fits are not masks; publication panels retain their marks/domain/resolution limits; protein labels need a compatible task. |
+| Public growth/control data lead | [CrystalCV](docs/CRYSTALCV_DATA.md) provides 27,652 distinct uncontoured perovskite image arrays, 54 source manual rectangle areas, automatic tracking outputs and a 28,811-row infusion/growth table. Source/derivative roles, pixel overlap and reported thermal intervals are preserved. | Process/image synchronization, legacy scale/cadence and causal-field audit, compatible reviewed targets and independent response evaluation. All source folders remain study-level development data; no KDP masks, response policy or model promotion. |
 | Annotation tooling | Six Leeds proposals, six native KDP video sheets and nine uncertain KDP publication sheets, source-linked context, previews, guarded review/export and a local polygon editor. All 881 public KDP movie frames have a native-pixel index. | Zero actual human reviews. Resolve clipping, co-seeded identities, publication marks and uncertain boundaries before accepted real training export; obtain independent real evaluation groups. |
 | Optical synthetic images | Audited 18-frame smoke, 60-image/20-scene pilot and 96-frame/six-family scheduled temporal source. Combined export has 84 training / 44 validation / 28 reserved images. Two new fits and development replays are complete; reserved scenes remain unscored. | Relevant real diversity and inclusion coverage: the new validation inclusion has zero eligible proxy pixels. Refracted masks remain annotation proxies. |
 | Real source-fit silhouette study | 66 author-shape proxies: 54 training / 12 validation. Three fixed-budget one-class fits and a static baseline; mixed real proxy IoU 0.9255 and synthetic 0.9078. Independent target/score reconstruction passes; real-only misses all synthetic targets. | Reviewed real pixel/event labels, relevant KDP coverage and the corresponding pitch-class comparison. Auxiliary weights are refused by the pitch observer; no model is promoted. |

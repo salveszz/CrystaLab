@@ -16,6 +16,11 @@ unevaluated.
 The [additional public KDP review](PUBLIC_KDP_SOURCE_REVIEW.md) records surface
 crack/crater leads, access attempts and missing reuse/label evidence. Those leads
 have supplied no accepted training payload and are not growth-event validation.
+A separate [CrystalCV acquisition](CRYSTALCV_DATA.md) now adds 27,652 distinct
+uncontoured perovskite image arrays, 54 published manual rectangle measurements,
+automatic tracking tables and an infusion/growth-log lead. Its source roles,
+duplicate folders, clocks and scale semantics remain separate; these are not
+accepted KDP masks or a validated action-response model.
 The [source registry](../configs/vision_sources.json) pins URLs, licenses, citations
 and actual SHA256 values. The [compact report](REAL_VISION_DATA.json) records the
 download/decode/import evidence; raw archives remain local and Git-ignored.
@@ -32,6 +37,7 @@ accepted pixel/event labels or raw camera sequence.
 
 | Source | Local observations | Permitted project interpretation |
 |---|---|---|
+| [CrystalCV, Zenodo data V1](https://zenodo.org/records/19140132), [software/examples V1](https://zenodo.org/records/20655010) | 29,974 image entries across both archives; 28,279 uncontoured entries represent 27,652 distinct arrays. Also 54 manual rectangle areas, 1,641 automatic output displays and a 28,811-row process/vision table. Both archives CC BY 4.0. | Perovskite development data. No silhouette/inclusion masks, independent KDP evaluation or accepted causal control model. See [source guide](CRYSTALCV_DATA.md). |
 | [Cai et al., KDP gel-growth, 2026](https://pmc.ncbi.nlm.nih.gov/articles/PMC13210260/) | Nine integer crops from three published figures, including a sparse 0/10/70-minute gel-growth sequence. CC BY 4.0; original marks retained. | Separate publication-panel development candidates. No raw camera pixels, reviewed masks, first-hour origin, event delay or control validation. See [source/import guide](KDP_GEL_DATA.md). |
 | [University of Leeds, DOI 10.5518/1684](https://archive.researchdata.leeds.ac.uk/1537/) | 2,123 original microscope JPEGs from nine alpha-LGA runs; 79 source manual crystal-shape fit sidecars. CC BY 4.0. | Real other-material vision development and a source of shape-fit supervision after its geometry/units are checked. The fits are not reviewed pixel masks or defect labels. |
 | [Li, Zhang and Ren, KDP study](https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/) | Supplementary PDF and three experimental KDP movies, all decoded; 881 total video frames. CC BY-NC 3.0. | Phase-specific microscopy development examples. Conditions include transition, dissolution and growth; these are not all defect-free tetragonal optical-crystal growth. |
@@ -136,7 +142,9 @@ visible/occluded regions and source-family grouping during annotation. Keep all
 three as development-only until their target and dependency review is complete.
 Published speed-up factors support a declared relative-clip time mapping; they do
 not establish the growth-run start or first-hour defect coverage. None of these
-sources provides controller action-response or optical-quality ground truth.
+Leeds/KDP/ADP sources provides controller action-response or optical-quality ground
+truth. The separate CrystalCV source adds reported thermal/infusion evidence
+whose timing, causality and material limits are described in its own guide.
 
 ## Inspectable development replay
 

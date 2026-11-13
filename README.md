@@ -109,6 +109,10 @@ are kept separate from the pitch's defect classes and reviewed pixel accuracy.
 A separate [published-mask source](docs/PUBLISHED_CRYSTAL_MASKS.md) now adds 587
 real protein-crystal images with 4,986 expert-supplied crystal/drop masks. Their
 selected-object definitions stay separate from the pitch's KDP training classes.
+A separate [CrystalCV acquisition](docs/CRYSTALCV_DATA.md) now preserves 27,652
+distinct uncontoured perovskite image arrays, 54 published rectangle measurements
+and a candidate infusion/growth log. Annotated displays, duplicate source folders,
+timing/scale questions and KDP task differences remain explicit.
 The [local review editor](docs/ANNOTATION_REVIEW_UI.md) now lets a person correct
 the six proposed outlines, save uncertain drafts and record individual reviews.
 The [annotation workflow](docs/ANNOTATIONS.md) exports only explicitly reviewed

@@ -808,3 +808,22 @@ retained under `data/external/KDP-EISENSCHMIDT-2018`; no usable PDF or accepted
 thermal-property/growth-table transcription was acquired. Indexed text remains
 a discovery lead. No challenge was bypassed and no values from it enter the
 thermal protocol or accepted training data.
+
+## CRYSTALCV-ZENODO-2026
+
+[Sandor's data V1, DOI 10.5281/zenodo.19140132](https://zenodo.org/records/19140132)
+and [software/examples V1, DOI 10.5281/zenodo.20655010](https://zenodo.org/records/20655010)
+provide perovskite growth images, source tracking outputs, published manual
+rectangle measurements and a process/vision table. Both version records declare
+CC BY 4.0; dated metadata snapshots, publisher MD5 and local SHA256 values are
+pinned in `configs/crystalcv_vision_import.json`. The large files use the bounded
+`scripts/acquire_crystalcv.py` path instead of the small-file source auditor.
+
+[The primary paper, DOI 10.1039/D6DD00140H](https://pubs.rsc.org/en/content/articlehtml/2026/dd/d6dd00140h)
+supplies the study context. Its article license remains separate from the archive
+licenses. The [source guide](docs/CRYSTALCV_DATA.md) preserves actual contents,
+annotated-display exclusion, pixel/folder overlap, unresolved clock/scale meaning
+and physical interpretation limits. The [checkpoint](docs/CRYSTALCV_CHECKPOINT.json)
+binds import, independent reconstruction and retained attempts. No source software
+was executed, no labels were renamed as KDP classes, and no new model or control
+benefit is claimed.

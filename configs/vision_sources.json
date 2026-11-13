@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "review_date": "2026-11-12",
+  "review_date": "2026-11-13",
   "scope": "Real microscopy/vision acquisition. Source labels and conditions require import review; no KDP controller or optical-quality validation is implied.",
   "sources": [
     {
@@ -245,6 +245,45 @@
           "sha256": "fa6020ed363fd009ba4d3e2b2c0066977611bddcb0c9115b9929f4345ee91ae3"
         }
       ]
+    },
+    {
+      "source_id": "CRYSTALCV-ZENODO-2026",
+      "material": "MAPbBr3_CsPbBr3_FAPbI3_perovskites",
+      "url": "https://zenodo.org/records/19140132",
+      "doi": "10.5281/zenodo.19140132",
+      "citation": "Sandor and Saidaminov (2026), CrystalCV, DOI 10.1039/D6DD00140H; Sandor, Zenodo V1 data DOI 10.5281/zenodo.19140132 and software DOI 10.5281/zenodo.20655010",
+      "license": "CC BY 4.0 for the versioned dataset/software archives; preserve attribution and change records",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "reason": "Public growth images, source manual rectangle measurements and separate automatic outputs; a reported thermal cycle and one infusion/growth table require clock, semantics and causality review. No automatic KDP class/mask, first-hour or control-benefit mapping.",
+      "data_status": "public_perovskite_observations_and_source_measurements_pending_task_review",
+      "assets": [],
+      "streaming_acquisition": {
+        "protocol": "configs/crystalcv_vision_import.json",
+        "protocol_sha256": "9da1edbf8404c156e1ed4a9fd89364f4853d97077d8a43eda76d3fce17fcbcc2",
+        "script": "scripts/acquire_crystalcv.py",
+        "note": "Use the bounded streaming tool for these large archives; the general small-file auditor does not download them",
+        "archives": [
+          {
+            "archive_id": "software",
+            "filename": "CrystalCV.zip",
+            "download_url": "https://zenodo.org/api/records/20655010/files/CrystalCV.zip/content",
+            "bytes": 253384719,
+            "sha256": "6895827cfd79ad198219164c2d84e63cc8a6bc059c7b3c7c4cceef499a4c1d48",
+            "md5": "b43d54363bfb756b833ff2c5c62104c7",
+            "metadata_snapshot": "docs/CRYSTALCV_SOFTWARE_METADATA_20261113.json"
+          },
+          {
+            "archive_id": "bulk",
+            "filename": "Crystallization_CaseStudydata.zip",
+            "download_url": "https://zenodo.org/api/records/19140132/files/Crystallization_CaseStudydata.zip/content",
+            "bytes": 6717870074,
+            "sha256": "8f6ce6f4360b1ee791f1d3ac184bec97616ac9234a43769cd51ff4b0e56f4572",
+            "md5": "7833cfb2a3e2eb6450eeb1718ad329aa",
+            "metadata_snapshot": "docs/CRYSTALCV_DATA_METADATA_20261113.json"
+          }
+        ]
+      },
+      "review_date": "2026-11-13"
     }
   ]
 }

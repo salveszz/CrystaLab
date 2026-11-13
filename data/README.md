@@ -87,3 +87,11 @@ they are required for the independent audit.
 
 New generated data and downloads remain ignored unless explicitly selected for
 publication. Do not combine overlapping old pilots with the frozen v1 splits.
+
+The separate [CrystalCV source](../docs/CRYSTALCV_DATA.md) is cached under
+`external_vision/CRYSTALCV-ZENODO-2026/` and indexed in
+`real_vision_crystalcv_v1/`. It contains public perovskite observations and source
+measurements. Keep uncontoured images, automatic displays and published manual
+references separate, and preserve exact-pixel dependencies before any training
+split. The large archives use `scripts/acquire_crystalcv.py` with their pinned
+protocol; they are not loaded by the general small-file download path.

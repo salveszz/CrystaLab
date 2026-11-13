@@ -44,3 +44,13 @@ better public growth/event sources. In plain terms, a real person must check
 whether each proposed outline follows the crystal and whether the claimed event
 is visible. The software can prepare and preserve proposals; it cannot perform
 independent human review itself.
+
+## Related other-material control-data acquisition — 2026-11-13
+
+The [CrystalCV study](https://pubs.rsc.org/en/content/articlehtml/2026/dd/d6dd00140h)
+links public, versioned perovskite images and software/examples. Those archives
+are now [acquired and indexed separately](CRYSTALCV_DATA.md), including source
+rectangle measurements and a process-log lead. They are useful for reviewing
+observable trajectories and possible action-response development, while retaining
+their material, clock, scale and single-study limits. They are not an additional
+KDP cohort, reviewed KDP masks or evidence that a KDP action prevents defects.
