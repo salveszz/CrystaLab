@@ -33,3 +33,10 @@ agreement on all 1,080 rows in `reloaded_predictions.jsonl`.
 `full_pipeline_console.log` preserves the parent process's progress and terminal
 completion record. The artifact guide explains its original attempt-count display
 and the subsequent reporting correction.
+
+`clean_checkout_audit.json` and its console log record a successful independent
+audit from a fresh local clone of commit `e494709`. That checkout contains no
+ignored working dataset and remains clean after the audit. The check reconstructs
+all episodes and predictions and verifies the sealed run inventory using the
+recorded Python environment. The following verification commit adds this evidence
+without changing the executed model, simulation or dataset.

@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "simulation": {
+    "passed": true,
+    "final_time": 120.0,
+    "history_rows": 121,
+    "gif_frames": 61,
+    "final_volume": 2.9821402818727223,
+    "maximum_relative_mass_drift": 6.160883160294627e-13,
+    "maximum_relative_carrier_drift": 2.370734569081431e-16
+  },
+  "training": {
+    "passed": true,
+    "dataset": {
+      "status": "pass",
+      "identity_hash": "642e75ee7216e395cd29d5a591415b9c44300f54a6cbdd6e02e669debe7c524c",
+      "episodes": 360,
+      "groups": 60,
+      "samples": 1080,
+      "samples_by_split": {
+        "train": 648,
+        "validation": 216,
+        "test": 216
+      },
+      "omitted_incomplete_horizons": 0,
+      "invariant_maxima": {
+        "max_mass_relative_error": 5.214339496525647e-13,
+        "max_carrier_relative_error": 2.370734569081431e-16,
+        "max_continuity_cell_error": 1.6047991726567968e-11
+      },
+      "summed_episode_seconds": 30021.805828668992,
+      "mean_episode_seconds": 83.39390507963608,
+      "estimated_1000_episode_worker_seconds": 83393.90507963608,
+      "scope": "Synthetic growth only; no ML, quality calibration or physical KDP validation"
+    },
+    "model_sha256": "255b081b04c0d9374fb2f08217b7b37076e0db5d4a5a08117742a1e22525c1cc",
+    "prediction_rows": 1080,
+    "maximum_manual_tree_prediction_difference": 0.0,
+    "train_validation_test_families_disjoint": true,
+    "test_selection_frozen": true,
+    "feature_columns": [
+      "volume",
+      "width",
+      "depth",
+      "height",
+      "surface_area",
+      "temperature",
+      "concentration",
+      "liquid_level",
+      "volume_lag",
+      "recent_volume_rate",
+      "observation_age",
+      "temperature_command",
+      "agitation_command",
+      "horizon",
+      "missing__volume",
+      "missing__width",
+      "missing__depth",
+      "missing__height",
+      "missing__surface_area",
+      "missing__temperature",
+      "missing__concentration",
+      "missing__liquid_level",
+      "missing__volume_lag",
+      "missing__recent_volume_rate",
+      "missing__observation_age",
+      "missing__temperature_command",
+      "missing__agitation_command",
+      "missing__horizon"
+    ]
+  },
+  "auditor_sha256": "4f74e2e45dbd0349bafec647f446efd10ab6a8afd2968cada7e54b3e9d9734a9",
+  "scope": "Complete illustrative 3D simulation plus all 360 synthetic episodes and full XGBoost development/test evaluation. No real KDP, defect-quality or physical control validation.",
+  "physical_model_promoted": false
+}
