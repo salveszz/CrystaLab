@@ -1,0 +1,103 @@
+{
+  "schema": "crystalab_real_video_index_v1",
+  "status": "complete",
+  "cache_path": "/home/salves/dev/CrystaLab/data/external_vision/KDP-2026",
+  "protocol": {
+    "schema": "crystalab_real_video_import_v1",
+    "source_id": "KDP-2026",
+    "material": "KDP_multiple_phases",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12919635/",
+    "doi": "10.1039/d5ra09916a",
+    "attribution": "Chixuan Li, Chengqian Zhang and Yan Ren, Growth and morphological control of metastable KDP crystals using defect-free seeds, RSC Advances 16 (2026), 10012-10021, supplementary movies S1-S3",
+    "license": "CC BY-NC 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-nc/3.0/",
+    "caption_asset": "d5ra09916a1.pdf",
+    "caption_sha256": "ef362635ba68880acf398ca14d9880b23dbb89e202ecacd8c080e93a8ab735d2",
+    "caption_page": "S8",
+    "dependency_family_id": "KDP-2026-study",
+    "split": "train",
+    "split_semantics": "Development-only; all clips stay in the same conservative study family. No independent run/specimen identity or final evaluation split is established.",
+    "clock_semantics": "Container presentation timestamps are display time. Published speedup supports only an inferred relative elapsed time. Actual acquisition timestamps, growth-run start and first-hour coverage remain unknown.",
+    "pixel_semantics": "Original MOV bytes preserved; frame hashes describe native decoded BGR pixels under the recorded decoder. Annotation PNGs retain those pixels without resize, crop or overlay removal.",
+    "label_scope": "Review visible crystal instances and truncation/uncertainty. Co-seeded crystals present from the start are not parasitic-nucleation events. Phase-transition textures are not automatically inclusion labels. No event, negative-period, face-rate, action-response or quality truth is supplied.",
+    "clips": [
+      {
+        "clip_id": "KDP_S1",
+        "file": "d5ra09916a2.mov",
+        "sha256": "05f40dca1d31f89e06df7fbb3c10a558b5f2ad1d797ef1670a80e4da7735cd7a",
+        "frames": 306,
+        "width": 1350,
+        "height": 1080,
+        "caption_id": "S1",
+        "published_playback_speedup": 14,
+        "phase_context": "Defective seed transitioning in a solution supersaturated relative to stable tetragonal KDP",
+        "annotation_frames": [
+          0,
+          305
+        ],
+        "proposal": {
+          "method": "dark_component_uncertain_draft",
+          "search_roi_xyxy_fraction": [
+            0.2,
+            0.0,
+            0.85,
+            1.0
+          ],
+          "gray_below": 110,
+          "minimum_component_pixels": 128,
+          "polygon_epsilon_px": 2.0,
+          "note": "Connected seed/attached-growth outline only; inspect instance identity and visible boundaries. Native top clipping and phase transition remain explicit. Not a reviewed mask or a nucleation label."
+        }
+      },
+      {
+        "clip_id": "KDP_S2",
+        "file": "d5ra09916a3.mov",
+        "sha256": "9741f0c9a296ff6cb76461f70f2e90222a30f71d4e485191207f4f1c0dfd297c",
+        "frames": 286,
+        "width": 1440,
+        "height": 1080,
+        "caption_id": "S2",
+        "published_playback_speedup": 25,
+        "phase_context": "Co-seeded monoclinic and tetragonal fibers, slight undersaturation relative to monoclinic KDP",
+        "annotation_frames": [
+          0,
+          285
+        ],
+        "proposal": {
+          "method": "manual_outline_needed",
+          "note": "Thin low-contrast co-seeded fibers. Blank drafts are unknown annotations, never reviewed negatives."
+        }
+      },
+      {
+        "clip_id": "KDP_S3",
+        "file": "d5ra09916a4.mov",
+        "sha256": "562974edc8e05788afa1709ced9434452bed83b04a0fc33da4075b2a338b79ba",
+        "frames": 289,
+        "width": 1350,
+        "height": 1080,
+        "caption_id": "S3",
+        "published_playback_speedup": 15,
+        "phase_context": "Co-seeded monoclinic and tetragonal fibers, published 4.18 percent supersaturation relative to monoclinic KDP",
+        "annotation_frames": [
+          0,
+          288
+        ],
+        "proposal": {
+          "method": "manual_outline_needed",
+          "note": "Resolve the main-seed role and separate co-seeded instances. Water interface, text and native clipping must not become crystal masks."
+        }
+      }
+    ]
+  },
+  "protocol_sha256": "f87bbcf26cf4187a003ce8d20657e0920521ee38a231569044fb986e89e7e90f",
+  "frames": 881,
+  "index_sha256": "59f44c23fc918aee0a1cbeb5a1e2a16926d716c84c40128f2e433d370ae24bf4",
+  "environment": {
+    "python": "3.14.8",
+    "opencv": "4.13.0",
+    "numpy": "2.5.0",
+    "ffprobe": "ffprobe version 8.1.3 Copyright (c) 2007-2026 the FFmpeg developers"
+  },
+  "source_sha256": "d96c087db30112225968d3c29055a79be6b2875335b417e099935560222408e9",
+  "scope": "Native real-video development index; no labels accepted, no independent evaluation or physical control claim"
+}
