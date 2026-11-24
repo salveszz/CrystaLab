@@ -1,0 +1,13 @@
+{
+  "version": "5.0.0",
+  "flags": {
+    "reviewed": false,
+    "uncertain": true
+  },
+  "shapes": [],
+  "imagePath": "../images/KDP_S2_000000.png",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1440,
+  "description": "Unreviewed KDP development frame. Check instance identity, clipping, phase context and all visible boundaries. Empty draft is unknown, not a negative label."
+}
