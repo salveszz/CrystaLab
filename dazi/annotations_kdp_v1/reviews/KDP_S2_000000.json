@@ -1,0 +1,11 @@
+{
+  "schema": "crystalab_annotation_review_v1",
+  "reviewed_at_utc": "2026-11-24T20:48:56.203659+00:00",
+  "reviewer": "David Mihaesc",
+  "note": "the tetragonal crystal looks slitgly blured out and is hard to tell apart from it's soroundings",
+  "image_sha256": "3c4de861e8c883a3857fd42280b8b58fba8855bef9ab6324ae755147b195cdf2",
+  "annotation_sha256": "f32bc731be43d9f1eba4e2b2f95840d42852f7e0229bf1ee8bc731496eeff611",
+  "sample_id": "KDP-2026:KDP_S2:000000",
+  "empty_reviewed": false,
+  "acknowledgment": "Reviewer inspected the original image, all visible target instances and current polygons"
+}

@@ -2,12 +2,110 @@
   "version": "5.0.0",
   "flags": {
     "reviewed": false,
-    "uncertain": true
+    "uncertain": false
   },
-  "shapes": [],
+  "shapes": [
+    {
+      "label": "secondary_crystal",
+      "points": [
+        [
+          408.844,
+          48.635
+        ],
+        [
+          329.669,
+          1010.443
+        ],
+        [
+          344.369,
+          1012.471
+        ],
+        [
+          407.123,
+          199.777
+        ],
+        [
+          418.721,
+          63.077
+        ],
+        [
+          420.776,
+          39.155
+        ],
+        [
+          410.887,
+          34.343
+        ],
+        [
+          409.55,
+          48.51
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {
+        "proposed": false,
+        "uncertain": false
+      },
+      "description": ""
+    },
+    {
+      "label": "secondary_crystal",
+      "points": [
+        [
+          1215.433,
+          1033.935
+        ],
+        [
+          1109.169,
+          884.042
+        ],
+        [
+          1107.399,
+          227.83
+        ],
+        [
+          1136.719,
+          194.321
+        ],
+        [
+          1138.138,
+          113.493
+        ],
+        [
+          1278.474,
+          106.874
+        ],
+        [
+          1283.77,
+          207.492
+        ],
+        [
+          1311.572,
+          252.505
+        ],
+        [
+          1309.01,
+          868.799
+        ],
+        [
+          1215.209,
+          1035.087
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {
+        "proposed": false,
+        "uncertain": false
+      },
+      "description": ""
+    }
+  ],
   "imagePath": "../images/KDP_S3_000288.png",
   "imageData": null,
   "imageHeight": 1080,
   "imageWidth": 1350,
-  "description": "Unreviewed KDP development frame. Check instance identity, clipping, phase context and all visible boundaries. Empty draft is unknown, not a negative label."
+  "description": "Unreviewed KDP development frame. Check instance identity, clipping, phase context and all visible boundaries. Empty draft is unknown, not a negative label.",
+  "review_note": ""
 }

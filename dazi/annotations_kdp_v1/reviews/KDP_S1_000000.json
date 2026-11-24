@@ -1,0 +1,11 @@
+{
+  "schema": "crystalab_annotation_review_v1",
+  "reviewed_at_utc": "2026-11-24T20:30:30.541457+00:00",
+  "reviewer": "David Mihaesc",
+  "note": "",
+  "image_sha256": "88692f25427b9f1742392005322f6310e0d07ee241143aa3c49d1e5a04a5b471",
+  "annotation_sha256": "fabe5a674bdea5236f861676d7450feab74ca494933bf5ed57c863fb48e84f37",
+  "sample_id": "KDP-2026:KDP_S1:000000",
+  "empty_reviewed": false,
+  "acknowledgment": "Reviewer inspected the original image, all visible target instances and current polygons"
+}

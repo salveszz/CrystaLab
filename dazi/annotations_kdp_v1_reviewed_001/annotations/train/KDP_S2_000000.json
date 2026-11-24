@@ -1,0 +1,111 @@
+{
+  "version": "5.0.0",
+  "flags": {
+    "reviewed": false,
+    "uncertain": false
+  },
+  "shapes": [
+    {
+      "label": "secondary_crystal",
+      "points": [
+        [
+          454.741,
+          210.402
+        ],
+        [
+          447.242,
+          518.837
+        ],
+        [
+          451.237,
+          523.962
+        ],
+        [
+          457.284,
+          517.051
+        ],
+        [
+          460.303,
+          472.246
+        ],
+        [
+          465.171,
+          234.235
+        ],
+        [
+          464.473,
+          199.331
+        ],
+        [
+          465.171,
+          181.878
+        ],
+        [
+          463.909,
+          164.307
+        ],
+        [
+          457.861,
+          161.283
+        ],
+        [
+          455.27,
+          210.095
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {
+        "proposed": false,
+        "uncertain": false
+      },
+      "description": ""
+    },
+    {
+      "label": "secondary_crystal",
+      "points": [
+        [
+          896.948,
+          371.764
+        ],
+        [
+          906.721,
+          372.463
+        ],
+        [
+          913.702,
+          262.862
+        ],
+        [
+          915.796,
+          222.373
+        ],
+        [
+          909.513,
+          209.109
+        ],
+        [
+          908.117,
+          231.448
+        ],
+        [
+          898.344,
+          371.764
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {
+        "proposed": false,
+        "uncertain": false
+      },
+      "description": ""
+    }
+  ],
+  "imagePath": "../images/KDP_S2_000000.png",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1440,
+  "description": "Unreviewed KDP development frame. Check instance identity, clipping, phase context and all visible boundaries. Empty draft is unknown, not a negative label.",
+  "review_note": "the tetragonal crystal looks slitgly blured out and is hard to tell apart from it's soroundings"
+}

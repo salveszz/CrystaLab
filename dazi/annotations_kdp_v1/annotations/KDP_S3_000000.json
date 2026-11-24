@@ -2,12 +2,86 @@
   "version": "5.0.0",
   "flags": {
     "reviewed": false,
-    "uncertain": true
+    "uncertain": false
   },
-  "shapes": [],
+  "shapes": [
+    {
+      "label": "seed",
+      "points": [
+        [
+          383.445,
+          260.705
+        ],
+        [
+          398.031,
+          260.705
+        ],
+        [
+          410.793,
+          76.561
+        ],
+        [
+          412.616,
+          45.566
+        ],
+        [
+          396.207,
+          45.566
+        ],
+        [
+          383.445,
+          257.058
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {
+        "proposed": false,
+        "uncertain": false
+      },
+      "description": ""
+    },
+    {
+      "label": "secondary_crystal",
+      "points": [
+        [
+          1225.766,
+          457.611
+        ],
+        [
+          1245.822,
+          450.318
+        ],
+        [
+          1243.999,
+          180.484
+        ],
+        [
+          1227.59,
+          160.428
+        ],
+        [
+          1220.297,
+          202.362
+        ],
+        [
+          1225.766,
+          459.434
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {
+        "proposed": false,
+        "uncertain": false
+      },
+      "description": ""
+    }
+  ],
   "imagePath": "../images/KDP_S3_000000.png",
   "imageData": null,
   "imageHeight": 1080,
   "imageWidth": 1350,
-  "description": "Unreviewed KDP development frame. Check instance identity, clipping, phase context and all visible boundaries. Empty draft is unknown, not a negative label."
+  "description": "Unreviewed KDP development frame. Check instance identity, clipping, phase context and all visible boundaries. Empty draft is unknown, not a negative label.",
+  "review_note": ""
 }

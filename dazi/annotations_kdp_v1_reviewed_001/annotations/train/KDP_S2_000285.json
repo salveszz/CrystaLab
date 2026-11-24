@@ -1,0 +1,167 @@
+{
+  "version": "5.0.0",
+  "flags": {
+    "reviewed": false,
+    "uncertain": false
+  },
+  "shapes": [
+    {
+      "label": "seed",
+      "points": [
+        [
+          933.551,
+          139.3
+        ],
+        [
+          930.903,
+          335.24
+        ],
+        [
+          921.961,
+          494.046
+        ],
+        [
+          902.189,
+          1054.79
+        ],
+        [
+          919.765,
+          1059.812
+        ],
+        [
+          917.254,
+          1007.085
+        ],
+        [
+          920.238,
+          959.117
+        ],
+        [
+          921.562,
+          920.723
+        ],
+        [
+          920.238,
+          877.034
+        ],
+        [
+          933.477,
+          715.516
+        ],
+        [
+          929.505,
+          675.798
+        ],
+        [
+          932.153,
+          601.658
+        ],
+        [
+          940.412,
+          454.952
+        ],
+        [
+          941.13,
+          397.044
+        ],
+        [
+          947.767,
+          184.372
+        ],
+        [
+          956.343,
+          95.557
+        ],
+        [
+          936.484,
+          92.909
+        ],
+        [
+          935.16,
+          132.627
+        ],
+        [
+          933.674,
+          138.772
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {
+        "proposed": false,
+        "uncertain": false
+      },
+      "description": ""
+    },
+    {
+      "label": "secondary_crystal",
+      "points": [
+        [
+          483.759,
+          170.105
+        ],
+        [
+          480.961,
+          230.573
+        ],
+        [
+          479.323,
+          375.575
+        ],
+        [
+          479.323,
+          390.321
+        ],
+        [
+          489.973,
+          386.225
+        ],
+        [
+          489.154,
+          370.66
+        ],
+        [
+          490.792,
+          341.987
+        ],
+        [
+          497.346,
+          248.596
+        ],
+        [
+          494.888,
+          211.731
+        ],
+        [
+          498.165,
+          172.409
+        ],
+        [
+          498.165,
+          158.482
+        ],
+        [
+          485.877,
+          159.301
+        ],
+        [
+          485.057,
+          170.77
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "polygon",
+      "flags": {
+        "proposed": false,
+        "uncertain": false
+      },
+      "description": ""
+    }
+  ],
+  "imagePath": "../images/KDP_S2_000285.png",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1440,
+  "description": "Unreviewed KDP development frame. Check instance identity, clipping, phase context and all visible boundaries. Empty draft is unknown, not a negative label.",
+  "review_note": ""
+}
