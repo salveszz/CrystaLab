@@ -1,5 +1,10 @@
 # Synthetic growth dataset v1
 
+The generation checkpoint below predates model fitting. The new
+[full pipeline](../artifacts/README.md) uses this same numerical protocol and
+includes a fresh versioned dataset, complete XGBoost training and independent
+prediction audits. Its model results are separate from this historical report.
+
 Status: complete. All 360 episodes and 1,080 forecast samples passed generation
 and independent auditing. Numerical sources match the accepted checkpoint. No ML
 training was performed. The compact provenance, hashes, actual split groups,

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "final_time": 120.0,
+  "history_rows": 121,
+  "gif_frames": 61,
+  "final_volume": 2.9821402818727223,
+  "maximum_relative_mass_drift": 6.160883160294627e-13,
+  "maximum_relative_carrier_drift": 2.370734569081431e-16
+}

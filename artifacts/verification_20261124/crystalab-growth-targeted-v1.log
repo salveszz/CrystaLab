@@ -1,0 +1,44 @@
+..F.....                                                                 [100%]
+=================================== FAILURES ===================================
+_____ test_recent_rate_fallback_is_training_mean_not_zero_or_future_truth ______
+
+    def test_recent_rate_fallback_is_training_mean_not_zero_or_future_truth():
+        a, b = sample(), sample()
+        b["features"]["recent_volume_rate"] = -0.01
+        b["missing"]["recent_volume_rate"] = False
+        values, fallback = baseline_values([a, b], 0.15)
+        np.testing.assert_allclose(values["recent_rate"], [0.15, -0.1])
+        assert fallback == [True, False]
+>       assert metrics([a, b], [0.3, 0.3])["signed_error"] == pytest.approx(0.1)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_growth_xgboost.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rows = [{'features': {'volume': None, 'width': 1.0, 'depth': 1.0, 'height': 1.0, ...}, 'missing': {'volume': True, 'width': F....}, 'missing': {'volume': True, 'width': False, 'depth': False, 'height': False, ...}, 'labels': {'volume_gain': 0.2}}]
+predicted = array([0.3, 0.3])
+
+    def metrics(rows, predicted):
+        if not rows:
+            return dict(
+                samples=0,
+                groups=0,
+                mae=None,
+                rmse=None,
+                signed_error=None,
+                group_macro_mae=None,
+            )
+        predicted = np.asarray(predicted, dtype=float)
+        if predicted.shape != (len(rows),) or not np.isfinite(predicted).all():
+            raise ValueError("Require one finite prediction per labeled row")
+        errors = predicted - [r["labels"]["volume_gain"] for r in rows]
+        by_group = defaultdict(list)
+        for row, error in zip(rows, errors):
+>           by_group[row["group_id"]].append(abs(float(error)))
+                     ^^^^^^^^^^^^^^^
+E           KeyError: 'group_id'
+
+src/models/growth_xgboost.py:105: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_growth_xgboost.py::test_recent_rate_fallback_is_training_mean_not_zero_or_future_truth
+1 failed, 7 passed in 17.80s

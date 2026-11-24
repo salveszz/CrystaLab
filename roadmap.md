@@ -1,4 +1,10 @@
-# CrystaLab roadmap — 2026-11-13
+# CrystaLab roadmap — 2026-11-24
+
+The [full simulation and growth-model pipeline](artifacts/README.md) now connects
+the complete visual simulation, 360-episode dataset, XGBoost/baseline comparison
+and independent audits. The data and fitted models are versioned for inspection
+and retraining from a fresh clone. This completes supporting tabular/software
+work; the pitch's real perception and control evidence remains the priority below.
 
 ## Goal and order of work
 

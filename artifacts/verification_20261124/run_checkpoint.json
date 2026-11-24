@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "full_pipeline_status": "complete",
+  "full_pipeline_manifest_sha256": "432622c9e8f56aa27a3e81ae245b0ab9f969a29e409cefb57907ea4b9d36bde2",
+  "inventory_sha256": "a0d769edc3f534fdf8cf5ff2fd334228fa3a9a21e33ff33854be58c038e42951",
+  "inventoried_files": 1160,
+  "inventoried_bytes": 129651995,
+  "dataset_episodes": 360,
+  "dataset_samples": 1080,
+  "model_sha256": "255b081b04c0d9374fb2f08217b7b37076e0db5d4a5a08117742a1e22525c1cc",
+  "independent_audit_sha256": "701bd8e17b68c5ce3b89389502b51bfe803de83903b3694e2b0e19f805763eb0",
+  "saved_model_reload_rows": 1080,
+  "maximum_saved_model_reload_difference": 0.0,
+  "full_regression_tests_passed": 523,
+  "full_regression_subtests_passed": 323,
+  "full_regression_log_sha256": "8c21eb9a2196366e6b4932d8c814323c7b327675654bdd8adb0c088fa6ae65f5",
+  "plot_visually_checked": true,
+  "physical_model_promoted": false,
+  "progress_note": "Launch snapshot counted active attempts in its periodic display. The committed runner counts complete statuses; final dataset/model audits are unaffected."
+}

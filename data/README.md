@@ -29,6 +29,11 @@ with source pixel hashes, presentation clocks and one conservative study family.
 outlines and four manual sheets), with zero accepted reviews. See the
 [KDP review-pack guide](../docs/KDP_VIDEO_DATA.md) for import, clock limits and review.
 
+The tracked [`dazi/`](../dazi/) directory also preserves copies of those three
+KDP movies, supplementary PDF, frame index and six annotation proposals. These
+are copies of the same source family and unreviewed sheets; they add no
+independent cohort or accepted labels.
+
 `data/published_masks_chimp_v1/images.jsonl` separately indexes 587 real
 protein-crystal images and 4,986 published crystal/drop instance masks. Original
 JPEGs and NPZ masks stay in `data/external_vision/CHIMP-ZENODO-2024/`. These are
@@ -37,6 +42,11 @@ See [published masks](../docs/PUBLISHED_CRYSTAL_MASKS.md) for the exact source
 license snapshot, resource-safe import, author membership and training gate.
 
 ## Synthetic growth data
+
+The versioned full-run copy is
+[`artifacts/full_pipeline_20261124_v1/dataset/`](../artifacts/full_pipeline_20261124_v1/dataset/).
+It includes all raw histories, final arrays and samples needed to audit or retrain
+from a fresh clone; see the [artifact guide](../artifacts/README.md).
 
 The active synthetic dataset is stored locally at:
 
@@ -51,10 +61,10 @@ sensor/history inputs. All future growth labels are present.
 
 ## Why the dataset may be missing from your view
 
-Generated data is Git-ignored. This README, the generation configuration and
-compact reports are versioned, but the raw dataset is local to the machine where
-it was generated. A fresh clone must generate it. Editors that hide ignored
-files may also hide `synthetic_growth_v1/`.
+Generated working data under `data/` is Git-ignored. Editors that hide ignored
+files may hide `synthetic_growth_v1/`. A fresh clone can instead use the complete
+versioned dataset under `artifacts/full_pipeline_20261124_v1/dataset/`, or generate
+a separate working copy with the commands below.
 
 The [dataset card](../docs/SYNTHETIC_DATASET_V1.md) explains the fields, split and
 limits. The [pipeline guide](../docs/SYNTHETIC_DATA.md) gives generation/audit

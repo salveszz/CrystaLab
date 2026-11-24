@@ -1,0 +1,188 @@
+{
+  "attempt": 1,
+  "case": {
+    "family_id": "base_042",
+    "group_id": "base_042",
+    "id": "base_042__cool",
+    "identity": "4c89f3904dcccd627250b199e40f5c3c3c09e09f111e7990c75aeca5dde81349",
+    "recipe_id": "cool",
+    "recording": {
+      "agitation_max": 2.0,
+      "agitation_min": 0.0,
+      "carrier_relative_tolerance": 1e-10,
+      "continuity_cell_tolerance": 1e-08,
+      "decision_interval": 10,
+      "forecast_horizon": 10,
+      "history_samples": 2,
+      "mass_relative_tolerance": 1e-10,
+      "max_agitation_change": 2.0,
+      "max_temperature_change": 3.0,
+      "negative_concentration_tolerance": 1e-12,
+      "observation_seed": 14382384659833448435,
+      "relative_observation_noise": 0.002,
+      "sample_interval": 2,
+      "sensor_delay": 2,
+      "temperature_max": 28.0,
+      "temperature_min": 22.0,
+      "temperature_observation_noise": 0.02
+    },
+    "schedule": [
+      {
+        "agitation": 1,
+        "temperature": 22,
+        "time": 0
+      }
+    ],
+    "simulation": {
+      "boundary_layer_cells": 2.4,
+      "circulation": 0.5,
+      "concentration": 1.392372881,
+      "concentration_noise": 0,
+      "crystal_density": 8.0,
+      "defect_rate": 0.0,
+      "depth": 8.0,
+      "dt": 1.0,
+      "duration": 30,
+      "face_growth": [
+        0.025,
+        0.025,
+        0.025,
+        0.025,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015
+      ],
+      "grid_focus_width": 3.6,
+      "growth_rate": 0.025,
+      "height": 8.0,
+      "impurity": 0.0,
+      "initial_liquid_height": 6.0,
+      "mixing_diffusivity": 0.02,
+      "nx": 32,
+      "ny": 32,
+      "nz": 32,
+      "reference_temperature": 25.0,
+      "rotation": 0.5,
+      "seed": 20261152,
+      "seed_center": null,
+      "seed_depth": 0.6,
+      "seed_height": 0.8,
+      "seed_normals": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          1
+        ],
+        [
+          1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          -1,
+          -1
+        ]
+      ],
+      "seed_offsets": [
+        0.35,
+        0.35,
+        0.35,
+        0.35,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7
+      ],
+      "seed_rotation": null,
+      "seed_width": 0.6,
+      "solubility_reference": 1.0,
+      "solubility_slope": 0.02,
+      "solute_diffusivity": 0.02,
+      "temperature": 25.0,
+      "temperature_gradient": 0,
+      "thermal_diffusivity": 0.04,
+      "thermal_relaxation": 0.01,
+      "width": 10.0
+    },
+    "split": "train"
+  },
+  "diagnostics": {
+    "diffusion": {
+      "solves": 58
+    },
+    "exact_final_time": true,
+    "final_time": 30,
+    "initial_carrier_volume": 479.54266666666666,
+    "initial_total_mass": 671.3608710157561,
+    "max_carrier_relative_error": 1.1853672845407155e-16,
+    "max_continuity_cell_error": 1.452376426481734e-11,
+    "max_mass_relative_error": 2.56377575371811e-13,
+    "minimum_concentration": 0.0,
+    "remap": {
+      "corrected_nodes": 827526,
+      "limited_nodes": 17024
+    },
+    "steps": 30
+  },
+  "elapsed_seconds": 124.42451689000154,
+  "files": {
+    "events.jsonl": "78271a46753c0be539858a37e66b829c553014b657cdc91e7074491f8c5ee600",
+    "final_fields.npz": "b88b63d8ef510c8975bec3a6b503f71ea2b07bf2ec31c37fb125993c8a3b59bc"
+  },
+  "status": "complete"
+}

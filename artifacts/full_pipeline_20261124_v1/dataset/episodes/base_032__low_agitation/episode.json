@@ -1,0 +1,188 @@
+{
+  "attempt": 1,
+  "case": {
+    "family_id": "base_032",
+    "group_id": "base_032",
+    "id": "base_032__low_agitation",
+    "identity": "2cd399f6761935e45b88371b24a313f8d8da92cd24b12d2a331d098a389e4d5d",
+    "recipe_id": "low_agitation",
+    "recording": {
+      "agitation_max": 2.0,
+      "agitation_min": 0.0,
+      "carrier_relative_tolerance": 1e-10,
+      "continuity_cell_tolerance": 1e-08,
+      "decision_interval": 10,
+      "forecast_horizon": 10,
+      "history_samples": 2,
+      "mass_relative_tolerance": 1e-10,
+      "max_agitation_change": 2.0,
+      "max_temperature_change": 3.0,
+      "negative_concentration_tolerance": 1e-12,
+      "observation_seed": 14559211512632457345,
+      "relative_observation_noise": 0.002,
+      "sample_interval": 2,
+      "sensor_delay": 2,
+      "temperature_max": 28.0,
+      "temperature_min": 22.0,
+      "temperature_observation_noise": 0.02
+    },
+    "schedule": [
+      {
+        "agitation": 0,
+        "temperature": 25,
+        "time": 0
+      }
+    ],
+    "simulation": {
+      "boundary_layer_cells": 2.4,
+      "circulation": 0.5,
+      "concentration": 1.358474576,
+      "concentration_noise": 0,
+      "crystal_density": 8.0,
+      "defect_rate": 0.0,
+      "depth": 8.0,
+      "dt": 1.0,
+      "duration": 30,
+      "face_growth": [
+        0.025,
+        0.025,
+        0.025,
+        0.025,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015
+      ],
+      "grid_focus_width": 3.6,
+      "growth_rate": 0.025,
+      "height": 8.0,
+      "impurity": 0.0,
+      "initial_liquid_height": 6.0,
+      "mixing_diffusivity": 0.02,
+      "nx": 32,
+      "ny": 32,
+      "nz": 32,
+      "reference_temperature": 25.0,
+      "rotation": 0.5,
+      "seed": 20261142,
+      "seed_center": null,
+      "seed_depth": 0.6,
+      "seed_height": 0.8,
+      "seed_normals": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          1
+        ],
+        [
+          1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          -1,
+          -1
+        ]
+      ],
+      "seed_offsets": [
+        0.35,
+        0.35,
+        0.35,
+        0.35,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7
+      ],
+      "seed_rotation": null,
+      "seed_width": 0.6,
+      "solubility_reference": 1.0,
+      "solubility_slope": 0.02,
+      "solute_diffusivity": 0.02,
+      "temperature": 25.0,
+      "temperature_gradient": 0,
+      "thermal_diffusivity": 0.04,
+      "thermal_relaxation": 0.01,
+      "width": 10.0
+    },
+    "split": "validation"
+  },
+  "diagnostics": {
+    "diffusion": {
+      "solves": 58
+    },
+    "exact_final_time": true,
+    "final_time": 30,
+    "initial_carrier_volume": 479.54266666666666,
+    "initial_total_mass": 655.1051874405761,
+    "max_carrier_relative_error": 1.1853672845407155e-16,
+    "max_continuity_cell_error": 1.3377155805627485e-11,
+    "max_mass_relative_error": 1.9557937956930522e-13,
+    "minimum_concentration": 0.0,
+    "remap": {
+      "corrected_nodes": 827916,
+      "limited_nodes": 17817
+    },
+    "steps": 30
+  },
+  "elapsed_seconds": 78.6363084370023,
+  "files": {
+    "events.jsonl": "72be86e05e74bddd24bbc25d71d761b991d681b2d44f130d86ccbe6eccd6c7d7",
+    "final_fields.npz": "99278364267923001a8beb1e5c578285dd6555f6d78684342334d1dd0e79675c"
+  },
+  "status": "complete"
+}

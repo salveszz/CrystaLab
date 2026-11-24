@@ -1,0 +1,188 @@
+{
+  "attempt": 1,
+  "case": {
+    "family_id": "base_057",
+    "group_id": "base_057",
+    "id": "base_057__baseline",
+    "identity": "78a70f0fc3653dc0a4d6dae7deb61cc5e91cf79c07a2c5d52fd9389a728536f2",
+    "recipe_id": "baseline",
+    "recording": {
+      "agitation_max": 2.0,
+      "agitation_min": 0.0,
+      "carrier_relative_tolerance": 1e-10,
+      "continuity_cell_tolerance": 1e-08,
+      "decision_interval": 10,
+      "forecast_horizon": 10,
+      "history_samples": 2,
+      "mass_relative_tolerance": 1e-10,
+      "max_agitation_change": 2.0,
+      "max_temperature_change": 3.0,
+      "negative_concentration_tolerance": 1e-12,
+      "observation_seed": 9792190909207487903,
+      "relative_observation_noise": 0.002,
+      "sample_interval": 2,
+      "sensor_delay": 2,
+      "temperature_max": 28.0,
+      "temperature_min": 22.0,
+      "temperature_observation_noise": 0.02
+    },
+    "schedule": [
+      {
+        "agitation": 1,
+        "temperature": 25,
+        "time": 0
+      }
+    ],
+    "simulation": {
+      "boundary_layer_cells": 2.4,
+      "circulation": 0.5,
+      "concentration": 1.443220339,
+      "concentration_noise": 0,
+      "crystal_density": 8.0,
+      "defect_rate": 0.0,
+      "depth": 8.0,
+      "dt": 1.0,
+      "duration": 30,
+      "face_growth": [
+        0.025,
+        0.025,
+        0.025,
+        0.025,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015,
+        0.015
+      ],
+      "grid_focus_width": 3.6,
+      "growth_rate": 0.025,
+      "height": 8.0,
+      "impurity": 0.0,
+      "initial_liquid_height": 6.0,
+      "mixing_diffusivity": 0.02,
+      "nx": 32,
+      "ny": 32,
+      "nz": 32,
+      "reference_temperature": 25.0,
+      "rotation": 0.5,
+      "seed": 20261167,
+      "seed_center": null,
+      "seed_depth": 0.6,
+      "seed_height": 0.8,
+      "seed_normals": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          -1,
+          1
+        ],
+        [
+          1,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          -1
+        ],
+        [
+          0,
+          1,
+          -1
+        ],
+        [
+          0,
+          -1,
+          -1
+        ]
+      ],
+      "seed_offsets": [
+        0.35,
+        0.35,
+        0.35,
+        0.35,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7,
+        0.7
+      ],
+      "seed_rotation": null,
+      "seed_width": 0.6,
+      "solubility_reference": 1.0,
+      "solubility_slope": 0.02,
+      "solute_diffusivity": 0.02,
+      "temperature": 25.0,
+      "temperature_gradient": 0,
+      "thermal_diffusivity": 0.04,
+      "thermal_relaxation": 0.01,
+      "width": 10.0
+    },
+    "split": "train"
+  },
+  "diagnostics": {
+    "diffusion": {
+      "solves": 58
+    },
+    "exact_final_time": true,
+    "final_time": 30,
+    "initial_carrier_volume": 479.54266666666666,
+    "initial_total_mass": 695.7443966182973,
+    "max_carrier_relative_error": 1.1853672845407155e-16,
+    "max_continuity_cell_error": 1.1980518781879028e-11,
+    "max_mass_relative_error": 2.591574226150816e-13,
+    "minimum_concentration": 0.0,
+    "remap": {
+      "corrected_nodes": 827412,
+      "limited_nodes": 16543
+    },
+    "steps": 30
+  },
+  "elapsed_seconds": 63.465107301999524,
+  "files": {
+    "events.jsonl": "3533c42c50e2076c2d9840b9a9b14d470be47348d8f12b93fd1283440fd2fc0a",
+    "final_fields.npz": "cd7b562af745f8c07a212ecf1423d7498ed403a09dfbda79ee9112ec408d64df"
+  },
+  "status": "complete"
+}

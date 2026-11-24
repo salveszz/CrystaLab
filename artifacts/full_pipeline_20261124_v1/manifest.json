@@ -1,0 +1,91 @@
+{
+  "schema": "crystalab_full_pipeline_v1",
+  "status": "complete",
+  "started_at_utc": "2026-11-24T16:49:25.418280+00:00",
+  "config": {
+    "schema": "crystalab_full_pipeline_v1",
+    "profile": "full_simulation_and_full_growth_training",
+    "simulation_config": "configs/focused.json",
+    "dataset_config": "configs/synthetic_growth_dataset_v1.json",
+    "training_config": "configs/xgboost_growth.json",
+    "dataset_jobs": 8,
+    "expected_episodes": 360,
+    "expected_samples": 1080,
+    "expected_simulation_duration": 120.0,
+    "scope": "Complete illustrative 3D simulation plus all 360 synthetic episodes and full XGBoost development/test evaluation. No real KDP, defect-quality or physical control validation."
+  },
+  "source_sha256": {
+    "scripts/run_pipeline.py": "c8781e8252f980b7b799e9ff43ed044212ebc9bba897763ec953dd0a2b7bd2d7",
+    "configs/full_pipeline.json": "45878374a1e33038b62f2399526f0cd9e9be9f917fa3f69c0b12af6cbff16530",
+    "configs/focused.json": "f4578ed56d3cdf98650d0bee5198b8f2df5a9063f8f045b87bae29a74ac648f7",
+    "configs/synthetic_growth_dataset_v1.json": "9047a5c2caee3494b0c20672f4c550fc768e9ffc908981d1551f6ee95359d771",
+    "configs/xgboost_growth.json": "ef46451983e58ef299ce2bdba91f8dc7b39c01a95f3f6a74e75f5d6fdb7b1024",
+    "pyproject.toml": "0114ac4810ae71af7ed47eab559bc5b3264b0122e920b8ded41d6860fce34fce"
+  },
+  "base_commit": "99eb8477e5a447378baf36b7a3217cf8f113fc27",
+  "stages": {
+    "dataset": {
+      "status": "complete",
+      "command": [
+        "/home/salves/dev/CrystaLab/.venv/bin/python",
+        "scripts/generate_dataset.py",
+        "--config",
+        "configs/synthetic_growth_dataset_v1.json",
+        "--output",
+        "/home/salves/dev/CrystaLab/artifacts/full_pipeline_20261124_v1/dataset",
+        "--jobs",
+        "8"
+      ],
+      "pid": 89002,
+      "started_at_utc": "2026-11-24T16:49:25.422803+00:00",
+      "return_code": 0
+    },
+    "simulation": {
+      "status": "complete",
+      "command": [
+        "/home/salves/dev/CrystaLab/.venv/bin/python",
+        "scripts/run_simulation.py",
+        "--config",
+        "configs/focused.json",
+        "--headless",
+        "--output",
+        "/home/salves/dev/CrystaLab/artifacts/full_pipeline_20261124_v1/simulation"
+      ],
+      "pid": 89003,
+      "started_at_utc": "2026-11-24T16:49:25.423355+00:00",
+      "return_code": 0
+    },
+    "training": {
+      "status": "complete",
+      "command": [
+        "/home/salves/dev/CrystaLab/.venv/bin/python",
+        "scripts/train_xgboost.py",
+        "--dataset",
+        "/home/salves/dev/CrystaLab/artifacts/full_pipeline_20261124_v1/dataset",
+        "--config",
+        "configs/xgboost_growth.json",
+        "--output",
+        "/home/salves/dev/CrystaLab/artifacts/full_pipeline_20261124_v1/training"
+      ],
+      "pid": 98612,
+      "started_at_utc": "2026-11-24T17:53:25.786313+00:00",
+      "return_code": 0
+    },
+    "audit": {
+      "status": "complete",
+      "command": [
+        "/home/salves/dev/CrystaLab/.venv/bin/python",
+        "scripts/audit_pipeline.py",
+        "--run",
+        "/home/salves/dev/CrystaLab/artifacts/full_pipeline_20261124_v1",
+        "--output",
+        "/home/salves/dev/CrystaLab/artifacts/full_pipeline_20261124_v1/audit.json"
+      ],
+      "pid": 98625,
+      "started_at_utc": "2026-11-24T17:53:45.284077+00:00",
+      "return_code": 0
+    }
+  },
+  "elapsed_seconds": 3880.2321332850042,
+  "completed_at_utc": "2026-11-24T17:54:05.654472+00:00"
+}

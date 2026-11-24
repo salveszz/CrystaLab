@@ -1,0 +1,160 @@
+{
+  "schema": "crystalab_temperature_benchmark_v1",
+  "description": "Declared first-order thermal SOFTWARE FIXTURE with illustrative gains, time constants, disturbances and limits. Not measured KDP/equipment parameters or an operating recommendation.",
+  "clock_id": "thermal_fixture_elapsed_s",
+  "step_s": 1,
+  "duration_s": 600,
+  "limits": {
+    "channel": "bath_temperature",
+    "unit": "K",
+    "minimum": 294.15,
+    "maximum": 304.15,
+    "maximum_rate_per_s": 0.2,
+    "provenance": "SOFTWARE FIXTURE ONLY: chosen interface-test bounds, not approved KDP/equipment limits"
+  },
+  "pid": {
+    "kp": 1.5,
+    "ki_per_s": 0.05,
+    "kd_s": 2,
+    "derivative_filter_s": 3,
+    "anti_windup_time_s": 5,
+    "integral_min_K": -20,
+    "integral_max_K": 20,
+    "maximum_feedback_age_s": 4,
+    "maximum_update_gap_s": 5,
+    "initial_output_K": 298.15,
+    "fallback_output_K": 298.15
+  },
+  "recipe": [
+    {
+      "time_s": 0,
+      "temperature_K": 298.15
+    },
+    {
+      "time_s": 60,
+      "temperature_K": 300.15
+    },
+    {
+      "time_s": 300,
+      "temperature_K": 300.15
+    },
+    {
+      "time_s": 420,
+      "temperature_K": 299.15
+    },
+    {
+      "time_s": 600,
+      "temperature_K": 299.15
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "nominal_ramp",
+      "time_constant_s": 60,
+      "actuator_delay_s": 2,
+      "sensor_delay_s": 1,
+      "sensor_noise_std_K": 0.01,
+      "seed": 20261111,
+      "disturbances": [
+        {
+          "time_s": 0,
+          "offset_K": 0
+        }
+      ],
+      "missing_intervals": [],
+      "held_intervals": [],
+      "manual_intervals": []
+    },
+    {
+      "id": "thermal_loads",
+      "time_constant_s": 90,
+      "actuator_delay_s": 3,
+      "sensor_delay_s": 2,
+      "sensor_noise_std_K": 0.01,
+      "seed": 20261112,
+      "disturbances": [
+        {
+          "time_s": 0,
+          "offset_K": -0.5
+        },
+        {
+          "time_s": 120,
+          "offset_K": -2
+        },
+        {
+          "time_s": 300,
+          "offset_K": 1
+        },
+        {
+          "time_s": 450,
+          "offset_K": 0
+        }
+      ],
+      "missing_intervals": [],
+      "held_intervals": [],
+      "manual_intervals": []
+    },
+    {
+      "id": "unreachable_then_recover",
+      "time_constant_s": 45,
+      "actuator_delay_s": 2,
+      "sensor_delay_s": 1,
+      "sensor_noise_std_K": 0.01,
+      "seed": 20261113,
+      "disturbances": [
+        {
+          "time_s": 0,
+          "offset_K": 0
+        },
+        {
+          "time_s": 100,
+          "offset_K": -8
+        },
+        {
+          "time_s": 220,
+          "offset_K": 0
+        }
+      ],
+      "missing_intervals": [],
+      "held_intervals": [],
+      "manual_intervals": []
+    },
+    {
+      "id": "feedback_faults",
+      "time_constant_s": 60,
+      "actuator_delay_s": 2,
+      "sensor_delay_s": 2,
+      "sensor_noise_std_K": 0.01,
+      "seed": 20261114,
+      "disturbances": [
+        {
+          "time_s": 0,
+          "offset_K": 0.5
+        },
+        {
+          "time_s": 300,
+          "offset_K": -1
+        }
+      ],
+      "missing_intervals": [
+        {
+          "start_s": 150,
+          "end_s": 170
+        }
+      ],
+      "held_intervals": [
+        {
+          "start_s": 260,
+          "end_s": 280
+        }
+      ],
+      "manual_intervals": [
+        {
+          "start_s": 380,
+          "end_s": 400,
+          "output_K": 301.15
+        }
+      ]
+    }
+  ]
+}

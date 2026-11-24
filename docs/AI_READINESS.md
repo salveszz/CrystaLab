@@ -1,9 +1,10 @@
 # AI readiness by task
 
 The [pitch-led roadmap](../roadmap.md) prioritizes camera observations, real and
-synthetic images, YOLOv8-seg, event alerts and PID/adaptive control. The completed
-tabular growth dataset is ready for a bounded supporting experiment. It does not
-make the vision system or physical controller ready. Video/camera ingestion, the
+synthetic images, YOLOv8-seg, event alerts and PID/adaptive control. The supporting
+[tabular growth pipeline](../artifacts/README.md) now implements full generation,
+XGBoost/baseline fitting and independent prediction auditing. This supplies no
+real vision or physical control validation. Video/camera ingestion, the
 OpenCV seed baseline, real-image import, annotation tooling and the Blender
 optical smoke batch are implemented. YOLOv8-seg training and development
 evaluation now run locally on synthetic labels. The small fits do not establish
@@ -26,7 +27,7 @@ remain open.
 |---|---|---|
 | Video baseline and image-data pipeline | File/camera adapter, baseline/learned replay, original-frame mapping, real-image index, six editable proposals and audited 18-frame smoke / 60-image grouped optical datasets. | Human pixel/event review, clock/measurement checks and relevant real coverage. |
 | YOLOv8-seg and visible-event alerts | Pinned training/evaluation, grouped synthetic fit, seed comparison, learned seed-role replay and shared causal candidate inspection during observation or on saved masks. File-tested; bubble errors and missed inclusions remain. | Equipment timing, error investigation, reviewed real labels, frozen metrics and independent real evaluation under the [Vision MVP contract](VISION_MVP.md). |
-| Synthetic growth forecast | Audited v1 data and accepted numerical regime. | Causal loader, explicit baselines, small comparison and grouped evaluation; supporting priority. |
+| Synthetic growth forecast | Audited v1 data, causal loader, three baselines, validation-selected XGBoost, grouped learning curves, reloadable models and independent serialized-tree audits. Full-run artifacts are versioned. | Interpret startup/observed errors separately; relevant measured trajectories and calibration are needed for a physical forecast. |
 | Projected-area forecast | Lossless fullmask recent-rate MAE is 77.00 px² versus persistence 116.18 px² on 28 shared synthetic validation windows. Bounded online adaptation gives 80.71 px²; real replay remains unscored shadow output. Historical original-detector comparisons retain their negative results. | Reviewed real measurements, frozen acceptance budgets and action-response evidence. The adaptive diagnostic does not beat recent rate and is not promoted for physical control. |
 | Projected edge advance | A [96-frame reference/edge diagnostic](PROJECTED_EDGES.md) verifies conditional silhouette measurements, baseline failure cases and explicit unavailable views. Its external fixture assertions are not predicted from the images. | Real reference/attachment/pose evidence, calibrated optics, reviewed visible edges/faces, learned-mask evaluation and operator integration. Six real KDP sheets currently yield no qualified measurements. |
 | PID/adaptive software loop | PID, delayed simulated actuation, rules, four-way adaptive diagnostic and operator replay. The console now displays source-bound forecasts/state and preserves explicit suggested/manual pause reviews. | Reviewed real evidence, an action-response objective and equipment/operator validation. |
@@ -131,7 +132,9 @@ The [numerical checkpoint](SYNTHETIC_DATA_CHECKPOINT.json) preserves the accepte
 source checkpoint passed 227 tests. The review reran those tests and audited the
 working data; numerical sources remain unchanged by replanning.
 
-When this supporting experiment is scheduled:
+The [full pipeline](../artifacts/README.md) implements this supporting experiment
+and saves the dataset, model, predictions and independent audits. Its enforced
+protocol is:
 
 1. Load only the 14 saved feature names and missing flags. Keep IDs, hidden
    configuration, exact truth, timestamps outside the whitelist and future

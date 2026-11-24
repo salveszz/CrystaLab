@@ -8,6 +8,7 @@ milestone notes are preserved separately in [development history](DEVELOPMENT_HI
 
 | Document | Purpose |
 |---|---|
+| [Full pipeline and artifacts](../artifacts/README.md) | Complete simulation, 360-episode dataset, XGBoost selection/learning curves, baseline comparisons and independent rerun/audit commands. |
 | [Next steps with public data](NEXT_STEPS.md) | Short execution sequence, the meaning of reviewed outlines and the remaining vision/control evidence. |
 | [Roadmap](../roadmap.md) | Pitch requirements, actual status, immediate pilot batch and ordered perception/control/demo work, including HPC/Qiskit deliverables. |
 | [Vision MVP](VISION_MVP.md) | Capture/annotation contract, observable targets, real/synthetic splits, evaluation and control interfaces. |

@@ -1,0 +1,126 @@
+{
+  "width": 10.0,
+  "depth": 8.0,
+  "height": 8.0,
+  "nx": 40,
+  "ny": 40,
+  "nz": 40,
+  "grid_focus_width": 3.6,
+  "initial_liquid_height": 6.0,
+  "temperature": 25.0,
+  "concentration": 1.35,
+  "temperature_gradient": 2.0,
+  "concentration_noise": 0.005,
+  "solubility_reference": 1.0,
+  "solubility_slope": 0.02,
+  "reference_temperature": 25.0,
+  "seed_width": 0.6,
+  "seed_depth": 0.6,
+  "seed_height": 0.8,
+  "seed_normals": [
+    [
+      1,
+      0,
+      0
+    ],
+    [
+      -1,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      -1,
+      0
+    ],
+    [
+      1,
+      0,
+      1
+    ],
+    [
+      -1,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      1
+    ],
+    [
+      0,
+      -1,
+      1
+    ],
+    [
+      1,
+      0,
+      -1
+    ],
+    [
+      -1,
+      0,
+      -1
+    ],
+    [
+      0,
+      1,
+      -1
+    ],
+    [
+      0,
+      -1,
+      -1
+    ]
+  ],
+  "seed_offsets": [
+    0.35,
+    0.35,
+    0.35,
+    0.35,
+    0.7,
+    0.7,
+    0.7,
+    0.7,
+    0.7,
+    0.7,
+    0.7,
+    0.7
+  ],
+  "seed_rotation": null,
+  "seed_center": null,
+  "crystal_density": 8.0,
+  "growth_rate": 0.025,
+  "face_growth": [
+    0.025,
+    0.025,
+    0.025,
+    0.025,
+    0.015,
+    0.015,
+    0.015,
+    0.015,
+    0.015,
+    0.015,
+    0.015,
+    0.015
+  ],
+  "solute_diffusivity": 0.02,
+  "thermal_diffusivity": 0.04,
+  "mixing_diffusivity": 0.02,
+  "thermal_relaxation": 0.01,
+  "rotation": 0.5,
+  "circulation": 0.5,
+  "impurity": 0.0,
+  "defect_rate": 0.0,
+  "boundary_layer_cells": 3.0,
+  "dt": 1.0,
+  "duration": 120.0,
+  "seed": 42
+}

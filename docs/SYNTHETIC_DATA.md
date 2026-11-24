@@ -191,11 +191,16 @@ roadmap. Do not regenerate a pilot merely to find the current model dataset.
 
 ## Implementation and later model evaluation
 
+The [full pipeline](../artifacts/README.md) now connects this generator to a
+complete simulation, XGBoost/baseline fitting and independent artifact auditing.
+Its versioned dataset can be used directly from a fresh clone. The generator
+and numerical protocol described here remain unchanged.
+
 The recorder/controls live in `src/environment/kdp_env.py` and
 `src/simulation/engine.py`. Dataset expansion, storage, labels and audit live in
-`src/environment/dataset.py`. The three reusable CLIs are `generate_dataset.py`,
+`src/environment/dataset.py`. The generator's reusable CLIs are `generate_dataset.py`,
 `audit_dataset.py` and `check_dataset.py`; no one-time cleanup script is added.
-This documentation cleanup changes no simulation or ML code.
+The earlier documentation cleanup changed no simulation or ML code.
 
 The supporting [growth-model experiment](AI_READINESS.md) compares constant,
 zero-growth and recent-rate baselines, then XGBoost, using frozen groups and

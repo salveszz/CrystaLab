@@ -1,0 +1,34 @@
+{
+  "schema": "crystalab_growth_xgboost_v1",
+  "runtime_version": "3.3.0",
+  "target": "volume_gain",
+  "num_boost_round": 600,
+  "early_stopping_rounds": 40,
+  "selection_metric": "validation_mae",
+  "params": {
+    "objective": "reg:squarederror",
+    "eval_metric": "mae",
+    "tree_method": "hist",
+    "device": "cpu",
+    "nthread": 2,
+    "seed": 20261124,
+    "subsample": 1.0,
+    "colsample_bytree": 1.0,
+    "lambda": 1.0,
+    "max_bin": 256
+  },
+  "candidates": [
+    {"max_depth": 2, "eta": 0.03},
+    {"max_depth": 2, "eta": 0.1},
+    {"max_depth": 4, "eta": 0.03},
+    {"max_depth": 4, "eta": 0.1},
+    {"max_depth": 6, "eta": 0.03},
+    {"max_depth": 6, "eta": 0.1}
+  ],
+  "learning_curve_groups": [6, 12, 24, 36],
+  "learning_curve_seed": "growth-learning-curve-20261124",
+  "feature_policy": "Only the 14 dataset feature columns and their 14 missing indicators; native NaN handling. Never use identifiers, truth, future timestamps or simulator parameters as inputs.",
+  "test_policy": "Freeze validation-selected model bytes and selection.json before scoring the test split once. Learning curves use training groups and validation only.",
+  "manual_prediction_audit_atol": 0.000002,
+  "physical_model_promoted": false
+}

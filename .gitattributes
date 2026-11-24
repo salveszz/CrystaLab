@@ -1,0 +1,7 @@
+# Preserve exact artifact bytes, including JSON/CSV/source snapshots used by SHA256 audits.
+artifacts/** -text
+# Python's CSV writer emits CRLF; these bytes are part of the artifact hashes.
+artifacts/**/*.csv whitespace=cr-at-eol
+# Keep exporter formatting and captured console traces unchanged for hash checks.
+artifacts/**/*.svg whitespace=-blank-at-eol
+artifacts/**/*.log whitespace=-blank-at-eol

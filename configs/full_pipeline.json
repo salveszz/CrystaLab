@@ -1,0 +1,12 @@
+{
+  "schema": "crystalab_full_pipeline_v1",
+  "profile": "full_simulation_and_full_growth_training",
+  "simulation_config": "configs/focused.json",
+  "dataset_config": "configs/synthetic_growth_dataset_v1.json",
+  "training_config": "configs/xgboost_growth.json",
+  "dataset_jobs": 8,
+  "expected_episodes": 360,
+  "expected_samples": 1080,
+  "expected_simulation_duration": 120.0,
+  "scope": "Complete illustrative 3D simulation plus all 360 synthetic episodes and full XGBoost development/test evaluation. No real KDP, defect-quality or physical control validation."
+}

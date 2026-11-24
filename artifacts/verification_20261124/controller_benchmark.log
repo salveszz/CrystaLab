@@ -1,0 +1,65 @@
+{
+  "status": "pass",
+  "run_manifest_sha256": "2fab1c14688f933a7e16e7c13c4f8638392862ebc02c4243bfd3d47d1c289648",
+  "files_verified": 34,
+  "source_sha256": "fdf707c720b1ff70590e4921d677077ac44b9c2bb54dd30fc1f2306185c8b8e8",
+  "runs": [
+    {
+      "run_id": "nominal_ramp:fixed_recipe",
+      "samples": 601,
+      "accepted_commands": 601,
+      "applied_commands": 599,
+      "pending_commands": 2
+    },
+    {
+      "run_id": "nominal_ramp:pid",
+      "samples": 601,
+      "accepted_commands": 601,
+      "applied_commands": 599,
+      "pending_commands": 2
+    },
+    {
+      "run_id": "thermal_loads:fixed_recipe",
+      "samples": 601,
+      "accepted_commands": 601,
+      "applied_commands": 598,
+      "pending_commands": 3
+    },
+    {
+      "run_id": "thermal_loads:pid",
+      "samples": 601,
+      "accepted_commands": 601,
+      "applied_commands": 598,
+      "pending_commands": 3
+    },
+    {
+      "run_id": "unreachable_then_recover:fixed_recipe",
+      "samples": 601,
+      "accepted_commands": 601,
+      "applied_commands": 599,
+      "pending_commands": 2
+    },
+    {
+      "run_id": "unreachable_then_recover:pid",
+      "samples": 601,
+      "accepted_commands": 601,
+      "applied_commands": 599,
+      "pending_commands": 2
+    },
+    {
+      "run_id": "feedback_faults:fixed_recipe",
+      "samples": 601,
+      "accepted_commands": 601,
+      "applied_commands": 599,
+      "pending_commands": 2
+    },
+    {
+      "run_id": "feedback_faults:pid",
+      "samples": 601,
+      "accepted_commands": 601,
+      "applied_commands": 599,
+      "pending_commands": 2
+    }
+  ],
+  "scope": "Artifact/clock/sensor/command/analytic-plant/metric reconstruction; not physical validation or a proof of every PID trajectory"
+}

@@ -13,6 +13,11 @@ pipeline. Initial synthetic-only fits save working weights; real defect accuracy
 and physical control remain unevaluated.
 
 The completed growth dataset contains **360 episodes and 1,080 audited samples**.
+The [full pipeline artifact guide](artifacts/README.md) covers a complete visual
+simulation, fresh dataset generation, XGBoost/baseline training and independent
+auditing, including the versioned data and models.
+The completed synthetic comparison gives XGBoost test MAE 0.01291 versus recent
+rate's 0.01898 in model volume units, with startup and observed errors separate.
 Video ingestion, the seed baseline, editable real-image proposals and the first
 Blender optical pipeline are implemented and checked. A 60-image, 20-scene
 [synthetic pilot](docs/VISION_PILOT.md) is complete and trained.
@@ -129,10 +134,10 @@ refracted proxies and uncalibrated optics distinct.
 
 ## Where is the dataset?
 
-On the machine where it was generated, open:
+The versioned full-run dataset is at:
 
 ```text
-data/synthetic_growth_v1/samples.jsonl
+artifacts/full_pipeline_20261124_v1/dataset/samples.jsonl
 ```
 
 This is JSONL: one sample per line, with separate `features`, `missing`, `labels`
@@ -140,9 +145,10 @@ and split/episode metadata. The split is 648 training / 216 validation / 216 tes
 samples, assigned to whole base groups. There are 720 fully observed rows and
 360 startup rows with explicitly missing sensor/history inputs.
 
-Raw generated data is Git-ignored. GitHub contains its configuration and compact
-verification report; a fresh clone must generate the data locally. Editors may
-also hide ignored files. Start with the tracked [data guide](data/README.md),
+The original working copy at `data/synthetic_growth_v1/` is Git-ignored. The full
+run under `artifacts/` includes its freshly generated dataset, so a fresh clone
+can inspect, audit and retrain from that copy. Start with the
+[artifact guide](artifacts/README.md), [data guide](data/README.md),
 [dataset card](docs/SYNTHETIC_DATASET_V1.md) and
 [dataset report](docs/SYNTHETIC_DATASET_V1.json).
 
@@ -155,11 +161,21 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -e .
 ```
 
+For the complete simulation/data/XGBoost/audit pipeline:
+
+```bash
+.venv/bin/python -m pip install -e '.[growth-training]'
+.venv/bin/python scripts/run_pipeline.py --output artifacts/my_full_run
+```
+
+Use a new output directory. The [artifact guide](artifacts/README.md) also provides
+commands to audit the committed run or train directly from its saved dataset.
+
 Audit an existing dataset:
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
-  .venv/bin/python scripts/audit_dataset.py data/synthetic_growth_v1
+  .venv/bin/python scripts/audit_dataset.py artifacts/full_pipeline_20261124_v1/dataset
 ```
 
 Generate it on a fresh checkout, or choose another unused output directory:

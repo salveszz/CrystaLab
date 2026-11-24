@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crystalab"
+version = "0.1.0"
+description = "Illustrative 3D KDP crystallization simulator"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.24", "matplotlib>=3.7", "pillow>=9", "scipy>=1.12"]
+
+[project.optional-dependencies]
+growth-training = ["xgboost==3.3.0"]
+vision = ["opencv-python>=4.10,<5"]
+vision-training = ["opencv-python==4.13.0.92", "ultralytics==8.4.210", "torch==2.12.1", "torchvision==0.27.1"]
+vulkan-experiment = ["vulkan==1.3.275.1"]
+quantum-experiment = ["qiskit==2.6.2", "qiskit-nature==0.8.0", "qiskit-algorithms==0.4.0", "pyscf==2.15.0", "numpy==2.5.0", "scipy==1.18.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+dashboard = ["static/*.html", "static/*.css", "static/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
