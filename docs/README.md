@@ -1,5 +1,10 @@
 # Documentation index
 
+The completed [PowerPoint](../presentation/CrystaLab_Presentation.pptx) embeds the
+selected figures. Older local results and working-data caches were removed on
+25 November 2026; historical paths below require regeneration. The latest full
+simulation/training artifacts remain versioned under `artifacts/`.
+
 Start with the [project README](../README.md) for the local dataset location and
 commands, then use the [roadmap](../roadmap.md) for current priorities. Historical
 milestone notes are preserved separately in [development history](DEVELOPMENT_HISTORY.md).

@@ -1,5 +1,8 @@
 # Full simulation and growth-model pipeline
 
+The full project presentation is
+[CrystaLab_Presentation.pptx](../presentation/CrystaLab_Presentation.pptx).
+
 The complete run is in [`full_pipeline_20261124_v1/`](full_pipeline_20261124_v1/).
 It uses the existing full simulation and dataset configurations. Its generated
 data, trained XGBoost models and independent audits are versioned, so a fresh
